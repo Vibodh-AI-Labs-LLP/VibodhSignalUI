@@ -7772,3 +7772,2860 @@
 
 
 
+
+
+/* ── Prompt Box Attachment Icon & Toolbar (No Text) ────────────────────────── */
+.cs-prompt-box-inner {
+  position: relative;
+  width: 100%;
+}
+.cs-prompt-box-toolbar {
+  position: absolute;
+  left: 10px;
+  right: 12px;
+  bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.cs-prompt-box-toolbar-left,
+.cs-prompt-box-toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  pointer-events: auto;
+}
+.cs-prompt-attach-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+.cs-prompt-attach-icon-btn:hover {
+  background: #F1F5F9;
+  color: #0F172A;
+}
+.cs-prompt-attached-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 4px 10px 4px 6px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  animation: csChipIn 0.15s ease-out;
+}
+@keyframes csChipIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.cs-prompt-attached-img {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  object-fit: cover;
+  border: 1px solid #CBD5E1;
+}
+.cs-prompt-attached-name {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cs-prompt-attached-remove {
+  background: none;
+  border: none;
+  color: #64748B;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 0 0 2px;
+}
+.cs-prompt-attached-remove:hover {
+  color: #DC2626;
+}
+
+
+/* ── SOCIAL PROFILE POST SCHEDULER MODAL STYLING ── */
+@keyframes socialSchedIn {
+  from { opacity: 0; transform: scale(0.96) translateY(8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.social-sched-quick-pill {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.social-sched-quick-pill:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+  background: #F0FDF9;
+}
+
+.social-sched-quick-pill.active {
+  border-color: #0F9D8A;
+  background: #E6F7F5;
+  color: #0F9D8A;
+  font-weight: 700;
+}
+
+
+/* ── Additional Styling for Screenshot 1 & 2 ────────────────────────── */
+.dna-pillar-alloc-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dna-pillar-swatch-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.dna-pillar-input {
+  flex: 1;
+}
+.dna-ratio-input-wrap {
+  position: relative;
+  width: 72px;
+  flex-shrink: 0;
+}
+.dna-ratio-input {
+  width: 100%;
+  padding: 8px 24px 8px 10px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0F172A;
+  text-align: right;
+  box-sizing: border-box;
+  outline: none;
+}
+.dna-ratio-input:focus {
+  border-color: #0F9D8A;
+}
+.dna-ratio-unit {
+  position: absolute;
+  right: 9px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748B;
+  pointer-events: none;
+}
+.dna-pillar-swatch-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+/* Regional Enable Card */
+.dna-regional-enable-card {
+  background: #FFFBEB;
+  border: 1.5px solid #FDE68A;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+}
+
+/* iOS Toggle Switch */
+.dna-toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+.dna-toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.dna-toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #CBD5E1;
+  transition: 0.2s;
+  border-radius: 24px;
+}
+.dna-toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.2s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+.dna-toggle-switch input:checked + .dna-toggle-slider {
+  background-color: #EA580C;
+}
+.dna-toggle-switch input:checked + .dna-toggle-slider:before {
+  transform: translateX(20px);
+}
+
+/* Quick Language Presets Row */
+.dna-lang-presets-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dna-lang-pill {
+  padding: 6px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 99px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dna-lang-pill:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+}
+.dna-lang-pill.active {
+  background: #EA580C !important;
+  border-color: #EA580C !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
+}
+
+.btn-dna-extract-voice {
+  background: none;
+  border: none;
+  color: #D97706;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-dna-extract-voice:hover {
+  color: #B45309;
+}
+
+
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREMIUM BRAND DNA 7-SECTION STYLING
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.dna-tabs-pill-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 14px 2px;
+  margin-bottom: 8px;
+  scrollbar-width: thin;
+}
+.dna-tabs-pill-row::-webkit-scrollbar {
+  height: 4px;
+}
+.dna-tabs-pill-row::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+.dna-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 99px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+.dna-pill-btn:hover {
+  background: #F8FAFC;
+  border-color: #CBD5E1;
+  color: #0F172A;
+}
+.dna-pill-btn.active {
+  background: #1E293B !important;
+  border-color: #1E293B !important;
+  color: #FFFFFF !important;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(30, 41, 59, 0.2);
+}
+.dna-pill-btn .dna-check-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: #ECFDF5;
+  color: #059669;
+  font-size: 10px;
+  font-weight: 800;
+}
+.dna-pill-btn.active .dna-check-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+}
+
+/* Card Container */
+.dna-section-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 28px 32px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.03);
+  margin-bottom: 24px;
+  animation: dnaFadeIn 0.2s ease-out;
+}
+@keyframes dnaFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.dna-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #F1F5F9;
+  margin-bottom: 22px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.dna-card-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.dna-card-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0F172A;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+.dna-card-desc {
+  margin: 3px 0 0;
+  font-size: 12.5px;
+  color: #64748B;
+}
+.dna-section-complete-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #059669;
+}
+
+/* Status Bar */
+.dna-section-status-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 10px 16px;
+  margin: 18px 0;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.dna-status-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.dna-complete-pill {
+  font-size: 12px;
+  font-weight: 800;
+  color: #0F9D8A;
+  background: #E6F7F5;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+.dna-saved-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #059669;
+  font-weight: 600;
+}
+.dna-saved-indicator .green-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+}
+.dna-status-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dna-btn-saved {
+  padding: 6px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dna-btn-saved:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+}
+.dna-btn-delete {
+  padding: 6px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #FCA5A5;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #EF4444;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dna-btn-delete:hover {
+  background: #FEF2F2;
+  border-color: #EF4444;
+}
+
+/* Inputs, Textareas, Selects */
+.dna-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #1E293B;
+  margin-bottom: 6px;
+}
+.dna-input-premium {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  transition: border-color 0.15s;
+}
+.dna-input-premium:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15,157,138,0.1);
+}
+.dna-textarea-premium {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  transition: border-color 0.15s;
+}
+.dna-textarea-premium:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15,157,138,0.1);
+}
+.dna-select-premium {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.dna-select-premium:focus {
+  border-color: #0F9D8A;
+}
+
+.dna-2col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  margin-bottom: 14px;
+}
+@media (max-width: 800px) {
+  .dna-2col-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dna-group-card {
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 18px;
+}
+
+/* Logo Box */
+.dna-logo-preview-box {
+  width: 90px;
+  height: 90px;
+  border: 1.5px dashed #CBD5E1;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #FAFAFA;
+  flex-shrink: 0;
+}
+.btn-dna-action {
+  padding: 8px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.btn-dna-action:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+.btn-dna-action-danger {
+  padding: 8px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #FCA5A5;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #DC2626;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s ease;
+}
+.btn-dna-action-danger:hover {
+  background: #FEF2F2;
+}
+
+/* Chips and Tags */
+.dna-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dna-chip {
+  padding: 6px 12px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dna-chip:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+}
+.dna-chip.active {
+  background: #1E293B !important;
+  border-color: #1E293B !important;
+  color: #FFFFFF !important;
+}
+
+.dna-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.dna-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 99px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+.dna-tag-pill button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  line-height: 1;
+  padding: 0;
+  cursor: pointer;
+  margin-left: 2px;
+  color: inherit;
+  opacity: 0.65;
+}
+.dna-tag-pill button:hover {
+  opacity: 1;
+}
+
+.tag-mint {
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  color: #065F46;
+}
+.tag-emerald {
+  background: #D1FAE5;
+  border: 1px solid #6EE7B7;
+  color: #047857;
+}
+.tag-rose {
+  background: #FFF1F2;
+  border: 1px solid #FECDD3;
+  color: #9F1239;
+}
+.tag-purple {
+  background: #F5F3FF;
+  border: 1px solid #DDD6FE;
+  color: #5B21B6;
+}
+
+.dna-input-add-row {
+  display: flex;
+  gap: 8px;
+}
+.btn-dna-add {
+  padding: 8px 16px;
+  background: #F1F5F9;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+.btn-dna-add:hover {
+  background: #0F9D8A;
+  border-color: #0F9D8A;
+  color: #FFFFFF;
+}
+
+/* 5 Swatches Grid */
+.dna-swatches-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+}
+@media (max-width: 900px) {
+  .dna-swatches-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.dna-swatch-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px;
+}
+.dna-swatch-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.dna-swatch-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0F172A;
+}
+.dna-swatch-role {
+  font-size: 9.5px;
+  font-weight: 800;
+  color: #64748B;
+  background: #F1F5F9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.dna-swatch-preview-wrap {
+  position: relative;
+  margin-bottom: 8px;
+}
+.dna-color-native-input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+}
+.dna-swatch-color-box {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06);
+}
+.dna-swatch-color-box:hover {
+  transform: scale(0.98);
+}
+.dna-swatch-hex-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #CBD5E1;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: 700;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Products Cards */
+.dna-products-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.dna-product-item-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 18px;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  transition: all 0.15s ease;
+}
+.dna-product-item-card:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
+}
+.dna-prod-num-box {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #F1F5F9;
+  border: 1px solid #CBD5E1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 800;
+  color: #334155;
+  flex-shrink: 0;
+}
+.dna-prod-info {
+  flex: 1;
+  min-width: 0;
+}
+.dna-prod-name {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+}
+.dna-prod-desc {
+  margin: 0;
+  font-size: 12px;
+  color: #64748B;
+  line-height: 1.4;
+}
+.dna-prod-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+.btn-dna-arrow {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  color: #475569;
+  font-size: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-dna-arrow:hover {
+  background: #E2E8F0;
+  color: #0F172A;
+}
+.btn-dna-delete-prod {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: #FEF2F2;
+  border: 1px solid #FECDD3;
+  color: #DC2626;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-dna-delete-prod:hover {
+  background: #FEE2E2;
+}
+
+.dna-add-offering-card {
+  background: #F8FAFC;
+  border: 1.5px dashed #CBD5E1;
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-top: 14px;
+}
+.dna-add-offering-title {
+  margin: 0 0 14px 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+}
+
+/* Content Strategy Pillars & Cadence */
+.dna-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 12px;
+}
+.dna-pillar-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.dna-pillar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.dna-pillar-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0F172A;
+}
+.dna-pillar-weight {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+.dna-pillar-desc {
+  margin: 0;
+  font-size: 12px;
+  color: #64748B;
+  line-height: 1.45;
+}
+
+.dna-cadence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+.dna-cadence-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 14px;
+}
+.dna-cadence-plat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+.dna-cadence-freq {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0F172A;
+  margin-bottom: 4px;
+}
+.dna-cadence-focus {
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.35;
+}
+
+/* Card Footer Navigation */
+.dna-card-footer {
+  border-top: 1px solid #F1F5F9;
+  margin-top: 24px;
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.dna-footer-sec-num {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748B;
+  letter-spacing: 0.06em;
+}
+.btn-dna-nav-prev {
+  padding: 8px 18px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-dna-nav-prev:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+.btn-dna-nav-next {
+  padding: 8px 20px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #0F172A;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-dna-nav-next:hover {
+  background: #0F9D8A;
+  border-color: #0F9D8A;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(15,157,138,0.2);
+}
+
+/* ── Common Bottom Bar for All 7 Brand DNA Tabs (Attached to Bottom of Screen) ── */
+.dna-common-bottom-bar-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: var(--sidebar-w, 252px);
+  right: 0;
+  z-index: 95;
+  background: transparent;
+  padding: 0 36px 16px 36px;
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+@media (max-width: 900px) {
+  .dna-common-bottom-bar-wrapper {
+    left: 0;
+    padding: 0 16px 14px 16px;
+  }
+}
+
+.dna-common-bottom-bar {
+  pointer-events: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  padding: 12px 24px;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.12), 0 1px 3px rgba(15, 23, 42, 0.06);
+  width: 100%;
+  max-width: 1440px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  transition: all 0.2s ease;
+}
+
+.dna-common-bottom-bar:hover {
+  border-color: #CBD5E1;
+  box-shadow: 0 6px 24px rgba(15, 23, 42, 0.12);
+}
+.dna-common-bottom-bar .dna-status-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.dna-common-bottom-bar .dna-status-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.dna-common-bottom-bar .dna-complete-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #ECFDF5;
+  color: #059669;
+  border: 1px solid #A7F3D0;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.01em;
+}
+.dna-common-bottom-bar .dna-saved-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #059669;
+}
+.dna-common-bottom-bar .dna-saved-indicator .green-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  display: inline-block;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+.dna-common-bottom-bar .dna-btn-saved {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  color: #1E293B;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dna-common-bottom-bar .dna-btn-saved:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+.dna-common-bottom-bar .dna-btn-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #FFFFFF;
+  border: 1.5px solid #FCA5A5;
+  color: #EF4444;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.dna-common-bottom-bar .dna-btn-delete:hover {
+  background: #FEF2F2;
+  border-color: #F87171;
+  color: #DC2626;
+}
+
+
+/* ── TARGET CHANNELS WITH INLINE PREVIEW BEFORE POST ROW ── */
+.cs-channels-with-preview-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+  margin-bottom: 14px;
+}
+
+.cs-channels-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.cs-channels-with-preview-row .cs-preview-before-post-btn {
+  width: auto;
+  min-height: 42px;
+  height: 42px;
+  padding: 0 16px;
+  background: #F0FDF9;
+  color: #0F9D8A;
+  border: 1.5px solid #0F9D8A;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition: all 0.2s ease;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  box-shadow: 0 2px 8px rgba(15, 157, 138, 0.12);
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-sizing: border-box;
+}
+
+.cs-channels-with-preview-row .cs-preview-before-post-btn:hover {
+  background: #0F9D8A;
+  color: #FFFFFF;
+  border-color: #0F9D8A;
+  box-shadow: 0 4px 14px rgba(15, 157, 138, 0.25);
+  transform: translateY(-1px);
+}
+
+.cs-channels-with-preview-row .cs-preview-before-post-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 640px) {
+  .cs-channels-with-preview-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .cs-channels-with-preview-row .cs-preview-before-post-btn {
+    width: 100%;
+  }
+}
+
+/* Master full-width Post button action group */
+.cs-post-action-group {
+  display: block;
+  margin-top: 14px;
+}
+
+.cs-post-action-group .cs-big-post-btn {
+  width: 100%;
+}
+
+
+/* Brand DNA Top Actions & Content Strategy Helpers */
+.btn-dna-top {
+  padding: 7px 14px;
+  background: #FFFFFF;
+  color: #334155;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.btn-dna-top:hover {
+  background: #F8FAFC;
+  border-color: #94A3B8;
+  color: #0F172A;
+}
+.btn-dna-top.active {
+  background: #0F9D8A !important;
+  color: #FFFFFF !important;
+  border-color: #0F9D8A !important;
+}
+
+.dna-pillars-allocation-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dna-add-pillar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.dna-donut-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#view-brand-dna {
+  padding-bottom: 96px !important;
+}
+
+/* ── Section 1: What Do You Want to Create? Dropdown ── */
+.cs-create-goal-section {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+}
+
+.cs-create-goal-section:hover {
+  border-color: #CBD5E1;
+}
+
+.cs-create-goal-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.cs-goal-num-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #1E293B;
+  color: #FFFFFF;
+  font-size: 13.5px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.cs-goal-header-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-goal-main-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #0F172A;
+  margin: 0;
+  letter-spacing: 0.5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  text-transform: uppercase;
+}
+
+.cs-goal-sub-title {
+  font-size: 12px;
+  color: #64748B;
+  margin: 2px 0 0 0;
+}
+
+/* Goal Dropdown Wrap */
+.cs-goal-dropdown-wrap {
+  position: relative;
+  width: 100%;
+  user-select: none;
+}
+
+/* Trigger Card */
+.cs-goal-dropdown-trigger {
+  border: 2px solid #1E293B;
+  border-radius: 10px;
+  padding: 12px 16px;
+  background: #FFFFFF;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.cs-goal-dropdown-trigger:hover {
+  background: #F8FAFC;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.cs-goal-dropdown-wrap.open .cs-goal-dropdown-trigger {
+  border-color: #1E293B;
+  box-shadow: 0 0 0 3px rgba(30, 41, 59, 0.12);
+  background: #F8FAFC;
+}
+
+.cs-goal-trigger-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cs-goal-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.cs-goal-item-icon {
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cs-goal-item-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.cs-goal-item-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-goal-item-desc {
+  font-size: 12px;
+  color: #64748B;
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cs-goal-trigger-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  margin-left: 12px;
+}
+
+.cs-goal-active-badge {
+  background: #0F9D8A;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  display: inline-block;
+  line-height: 1;
+}
+
+.cs-goal-arrow {
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.cs-goal-dropdown-wrap.open .cs-goal-arrow {
+  transform: rotate(180deg);
+  color: #0F172A;
+}
+
+/* Dropdown Menu */
+.cs-goal-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 80;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14), 0 2px 6px rgba(15, 23, 42, 0.04);
+  padding: 8px;
+  max-height: 420px;
+  overflow-y: auto;
+  box-sizing: border-box;
+  animation: csDropFade 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cs-goal-option-card {
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 11px 14px;
+  margin-bottom: 6px;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cs-goal-option-card:last-child {
+  margin-bottom: 0;
+}
+
+.cs-goal-option-card:hover {
+  border-color: #94A3B8;
+  background: #F8FAFC;
+  transform: translateY(-1px);
+}
+
+.cs-goal-option-card.is-active {
+  border: 2px solid #1E293B;
+  background: #F8FAFC;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.cs-goal-option-card.is-active .cs-goal-item-title {
+  color: #0F172A;
+  font-weight: 800;
+}
+
+/* Context Box below Dropdown */
+.cs-goal-context-box {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  font-size: 12px;
+  color: #475569;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-goal-context-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+
+.cs-goal-custom-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  font-size: 12.5px;
+  color: #0F172A;
+  background: #FFFFFF;
+  outline: none;
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: border-color 0.15s;
+}
+
+.cs-goal-custom-input:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.15);
+}
+
+/* ── Section 2: What Is This Post About? (Live Online Trends) ── */
+.cs-section-step-card {
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 20px;
+  margin-top: 18px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  transition: all 0.2s ease;
+}
+
+.cs-section-step-card:hover {
+  border-color: #CBD5E1;
+}
+
+.cs-step-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cs-step-divider {
+  border-bottom: 1px solid #E2E8F0;
+  margin: 14px 0 16px 0;
+}
+
+.cs-trends-control-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+
+.cs-trends-search-box {
+  flex: 1;
+  min-width: 180px;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0 10px;
+  transition: border-color 0.15s;
+}
+
+.cs-trends-search-box:focus-within {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.12);
+}
+
+.cs-trends-search-prefix {
+  font-size: 13px;
+  color: #64748B;
+  margin-right: 6px;
+  user-select: none;
+}
+
+.cs-trends-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 9px 0;
+  font-size: 13px;
+  color: #0F172A;
+  font-family: inherit;
+  background: transparent;
+}
+
+.cs-trends-search-clear {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.cs-trends-search-clear:hover {
+  color: #475569;
+}
+
+.cs-scan-live-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 14px;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  color: #0284C7;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.cs-scan-live-btn:hover {
+  background: #F0F9FF;
+  border-color: #38BDF8;
+}
+
+.cs-batch-gen-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: #0F9D8A;
+  border: none;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(15, 157, 138, 0.25);
+  transition: all 0.15s ease;
+}
+
+.cs-batch-gen-btn:hover {
+  background: #0D8A79;
+  transform: translateY(-1px);
+}
+
+.cs-trends-scroll-container {
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  padding: 10px;
+  max-height: 260px;
+  overflow-y: auto;
+  background: #FFFFFF;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.cs-trends-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-trend-card {
+  border: 1.5px solid #E2E8F0;
+  border-radius: 9px;
+  padding: 11px 14px;
+  background: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.cs-trend-card:hover {
+  border-color: #94A3B8;
+  background: #F8FAFC;
+  transform: translateY(-1px);
+}
+
+.cs-trend-card.is-selected {
+  border: 2px solid #1E293B;
+  background: #F8FAFC;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.cs-trend-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.cs-trend-card-left-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cs-trend-rank-pill {
+  background: #F1F5F9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.cs-trend-virality-tag {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #D97706;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.cs-trend-source-pill {
+  background: #F1F5F9;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.cs-trend-card-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+  line-height: 1.35;
+  margin: 3px 0 2px 0;
+}
+
+.cs-trend-card-desc {
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.45;
+}
+
+.cs-trend-field-group {
+  margin-bottom: 14px;
+}
+
+.cs-trend-field-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.cs-trend-field-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cs-trend-headline-input {
+  width: 100%;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0F172A;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.cs-trend-headline-input:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+}
+
+.cs-trend-summary-textarea,
+.cs-trend-briefing-textarea {
+  width: 100%;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 13px;
+  color: #1E293B;
+  background: #FFFFFF;
+  font-family: inherit;
+  line-height: 1.5;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.cs-trend-summary-textarea:focus,
+.cs-trend-briefing-textarea:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+}
+
+/* ── Section 2: What Is This Post About? (Holidays & Occasions) ── */
+.cs-holidays-filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.cs-holidays-pills-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cs-holiday-filter-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid #E2E8F0;
+  background: #FFFFFF;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.cs-holiday-filter-pill:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+  background: #F0FDF4;
+}
+
+.cs-holiday-filter-pill.active {
+  border-color: #0F9D8A;
+  background: #E6FFFA;
+  color: #0F9D8A;
+  box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.15);
+}
+
+.cs-pill-badge-flag {
+  font-size: 10px;
+  font-weight: 800;
+  background: #E2E8F0;
+  color: #334155;
+  padding: 1px 4px;
+  border-radius: 3px;
+  line-height: 1;
+}
+
+.cs-browse-calendar-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #475569;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+  transition: color 0.15s;
+}
+
+.cs-browse-calendar-btn:hover {
+  color: #0F9D8A;
+}
+
+.cs-holiday-search-box {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  padding: 0 12px;
+  margin-bottom: 14px;
+  transition: border-color 0.15s;
+}
+
+.cs-holiday-search-box:focus-within {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.12);
+}
+
+.cs-holiday-search-icon {
+  font-size: 13px;
+  color: #64748B;
+  margin-right: 6px;
+  user-select: none;
+}
+
+.cs-holiday-search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 9px 0;
+  font-size: 13px;
+  color: #0F172A;
+  font-family: inherit;
+  background: transparent;
+}
+
+.cs-holiday-search-clear {
+  background: none;
+  border: none;
+  color: #94A3B8;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+
+.cs-holiday-search-clear:hover {
+  color: #475569;
+}
+
+.cs-holidays-scroll-container {
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  padding: 10px;
+  max-height: 250px;
+  overflow-y: auto;
+  background: #FFFFFF;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.cs-holidays-cards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cs-holiday-card {
+  border: 1.5px solid #E2E8F0;
+  border-radius: 9px;
+  padding: 12px 14px;
+  cursor: pointer;
+  background: #FFFFFF;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.cs-holiday-card:hover {
+  border-color: #94A3B8;
+  background: #F8FAFC;
+  transform: translateY(-1px);
+}
+
+.cs-holiday-card.is-selected {
+  border: 2px solid #1E293B;
+  background: #F8FAFC;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+}
+
+.cs-holiday-card-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #F3E8FF;
+  color: #7C3AED;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.cs-holiday-card-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0F172A;
+  margin-bottom: 3px;
+}
+
+.cs-holiday-card-desc {
+  font-size: 11.5px;
+  color: #64748B;
+  line-height: 1.45;
+}
+
+.cs-holiday-two-col-row {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.cs-holiday-select-dropdown {
+  width: 100%;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 9px;
+  padding: 11px 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #0F172A;
+  background: #FFFFFF;
+  box-sizing: border-box;
+  outline: none;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+
+.cs-holiday-select-dropdown:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+}
+
+/* ── Section 2: What Is This Post About? (Repurpose Content) ── */
+.cs-repurpose-target-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+@media (max-width: 600px) {
+  .cs-repurpose-target-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cs-repurpose-target-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid #E2E8F0;
+  background: #F8FAFC;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  font-family: inherit;
+}
+
+.cs-repurpose-target-btn:hover {
+  border-color: #0F9D8A;
+  background: #F0FDF4;
+  color: #0F9D8A;
+  transform: translateY(-1px);
+}
+
+.cs-repurpose-target-btn.active {
+  border-color: #0F9D8A;
+  background: #E6FFFA;
+  color: #0F766E;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.15);
+}
+
+.cs-repurpose-source-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.cs-repurpose-source-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid #E2E8F0;
+  background: #F1F5F9;
+  color: #334155;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+  font-family: inherit;
+}
+
+.cs-repurpose-source-pill:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+}
+
+.cs-repurpose-source-pill.active {
+  border-color: #0F9D8A;
+  background: #E6FFFA;
+  color: #0F766E;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.15);
+}
+
+.cs-source-material-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cs-load-sample-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 6px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #0F172A;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.cs-load-sample-btn:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+  background: #F0FDF4;
+}
+
+.cs-word-counter {
+  font-size: 12px;
+  font-weight: 700;
+  color: #D97706;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease;
+}
+
+.cs-word-counter.is-valid {
+  color: #0F9D8A;
+}
+
+.cs-repurpose-textarea {
+  width: 100%;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 13.5px;
+  color: #1E293B;
+  background: #FFFFFF;
+  font-family: inherit;
+  line-height: 1.6;
+  resize: vertical;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.15s ease;
+}
+
+.cs-repurpose-textarea:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+}
+
+
+/* ── Section 2: What Is This Post About? (Guides & How-Tos) ── */
+.cs-section-2-guides {
+  margin-bottom: 24px;
+}
+
+.cs-guide-topic-input {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cs-guide-topic-input:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  background: #ffffff;
+}
+
+.cs-guide-archetype-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-top: 4px;
+}
+
+.cs-guide-archetype-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  color: #334155;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  font-family: inherit;
+}
+
+.cs-guide-archetype-pill:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.cs-guide-archetype-pill.active {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #047857;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.18);
+}
+
+.cs-guide-context-textarea {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  resize: vertical;
+  min-height: 96px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cs-guide-context-textarea:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  background: #ffffff;
+}
+
+
+/* ── Section 2: What Is This Post About? (Product Spotlight) ── */
+.cs-section-2-product {
+  margin-bottom: 24px;
+}
+
+.cs-product-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.cs-product-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  color: #334155;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  font-family: inherit;
+}
+
+.cs-product-pill:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.cs-product-pill.active {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #047857;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.18);
+}
+
+.cs-product-text-input {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cs-product-text-input:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  background: #ffffff;
+}
+
+.cs-product-text-input::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+
+/* ── Section 2: What Is This Post About? (Polls & Discussions) ── */
+.cs-section-2-polls {
+  margin-bottom: 24px;
+}
+
+.cs-poll-text-input {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cs-poll-text-input:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  background: #ffffff;
+}
+
+.cs-poll-type-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  margin-top: 4px;
+}
+
+.cs-poll-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 13.5px;
+  font-weight: 500;
+  cursor: pointer;
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  color: #334155;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+  font-family: inherit;
+}
+
+.cs-poll-pill:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #0f172a;
+  transform: translateY(-1px);
+}
+
+.cs-poll-pill.active {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #047857;
+  font-weight: 600;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.18);
+}
+
+.cs-poll-context-textarea {
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  resize: vertical;
+  min-height: 96px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cs-poll-context-textarea:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  background: #ffffff;
+}
+
+
+/* ── Section 2: What Is This Post About? (Custom Idea) ── */
+.cs-section-2-custom {
+  margin-bottom: 24px;
+}
+
+.cs-custom-prompt-textarea {
+  width: 100%;
+  padding: 14px 18px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  resize: vertical;
+  min-height: 108px;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  font-weight: 450;
+}
+
+.cs-custom-prompt-textarea:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  background: #ffffff;
+}
+
+.cs-custom-prompt-textarea::placeholder {
+  color: #94a3b8;
+  font-weight: 400;
+}
+
+
+/* ── Section 3: Grounding, Tone of Voice & Content Package ── */
+.cs-section-3 {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 22px;
+  margin-top: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.cs-sec3-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+@media (max-width: 640px) {
+  .cs-sec3-grid-2col {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cs-sec3-field-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.cs-sec3-field-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 8px;
+}
+
+.cs-sec3-input {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-sizing: border-box;
+  outline: none;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.cs-sec3-input:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+}
+
+.cs-sec3-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: #1e293b;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.cs-sec3-dropdown-trigger:hover {
+  border-color: #cbd5e1;
+}
+
+.cs-sec3-dropdown-trigger.open {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+}
+
+.cs-sec3-chevron {
+  color: #64748b;
+  transition: transform 0.2s ease;
+}
+
+.cs-sec3-dropdown-trigger.open .cs-sec3-chevron {
+  transform: rotate(180deg);
+}
+
+.cs-sec3-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  z-index: 50;
+  overflow: hidden;
+  animation: csMenuFade 0.15s ease-out;
+}
+
+.cs-sec3-menu-item {
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.15s ease;
+}
+
+.cs-sec3-menu-item:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.cs-sec3-menu-item.active {
+  background: #ecfdf5;
+  color: #047857;
+  font-weight: 600;
+}
+
+.cs-sec3-dotted-divider {
+  border-top: 1px dashed #cbd5e1;
+  margin: 22px 0 18px 0;
+}
+
+.cs-ground-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.cs-ground-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1e293b;
+  line-height: 1.25;
+  min-width: 65px;
+}
+
+.cs-ground-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cs-ground-btn-choose {
+  background: #ffffff;
+  border: 1.5px solid #cbd5e1;
+  border-radius: 9px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: inherit;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+.cs-ground-btn-choose:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+  background: #f0fdfa;
+}
+
+.cs-ground-btn-suggest {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: #475569;
+  cursor: pointer;
+  transition: color 0.18s ease;
+  font-family: inherit;
+  padding: 8px 6px;
+}
+
+.cs-ground-btn-suggest:hover {
+  color: #0F9D8A;
+  text-decoration: underline;
+}
+
+.cs-dna-info-card {
+  background: #f8fafc;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+}
+
+.cs-dna-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cs-dna-card-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.cs-dna-card-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.cs-dna-plant-icon {
+  font-size: 14px;
+}
+
+.cs-dna-card-sub {
+  font-size: 12px;
+  color: #64748b;
+  margin-top: 2px;
+}
+
+.cs-dna-edit-link {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #1d4ed8;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.cs-dna-edit-link:hover {
+  color: #1e40af;
+  text-decoration: underline;
+}
+
+.cs-dna-card-body {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: #475569;
+}
+
+.cs-dna-body-line {
+  margin: 0;
+}
+
+.cs-vault-search-group {
+  margin-bottom: 22px;
+}
+
+.cs-vault-checkbox-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.cs-vault-checkbox {
+  width: 17px;
+  height: 17px;
+  accent-color: #2563eb;
+  cursor: pointer;
+  margin-top: 2px;
+}
+
+.cs-vault-checkbox-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+  line-height: 1.4;
+}
+
+.cs-vault-checkbox-text strong {
+  font-weight: 700;
+}
+
+.cs-vault-subtext {
+  margin-left: 27px;
+  margin-top: 4px;
+}
+
+.cs-vault-sub-title {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.cs-vault-sub-desc {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.cs-tone-voice-section {
+  position: relative;
+  margin-top: 0;
+}
+
+.cs-tone-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cs-dna-complete-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cs-tone-dropdown-trigger {
+  padding: 13px 16px;
+  border-radius: 10px;
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+}
+
+.cs-tone-trigger-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cs-tone-star {
+  font-size: 15px;
+  color: #0f172a;
+}
+
+.cs-tone-label-bold {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.cs-tone-style-banner {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #ffffff;
+  margin-top: 8px;
+  font-size: 13px;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.45;
+}
+
+.cs-style-badge {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.cs-style-desc {
+  color: #475569;
+}
+
+.cs-complete-package-btn {
+  width: 100%;
+  padding: 16px 20px;
+  background: #0F9D8A;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+  box-shadow: 0 4px 14px rgba(15, 157, 138, 0.28);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: inherit;
+}
+
+.cs-complete-package-btn:hover {
+  background: #0d8a7a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(15, 157, 138, 0.35);
+}
+
+.cs-complete-package-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 8px rgba(15, 157, 138, 0.25);
+}
+
+.cs-package-flash {
+  color: #fb923c;
+  font-size: 17px;
+}
+
+.cs-package-format-note {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 13px;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.cs-package-sparkle {
+  color: #f59e0b;
+}

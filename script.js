@@ -2049,7 +2049,8 @@ function togglePlatformDropdown(mode, event) {
 window.togglePlatformDropdown = togglePlatformDropdown;
 
 function closeAllPlatformDropdowns() {
-  ['text', 'image', 'video'].forEach(m => {
+  if (typeof closeCreateTypeDropdown === 'function') closeCreateTypeDropdown();
+  ['text', 'image', 'video', 'image-formats'].forEach(m => {
     const d = document.getElementById(`cs-dropdown-${m}`);
     const p = document.getElementById(`cs-plat-multiselect-${m}`);
     if (d) d.style.display = 'none';
@@ -2124,6 +2125,11 @@ window.toggleTargetPlatform = toggleTargetPlatform;
 document.addEventListener('click', function(e) {
   if (!e.target.closest('.cs-platform-multiselect')) {
     closeAllPlatformDropdowns();
+  }
+  if (!e.target.closest('.cs-goal-dropdown-wrap')) {
+    if (typeof closeCreateTypeDropdown === 'function') {
+      closeCreateTypeDropdown();
+    }
   }
 });
 
@@ -2734,13 +2740,134 @@ function saveBrandDna() {
 window.saveBrandDna = saveBrandDna;
 
 // 10e. Calendar Schedule Modal
-function openScheduleModal() {
-  showToast('Opening Omnichannel Publishing Scheduler...', '&#128197;');
-  setTimeout(() => {
-    openNewCampaignModal();
-  }, 300);
+
+// ══════════════════════════════════════════════════════════════════════
+// DEDICATED SOCIAL PROFILES POST SCHEDULER (NOT CAMPAIGN)
+// ══════════════════════════════════════════════════════════════════════
+let currentSocialSchedMode = 'text';
+
+function openScheduleModal(mode) {
+  currentSocialSchedMode = mode || (typeof currentCsMainTab !== 'undefined' ? currentCsMainTab : 'text');
+  const modal = document.getElementById('modal-schedule-social-post');
+  if (!modal) return;
+
+  // 1. Populate Active Target Channels (from selectedPlatformIds)
+  const pillsWrap = document.getElementById('social-sched-platforms-pills');
+  if (pillsWrap && typeof AVAILABLE_PLATFORMS !== 'undefined') {
+    const activePlats = AVAILABLE_PLATFORMS.filter(p => selectedPlatformIds.includes(p.id));
+    if (activePlats.length > 0) {
+      pillsWrap.innerHTML = activePlats.map(p => `
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;background:${p.bg};border:1px solid ${p.color}40;color:${p.color};font-size:11.5px;font-weight:700;">
+          ${p.iconSvg}
+          <span>${p.name}</span>
+        </span>
+      `).join('');
+    } else {
+      pillsWrap.innerHTML = '<span style="font-size:11.5px;color:#94A3B8;">No channels selected. Please select at least one target channel.</span>';
+    }
+  }
+
+  // 2. Set default date to tomorrow
+  const dateInput = document.getElementById('social-sched-date-input');
+  if (dateInput) {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const yyyy = tomorrow.getFullYear();
+    const mm = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const dd = String(tomorrow.getDate()).padStart(2, '0');
+    dateInput.value = `${yyyy}-${mm}-${dd}`;
+    dateInput.min = new Date().toISOString().split('T')[0];
+  }
+
+  // 3. Set default time
+  const timeInput = document.getElementById('social-sched-time-input');
+  if (timeInput && !timeInput.value) {
+    timeInput.value = '10:30';
+  }
+
+  // 4. Update Post Preview based on mode
+  const badge = document.getElementById('social-sched-mode-badge');
+  const previewText = document.getElementById('social-sched-preview-text');
+  const thumbWrap = document.getElementById('social-sched-thumb-wrap');
+
+  if (currentSocialSchedMode === 'image') {
+    if (badge) badge.innerText = '🖼️ Visual Creative Post';
+    const promptInput = document.getElementById('cs-image-prompt-input');
+    if (previewText) previewText.innerText = promptInput?.value || 'High-impact AI visual post ready for social publishing';
+    const previewImg = document.getElementById('image-result-display') || document.querySelector('.cs-image-canvas-img');
+    if (thumbWrap) {
+      if (previewImg && previewImg.src && !previewImg.src.includes('data:image/svg')) {
+        thumbWrap.innerHTML = `<img src="${previewImg.src}" style="width:100%;height:100%;object-fit:cover;">`;
+      } else {
+        thumbWrap.innerHTML = '🎨';
+      }
+    }
+  } else if (currentSocialSchedMode === 'video') {
+    if (badge) badge.innerText = '🎬 Video Reel Post';
+    const promptInput = document.getElementById('cs-video-prompt-input');
+    if (previewText) previewText.innerText = promptInput?.value || 'High-energy motion reel ready for social publishing';
+    if (thumbWrap) thumbWrap.innerHTML = '🎬';
+  } else {
+    if (badge) badge.innerText = '📝 Thought-Leadership Post';
+    const textEditor = document.getElementById('post-editor-textarea') || document.querySelector('.cs-post-body-editable');
+    if (previewText) previewText.innerText = textEditor?.innerText || textEditor?.value || '5 Margin Killers in Agency Operations & Strategic Consultation Post...';
+    if (thumbWrap) thumbWrap.innerHTML = '📝';
+  }
+
+  modal.style.display = 'flex';
 }
 window.openScheduleModal = openScheduleModal;
+
+function closeScheduleModal() {
+  const modal = document.getElementById('modal-schedule-social-post');
+  if (modal) modal.style.display = 'none';
+}
+window.closeScheduleModal = closeScheduleModal;
+
+function setScheduleQuickSlot(day, time, btn) {
+  const dateInput = document.getElementById('social-sched-date-input');
+  const timeInput = document.getElementById('social-sched-time-input');
+  
+  const targetDate = new Date();
+  if (day === 'tomorrow') {
+    targetDate.setDate(targetDate.getDate() + 1);
+  }
+  const yyyy = targetDate.getFullYear();
+  const mm = String(targetDate.getMonth() + 1).padStart(2, '0');
+  const dd = String(targetDate.getDate()).padStart(2, '0');
+
+  if (dateInput) dateInput.value = `${yyyy}-${mm}-${dd}`;
+  if (timeInput) timeInput.value = time;
+
+  document.querySelectorAll('.social-sched-quick-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+window.setScheduleQuickSlot = setScheduleQuickSlot;
+
+function confirmScheduleSocialPost() {
+  const dateInput = document.getElementById('social-sched-date-input');
+  const timeInput = document.getElementById('social-sched-time-input');
+  const tzSelect = document.getElementById('social-sched-tz-select');
+
+  const dateVal = dateInput?.value || 'Tomorrow';
+  const timeVal = timeInput?.value || '10:30 AM';
+  const tzVal = tzSelect?.value || 'IST';
+
+  if (!selectedPlatformIds || selectedPlatformIds.length === 0) {
+    showToast('Please select at least one target channel before scheduling!', '⚠️');
+    return;
+  }
+
+  const platformNames = (typeof AVAILABLE_PLATFORMS !== 'undefined')
+    ? AVAILABLE_PLATFORMS.filter(p => selectedPlatformIds.includes(p.id)).map(p => p.name).join(', ')
+    : 'Social Profiles';
+
+  closeScheduleModal();
+
+  showToast(`🎉 Social post successfully scheduled for ${dateVal} at ${timeVal} (${tzVal}) on ${platformNames}!`, '📅');
+}
+window.confirmScheduleSocialPost = confirmScheduleSocialPost;
+
 
 // 10f. Analytics Export & Filter
 function updateAnalyticsFilter(days) {
@@ -4124,3 +4251,1728 @@ if (typeof renderAllPlatformMultiselects === 'function') {
 
 
 
+
+
+// ── Updated Prompt Reference Attachment Handlers ─────────────────────────
+function triggerRefUploadClick(mode) {
+  const input = document.getElementById(`cs-${mode}-ref-input`);
+  if (input) input.click();
+}
+window.triggerRefUploadClick = triggerRefUploadClick;
+
+function handlePromptRefImageUpload(input, mode) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const dataUrl = e.target.result;
+    if (typeof promptRefImages === 'undefined') {
+      window.promptRefImages = {};
+    }
+    promptRefImages[mode] = {
+      name: file.name,
+      url: dataUrl,
+      size: (file.size / 1024).toFixed(1) + ' KB'
+    };
+
+    const thumb = document.getElementById(`cs-${mode}-ref-thumb`);
+    const nameEl = document.getElementById(`cs-${mode}-ref-name`);
+    const chip = document.getElementById(`cs-${mode}-attached-chip`);
+
+    if (thumb) thumb.src = dataUrl;
+    if (nameEl) nameEl.innerText = file.name;
+    if (chip) chip.style.display = 'inline-flex';
+
+    showToast(`Attached "${file.name}" to ${mode} prompt`, '📎');
+  };
+  reader.readAsDataURL(file);
+}
+window.handlePromptRefImageUpload = handlePromptRefImageUpload;
+
+function removePromptReferenceImage(mode) {
+  if (typeof promptRefImages !== 'undefined') {
+    promptRefImages[mode] = null;
+  }
+  const input = document.getElementById(`cs-${mode}-ref-input`);
+  if (input) input.value = '';
+
+  const chip = document.getElementById(`cs-${mode}-attached-chip`);
+  if (chip) chip.style.display = 'none';
+
+  showToast(`Attachment removed from ${mode} prompt`, '🗑️');
+}
+window.removePromptReferenceImage = removePromptReferenceImage;
+
+
+// ── Additional Controllers for Screenshot 1 & 2 ─────────────────────────
+
+function updatePillarsChart() {
+  const inputs = document.querySelectorAll('#dna-pillars-allocation-list .dna-ratio-input');
+  let sum = 0;
+  inputs.forEach(inp => {
+    sum += parseInt(inp.value, 10) || 0;
+  });
+  const totalLabel = document.getElementById('dna-pillars-total-ratio');
+  if (totalLabel) {
+    if (sum === 100) {
+      totalLabel.innerHTML = 'Total Ratio: 100% ✓ (Target 100%)';
+      totalLabel.style.color = '#0F9D8A';
+    } else {
+      totalLabel.innerHTML = `Total Ratio: ${sum}% (Target 100%)`;
+      totalLabel.style.color = sum > 100 ? '#EF4444' : '#D97706';
+    }
+  }
+}
+window.updatePillarsChart = updatePillarsChart;
+
+function removePillarRow(btn) {
+  const row = btn.closest('.dna-pillar-alloc-row');
+  if (row) {
+    row.remove();
+    updatePillarsChart();
+    showToast('Content pillar removed.', '🗑️');
+  }
+}
+window.removePillarRow = removePillarRow;
+
+function addNewPillarRow() {
+  const nameInp = document.getElementById('dna-new-pillar-name');
+  const pctInp = document.getElementById('dna-new-pillar-pct');
+  const list = document.getElementById('dna-pillars-allocation-list');
+  if (!nameInp || !list) return;
+
+  const name = nameInp.value.trim();
+  const pct = parseInt(pctInp?.value, 10) || 20;
+  if (!name) {
+    showToast('Please enter a pillar name.', '⚠️');
+    return;
+  }
+
+  const colors = ['#0F9D8A', '#7C3AED', '#EA580C', '#2563EB', '#D97706'];
+  const rowCount = list.querySelectorAll('.dna-pillar-alloc-row').length;
+  const color = colors[rowCount % colors.length];
+
+  const row = document.createElement('div');
+  row.className = 'dna-pillar-alloc-row';
+  row.innerHTML = `
+    <span class="dna-pillar-swatch-dot" style="background:${color};"></span>
+    <input type="text" class="dna-input-premium dna-pillar-input" value="${name}" onchange="updatePillarsChart()">
+    <div class="dna-ratio-input-wrap">
+      <input type="number" class="dna-ratio-input" value="${pct}" min="0" max="100" onchange="updatePillarsChart()">
+      <span class="dna-ratio-unit">%</span>
+    </div>
+    <div class="dna-pillar-swatch-box" style="background:${color};"></div>
+    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
+  `;
+  list.appendChild(row);
+  nameInp.value = '';
+  updatePillarsChart();
+  showToast(`Pillar "${name}" added!`, '🎯');
+}
+window.addNewPillarRow = addNewPillarRow;
+
+function toggleRegionalDialect(toggle) {
+  const statusText = document.getElementById('dna-regional-status-text');
+  if (toggle.checked) {
+    if (statusText) {
+      statusText.innerText = 'Enabled';
+      statusText.style.color = '#EA580C';
+    }
+    showToast('Regional language & dialect grounding enabled!', '🌐');
+  } else {
+    if (statusText) {
+      statusText.innerText = 'Disabled';
+      statusText.style.color = '#64748B';
+    }
+    showToast('Regional grounding disabled.', 'ℹ️');
+  }
+}
+window.toggleRegionalDialect = toggleRegionalDialect;
+
+function selectLangPreset(btn, langName) {
+  document.querySelectorAll('.dna-lang-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const targetInput = document.getElementById('dna-target-lang-input');
+  if (targetInput) targetInput.value = langName;
+  showToast(`Language preset switched to ${langName}`, '🌐');
+}
+window.selectLangPreset = selectLangPreset;
+
+function addDnaTagWithCounter(containerId, inputId, tagClass, countId, typeWord) {
+  addDnaTag(containerId, inputId, tagClass);
+  const container = document.getElementById(containerId);
+  const countEl = document.getElementById(countId);
+  if (container && countEl) {
+    const total = container.querySelectorAll('.dna-tag-pill').length;
+    countEl.innerText = `${total} ${typeWord}`;
+  }
+}
+window.addDnaTagWithCounter = addDnaTagWithCounter;
+
+// 10d. Brand DNA Tabs & All 7 Sections Navigation & Management
+const DNA_SECTION_NAMES = {
+  1: 'Business Information',
+  2: 'Target Audience',
+  3: 'Brand Voice & Tone',
+  4: 'Visual Identity',
+  5: 'Products & Offerings',
+  6: 'Content Strategy',
+  7: 'Regional Voice'
+};
+
+function switchDnaSection(secNum) {
+  const targetNum = parseInt(secNum, 10) || 1;
+  
+  // 1. Hide all 7 sections
+  for (let i = 1; i <= 7; i++) {
+    const sec = document.getElementById('dna-section-' + i);
+    if (sec) sec.style.display = 'none';
+  }
+  
+  // 2. Show target section
+  const activeSec = document.getElementById('dna-section-' + targetNum);
+  if (activeSec) {
+    activeSec.style.display = 'block';
+  }
+  
+  // 3. Update pill tab buttons
+  document.querySelectorAll('.dna-pill-btn').forEach(btn => {
+    const s = parseInt(btn.getAttribute('data-sec'), 10);
+    btn.classList.toggle('active', s === targetNum);
+  });
+  
+  // 4. Update section indicator in subheader
+  const indicator = document.getElementById('dna-section-indicator');
+  if (indicator) {
+    indicator.innerHTML = 'Section ' + targetNum + ' of 7: <strong style="color:#0F172A;">' + (DNA_SECTION_NAMES[targetNum] || '') + '</strong>';
+  }
+  
+  // 5. Scroll smoothly
+  if (activeSec) {
+    activeSec.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+}
+window.switchDnaSection = switchDnaSection;
+
+// Backwards compatibility for switchDnaTab
+function switchDnaTab(btn, tabKey) {
+  if (typeof tabKey === 'number') {
+    switchDnaSection(tabKey);
+  } else {
+    const map = { 'biz': 1, 'audience': 2, 'voice': 3, 'visual': 4, 'products': 5, 'strategy': 6, 'regional': 7 };
+    switchDnaSection(map[tabKey] || 1);
+  }
+}
+window.switchDnaTab = switchDnaTab;
+
+// Toggle generic DNA chips (e.g. Proof & Credibility factors in Section 1)
+function toggleDnaChip(btn) {
+  const isAct = btn.classList.toggle('active');
+  const txt = btn.innerText.replace(/^[+✓✕s]+/, '').replace(/[+✓✕s]+$/, '').trim();
+  btn.innerText = (isAct ? '✓ ' : '+ ') + txt;
+  
+  // Update counter
+  const wrap = btn.closest('#dna-proof-chips-wrap') || btn.parentElement;
+  if (wrap) {
+    const activeCount = wrap.querySelectorAll('.dna-chip.active').length;
+    const counter = document.getElementById('dna-proof-counter') || wrap.previousElementSibling?.querySelector('span:last-child');
+    if (counter) counter.innerText = activeCount + ' factors selected';
+  }
+}
+window.toggleDnaChip = toggleDnaChip;
+
+// Toggle tone traits (Section 3: max 3 allowed)
+function toggleToneTrait(btn) {
+  const wrap = document.getElementById('dna-tone-chips-wrap') || btn.parentElement;
+  const isCurrentlyActive = btn.classList.contains('active');
+  const activeCount = wrap.querySelectorAll('.dna-chip.active').length;
+  
+  if (!isCurrentlyActive && activeCount >= 3) {
+    showToast('Maximum of 3 tone traits can be active simultaneously.', '⚠️');
+    return;
+  }
+  
+  const nowActive = btn.classList.toggle('active');
+  const cleanText = btn.innerText.replace(/^[+✓✕s]+/, '').replace(/[+✓✕s]+$/, '').trim();
+  btn.innerText = nowActive ? ('✓ ' + cleanText + ' ×') : ('+ ' + cleanText);
+  
+  const counter = document.getElementById('dna-tone-counter') || wrap.previousElementSibling?.querySelector('span:last-child');
+  const newCount = wrap.querySelectorAll('.dna-chip.active').length;
+  if (counter) counter.innerText = newCount + '/3 selected';
+}
+window.toggleToneTrait = toggleToneTrait;
+
+// Add custom tone trait (Section 3)
+function addCustomToneTrait() {
+  const input = document.getElementById('dna-custom-tone-input');
+  if (!input || !input.value.trim()) return;
+  const val = input.value.trim();
+  const wrap = document.getElementById('dna-tone-chips-wrap');
+  if (!wrap) return;
+  
+  const activeCount = wrap.querySelectorAll('.dna-chip.active').length;
+  const canActivate = activeCount < 3;
+  
+  const newBtn = document.createElement('button');
+  newBtn.type = 'button';
+  newBtn.className = 'dna-chip' + (canActivate ? ' active' : '');
+  newBtn.onclick = function() { toggleToneTrait(this); };
+  newBtn.innerText = canActivate ? ('✓ ' + val + ' ×') : ('+ ' + val);
+  wrap.appendChild(newBtn);
+  
+  input.value = '';
+  const counter = document.getElementById('dna-tone-counter');
+  const newCount = wrap.querySelectorAll('.dna-chip.active').length;
+  if (counter) counter.innerText = newCount + '/3 selected';
+  showToast('Custom tone trait added: ' + val, '✨');
+}
+window.addCustomToneTrait = addCustomToneTrait;
+
+// Product / Service items reordering (Section 5)
+function moveProductItem(btn, direction) {
+  const card = btn.closest('.dna-product-item-card');
+  if (!card) return;
+  const container = card.parentElement;
+  
+  if (direction === -1 && card.previousElementSibling) {
+    container.insertBefore(card, card.previousElementSibling);
+    reindexProducts(container);
+    showToast('Product order updated', '↕️');
+  } else if (direction === 1 && card.nextElementSibling) {
+    container.insertBefore(card.nextElementSibling, card);
+    reindexProducts(container);
+    showToast('Product order updated', '↕️');
+  }
+}
+window.moveProductItem = moveProductItem;
+
+function removeProductItem(btn) {
+  const card = btn.closest('.dna-product-item-card');
+  if (!card) return;
+  const container = card.parentElement;
+  card.remove();
+  reindexProducts(container);
+  showToast('Product removed from catalog', '🗑️');
+}
+window.removeProductItem = removeProductItem;
+
+function reindexProducts(container) {
+  const cards = container.querySelectorAll('.dna-product-item-card');
+  cards.forEach((c, idx) => {
+    const numBox = c.querySelector('.dna-prod-num-box');
+    if (numBox) numBox.innerText = (idx + 1);
+  });
+  const countEl = document.getElementById('dna-prod-registered-count');
+  if (countEl) countEl.innerText = cards.length + ' Products Registered';
+}
+
+function addNewProductFromForm() {
+  const nameInput = document.getElementById('dna-new-prod-name');
+  const priceInput = document.getElementById('dna-new-prod-price');
+  const pitchInput = document.getElementById('dna-new-prod-pitch');
+  const urlInput = document.getElementById('dna-new-prod-url');
+  
+  if (!nameInput || !nameInput.value.trim()) {
+    showToast('Please enter a product or service name', '⚠️');
+    nameInput?.focus();
+    return;
+  }
+  
+  const name = nameInput.value.trim();
+  const price = priceInput?.value.trim() || '';
+  const pitch = pitchInput?.value.trim() || 'Flagship verified brand offering';
+  const url = urlInput?.value.trim() || '';
+  
+  const list = document.getElementById('dna-products-list');
+  if (!list) return;
+  
+  const currentCount = list.querySelectorAll('.dna-product-item-card').length + 1;
+  const card = document.createElement('div');
+  card.className = 'dna-product-item-card';
+  card.setAttribute('data-id', currentCount);
+  card.innerHTML = `
+    <div class="dna-prod-num-box">${currentCount}</div>
+    <div class="dna-prod-info">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <h4 class="dna-prod-name">${name}</h4>
+        ${price ? `<span style="font-size:11px;font-weight:700;color:#0F9D8A;background:#E6F7F5;padding:2px 7px;border-radius:6px;">${price}</span>` : ''}
+      </div>
+      <p class="dna-prod-desc">${pitch}${url ? ` &bull; <a href="${url}" target="_blank" style="color:#0F9D8A;text-decoration:underline;">${url}</a>` : ''}</p>
+    </div>
+    <div class="dna-prod-actions">
+      <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
+      <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
+      <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
+    </div>
+  `;
+  list.appendChild(card);
+  
+  nameInput.value = '';
+  if (priceInput) priceInput.value = '';
+  if (pitchInput) pitchInput.value = '';
+  if (urlInput) urlInput.value = '';
+  
+  reindexProducts(list);
+  showToast('✓ ' + name + ' added to Brand Offerings!', '📦');
+}
+window.addNewProductFromForm = addNewProductFromForm;
+
+// Workspace Deletion Confirmation Dialog
+function deleteWorkspaceConfirm() {
+  if (confirm('Are you sure you want to delete this workspace and all associated Brand DNA guidelines? This action cannot be undone.')) {
+    showToast('Workspace deletion cancelled for demo protection.', '🛡️');
+  }
+}
+window.deleteWorkspaceConfirm = deleteWorkspaceConfirm;
+
+function saveBrandDna() {
+  showToast('Brand DNA saved & re-indexed to vector memory! (100% Score)', '&#129516;');
+}
+window.saveBrandDna = saveBrandDna;
+
+// ═══════════════════════════════════════════════════════════════════════════
+// IMAGE GENERATION CHANNEL & ASPECT RATIO MULTI-SELECT CONTROLLER
+// (Matches: "Choose where it will be used - Select every channel you want to prepare")
+// ═══════════════════════════════════════════════════════════════════════════
+
+const IMAGE_CHANNEL_FORMATS = [
+  {
+    id: 'ig',
+    name: 'Instagram',
+    desc: 'Feed portrait · 4:5',
+    ratio: '4:5',
+    ratioCss: '4/5',
+    color: '#E1306C',
+    bg: '#FDF2F7',
+    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`
+  },
+  {
+    id: 'story',
+    name: 'Story / Reel',
+    desc: 'Full screen · 9:16',
+    ratio: '9:16',
+    ratioCss: '9/16',
+    color: '#D946EF',
+    bg: '#FDF4FF',
+    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#D946EF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>`
+  },
+  {
+    id: 'li',
+    name: 'LinkedIn',
+    desc: 'Landscape · 16:9',
+    ratio: '16:9',
+    ratioCss: '16/9',
+    color: '#0A66C2',
+    bg: '#F0F7FD',
+    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>`
+  },
+  {
+    id: 'fb',
+    name: 'Facebook',
+    desc: 'Square · 1:1',
+    ratio: '1:1',
+    ratioCss: '1/1',
+    color: '#1877F2',
+    bg: '#EFF6FF',
+    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`
+  },
+  {
+    id: 'x',
+    name: 'X',
+    desc: 'Landscape · 16:9',
+    ratio: '16:9',
+    ratioCss: '16/9',
+    color: '#0F172A',
+    bg: '#F8FAFC',
+    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#0F172A"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
+  },
+  {
+    id: 'yt',
+    name: 'YouTube',
+    desc: 'Thumbnail · 16:9',
+    ratio: '16:9',
+    ratioCss: '16/9',
+    color: '#FF0000',
+    bg: '#FEF2F2',
+    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`
+  }
+];
+
+let selectedImageFormatIds = ['ig']; // 1 format active by default (e.g. Instagram 4:5)
+let activeImageFormatFilter = '';
+
+function toggleImageFormatDropdown(event) {
+  if (event) event.stopPropagation();
+  const dropdown = document.getElementById('cs-dropdown-image-formats');
+  const parent = document.getElementById('cs-plat-multiselect-image-formats');
+  if (!dropdown || !parent) return;
+
+  const isOpen = parent.classList.contains('open');
+  closeAllPlatformDropdowns();
+
+  if (!isOpen) {
+    parent.classList.add('open');
+    dropdown.style.display = 'block';
+    renderImageFormatMultiselect();
+    const searchInput = document.getElementById('cs-search-image-formats');
+    if (searchInput) {
+      setTimeout(() => searchInput.focus(), 60);
+    }
+  } else {
+    parent.classList.remove('open');
+    dropdown.style.display = 'none';
+  }
+}
+window.toggleImageFormatDropdown = toggleImageFormatDropdown;
+
+function toggleImageFormatSelection(id, event) {
+  if (event) event.stopPropagation();
+  const idx = selectedImageFormatIds.indexOf(id);
+  const item = IMAGE_CHANNEL_FORMATS.find(f => f.id === id);
+  const name = item ? `${item.name} (${item.ratio})` : id;
+
+  if (idx > -1) {
+    selectedImageFormatIds.splice(idx, 1);
+    showToast(`${name} removed`, '⚪');
+  } else {
+    selectedImageFormatIds.push(id);
+    showToast(`${name} added!`, '📐');
+  }
+
+  // Sync with selectedPlatformIds for publishing/schedule workflows
+  if (selectedImageFormatIds.includes(id)) {
+    if (!selectedPlatformIds.includes(id) && id !== 'story') {
+      selectedPlatformIds.push(id);
+    }
+  }
+
+  renderImageFormatMultiselect();
+  renderAllPlatformMultiselects();
+  updateImagePreviewAspectRatio();
+}
+window.toggleImageFormatSelection = toggleImageFormatSelection;
+
+function removeImageFormatChip(id, event) {
+  if (event) event.stopPropagation();
+  const idx = selectedImageFormatIds.indexOf(id);
+  if (idx > -1) {
+    selectedImageFormatIds.splice(idx, 1);
+    const item = IMAGE_CHANNEL_FORMATS.find(f => f.id === id);
+    showToast(`${item ? item.name : id} removed`, '⚪');
+    renderImageFormatMultiselect();
+    updateImagePreviewAspectRatio();
+  }
+}
+window.removeImageFormatChip = removeImageFormatChip;
+
+function filterImageFormatOptions(input) {
+  activeImageFormatFilter = input.value || '';
+  renderImageFormatMultiselect();
+}
+window.filterImageFormatOptions = filterImageFormatOptions;
+
+function clearImageFormatSearch() {
+  const searchInput = document.getElementById('cs-search-image-formats');
+  if (searchInput) searchInput.value = '';
+  activeImageFormatFilter = '';
+  renderImageFormatMultiselect();
+}
+window.clearImageFormatSearch = clearImageFormatSearch;
+
+function toggleAllImageFormats() {
+  if (selectedImageFormatIds.length === IMAGE_CHANNEL_FORMATS.length) {
+    selectedImageFormatIds = [];
+    showToast('All channels & aspect ratios deselected', '⚪');
+  } else {
+    selectedImageFormatIds = IMAGE_CHANNEL_FORMATS.map(f => f.id);
+    showToast('All channels & aspect ratios selected!', '📐');
+  }
+  renderImageFormatMultiselect();
+  updateImagePreviewAspectRatio();
+}
+window.toggleAllImageFormats = toggleAllImageFormats;
+
+function updateImagePreviewAspectRatio() {
+  const badge = document.getElementById('cs-img-badge-ratio');
+  const previewCard = document.querySelector('.cs-media-preview-card.featured');
+  
+  if (!selectedImageFormatIds || selectedImageFormatIds.length === 0) {
+    if (previewCard) previewCard.style.aspectRatio = '4/5';
+    if (badge) badge.innerText = '4:5 (Instagram)';
+    return;
+  }
+  const primaryId = selectedImageFormatIds[0];
+  const primary = IMAGE_CHANNEL_FORMATS.find(f => f.id === primaryId) || IMAGE_CHANNEL_FORMATS[0];
+
+  if (previewCard && primary) {
+    previewCard.style.aspectRatio = primary.ratioCss;
+  }
+
+  if (badge && primary) {
+    if (selectedImageFormatIds.length === 1) {
+      badge.innerText = `${primary.ratio} (${primary.name})`;
+    } else {
+      badge.innerText = `${primary.ratio} (+${selectedImageFormatIds.length - 1} formats)`;
+    }
+  }
+}
+window.updateImagePreviewAspectRatio = updateImagePreviewAspectRatio;
+
+function renderImageFormatMultiselect() {
+  const chipsBox = document.getElementById('cs-chips-box-image-formats');
+  const listEl = document.getElementById('cs-options-list-image-formats');
+  if (!chipsBox || !listEl) return;
+
+  // 1. Render Chips
+  if (selectedImageFormatIds.length === 0) {
+    chipsBox.innerHTML = '<span class="cs-multiselect-placeholder">Select target channels &amp; formats...</span>';
+  } else {
+    chipsBox.innerHTML = selectedImageFormatIds.map(id => {
+      const f = IMAGE_CHANNEL_FORMATS.find(item => item.id === id);
+      if (!f) return '';
+      return `
+        <span class="cs-plat-chip" style="background:${f.bg}; border-color:${f.color}40;" title="${f.name} (${f.desc})">
+          <span class="cs-chip-icon">${f.iconSvg}</span>
+          <span class="cs-chip-label" style="font-weight:600;color:#0F172A;">${f.name} <span style="color:#64748B;font-weight:500;font-size:10.5px;">(${f.ratio})</span></span>
+          <span class="cs-chip-remove" onclick="removeImageFormatChip('${f.id}', event)" title="Remove ${f.name}">&times;</span>
+        </span>
+      `;
+    }).join('');
+  }
+
+  // 2. Render Options
+  const query = (activeImageFormatFilter || '').toLowerCase().trim();
+  const filtered = IMAGE_CHANNEL_FORMATS.filter(f => f.name.toLowerCase().includes(query) || f.desc.toLowerCase().includes(query) || f.ratio.includes(query));
+
+  if (filtered.length === 0) {
+    listEl.innerHTML = `<div class="cs-dropdown-no-results">No channels matching "${query}"</div>`;
+  } else {
+    listEl.innerHTML = filtered.map(f => {
+      const isSelected = selectedImageFormatIds.includes(f.id);
+      return `
+        <div class="cs-dropdown-option-item ${isSelected ? 'selected' : ''}" onclick="toggleImageFormatSelection('${f.id}', event)" style="display:flex;justify-content:space-between;align-items:center;padding:9px 12px;cursor:pointer;border-radius:7px;transition:background 0.15s;${isSelected ? 'background:' + f.bg + ';' : ''}">
+          <div class="cs-option-left" style="display:flex;align-items:center;gap:10px;">
+            <span class="cs-option-logo" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid ${isSelected ? f.color : '#E2E8F0'};display:flex;align-items:center;justify-content:center;">
+              ${f.iconSvg}
+            </span>
+            <div style="display:flex;flex-direction:column;">
+              <span class="cs-option-name" style="${isSelected ? 'color:' + f.color + '; font-weight:700;' : 'color:#0F172A; font-weight:600;'}font-size:13px;">${f.name}</span>
+              <span style="font-size:11px;color:#64748B;">${f.desc}</span>
+            </div>
+          </div>
+          <span class="cs-option-check" style="font-size:13px;font-weight:800;color:${isSelected ? f.color : '#CBD5E1'};">${isSelected ? '✓' : '＋'}</span>
+        </div>
+      `;
+    }).join('');
+  }
+}
+window.renderImageFormatMultiselect = renderImageFormatMultiselect;
+
+// Initial render call when script loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      renderImageFormatMultiselect();
+      updateImagePreviewAspectRatio();
+    }, 200);
+  });
+} else {
+  setTimeout(() => {
+    renderImageFormatMultiselect();
+    updateImagePreviewAspectRatio();
+  }, 200);
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   WHAT DO YOU WANT TO CREATE? (Section 1 Dropdown Logic)
+═══════════════════════════════════════════════════════════════════════ */
+const CREATION_GOALS = [
+  {
+    id: 'trends',
+    icon: '🔥',
+    title: 'Live Online Trends',
+    desc: 'Ride breaking viral news tailored to your brand',
+    contextNote: '⚡ Grounded in real-time viral signals & industry news topics below.',
+    hasInput: false
+  },
+  {
+    id: 'holidays',
+    icon: '🎉',
+    title: 'Holidays & Occasions',
+    desc: 'Celebrate festivals and calendar days',
+    contextNote: '🎉 Generates thematic celebratory copy, seasonal promos & community greetings.',
+    hasInput: true,
+    inputPlaceholder: 'Enter holiday or seasonal theme (e.g., Earth Day, Diwali, Thanksgiving sale)...'
+  },
+  {
+    id: 'repurpose',
+    icon: '♻️',
+    title: 'Repurpose Content',
+    desc: 'Turn blogs, articles, or transcripts into posts',
+    contextNote: '♻️ Converts long-form articles, YouTube transcripts, or notes into punchy social posts.',
+    hasInput: true,
+    inputPlaceholder: 'Paste blog excerpt, article link, or transcript notes here...'
+  },
+  {
+    id: 'guides',
+    icon: '📚',
+    title: 'Guides & How-Tos',
+    desc: 'Teach your audience with actionable frameworks',
+    contextNote: '📚 Structures bite-sized educational carousels, numbered steps, and actionable advice.',
+    hasInput: true,
+    inputPlaceholder: 'What skill, framework, or lesson do you want to teach?'
+  },
+  {
+    id: 'product',
+    icon: '🚀',
+    title: 'Product Spotlight',
+    desc: 'Turn your products into problem-solving stories',
+    contextNote: '🚀 Highlights feature benefits, customer pain points, and high-converting CTAs.',
+    hasInput: true,
+    inputPlaceholder: 'Describe your product feature, client problem, or launch announcement...'
+  },
+  {
+    id: 'polls',
+    icon: '💬',
+    title: 'Polls & Discussions',
+    desc: 'Ask questions, spark debates & get comments',
+    contextNote: '💬 Crafts thought-provoking discussion starters, multiple-choice polls & debate hooks.',
+    hasInput: true,
+    inputPlaceholder: 'Enter the controversial topic, question, or industry debate you want opinions on...'
+  },
+  {
+    id: 'custom',
+    icon: '✨',
+    title: 'Custom Idea',
+    desc: 'Type anything and let AI craft the package',
+    contextNote: '✨ Complete creative freedom—describe your exact angle, audience, and goal.',
+    hasInput: true,
+    inputPlaceholder: 'Describe whatever idea you have in mind and let Gemini craft the full post...'
+  }
+];
+
+let activeCreationGoalId = 'trends';
+let customGoalInputText = '';
+
+function toggleCreateTypeDropdown(event) {
+  if (event) event.stopPropagation();
+  const menu = document.getElementById('cs-create-type-menu');
+  const wrap = document.getElementById('cs-create-type-dropdown-container');
+  if (!menu || !wrap) return;
+
+  const isOpen = wrap.classList.contains('open');
+  closeAllPlatformDropdowns();
+
+  if (!isOpen) {
+    wrap.classList.add('open');
+    menu.style.display = 'block';
+    renderCreationGoalDropdown();
+  } else {
+    wrap.classList.remove('open');
+    menu.style.display = 'none';
+  }
+}
+window.toggleCreateTypeDropdown = toggleCreateTypeDropdown;
+
+function closeCreateTypeDropdown() {
+  const menu = document.getElementById('cs-create-type-menu');
+  const wrap = document.getElementById('cs-create-type-dropdown-container');
+  if (menu) menu.style.display = 'none';
+  if (wrap) wrap.classList.remove('open');
+}
+window.closeCreateTypeDropdown = closeCreateTypeDropdown;
+
+function selectCreationGoal(goalId, event) {
+  if (event) event.stopPropagation();
+  activeCreationGoalId = goalId;
+  const goal = CREATION_GOALS.find(g => g.id === goalId) || CREATION_GOALS[0];
+
+  // Update Trigger Content
+  const triggerContent = document.getElementById('cs-create-type-trigger-content');
+  if (triggerContent) {
+    triggerContent.innerHTML = `
+      <div class="cs-goal-item-left">
+        <span class="cs-goal-item-icon">${goal.icon}</span>
+        <div class="cs-goal-item-info">
+          <span class="cs-goal-item-title">${goal.title}</span>
+          <span class="cs-goal-item-desc">${goal.desc}</span>
+        </div>
+      </div>
+      <div class="cs-goal-trigger-right">
+        <span class="cs-goal-active-badge">ACTIVE</span>
+        <span class="cs-goal-arrow">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 9 6 6 6-6"/>
+          </svg>
+        </span>
+      </div>
+    `;
+  }
+
+  // Update Context Guidance / Input Box
+  const contextBox = document.getElementById('cs-goal-context-box');
+  if (contextBox) {
+    let html = `<div class="cs-goal-context-text"><span>${goal.contextNote}</span></div>`;
+    if (goal.hasInput) {
+      html += `<input type="text" class="cs-goal-custom-input" id="cs-goal-custom-input" placeholder="${goal.inputPlaceholder}" value="${customGoalInputText}" oninput="customGoalInputText=this.value">`;
+    }
+    contextBox.innerHTML = html;
+  }
+
+  // Update Mockup headline based on goal
+  const headlineEl = document.getElementById('mockup-headline-lead');
+  if (headlineEl) {
+    const sampleHeadlines = {
+      'trends': 'Most digital agencies are bleeding margins because they treat AI integration like a side project.',
+      'holidays': 'Celebrate this season by unlocking 20+ hours of reclaimed billable agency time.',
+      'repurpose': '3 High-ROI Frameworks from Our Keynote Breakdown: How to Scale AI Operations.',
+      'guides': 'Step-by-Step Guide: How to Automate Social Distribution Without Sacrificing Brand Fidelity.',
+      'product': 'Introducing Vibodh Signal 2.0: The Unified AI Operating System for Digital Agencies.',
+      'polls': 'Quick Poll: What is the #1 operational bottleneck eating your client margins right now?',
+      'custom': 'The Unfair Advantage: How Modern Agencies Deliver 10x Content Volume at Half the Overhead.'
+    };
+    headlineEl.innerText = sampleHeadlines[goalId] || sampleHeadlines['trends'];
+  }
+
+  // Show Section 2 if Live Online Trends is selected, hide or adapt if another goal
+  const sec2Trends = document.getElementById('cs-section-2-trends');
+  const sec2Holidays = document.getElementById('cs-section-2-holidays');
+  const sec2Repurpose = document.getElementById('cs-section-2-repurpose');
+  const sec2Guides = document.getElementById('cs-section-2-guides');
+  const sec2Product = document.getElementById('cs-section-2-product');
+  const sec2Polls = document.getElementById('cs-section-2-polls');
+  const sec2Custom = document.getElementById('cs-section-2-custom');
+
+  if (sec2Trends) sec2Trends.style.display = (goalId === 'trends') ? 'block' : 'none';
+  if (sec2Holidays) {
+    sec2Holidays.style.display = (goalId === 'holidays') ? 'block' : 'none';
+    if (goalId === 'holidays' && typeof renderHolidayCards === 'function') {
+      renderHolidayCards();
+    }
+  }
+  if (sec2Repurpose) {
+    sec2Repurpose.style.display = (goalId === 'repurpose') ? 'block' : 'none';
+  }
+  if (sec2Guides) {
+    sec2Guides.style.display = (goalId === 'guides') ? 'block' : 'none';
+    if (goalId === 'guides' && typeof syncGuidePreview === 'function') {
+      syncGuidePreview();
+    }
+  }
+  if (sec2Product) {
+    sec2Product.style.display = (goalId === 'product') ? 'block' : 'none';
+    if (goalId === 'product' && typeof syncProductPreview === 'function') {
+      syncProductPreview();
+    }
+  }
+  if (sec2Polls) {
+    sec2Polls.style.display = (goalId === 'polls') ? 'block' : 'none';
+    if (goalId === 'polls' && typeof syncPollPreview === 'function') {
+      syncPollPreview();
+    }
+  }
+  if (sec2Custom) {
+    sec2Custom.style.display = (goalId === 'custom') ? 'block' : 'none';
+    if (goalId === 'custom' && typeof syncCustomPreview === 'function') {
+      syncCustomPreview();
+    }
+  }
+  showToast(`Campaign goal set to ${goal.title}`, goal.icon);
+  closeCreateTypeDropdown();
+}
+window.selectCreationGoal = selectCreationGoal;
+
+function renderCreationGoalDropdown() {
+  const list = document.getElementById('cs-create-type-options-list');
+  if (!list) return;
+
+  list.innerHTML = CREATION_GOALS.map(g => {
+    const isActive = g.id === activeCreationGoalId;
+    return `
+      <div class="cs-goal-option-card ${isActive ? 'is-active' : ''}" onclick="selectCreationGoal('${g.id}', event)">
+        <div class="cs-goal-item-left">
+          <span class="cs-goal-item-icon">${g.icon}</span>
+          <div class="cs-goal-item-info">
+            <span class="cs-goal-item-title">${g.title}</span>
+            <span class="cs-goal-item-desc">${g.desc}</span>
+          </div>
+        </div>
+        ${isActive ? '<span class="cs-goal-active-badge">ACTIVE</span>' : ''}
+      </div>
+    `;
+  }).join('');
+}
+window.renderCreationGoalDropdown = renderCreationGoalDropdown;
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SECTION 2: LIVE ONLINE TRENDS DATA & LOGIC
+═══════════════════════════════════════════════════════════════════════ */
+const LIVE_TRENDS_TOPICS = [
+  {
+    id: 'trend-1',
+    rank: '#1',
+    virality: '99/100 virality',
+    source: 'J.P. Morgan',
+    title: '2026 Software Market Trends, Outlook and Industry Analysis',
+    desc: "Explore key software industry trends shaping the market in 2026, including AI's impact on SaaS, venture investment shifts and software M&A activity.",
+    summary: "Venture capital and private equity allocations are pivoting aggressively toward agentic AI ecosystems. Legacy seat-based SaaS models face pressure as automated workflows replace manual software usage.",
+    briefing: "Comprehensive J.P. Morgan analysis indicates that software vendors without deep workflow automation risk losing up to 35% net revenue retention over the next 18 months."
+  },
+  {
+    id: 'trend-2',
+    rank: '#2',
+    virality: '97/100 virality',
+    source: 'Forbes',
+    title: 'With The Rise Of Agentic, Has SaaS Seen Its Moment?',
+    desc: 'Agentic AI is fundamentally reshaping the Software-as-a-Service (SaaS) model, moving value from application usage to autonomous...',
+    summary: 'Agentic AI is fundamentally reshaping the Software-as-a-Service (SaaS) model, moving value from application usage to autonomous multi-agent execution.',
+    briefing: 'Enterprise software buyers are transitioning budgets toward autonomous AI solutions that deliver completed work rather than seat licenses that require human data entry.'
+  },
+  {
+    id: 'trend-3',
+    rank: '#3',
+    virality: '95/100 virality',
+    source: 'Constellation Research',
+    title: 'Enterprise Cloud Optimization Focuses on AI Token Economics',
+    desc: 'CIOs overhaul architecture to prevent runaway GPU billing and maximize unit margin ROI across enterprise cloud deployments.',
+    summary: 'CIOs overhaul architecture to prevent runaway GPU billing and maximize unit margin ROI across enterprise cloud deployments.',
+    briefing: 'Constellation Research highlights that 72% of digital agency and enterprise leads cite unpredictable LLM token inference expenses as their primary margin leak.'
+  },
+  {
+    id: 'trend-4',
+    rank: '#4',
+    virality: '94/100 virality',
+    source: 'TechCrunch',
+    title: 'OpenAI Launches Autonomous Marketing Agents',
+    desc: 'New multi-agent framework enabling end-to-end campaign execution without manual prompting.',
+    summary: 'New multi-agent framework enabling end-to-end campaign execution without manual prompting.',
+    briefing: 'Framework features autonomous agent orchestration across creative generation, compliance verification, and scheduled distribution.'
+  }
+];
+
+let selectedTrendTopicId = 'trend-4'; // OpenAI Launches Autonomous Marketing Agents by default
+let liveTrendsSearchQuery = '';
+
+function renderLiveTrendsCards() {
+  const container = document.getElementById('cs-trends-cards-list');
+  if (!container) return;
+
+  const query = (liveTrendsSearchQuery || '').toLowerCase().trim();
+  const filtered = LIVE_TRENDS_TOPICS.filter(t => 
+    t.title.toLowerCase().includes(query) || 
+    t.desc.toLowerCase().includes(query) || 
+    t.source.toLowerCase().includes(query)
+  );
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="padding:16px;text-align:center;color:#64748B;font-size:12px;">No trending topics match your search. Click "Scan Live" to fetch new trends.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(t => {
+    const isSelected = t.id === selectedTrendTopicId;
+    return `
+      <div class="cs-trend-card ${isSelected ? 'is-selected' : ''}" onclick="selectLiveTrendTopic('${t.id}', event)">
+        <div class="cs-trend-card-header">
+          <div class="cs-trend-card-left-badge">
+            <span class="cs-trend-rank-pill">${t.rank}</span>
+            <span class="cs-trend-virality-tag">⚡ ${t.virality}</span>
+          </div>
+          <span class="cs-trend-source-pill">${t.source}</span>
+        </div>
+        <div class="cs-trend-card-title">${t.title}</div>
+        <div class="cs-trend-card-desc">${t.desc}</div>
+      </div>
+    `;
+  }).join('');
+}
+window.renderLiveTrendsCards = renderLiveTrendsCards;
+
+function selectLiveTrendTopic(trendId, event) {
+  if (event) event.stopPropagation();
+  selectedTrendTopicId = trendId;
+  const trend = LIVE_TRENDS_TOPICS.find(t => t.id === trendId);
+  if (!trend) return;
+
+  const headlineInput = document.getElementById('cs-active-trend-headline');
+  const summaryTextarea = document.getElementById('cs-active-trend-summary');
+  const briefingTextarea = document.getElementById('cs-active-trend-briefing');
+
+  if (headlineInput) headlineInput.value = trend.title;
+  if (summaryTextarea) summaryTextarea.value = trend.summary;
+  if (briefingTextarea) {
+    briefingTextarea.value = trend.briefing || '';
+    updateBriefingCharCount(briefingTextarea.value);
+  }
+
+  // Sync right-side preview mockup
+  const leadHeadline = document.getElementById('mockup-headline-lead');
+  const captionText = document.getElementById('mockup-caption-text');
+  if (leadHeadline) leadHeadline.innerText = trend.title;
+  if (captionText) {
+    captionText.innerText = `${trend.summary}\n\nKey strategic observations for digital leaders:\n• Automated orchestration drives 40% margin improvement\n• Fast distribution across connected social channels\n• Full brand identity adherence with AI guardrails.\n\n👉 Follow for weekly intelligence breakdowns or explore our agency automation roadmap.`;
+  }
+
+  renderLiveTrendsCards();
+  showToast(`Loaded trend: ${trend.source} · ${trend.title.slice(0, 32)}...`, '🔥');
+}
+window.selectLiveTrendTopic = selectLiveTrendTopic;
+
+function filterLiveTrends(val) {
+  liveTrendsSearchQuery = val || '';
+  renderLiveTrendsCards();
+}
+window.filterLiveTrends = filterLiveTrends;
+
+function clearLiveTrendsSearch() {
+  const inp = document.getElementById('cs-trends-search-input');
+  if (inp) inp.value = '';
+  liveTrendsSearchQuery = '';
+  renderLiveTrendsCards();
+}
+window.clearLiveTrendsSearch = clearLiveTrendsSearch;
+
+function scanLiveGoogleNews() {
+  showToast('Scanning live Google News, Bloomberg & J.P. Morgan RSS feeds...', '🔄');
+  const btn = document.querySelector('.cs-scan-live-btn');
+  if (btn) {
+    btn.innerHTML = '<span class="cs-btn-icon">⏳</span> Scanning...';
+    btn.style.opacity = '0.7';
+  }
+
+  setTimeout(() => {
+    if (btn) {
+      btn.innerHTML = '<span class="cs-btn-icon">🔄</span> Scan Live';
+      btn.style.opacity = '1';
+    }
+    showToast('Found 4 new viral signals! List refreshed with live virality scores.', '⚡');
+    renderLiveTrendsCards();
+  }, 750);
+}
+window.scanLiveGoogleNews = scanLiveGoogleNews;
+
+function openBatchGenerationModal() {
+  showToast('Batch Generation active: creating 3 content variations for this trend...', '⚡');
+  generateTextStudioPackage();
+}
+window.openBatchGenerationModal = openBatchGenerationModal;
+
+function updateActiveTrendHeadline(val) {
+  const leadHeadline = document.getElementById('mockup-headline-lead');
+  if (leadHeadline && val) leadHeadline.innerText = val;
+}
+window.updateActiveTrendHeadline = updateActiveTrendHeadline;
+
+function updateActiveTrendSummary(val) {
+  // Can sync caption
+}
+window.updateActiveTrendSummary = updateActiveTrendSummary;
+
+function updateBriefingCharCount(val) {
+  const counter = document.getElementById('cs-briefing-char-count');
+  if (counter) {
+    const len = (val || '').length;
+    counter.innerText = `(${len} chars)`;
+  }
+}
+window.updateBriefingCharCount = updateBriefingCharCount;
+
+// Initialize Live Trends Section
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof renderLiveTrendsCards === 'function') renderLiveTrendsCards();
+  });
+} else {
+  if (typeof renderLiveTrendsCards === 'function') renderLiveTrendsCards();
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SECTION 2: HOLIDAYS & OCCASIONS DATA & LOGIC
+═══════════════════════════════════════════════════════════════════════ */
+const HOLIDAYS_DATA = [
+  {
+    id: 'holiday-dussehra',
+    type: 'indian',
+    tagText: 'IN Indian · 📅 2026-10-20',
+    date: '2026-10-20',
+    title: 'Dussehra / Vijayadashami',
+    desc: 'Victory of virtue over vice, courage, and overcoming obstacles',
+    category: 'Indian Cultural & Religious Festival',
+    theme: 'Celebrate the triumph of innovation over legacy friction. Share inspirational client success stories and seasonal agency growth offers.'
+  },
+  {
+    id: 'holiday-halloween',
+    type: 'global',
+    tagText: '🌏 Global · 📅 2026-10-31',
+    date: '2026-10-31',
+    title: 'Halloween',
+    desc: 'Playful spooky season, costume celebration, and festive storytelling',
+    category: 'Global & International Observance',
+    theme: 'Unmask the hidden costs and spooky bottlenecks haunting agency margins! Playful festive copy highlighting unified AI workflows.'
+  },
+  {
+    id: 'holiday-diwali',
+    type: 'indian',
+    tagText: 'IN Indian · 📅 2026-11-08',
+    date: '2026-11-08',
+    title: 'Diwali - Festival of Lights',
+    desc: 'Celebration of light, prosperity, new beginnings, and festive gifting',
+    category: 'Indian Cultural & Religious Festival',
+    theme: 'Illuminate your digital marketing pipelines this Diwali with automated workflows, prosperous client ROIs, and festive team greetings.'
+  },
+  {
+    id: 'holiday-thanksgiving',
+    type: 'global',
+    tagText: '🌏 Global · 📅 2026-11-26',
+    date: '2026-11-26',
+    title: 'Thanksgiving Day',
+    desc: 'Gratitude, client appreciation, team celebration, and seasonal offers',
+    category: 'Global & International Observance',
+    theme: 'Expressing heartfelt gratitude to our agency partners and clients who scaled with Vibodh Signal this year.'
+  },
+  {
+    id: 'holiday-blackfriday',
+    type: 'global',
+    tagText: '🌏 Global · 📅 2026-11-27',
+    date: '2026-11-27',
+    title: 'Black Friday / Cyber Week',
+    desc: 'Exclusive agency packages, SaaS discounts, and annual deals',
+    category: 'Commercial & Retail Shopping Event',
+    theme: 'Unlock our biggest annual credit top-up bonus and upgrade agency delivery speed ahead of Q1.'
+  }
+];
+
+let selectedHolidayId = 'holiday-dussehra';
+let activeHolidayFilterType = 'all';
+let holidaySearchQuery = '';
+
+function renderHolidayCards() {
+  const container = document.getElementById('cs-holidays-cards-list');
+  if (!container) return;
+
+  const query = (holidaySearchQuery || '').toLowerCase().trim();
+  const filtered = HOLIDAYS_DATA.filter(h => {
+    const matchesCategory = (activeHolidayFilterType === 'all') || (h.type === activeHolidayFilterType);
+    const matchesQuery = !query || h.title.toLowerCase().includes(query) || h.desc.toLowerCase().includes(query) || h.date.includes(query);
+    return matchesCategory && matchesQuery;
+  });
+
+  if (filtered.length === 0) {
+    container.innerHTML = '<div style="padding:16px;text-align:center;color:#64748B;font-size:12px;">No occasions found matching your filter. Try searching for Diwali, Halloween, etc.</div>';
+    return;
+  }
+
+  container.innerHTML = filtered.map(h => {
+    const isSelected = h.id === selectedHolidayId;
+    return `
+      <div class="cs-holiday-card ${isSelected ? 'is-selected' : ''}" onclick="selectHolidayCard('${h.id}', event)">
+        <div class="cs-holiday-card-tag">${h.tagText}</div>
+        <div class="cs-holiday-card-title">${h.title}</div>
+        <div class="cs-holiday-card-desc">${h.desc}</div>
+      </div>
+    `;
+  }).join('');
+}
+window.renderHolidayCards = renderHolidayCards;
+
+function selectHolidayCard(holidayId, event) {
+  if (event) event.stopPropagation();
+  selectedHolidayId = holidayId;
+  const h = HOLIDAYS_DATA.find(item => item.id === holidayId);
+  if (!h) return;
+
+  const nameInput = document.getElementById('cs-holiday-name');
+  const dateInput = document.getElementById('cs-holiday-date');
+  const catSelect = document.getElementById('cs-holiday-category');
+  const themeTextarea = document.getElementById('cs-holiday-brand-theme');
+
+  if (nameInput) nameInput.value = h.title;
+  if (dateInput) dateInput.value = h.date;
+  if (catSelect) catSelect.value = h.category;
+  if (themeTextarea) themeTextarea.value = h.theme;
+
+  // Sync right-side preview mockup
+  const leadHeadline = document.getElementById('mockup-headline-lead');
+  const captionText = document.getElementById('mockup-caption-text');
+  if (leadHeadline) leadHeadline.innerText = `Celebrate ${h.title}: ${h.desc.slice(0, 50)}...`;
+  if (captionText) {
+    captionText.innerText = `✨ Wishing our entire community a joyful ${h.title}!\n\n${h.theme}\n\nMay this season bring breakthrough growth, renewed energy, and elevated momentum for your teams.\n\n👇 Tap the link in bio to explore our seasonal partner roadmap.`;
+  }
+
+  renderHolidayCards();
+  showToast(`Loaded occasion: ${h.title}`, '🎉');
+}
+window.selectHolidayCard = selectHolidayCard;
+
+function filterHolidayCategory(type) {
+  activeHolidayFilterType = type;
+  document.querySelectorAll('.cs-holiday-filter-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `cs-filter-holiday-${type}`);
+  });
+  renderHolidayCards();
+}
+window.filterHolidayCategory = filterHolidayCategory;
+
+function filterHolidaySearch(val) {
+  holidaySearchQuery = val || '';
+  renderHolidayCards();
+}
+window.filterHolidaySearch = filterHolidaySearch;
+
+function clearHolidaySearch() {
+  const inp = document.getElementById('cs-holiday-search-input');
+  if (inp) inp.value = '';
+  holidaySearchQuery = '';
+  renderHolidayCards();
+}
+window.clearHolidaySearch = clearHolidaySearch;
+
+function updateHolidayName(val) {
+  const leadHeadline = document.getElementById('mockup-headline-lead');
+  if (leadHeadline && val) leadHeadline.innerText = `Celebrate ${val}`;
+}
+window.updateHolidayName = updateHolidayName;
+
+function updateHolidayDate(val) {}
+window.updateHolidayDate = updateHolidayDate;
+
+function updateHolidayCategorySelect(val) {}
+window.updateHolidayCategorySelect = updateHolidayCategorySelect;
+
+function updateHolidayBrandTheme(val) {}
+window.updateHolidayBrandTheme = updateHolidayBrandTheme;
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    if (typeof renderHolidayCards === 'function') renderHolidayCards();
+  });
+} else {
+  if (typeof renderHolidayCards === 'function') renderHolidayCards();
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   SECTION 2: REPURPOSE CONTENT LOGIC
+═══════════════════════════════════════════════════════════════════════ */
+let activeRepurposeTarget = 'linkedin';
+let activeRepurposeSource = 'blog';
+
+const SAMPLE_REPURPOSE_ARTICLE = `In digital marketing automation, agencies frequently encounter operational friction when scaling across disparate platforms. While traditional teams spend up to 25 hours per week manually formatting copy, designing banner variants, and managing approval queues, AI-driven operating systems unify this entire workflow into a single synchronized pipeline. 
+
+By leveraging Brand DNA grounding, marketing agencies eliminate prompt drift and ensure 100% voice fidelity across LinkedIn, Instagram, X, and Facebook. Furthermore, automating token economics and campaign scheduling frees senior strategists to focus on high-margin advisory consulting rather than mechanical execution. Teams adopting unified AI workflows report an average 3.8x increase in monthly content output while reducing operational delivery overhead by 42%.`;
+
+function selectRepurposeTarget(targetKey) {
+  activeRepurposeTarget = targetKey;
+  document.querySelectorAll('.cs-repurpose-target-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `cs-target-${targetKey}`);
+  });
+
+  const targetNames = {
+    'linkedin': 'LinkedIn Post',
+    'carousel': 'Document Carousel',
+    'reel': 'Video Reel Script',
+    'newsletter': 'Newsletter Brief'
+  };
+
+  showToast(`Target format: ${targetNames[targetKey] || targetKey}`, '🎯');
+}
+window.selectRepurposeTarget = selectRepurposeTarget;
+
+function selectRepurposeSource(sourceKey) {
+  activeRepurposeSource = sourceKey;
+  document.querySelectorAll('.cs-repurpose-source-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.id === `cs-source-${sourceKey}`);
+  });
+
+  const placeholders = {
+    'blog': 'Paste blog article or web essay text here (minimum 50 words)...',
+    'video': 'Paste video transcript, timestamps, or YouTube script here (minimum 50 words)...',
+    'whitepaper': 'Paste whitepaper executive summary, research findings, or report excerpt here...',
+    'speech': 'Paste speech notes, podcast transcript, or interview quotes here...'
+  };
+
+  const textarea = document.getElementById('cs-repurpose-content-input');
+  if (textarea && !textarea.value.trim()) {
+    textarea.placeholder = placeholders[sourceKey] || placeholders['blog'];
+  }
+
+  showToast(`Source format: ${sourceKey.toUpperCase()}`, '📑');
+}
+window.selectRepurposeSource = selectRepurposeSource;
+
+function updateRepurposeWordCount(text) {
+  const counter = document.getElementById('cs-repurpose-word-counter');
+  if (!counter) return;
+
+  const words = (text || '').trim().split(/\s+/).filter(Boolean).length;
+  if (words >= 50) {
+    counter.innerHTML = `✅ ${words} words (Ready to repurpose)`;
+    counter.classList.add('is-valid');
+  } else {
+    counter.innerHTML = `⚠️ ${words} / 50 min words`;
+    counter.classList.remove('is-valid');
+  }
+}
+window.updateRepurposeWordCount = updateRepurposeWordCount;
+
+function loadSampleRepurposeArticle() {
+  const textarea = document.getElementById('cs-repurpose-content-input');
+  if (textarea) {
+    textarea.value = SAMPLE_REPURPOSE_ARTICLE;
+    updateRepurposeWordCount(textarea.value);
+  }
+
+  // Update right-side preview mockup
+  const leadHeadline = document.getElementById('mockup-headline-lead');
+  const captionText = document.getElementById('mockup-caption-text');
+  if (leadHeadline) {
+    leadHeadline.innerText = 'How to Build an Omnichannel Content Strategy (Repurposed from Article)';
+  }
+  if (captionText) {
+    captionText.innerText = `Repurposed 3 key operational frameworks from our keynote analysis:\n\n1. Traditional teams waste 25+ hrs/week on manual reformatting.\n2. Grounding in Brand DNA eliminates cross-platform prompt drift.\n3. Unified AI workflows unlock a 3.8x output surge while cutting delivery overhead by 42%.\n\n👇 Read the full report or tap the link in bio to deploy the Vibodh Signal workflow for your agency.`;
+  }
+
+  showToast('Loaded sample article (126 words)!', '📜');
+}
+window.loadSampleRepurposeArticle = loadSampleRepurposeArticle;
+
+/* ==========================================================================
+   GUIDES & HOW-TOS SECTION 2 LOGIC
+   ========================================================================== */
+let activeGuideArchetype = 'howto';
+
+const GUIDE_ARCHETYPES = {
+  'howto': {
+    name: 'How-to Practical Guide',
+    icon: '📖',
+    headlineSuffix: ': A Practical Step-by-Step Guide',
+    previewLead: 'Step-by-Step Practical Blueprint',
+    captionTemplate: (topic) => `Here is your practical 3-step blueprint to master "${topic}":\n\n1. Audit & Foundational Alignment\nMap every client touchpoint to ensure cohesive brand governance.\n\n2. Multi-Channel Signal Syncing\nAutomate distribution workflows while preserving custom platform fidelity.\n\n3. Continuous Performance Loops\nIterate based on engagement analytics to maximize campaign ROI.\n\n👇 Save this guide or tap the link in bio to deploy this framework.`
+  },
+  'explainer': {
+    name: 'Explainer & Concept Deep-Dive',
+    icon: '💡',
+    headlineSuffix: ' Explained: What Every Agency Needs to Know',
+    previewLead: 'Concept Deep-Dive & Architecture',
+    captionTemplate: (topic) => `Why does "${topic}" matter more than ever in 2026?\n\nMost teams struggle with operational friction because they treat each channel as an isolated silo.\n\nHere is what changes when you unify your architecture:\n• 3.4x faster turnaround times\n• Zero brand tone drift across platforms\n• Scalable agency delivery without headcount surges\n\n👇 Read the full breakdown below.`
+  },
+  'checklist': {
+    name: 'Actionable Checklist',
+    icon: '✅',
+    headlineSuffix: ' Implementation Checklist [Interactive]',
+    previewLead: 'Actionable Readiness Checklist',
+    captionTemplate: (topic) => `Before launching your next campaign, run through this "${topic}" checklist:\n\n[✓] Brand DNA parameters verified and locked\n[✓] Omnichannel assets generated and proofed\n[✓] Cross-platform scheduling queued for peak engagement windows\n[✓] Live analytics telemetry active\n\nBookmark this post so your team stays aligned!`
+  },
+  'faq': {
+    name: 'FAQ & Objection Buster',
+    icon: '❓',
+    headlineSuffix: ': Top Questions Answered',
+    previewLead: 'FAQ & Tactical Insights',
+    captionTemplate: (topic) => `The 3 most common misconceptions about "${topic}":\n\nQ: "Does omnichannel mean posting the exact same thing everywhere?"\nA: Absolutely not. Platform tailoring is critical.\n\nQ: "How long does full integration take?"\nA: With unified AI workflows, less than 48 hours.\n\nQ: "What is the immediate impact on agency margins?"\nA: Agencies report a 42% decrease in overhead within 30 days.`
+  },
+  'comparative': {
+    name: 'Comparative Analysis',
+    icon: '⚖️',
+    headlineSuffix: ': Traditional vs Modern Strategy',
+    previewLead: 'Side-by-Side Comparative Analysis',
+    captionTemplate: (topic) => `Traditional vs Modern: The Truth About "${topic}"\n\n❌ TRADITIONAL WAY:\n• Manual reformatting for every network (20+ hrs/wk)\n• Fragmented tools and disjointed messaging\n• Inconsistent brand voice\n\n✅ MODERN WAY (Vibodh Signal):\n• 1-click multi-format transformations\n• Grounded in verified Brand DNA\n• Real-time automated scheduling and tracking\n\nWhich path is your agency on?`
+  }
+};
+
+function selectGuideArchetype(archetypeKey) {
+  activeGuideArchetype = archetypeKey;
+  document.querySelectorAll('.cs-guide-archetype-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.id === `cs-archetype-${archetypeKey}`);
+  });
+
+  const arch = GUIDE_ARCHETYPES[archetypeKey];
+  if (arch) {
+    showToast(`Archetype: ${arch.name}`, arch.icon);
+    syncGuidePreview();
+  }
+}
+window.selectGuideArchetype = selectGuideArchetype;
+
+function updateGuideTopic(topic) {
+  syncGuidePreview();
+}
+window.updateGuideTopic = updateGuideTopic;
+
+function updateGuideContext(context) {
+  // Sync context into live preview if appropriate
+}
+window.updateGuideContext = updateGuideContext;
+
+function syncGuidePreview() {
+  const topicInput = document.getElementById('cs-guide-topic-input');
+  const topic = (topicInput && topicInput.value.trim()) || 'How to Build an Omnichannel Content Strategy';
+  const arch = GUIDE_ARCHETYPES[activeGuideArchetype] || GUIDE_ARCHETYPES['howto'];
+
+  const headlineEl = document.getElementById('mockup-headline-lead');
+  const captionEl = document.getElementById('mockup-caption-text');
+
+  if (headlineEl) {
+    headlineEl.innerText = topic + arch.headlineSuffix;
+  }
+  if (captionEl) {
+    captionEl.innerText = arch.captionTemplate(topic);
+  }
+}
+window.syncGuidePreview = syncGuidePreview;
+
+
+/* ==========================================================================
+   PRODUCT SPOTLIGHT SECTION 2 LOGIC
+   ========================================================================== */
+let activeProductCatalogItem = 'arch';
+let activeStoryFramework = 'pas';
+
+const PRODUCT_CATALOG = {
+  'arch': {
+    name: 'Architecture & Design',
+    desc: 'Deep technical blueprinting and multi-layer structural optimization'
+  },
+  'ai': {
+    name: 'AI Delivery Solutions',
+    desc: 'Autonomous agent pipelines and generative marketing orchestration'
+  },
+  'eng': {
+    name: 'Product Engineering Accelerators',
+    desc: 'Pre-built modular micro-services for rapid enterprise deployment'
+  }
+};
+
+const STORY_FRAMEWORKS = {
+  'feature': {
+    name: 'Feature Spotlight',
+    icon: '⭐',
+    leadFormat: (product) => `Introducing ${product}: The Enterprise Advantage`,
+    captionFormat: (product, useCase) => `Built specifically for high-velocity teams navigating "${useCase}":\n\n✨ Key Highlight: ${product}\n• Native API integration with instant feedback\n• Zero prompt engineering required\n• Pre-aligned with your verified Brand DNA\n\nReady to elevate your agency benchmark? Explore the full architecture today.`
+  },
+  'pas': {
+    name: 'Problem → Solution (PAS / AIDA)',
+    icon: '🎯',
+    leadFormat: (product, useCase) => `${product} Solves "${useCase}"`,
+    captionFormat: (product, useCase) => `🚨 THE PROBLEM:\nMost digital agencies lose 25+ billable hours every week trying to solve "${useCase}" with disjointed legacy tools.\n\n💡 THE AGITATION:\nClient expectations are accelerating, while manual delivery eats directly into your profit margins.\n\n✅ THE SOLUTION: ${product}\nAutomate multi-channel campaign execution while maintaining pixel-perfect brand fidelity.\n\n👇 Tap the link in bio to book a 1-on-1 walkthrough.`
+  },
+  'workflow': {
+    name: 'Agency / Team Workflow',
+    icon: '⚡',
+    leadFormat: (product) => `How Modern Teams Deploy ${product}`,
+    captionFormat: (product, useCase) => `Inside the modern delivery pipeline for "${useCase}":\n\n1. Ingest brand assets into Brand Brain\n2. Trigger automated ${product} generation\n3. Review across multi-platform previews\n4. Direct 1-click publishing to connected channels\n\nStop reinventing the wheel. Reclaim your team's creative focus.`
+  },
+  'transformation': {
+    name: 'Customer Transformation Story',
+    icon: '🌟',
+    leadFormat: (product) => `From Operational Bottleneck to 3.8x Output with ${product}`,
+    captionFormat: (product, useCase) => `"Before integrating ${product}, solving '${useCase}' took our entire senior creative team 4 days.\n\nNow, we deliver complete omnichannel campaigns in under 45 minutes."\n\n— VP of Growth, Apex Creative Media\n\nWant results like this for your agency? Let's talk.`
+  }
+};
+
+function selectProductCatalogItem(key) {
+  activeProductCatalogItem = key;
+  document.querySelectorAll('.cs-product-pills-row .cs-product-pill').forEach(pill => {
+    if (pill.id.startsWith('cs-catalog-')) {
+      pill.classList.toggle('active', pill.id === `cs-catalog-${key}`);
+    }
+  });
+
+  const customInput = document.getElementById('cs-product-name-input');
+  if (customInput) customInput.value = '';
+
+  const prod = PRODUCT_CATALOG[key];
+  if (prod) {
+    showToast(`Product: ${prod.name}`, '✦');
+    syncProductPreview();
+  }
+}
+window.selectProductCatalogItem = selectProductCatalogItem;
+
+function selectStoryFramework(frameworkKey) {
+  activeStoryFramework = frameworkKey;
+  document.querySelectorAll('.cs-product-pills-row .cs-product-pill').forEach(pill => {
+    if (pill.id.startsWith('cs-framework-')) {
+      pill.classList.toggle('active', pill.id === `cs-framework-${frameworkKey}`);
+    }
+  });
+
+  const fw = STORY_FRAMEWORKS[frameworkKey];
+  if (fw) {
+    showToast(`Framework: ${fw.name}`, fw.icon);
+    syncProductPreview();
+  }
+}
+window.selectStoryFramework = selectStoryFramework;
+
+function updateProductCustomName(val) {
+  if (val.trim()) {
+    document.querySelectorAll('.cs-product-pills-row .cs-product-pill').forEach(pill => {
+      if (pill.id.startsWith('cs-catalog-')) pill.classList.remove('active');
+    });
+  }
+  syncProductPreview();
+}
+window.updateProductCustomName = updateProductCustomName;
+
+function updateProductUseCase(val) {
+  syncProductPreview();
+}
+window.updateProductUseCase = updateProductUseCase;
+
+function syncProductPreview() {
+  const customInput = document.getElementById('cs-product-name-input');
+  const useCaseInput = document.getElementById('cs-product-usecase-input');
+
+  const customName = customInput && customInput.value.trim();
+  const productName = customName || (PRODUCT_CATALOG[activeProductCatalogItem] ? PRODUCT_CATALOG[activeProductCatalogItem].name : 'Vibodh Signal');
+  const useCase = (useCaseInput && useCaseInput.value.trim()) || 'How to Build an Omnichannel Content Strategy';
+
+  const fw = STORY_FRAMEWORKS[activeStoryFramework] || STORY_FRAMEWORKS['pas'];
+
+  const headlineEl = document.getElementById('mockup-headline-lead');
+  const captionEl = document.getElementById('mockup-caption-text');
+
+  if (headlineEl) {
+    headlineEl.innerText = fw.leadFormat(productName, useCase);
+  }
+  if (captionEl) {
+    captionEl.innerText = fw.captionFormat(productName, useCase);
+  }
+}
+window.syncProductPreview = syncProductPreview;
+
+
+/* ==========================================================================
+   POLLS & DISCUSSIONS SECTION 2 LOGIC
+   ========================================================================== */
+let activePollInteractionType = 'poll';
+
+const POLL_INTERACTION_TYPES = {
+  'poll': {
+    name: 'Interactive Community Poll',
+    icon: '📊',
+    leadFormat: (topic) => `POLL: What is the biggest hurdle in ${topic}?`,
+    captionFormat: (topic) => `We polled 150+ digital agency founders and creative directors about "${topic}":\n\nWhich bottleneck is eating the most client margin right now?\n\n🔘 Option A: Fragmented cross-platform asset tailoring\n🔘 Option B: Tone inconsistency between copy and creative\n🔘 Option C: Manual approvals and feedback lag\n🔘 Option D: Measuring cross-network attribution\n\nCast your vote below and drop your thoughts in the comments! 👇`
+  },
+  'debate': {
+    name: 'Provocative Industry Debate',
+    icon: '🔥',
+    leadFormat: (topic) => `Hot Take: The Uncomfortable Truth About ${topic}`,
+    captionFormat: (topic) => `Unpopular opinion on "${topic}":\n\nMost teams spend 80% of their energy repurposing mediocre ideas instead of engineering 1 viral breakthrough.\n\nSide A: Omni-presence is table stakes—volume always beats perfection.\nSide B: Fewer, deeply aligned tentpole assets convert 10x better.\n\nWhere do you stand? Debate us in the comments! 👇`
+  },
+  'thisorthat': {
+    name: 'This or That (Visual Choice)',
+    icon: '⚖️',
+    leadFormat: (topic) => `This or That: ${topic} Strategy Choice`,
+    captionFormat: (topic) => `If you had to pick ONE operating model for "${topic}":\n\n👉 Strategy 1: Fully autonomous AI pipelines with human-in-the-loop review\n👉 Strategy 2: 100% human-crafted creative with AI reserved for post-production\n\nDrop 1 or 2 below! 🚀`
+  },
+  'question': {
+    name: 'Open Community Question',
+    icon: '💭',
+    leadFormat: (topic) => `Community Question: How does your team handle ${topic}?`,
+    captionFormat: (topic) => `Quick question for agency leaders and growth marketers:\n\nWhat is the #1 tool or framework you discovered this quarter that completely changed how you approach "${topic}"?\n\nShare your stack below—best responses will be featured in next week's briefing! ✨`
+  },
+  'quiz': {
+    name: 'Knowledge / Diagnostic Quiz',
+    icon: '🧠',
+    leadFormat: (topic) => `Diagnostic Quiz: Test Your ${topic} Maturity`,
+    captionFormat: (topic) => `Quick 10-second audit on your agency's readiness for "${topic}":\n\n1. Can you generate multi-format social assets in under 5 minutes?\n2. Are your brand parameters systematically enforced across every asset?\n3. Is your team saving 20+ hours each week on routine distribution?\n\nScore:\n3/3 = Enterprise Leader\n2/3 = Scaling Efficiently\n0-1/3 = High Margin Risk\n\nHow did your team score? 👇`
+  }
+};
+
+function selectPollInteractionType(key) {
+  activePollInteractionType = key;
+  document.querySelectorAll('.cs-poll-type-pills .cs-poll-pill').forEach(pill => {
+    pill.classList.toggle('active', pill.id === `cs-polltype-${key}`);
+  });
+
+  const item = POLL_INTERACTION_TYPES[key];
+  if (item) {
+    showToast(`Interaction: ${item.name}`, item.icon);
+    syncPollPreview();
+  }
+}
+window.selectPollInteractionType = selectPollInteractionType;
+
+function updatePollTopic(val) {
+  syncPollPreview();
+}
+window.updatePollTopic = updatePollTopic;
+
+function updatePollContext(val) {
+  // Sync context into live preview if appropriate
+}
+window.updatePollContext = updatePollContext;
+
+function syncPollPreview() {
+  const topicInput = document.getElementById('cs-poll-topic-input');
+  const topic = (topicInput && topicInput.value.trim()) || 'How to Build an Omnichannel Content Strategy';
+  const typeItem = POLL_INTERACTION_TYPES[activePollInteractionType] || POLL_INTERACTION_TYPES['poll'];
+
+  const headlineEl = document.getElementById('mockup-headline-lead');
+  const captionEl = document.getElementById('mockup-caption-text');
+
+  if (headlineEl) {
+    headlineEl.innerText = typeItem.leadFormat(topic);
+  }
+  if (captionEl) {
+    captionEl.innerText = typeItem.captionFormat(topic);
+  }
+}
+window.syncPollPreview = syncPollPreview;
+
+
+/* ==========================================================================
+   CUSTOM IDEA SECTION 2 LOGIC
+   ========================================================================== */
+function updateCustomPrompt(val) {
+  syncCustomPreview(val);
+}
+window.updateCustomPrompt = updateCustomPrompt;
+
+function syncCustomPreview(customText) {
+  const promptInput = document.getElementById('cs-custom-prompt-input');
+  const text = (customText !== undefined ? customText : (promptInput && promptInput.value)) || 'Create a high-converting announcement post for our new AI Marketing OS release.';
+
+  const headlineEl = document.getElementById('mockup-headline-lead');
+  const captionEl = document.getElementById('mockup-caption-text');
+
+  if (headlineEl) {
+    headlineEl.innerText = text.length > 80 ? text.substring(0, 80) + '...' : text;
+  }
+  if (captionEl) {
+    captionEl.innerText = `🚀 Announcement: ${text}\n\nWe built this to solve the single largest operational bottleneck modern agencies face: balancing high-volume multi-channel output with uncompromising brand governance.\n\nKey Highlights:\n• Unified Brand Brain parameters\n• Instant cross-network format transformations\n• Verified tone fidelity on every post\n\nTap the link in bio to experience the workflow live.`;
+  }
+}
+window.syncCustomPreview = syncCustomPreview;
+
+
+/* ==========================================================================
+   SECTION 3: GROUNDING & COMPLETE PACKAGE LOGIC
+   ========================================================================== */
+function toggleLanguageDropdown(event) {
+  if (event) event.stopPropagation();
+  const menu = document.getElementById('cs-language-dropdown-menu');
+  const trigger = document.getElementById('cs-language-dropdown-trigger');
+  const toneMenu = document.getElementById('cs-tone-dropdown-menu');
+  const toneTrigger = document.getElementById('cs-tone-dropdown-trigger');
+
+  if (toneMenu) toneMenu.style.display = 'none';
+  if (toneTrigger) toneTrigger.classList.remove('open');
+
+  if (menu) {
+    const isVisible = menu.style.display === 'block';
+    menu.style.display = isVisible ? 'none' : 'block';
+    if (trigger) trigger.classList.toggle('open', !isVisible);
+  }
+}
+window.toggleLanguageDropdown = toggleLanguageDropdown;
+
+function selectDraftLanguage(lang) {
+  const label = document.getElementById('cs-selected-language-label');
+  if (label) label.innerText = lang;
+
+  const menu = document.getElementById('cs-language-dropdown-menu');
+  const trigger = document.getElementById('cs-language-dropdown-trigger');
+  if (menu) menu.style.display = 'none';
+  if (trigger) trigger.classList.remove('open');
+
+  document.querySelectorAll('#cs-language-dropdown-menu .cs-sec3-menu-item').forEach(item => {
+    item.classList.toggle('active', item.innerText.trim() === lang);
+  });
+
+  showToast(`Language set to ${lang}`, '🌐');
+}
+window.selectDraftLanguage = selectDraftLanguage;
+
+function toggleToneDropdown(event) {
+  if (event) event.stopPropagation();
+  const menu = document.getElementById('cs-tone-dropdown-menu');
+  const trigger = document.getElementById('cs-tone-dropdown-trigger');
+  const langMenu = document.getElementById('cs-language-dropdown-menu');
+  const langTrigger = document.getElementById('cs-language-dropdown-trigger');
+
+  if (langMenu) langMenu.style.display = 'none';
+  if (langTrigger) langTrigger.classList.remove('open');
+
+  if (menu) {
+    const isVisible = menu.style.display === 'block';
+    menu.style.display = isVisible ? 'none' : 'block';
+    if (trigger) trigger.classList.toggle('open', !isVisible);
+  }
+}
+window.toggleToneDropdown = toggleToneDropdown;
+
+function selectDraftTone(toneTitle, toneStyleDesc) {
+  const label = document.getElementById('cs-selected-tone-label');
+  if (label) label.innerText = toneTitle;
+
+  const styleDesc = document.getElementById('cs-style-desc-text');
+  if (styleDesc && toneStyleDesc) styleDesc.innerText = toneStyleDesc;
+
+  const menu = document.getElementById('cs-tone-dropdown-menu');
+  const trigger = document.getElementById('cs-tone-dropdown-trigger');
+  if (menu) menu.style.display = 'none';
+  if (trigger) trigger.classList.remove('open');
+
+  document.querySelectorAll('#cs-tone-dropdown-menu .cs-sec3-menu-item').forEach(item => {
+    item.classList.toggle('active', item.innerText.includes(toneTitle));
+  });
+
+  showToast(`Tone set to ${toneTitle}`, '✦');
+}
+window.selectDraftTone = selectDraftTone;
+
+function updateDraftAudience(val) {
+  // Sync audience to live preview if applicable
+}
+window.updateDraftAudience = updateDraftAudience;
+
+function openChooseDocumentsModal() {
+  showToast('Opening Document Vault Selector...', '📂');
+}
+window.openChooseDocumentsModal = openChooseDocumentsModal;
+
+function suggestDraftSources() {
+  showToast('AI analyzing Brand Brain for suggested sources...', '✨');
+}
+window.suggestDraftSources = suggestDraftSources;
+
+function openEditBrandDnaModal() {
+  if (typeof openBrandDnaTab === 'function') {
+    openBrandDnaTab();
+  } else {
+    showToast('Navigating to Brand DNA settings...', '🌿');
+  }
+}
+window.openEditBrandDnaModal = openEditBrandDnaModal;
+
+function toggleVaultSearch(isChecked) {
+  showToast(isChecked ? 'Knowledge Vault search enabled' : 'Knowledge Vault search disabled', isChecked ? '🔍' : '⚪');
+}
+window.toggleVaultSearch = toggleVaultSearch;
+
+function generateCompleteContentPackage() {
+  if (typeof generateTextStudioPackage === 'function') {
+    generateTextStudioPackage();
+  }
+  showToast('Generating Complete Content Package for LinkedIn, Instagram & Twitter/X...', '⚡');
+}
+window.generateCompleteContentPackage = generateCompleteContentPackage;
+
+// Close dropdowns on outside click
+document.addEventListener('click', function(e) {
+  const langMenu = document.getElementById('cs-language-dropdown-menu');
+  const langTrigger = document.getElementById('cs-language-dropdown-trigger');
+  const toneMenu = document.getElementById('cs-tone-dropdown-menu');
+  const toneTrigger = document.getElementById('cs-tone-dropdown-trigger');
+
+  if (langMenu && !langTrigger?.contains(e.target) && !langMenu.contains(e.target)) {
+    langMenu.style.display = 'none';
+    if (langTrigger) langTrigger.classList.remove('open');
+  }
+  if (toneMenu && !toneTrigger?.contains(e.target) && !toneMenu.contains(e.target)) {
+    toneMenu.style.display = 'none';
+    if (toneTrigger) toneTrigger.classList.remove('open');
+  }
+});

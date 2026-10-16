@@ -1676,12 +1676,6 @@
         </div>
       </div>
       <div class="topbar-right">
-        <button class="btn-secondary-outline" style="padding:6px 14px;font-size:12px;font-weight:600;" onclick="window.switchAppView('calendar')">
-          <span>&#128197;</span> Schedule
-        </button>
-        <button class="btn-primary-teal" style="padding:7px 16px;font-size:12px;font-weight:700;" onclick="window.switchAppView('content-studio')">
-          <span>&#10022;</span> Create
-        </button>
         <button class="topbar-icon-btn" title="Notifications" onclick="window.switchAppView('activity')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           <span class="topbar-notif-dot"></span>
@@ -2059,97 +2053,578 @@
                   <span class="view-badge-pill badge-teal">⚡ Vibodh AI Engine</span>
                 </div>
 
-                <!-- Interactive "Edit with AI" Section with Quick Suggestions (Replaced Tone of Voice) -->
-                <div class="cs-ai-editor-box">
-                  <div class="cs-ai-editor-header">
-                    <span class="cs-ai-sparkle-icon">✨</span>
-                    <div class="cs-ai-editor-titles">
-                      <h4 class="cs-ai-editor-title">Edit with AI</h4>
-                      <p class="cs-ai-editor-subtitle">Instruct AI to modify, cut, add, rephrase, or refine this content</p>
+                <!-- Section 1: What Do You Want to Create? Dropdown -->
+                <div class="cs-create-goal-section">
+                  <div class="cs-create-goal-header">
+                    <span class="cs-goal-num-badge">1</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT DO YOU WANT TO CREATE?</h4>
+                      <p class="cs-goal-sub-title">Pick your campaign goal or content format</p>
                     </div>
                   </div>
 
-                  <div class="cs-ai-input-wrap">
-                    <textarea id="cs-ai-edit-instruction-input" class="cs-ai-edit-textarea" rows="2" placeholder="Type any edit instruction, e.g. 'Remove 2 hashtags and one paragraph', 'Make it more persuasive', 'Add a question at the end'..." onkeydown="if((event.metaKey||event.ctrlKey)&amp;&amp;event.key==='Enter'){event.preventDefault();applyAiEditInstruction();}"></textarea>
+                  <!-- Goal Dropdown Container -->
+                  <div class="cs-goal-dropdown-wrap" id="cs-create-type-dropdown-container">
+                    <!-- Dropdown Trigger Card -->
+                    <div class="cs-goal-dropdown-trigger" id="cs-create-type-trigger" onclick="toggleCreateTypeDropdown(event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to pick campaign goal or content format">
+                      <div class="cs-goal-trigger-content" id="cs-create-type-trigger-content">
+                        <div class="cs-goal-item-left">
+                          <span class="cs-goal-item-icon">🔥</span>
+                          <div class="cs-goal-item-info">
+                            <span class="cs-goal-item-title">Live Online Trends</span>
+                            <span class="cs-goal-item-desc">Ride breaking viral news tailored to your brand</span>
+                          </div>
+                        </div>
+                        <div class="cs-goal-trigger-right">
+                          <span class="cs-goal-active-badge">ACTIVE</span>
+                          <span class="cs-goal-arrow">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="m6 9 6 6 6-6"/>
+                            </svg>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Floating Dropdown Menu -->
+                    <div class="cs-goal-dropdown-menu" id="cs-create-type-menu" style="display:none;" onclick="event.stopPropagation();">
+                      <div class="cs-goal-options-list" id="cs-create-type-options-list">
+                        <!-- Populated by JS -->
+                      </div>
+                    </div>
                   </div>
 
-                  <div class="cs-ai-action-bar">
-                    <span class="cs-ai-shortcut-hint">Press <strong>⌘+Enter</strong> or click Apply</span>
-                    <button type="button" class="cs-apply-edit-btn" onclick="applyAiEditInstruction()">
-                      <span>⚡</span> Apply Edit
+                  <!-- Dynamic Context Guidance / Input for chosen goal -->
+                  <div class="cs-goal-context-box" id="cs-goal-context-box">
+                    <div class="cs-goal-context-text">
+                      <span>⚡ Grounded in real-time viral signals &amp; industry news topics below.</span>
+                    </div>
+                  </div>
+                </div>
+
+                  
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Live Online Trends) -->
+                <div class="cs-section-step-card cs-section-2-trends" id="cs-section-2-trends">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Select a live trending news topic below or scan Google News</p>
+                    </div>
+                  </div>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Search & Actions Bar -->
+                  <div class="cs-trends-control-row">
+                    <div class="cs-trends-search-box">
+                      <span class="cs-trends-search-prefix">📰 🔍</span>
+                      <input type="text" id="cs-trends-search-input" class="cs-trends-search-input" placeholder="Search live trends or topics..." oninput="filterLiveTrends(this.value)">
+                      <button type="button" class="cs-trends-search-clear" onclick="clearLiveTrendsSearch()" title="Clear search">&times;</button>
+                    </div>
+                    <button type="button" class="cs-scan-live-btn" onclick="scanLiveGoogleNews()" title="Scan latest Google News &amp; RSS feeds">
+                      <span class="cs-btn-icon">🔄</span> Scan Live
+                    </button>
+                    <button type="button" class="cs-batch-gen-btn" onclick="openBatchGenerationModal()" title="Run batch generation on trending topics">
+                      <span class="cs-btn-icon">⚡</span> Batch Generation
                     </button>
                   </div>
 
-                  <div class="cs-ai-suggestions-row">
-                    <span class="cs-suggestions-label">QUICK SUGGESTIONS:</span>
-                    <div class="cs-suggestion-chips-wrap">
-                      <button type="button" class="cs-suggestion-chip" onclick="applyQuickSuggestion('Remove 2 hashtags and 1 paragraph')">
-                        Remove 2 hashtags and 1 paragraph
-                      </button>
-                      <button type="button" class="cs-suggestion-chip" onclick="applyQuickSuggestion('Make it punchier and more concise')">
-                        Make it punchier and more concise
-                      </button>
-                      <button type="button" class="cs-suggestion-chip" onclick="applyQuickSuggestion('Add a strong call to action')">
-                        Add a strong call to action
-                      </button>
-                      <button type="button" class="cs-suggestion-chip" onclick="applyQuickSuggestion('Make the tone friendlier')">
-                        Make the tone friendlier
-                      </button>
-                      <button type="button" class="cs-suggestion-chip" onclick="applyQuickSuggestion('Convert key points into bullet points')">
-                        Convert key points into bullet points
-                      </button>
+                  <!-- Scrollable Trending News Cards List -->
+                  <div class="cs-trends-scroll-container">
+                    <div class="cs-trends-cards-list" id="cs-trends-cards-list">
+                      <!-- Cards populated by JS -->
                     </div>
+                  </div>
+
+                  <!-- Active Trend Headline Input -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label" for="cs-active-trend-headline">Active Trend Headline</label>
+                    <input type="text" id="cs-active-trend-headline" class="cs-trend-headline-input" value="OpenAI Launches Autonomous Marketing Agents" oninput="updateActiveTrendHeadline(this.value)">
+                  </div>
+
+                  <!-- Summary / Key Findings Textarea -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label" for="cs-active-trend-summary">Summary / Key Findings</label>
+                    <textarea id="cs-active-trend-summary" class="cs-trend-summary-textarea" rows="3" oninput="updateActiveTrendSummary(this.value)">New multi-agent framework enabling end-to-end campaign execution without manual prompting.</textarea>
+                  </div>
+
+                  <!-- Deep Intelligence Briefing Textarea with Character Counter -->
+                  <div class="cs-trend-field-group">
+                    <div class="cs-trend-field-label-row">
+                      <label class="cs-trend-field-label" for="cs-active-trend-briefing">📖 Deep Intelligence Briefing <span id="cs-briefing-char-count" style="font-weight:400;color:#64748B;">(0 chars)</span></label>
+                    </div>
+                    <textarea id="cs-active-trend-briefing" class="cs-trend-briefing-textarea" rows="4" placeholder="Full factual intelligence briefing with market data and strategic takeaways..." oninput="updateBriefingCharCount(this.value)"></textarea>
                   </div>
                 </div>
 
-                <!-- Generate Content Button with Credits Display -->
-                <button type="button" class="cs-big-generate-btn" onclick="generateTextStudioPackage()" id="cs-text-gen-btn">
-                  <span class="cs-btn-flash">⚡</span>
-                  <span>Generate Content</span>
-                  <span class="cs-btn-credit-badge" id="cs-text-credit-badge">⚡ 1 Credit</span>
-                </button>
-
-                <div class="cs-auto-gen-note">
-                  <span class="cs-sparkle-emoji">✨</span>
-                  <span>Instant generation grounded in your synchronized Brand DNA and active Gemini model.</span>
-                </div>
-
-              </div>
-
-              <!-- Live Trend Suggestions -->
-              <div class="cs-trends-highlight-container" style="margin-top:20px;">
-                <div class="cs-trends-highlight-header">
-                  <div class="cs-trends-highlight-title-group">
-                    <span class="cs-trends-highlight-icon">🔥</span>
-                    <div>
-                      <div class="cs-trends-highlight-title">Trending Signals &amp; Inspiration</div>
-                      <div class="cs-trends-highlight-sub">Click any trend to instantly populate topic &amp; context</div>
+                
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Holidays & Occasions) -->
+                <div class="cs-section-step-card cs-section-2-holidays" id="cs-section-2-holidays" style="display:none;">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Select an upcoming holiday, festival, or calendar day</p>
                     </div>
                   </div>
-                  <span class="cs-trends-live-pill">● LIVE SIGNALS</span>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Filter Pills & Browse Calendar Row -->
+                  <div class="cs-holidays-filter-row">
+                    <div class="cs-holidays-pills-group">
+                      <button type="button" class="cs-holiday-filter-pill active" id="cs-filter-holiday-all" onclick="filterHolidayCategory('all')">
+                        <span class="cs-pill-icon">🌐</span> All
+                      </button>
+                      <button type="button" class="cs-holiday-filter-pill" id="cs-filter-holiday-indian" onclick="filterHolidayCategory('indian')">
+                        <span class="cs-pill-badge-flag">IN</span> Indian Festivals
+                      </button>
+                      <button type="button" class="cs-holiday-filter-pill" id="cs-filter-holiday-global" onclick="filterHolidayCategory('global')">
+                        <span class="cs-pill-icon">🌏</span> Global Days
+                      </button>
+                    </div>
+                    <button type="button" class="cs-browse-calendar-btn" onclick="window.switchAppView('calendar')" title="View publishing calendar">
+                      <span>📅</span> Browse Full Calendar
+                    </button>
+                  </div>
+
+                  <!-- Search Occasion Input -->
+                  <div class="cs-holiday-search-box">
+                    <span class="cs-holiday-search-icon">🔍</span>
+                    <input type="text" id="cs-holiday-search-input" class="cs-holiday-search-input" placeholder="Search occasion (e.g. Diwali, Holi, Tech Day)..." oninput="filterHolidaySearch(this.value)">
+                    <button type="button" class="cs-holiday-search-clear" onclick="clearHolidaySearch()" title="Clear search">&times;</button>
+                  </div>
+
+                  <!-- Scrollable Occasions Cards List -->
+                  <div class="cs-holidays-scroll-container">
+                    <div class="cs-holidays-cards-list" id="cs-holidays-cards-list">
+                      <!-- Cards populated by JS -->
+                    </div>
+                  </div>
+
+                  <!-- Occasion Name Input -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label" for="cs-holiday-name">Occasion Name</label>
+                    <input type="text" id="cs-holiday-name" class="cs-trend-headline-input" value="Dussehra / Vijayadashami" oninput="updateHolidayName(this.value)">
+                  </div>
+
+                  <!-- Date & Category 2-Col Row -->
+                  <div class="cs-holiday-two-col-row">
+                    <div class="cs-trend-field-group" style="flex:1;">
+                      <label class="cs-trend-field-label" for="cs-holiday-date">Date (YYYY-MM-DD)</label>
+                      <input type="date" id="cs-holiday-date" class="cs-trend-headline-input" value="2026-10-20" onchange="updateHolidayDate(this.value)">
+                    </div>
+                    <div class="cs-trend-field-group" style="flex:1;">
+                      <label class="cs-trend-field-label" for="cs-holiday-category">Category</label>
+                      <select id="cs-holiday-category" class="cs-holiday-select-dropdown" onchange="updateHolidayCategorySelect(this.value)">
+                        <option value="Indian Cultural &amp; Religious Festival" selected>Indian Festivals</option>
+                        <option value="Global &amp; International Observance">Global Days</option>
+                        <option value="Industry &amp; Tech Commemoration">Industry &amp; Tech Days</option>
+                        <option value="Commercial &amp; Retail Shopping Event">Commercial &amp; Shopping Days</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Brand Connection & Campaign Theme Textarea -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label" for="cs-holiday-brand-theme">Brand Connection &amp; Campaign Theme (Optional)</label>
+                    <textarea id="cs-holiday-brand-theme" class="cs-trend-summary-textarea" rows="3" placeholder="How does your brand connect to this occasion? (e.g. Special offer, festive greeting, customer appreciation)..." oninput="updateHolidayBrandTheme(this.value)">Celebrate the triumph of innovation over legacy friction. Share inspirational client success stories and seasonal agency growth offers.</textarea>
+                  </div>
                 </div>
-                <div class="cs-trending-news-stack">
-                  <div class="cs-news-trend-card" onclick="loadTextTopicTrend('Enterprise Cloud Optimization Focuses on AI Token Economics', 'CIOs overhaul architecture to prevent runaway GPU billing and maximize unit margin ROI.')">
-                    <div class="cs-news-trend-header">
-                      <div class="cs-news-trend-top">
-                        <span class="cs-rank-num">#1</span>
-                        <span class="cs-virality-pill">⚡ 98/100 virality</span>
-                        <span class="cs-news-source-tag">InfoWorld</span>
+
+
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Repurpose Content) -->
+                <div class="cs-section-step-card cs-section-2-repurpose" id="cs-section-2-repurpose" style="display:none;">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Paste your article, whitepaper, or speech transcript</p>
+                    </div>
+                  </div>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Target Format Transformation -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Target Format Transformation</label>
+                    <div class="cs-repurpose-target-grid">
+                      <button type="button" class="cs-repurpose-target-btn active" id="cs-target-linkedin" onclick="selectRepurposeTarget('linkedin')">
+                        <span>💼</span> LinkedIn Post
+                      </button>
+                      <button type="button" class="cs-repurpose-target-btn" id="cs-target-carousel" onclick="selectRepurposeTarget('carousel')">
+                        <span>📑</span> Document Carousel
+                      </button>
+                      <button type="button" class="cs-repurpose-target-btn" id="cs-target-reel" onclick="selectRepurposeTarget('reel')">
+                        <span>🎬</span> Video Reel Script
+                      </button>
+                      <button type="button" class="cs-repurpose-target-btn" id="cs-target-newsletter" onclick="selectRepurposeTarget('newsletter')">
+                        <span>📰</span> Newsletter Brief
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Source Format -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Source Format</label>
+                    <div class="cs-repurpose-source-pills">
+                      <button type="button" class="cs-repurpose-source-pill active" id="cs-source-blog" onclick="selectRepurposeSource('blog')">
+                        <span>📰</span> Blog Article
+                      </button>
+                      <button type="button" class="cs-repurpose-source-pill" id="cs-source-video" onclick="selectRepurposeSource('video')">
+                        <span>🎥</span> Video Transcript
+                      </button>
+                      <button type="button" class="cs-repurpose-source-pill" id="cs-source-whitepaper" onclick="selectRepurposeSource('whitepaper')">
+                        <span>📑</span> Whitepaper / Report
+                      </button>
+                      <button type="button" class="cs-repurpose-source-pill" id="cs-source-speech" onclick="selectRepurposeSource('speech')">
+                        <span>🎙️</span> Speech / Podcast
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Source Material Header & Textarea -->
+                  <div class="cs-trend-field-group">
+                    <div class="cs-source-material-header">
+                      <div style="display:flex;align-items:center;gap:8px;">
+                        <label class="cs-trend-field-label" for="cs-repurpose-content-input" style="margin-bottom:0;">Source Material</label>
+                        <button type="button" class="cs-load-sample-btn" onclick="loadSampleRepurposeArticle()" title="Click to auto-populate a sample article">
+                          <span>📜</span> Load Sample Article
+                        </button>
                       </div>
-                      <div class="cs-news-trend-title">Enterprise Cloud Optimization Focuses on AI Token Economics and Inference Costs</div>
+                      <span class="cs-word-counter" id="cs-repurpose-word-counter">⚠️ 0 / 50 min words</span>
                     </div>
-                  </div>
-                  <div class="cs-news-trend-card" onclick="loadTextTopicTrend('OpenAI Launches Autonomous Marketing Agents', 'New multi-agent framework enabling end-to-end campaign execution without manual prompting.')">
-                    <div class="cs-news-trend-header">
-                      <div class="cs-news-trend-top">
-                        <span class="cs-rank-num">#2</span>
-                        <span class="cs-virality-pill">⚡ 94/100 virality</span>
-                        <span class="cs-news-source-tag">TechCrunch</span>
-                      </div>
-                      <div class="cs-news-trend-title">OpenAI Launches Autonomous Marketing Agents</div>
-                    </div>
+                    <textarea id="cs-repurpose-content-input" class="cs-repurpose-textarea" rows="6" placeholder="Paste blog article, podcast transcript, whitepaper, or speech notes here (minimum 50 words)..." oninput="updateRepurposeWordCount(this.value)"></textarea>
                   </div>
                 </div>
+
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Guides & How-Tos) -->
+                <div class="cs-section-step-card cs-section-2-guides" id="cs-section-2-guides" style="display:none;">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Choose a concept or practical guide for your audience</p>
+                    </div>
+                  </div>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Topic or Skill to Teach -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Topic or Skill to Teach</label>
+                    <input type="text" class="cs-guide-topic-input" id="cs-guide-topic-input" value="How to Build an Omnichannel Content Strategy" placeholder="Enter topic or skill to teach..." oninput="updateGuideTopic(this.value)">
+                  </div>
+
+                  <!-- Teaching Archetype -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Teaching Archetype</label>
+                    <div class="cs-guide-archetype-pills">
+                      <button type="button" class="cs-guide-archetype-pill active" id="cs-archetype-howto" onclick="selectGuideArchetype('howto')">
+                        <span>📖</span> How-to Practical Guide
+                      </button>
+                      <button type="button" class="cs-guide-archetype-pill" id="cs-archetype-explainer" onclick="selectGuideArchetype('explainer')">
+                        <span>💡</span> Explainer & Concept Deep-Dive
+                      </button>
+                      <button type="button" class="cs-guide-archetype-pill" id="cs-archetype-checklist" onclick="selectGuideArchetype('checklist')">
+                        <span>✅</span> Actionable Checklist
+                      </button>
+                      <button type="button" class="cs-guide-archetype-pill" id="cs-archetype-faq" onclick="selectGuideArchetype('faq')">
+                        <span>❓</span> FAQ & Objection Buster
+                      </button>
+                      <button type="button" class="cs-guide-archetype-pill" id="cs-archetype-comparative" onclick="selectGuideArchetype('comparative')">
+                        <span>⚖️</span> Comparative Analysis
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Context & Strategic Guidance (Optional) -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Context & Strategic Guidance (Optional)</label>
+                    <textarea id="cs-guide-context-input" class="cs-guide-context-textarea" rows="4" placeholder="Deep dive into specific frameworks, key milestones, audience level, or tactical steps..." oninput="updateGuideContext(this.value)">Deep dive into Architecture & Design: Step 0 1 / 0 3 Architecture & Design Deep technical blueprinting and multi-layer structural optimization ensuring high-performance scalability and operational governance.</textarea>
+                  </div>
+                </div>
+
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Product Spotlight) -->
+                <div class="cs-section-step-card cs-section-2-product" id="cs-section-2-product" style="display:none;">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Select products from your Brand Brain catalog</p>
+                    </div>
+                  </div>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Brand Brain Product Catalog -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Brand Brain Product Catalog</label>
+                    <div class="cs-product-pills-row">
+                      <button type="button" class="cs-product-pill active" id="cs-catalog-arch" onclick="selectProductCatalogItem('arch')">
+                        <span>✦</span> Architecture & Design
+                      </button>
+                      <button type="button" class="cs-product-pill" id="cs-catalog-ai" onclick="selectProductCatalogItem('ai')">
+                        <span>✦</span> AI Delivery Solutions
+                      </button>
+                      <button type="button" class="cs-product-pill" id="cs-catalog-eng" onclick="selectProductCatalogItem('eng')">
+                        <span>✦</span> Product Engineering Accelerators
+                      </button>
+                    </div>
+                    <input type="text" class="cs-product-text-input" id="cs-product-name-input" placeholder="Or enter specific product name..." oninput="updateProductCustomName(this.value)">
+                  </div>
+
+                  <!-- Story Framework -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Story Framework</label>
+                    <div class="cs-product-pills-row" style="margin-bottom:0;">
+                      <button type="button" class="cs-product-pill" id="cs-framework-feature" onclick="selectStoryFramework('feature')">
+                        <span>⭐</span> Feature Spotlight
+                      </button>
+                      <button type="button" class="cs-product-pill active" id="cs-framework-pas" onclick="selectStoryFramework('pas')">
+                        <span>🎯</span> Problem → Solution (PAS / AIDA)
+                      </button>
+                      <button type="button" class="cs-product-pill" id="cs-framework-workflow" onclick="selectStoryFramework('workflow')">
+                        <span>⚡</span> Agency / Team Workflow
+                      </button>
+                      <button type="button" class="cs-product-pill" id="cs-framework-transformation" onclick="selectStoryFramework('transformation')">
+                        <span>🌟</span> Customer Transformation Story
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Customer Friction / Use Case -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Customer Friction / Use Case</label>
+                    <input type="text" class="cs-product-text-input" id="cs-product-usecase-input" value="How to Build an Omnichannel Content Strategy" placeholder="Enter customer pain point or friction..." oninput="updateProductUseCase(this.value)">
+                  </div>
+                </div>
+
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Polls & Discussions) -->
+                <div class="cs-section-step-card cs-section-2-polls" id="cs-section-2-polls" style="display:none;">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Set a question, debate, or dilemma for your community</p>
+                    </div>
+                  </div>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Discussion Dilemma / Debate Angle -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Discussion Dilemma / Debate Angle</label>
+                    <input type="text" class="cs-poll-text-input" id="cs-poll-topic-input" value="How to Build an Omnichannel Content Strategy" placeholder="Enter discussion dilemma, debate angle, or poll question..." oninput="updatePollTopic(this.value)">
+                  </div>
+
+                  <!-- Interaction Type -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Interaction Type</label>
+                    <div class="cs-poll-type-pills">
+                      <button type="button" class="cs-poll-pill active" id="cs-polltype-poll" onclick="selectPollInteractionType('poll')">
+                        <span>📊</span> Interactive Community Poll
+                      </button>
+                      <button type="button" class="cs-poll-pill" id="cs-polltype-debate" onclick="selectPollInteractionType('debate')">
+                        <span>🔥</span> Provocative Industry Debate
+                      </button>
+                      <button type="button" class="cs-poll-pill" id="cs-polltype-thisorthat" onclick="selectPollInteractionType('thisorthat')">
+                        <span>⚖️</span> This or That (Visual Choice)
+                      </button>
+                      <button type="button" class="cs-poll-pill" id="cs-polltype-question" onclick="selectPollInteractionType('question')">
+                        <span>💭</span> Open Community Question
+                      </button>
+                      <button type="button" class="cs-poll-pill" id="cs-polltype-quiz" onclick="selectPollInteractionType('quiz')">
+                        <span>🧠</span> Knowledge / Diagnostic Quiz
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Context & Contrasting Angles (Optional) -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Context & Contrasting Angles (Optional)</label>
+                    <textarea id="cs-poll-context-input" class="cs-poll-context-textarea" rows="4" placeholder="Add contrasting opinions, poll option ideas, or community nuances..." oninput="updatePollContext(this.value)">Deep dive into Architecture & Design: Step 0 1 / 0 3 Architecture & Design Deep technical blueprinting and multi-layer structural optimization ensuring high-performance scalability and operational governance.</textarea>
+                  </div>
+                </div>
+
+                <!-- SECTION 2: WHAT IS THIS POST ABOUT? (Custom Idea) -->
+                <div class="cs-section-step-card cs-section-2-custom" id="cs-section-2-custom" style="display:none;">
+                  <!-- Header with Badge 2 -->
+                  <div class="cs-step-header">
+                    <span class="cs-goal-num-badge">2</span>
+                    <div class="cs-goal-header-text">
+                      <h4 class="cs-goal-main-title">WHAT IS THIS POST ABOUT?</h4>
+                      <p class="cs-goal-sub-title">Describe your idea in your own words</p>
+                    </div>
+                  </div>
+
+                  <div class="cs-step-divider"></div>
+
+                  <!-- Free-form Creative Prompt -->
+                  <div class="cs-trend-field-group">
+                    <label class="cs-trend-field-label">Free-form Creative Prompt</label>
+                    <textarea id="cs-custom-prompt-input" class="cs-custom-prompt-textarea" rows="4" placeholder="Describe your idea in your own words..." oninput="updateCustomPrompt(this.value)">Create a high-converting announcement post for our new AI Marketing OS release.</textarea>
+                  </div>
+                </div>
+
+
+
+
+
+
+                
+
+<!-- SECTION 3: GROUNDING, TONE OF VOICE & PACKAGE GENERATION -->
+                <div class="cs-section-step-card cs-section-3" id="cs-section-3">
+                  <!-- Two Column Grid: Audience & Language -->
+                  <div class="cs-sec3-grid-2col">
+                    <!-- Left: Audience -->
+                    <div class="cs-sec3-field-group">
+                      <label class="cs-sec3-field-label">Audience for this draft</label>
+                      <input type="text" class="cs-sec3-input" id="cs-draft-audience-input" value="Enterprise technology lea" placeholder="Enterprise technology leaders..." oninput="updateDraftAudience(this.value)">
+                    </div>
+
+                    <!-- Right: Language -->
+                    <div class="cs-sec3-field-group">
+                      <label class="cs-sec3-field-label">Language</label>
+                      <div class="cs-sec3-dropdown-trigger" id="cs-language-dropdown-trigger" onclick="toggleLanguageDropdown(event)">
+                        <span id="cs-selected-language-label">Brand DNA · English</span>
+                        <svg class="cs-sec3-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                          <path d="m6 9 6 6 6-6"/>
+                        </svg>
+                      </div>
+                      <div class="cs-sec3-dropdown-menu" id="cs-language-dropdown-menu" style="display:none;">
+                        <div class="cs-sec3-menu-item active" onclick="selectDraftLanguage('Brand DNA · English')">Brand DNA · English</div>
+                        <div class="cs-sec3-menu-item" onclick="selectDraftLanguage('English (US)')">English (US)</div>
+                        <div class="cs-sec3-menu-item" onclick="selectDraftLanguage('Spanish (Español)')">Spanish (Español)</div>
+                        <div class="cs-sec3-menu-item" onclick="selectDraftLanguage('French (Français)')">French (Français)</div>
+                        <div class="cs-sec3-menu-item" onclick="selectDraftLanguage('German (Deutsch)')">German (Deutsch)</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Dotted Divider -->
+                  <div class="cs-sec3-dotted-divider"></div>
+
+                  <!-- Ground this draft with -->
+                  <div class="cs-ground-row">
+                    <div class="cs-ground-label">
+                      <span>Ground</span>
+                      <span>this</span>
+                      <span>draft</span>
+                      <span>with</span>
+                    </div>
+                    <div class="cs-ground-actions">
+                      <button type="button" class="cs-ground-btn-choose" onclick="openChooseDocumentsModal()">
+                        Choose documents / assets
+                      </button>
+                      <button type="button" class="cs-ground-btn-suggest" onclick="suggestDraftSources()">
+                        Suggest sources
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Brand DNA Card -->
+                  <div class="cs-dna-info-card">
+                    <div class="cs-dna-card-header">
+                      <div class="cs-dna-card-title-group">
+                        <div class="cs-dna-card-title">
+                          <span class="cs-dna-plant-icon">🌿</span>
+                          <span>Vibodhai · Brand DNA</span>
+                        </div>
+                        <span class="cs-dna-card-sub">Always applied · 100% complete</span>
+                      </div>
+                      <a href="javascript:void(0)" class="cs-dna-edit-link" onclick="openEditBrandDnaModal()">Edit DNA</a>
+                    </div>
+                    <div class="cs-dna-card-body">
+                      <p class="cs-dna-body-line">
+                        Voice: Professional, Innovative · Audience: Enterprise technology leaders, CTOs, VP of Engineering, and SaaS product founders seeking to deploy and scale production-grade AI systems.
+                      </p>
+                      <p class="cs-dna-body-line" style="margin-top: 6px;">
+                        Language: English · Products: Architecture & Design, AI Delivery Solutions, Product Engineering Accelerators
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Search Knowledge Vault Checkbox -->
+                  <div class="cs-vault-search-group">
+                    <label class="cs-vault-checkbox-label">
+                      <input type="checkbox" id="cs-vault-checkbox" checked class="cs-vault-checkbox" onchange="toggleVaultSearch(this.checked)">
+                      <span class="cs-vault-checkbox-text"><strong>Search Knowledge Vault</strong> · find relevant eligible workspace evidence for this brief</span>
+                    </label>
+                    <div class="cs-vault-subtext">
+                      <p class="cs-vault-sub-title">Workspace Vault search</p>
+                      <p class="cs-vault-sub-desc">The vault will be searched automatically; you can also choose specific documents.</p>
+                    </div>
+                  </div>
+
+                  <!-- Divider before Tone of Voice -->
+                  <div class="cs-sec3-dotted-divider"></div>
+
+                  <!-- Tone of Voice Section -->
+                  <div class="cs-tone-voice-section">
+                    <div class="cs-tone-header-row">
+                      <label class="cs-sec3-field-label" style="margin-bottom:0;">Tone of Voice</label>
+                      <div class="cs-dna-complete-badge">
+                        <span class="cs-badge-shield">🛡️</span>
+                        <span>Vibodhai DNA (100% complete)</span>
+                      </div>
+                    </div>
+
+                    <!-- Tone Dropdown Trigger -->
+                    <div class="cs-sec3-dropdown-trigger cs-tone-dropdown-trigger" id="cs-tone-dropdown-trigger" onclick="toggleToneDropdown(event)">
+                      <div class="cs-tone-trigger-left">
+                        <span class="cs-tone-star">✦</span>
+                        <span id="cs-selected-tone-label" class="cs-tone-label-bold">Brand Default (Synchronized)</span>
+                      </div>
+                      <svg class="cs-sec3-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"/>
+                      </svg>
+                    </div>
+
+                    <!-- Tone Dropdown Menu -->
+                    <div class="cs-sec3-dropdown-menu" id="cs-tone-dropdown-menu" style="display:none;">
+                      <div class="cs-sec3-menu-item active" onclick="selectDraftTone('Brand Default (Synchronized)', 'Grounded in active Brand Brain voice traits and vocabulary guardrails')">
+                        <span>✦</span> Brand Default (Synchronized)
+                      </div>
+                      <div class="cs-sec3-menu-item" onclick="selectDraftTone('Authoritative & Thought-Leading', 'Strategic high-level clarity tailored to enterprise decision-makers')">
+                        <span>✦</span> Authoritative & Thought-Leading
+                      </div>
+                      <div class="cs-sec3-menu-item" onclick="selectDraftTone('Conversational & Engaging', 'Approachable, clear, and interactive community framing')">
+                        <span>✦</span> Conversational & Engaging
+                      </div>
+                      <div class="cs-sec3-menu-item" onclick="selectDraftTone('Technical & Deep-Dive', 'Architectural rigor, engineering accuracy, and concrete specifications')">
+                        <span>✦</span> Technical & Deep-Dive
+                      </div>
+                    </div>
+
+                    <!-- Style Banner -->
+                    <div class="cs-tone-style-banner" id="cs-tone-style-banner">
+                      <span class="cs-style-badge">Style:</span>
+                      <span class="cs-style-desc" id="cs-style-desc-text">Grounded in active Brand Brain voice traits and vocabulary guardrails</span>
+                    </div>
+                  </div>
+
+                  <!-- Big Generate Button -->
+                  <button type="button" class="cs-complete-package-btn" onclick="generateCompleteContentPackage()" id="cs-complete-package-btn">
+                    <span class="cs-package-flash">⚡</span>
+                    <span>Generate Complete Content Package</span>
+                  </button>
+
+                  <!-- Format Note -->
+                  <div class="cs-package-format-note">
+                    <span class="cs-package-sparkle">✨</span>
+                    <span>Generating only selected formats: LinkedIn, Instagram, Twitter/X.</span>
+                  </div>
+                </div>
+
               </div>
 
             </div>
@@ -2194,68 +2669,52 @@
                 </div>
 
 
-                <!-- Bottom Action Controls: Load from Drafts & Save to Library (Excluding Load from Gallery) -->
-                <div class="cs-bottom-action-bar">
-                  <div class="cs-bottom-action-left">
-                    <button type="button" class="cs-outline-action-btn" onclick="openDraftsPickerModal('text')" title="Browse and restore saved post drafts">
-                      <span>📁</span> Load from Drafts
-                    </button>
-                    <button type="button" class="cs-outline-action-btn" onclick="savePostToLibrary()" title="Save post to your Media & Content Library">
-                      <span>💾</span> Save to Library
-                    </button>
-                    <button type="button" class="cs-guardrail-action-btn" onclick="openGuardrailModal('text')" title="View AI Guardrail verification &amp; compliance details">
-                      <span>🛡️</span> Guardrail Check
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Destination Channels Selector -->
-                <div class="cs-post-channels-selector" style="margin-top: 14px;">
-                  <div class="cs-field-label-row" style="margin-bottom: 6px;">
-                    <label class="cs-field-label" style="font-size: 11.5px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 5px;">
-                      <span>🎯</span> Target Channels
-                    </label>
-                    <span class="cs-channels-hint" style="font-size: 11px; color: #64748B;">Select destination feeds</span>
-                  </div>
-                  <div class="cs-platform-multiselect" id="cs-plat-multiselect-text">
-                    <div class="cs-multiselect-trigger" onclick="togglePlatformDropdown('text', event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to select target destination channels">
-                      <div class="cs-selected-chips-box" id="cs-chips-box-text">
-                        <!-- Rendered by renderAllPlatformMultiselects -->
-                      </div>
-                      <div class="cs-multiselect-arrow">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="m6 9 6 6 6-6"/>
-                        </svg>
-                      </div>
+                <!-- Target Channels & Preview Before Post Row -->
+                <div class="cs-channels-with-preview-row">
+                  <div class="cs-channels-col">
+                    <div class="cs-field-label-row" style="margin-bottom: 6px;">
+                      <label class="cs-field-label" style="font-size: 11.5px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 5px;">
+                        <span>🎯</span> Target Channels
+                      </label>
+                      <span class="cs-channels-hint" style="font-size: 11px; color: #64748B;">Select destination feeds</span>
                     </div>
-
-                    <!-- Floating Dropdown Window -->
-                    <div class="cs-multiselect-dropdown" id="cs-dropdown-text" style="display: none;" onclick="event.stopPropagation();">
-                      <div class="cs-dropdown-search-row">
-                        <span class="cs-dropdown-search-icon">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <div class="cs-platform-multiselect" id="cs-plat-multiselect-text">
+                      <div class="cs-multiselect-trigger" onclick="togglePlatformDropdown('text', event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to select target destination channels">
+                        <div class="cs-selected-chips-box" id="cs-chips-box-text">
+                          <!-- Rendered by renderAllPlatformMultiselects -->
+                        </div>
+                        <div class="cs-multiselect-arrow">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
                           </svg>
-                        </span>
-                        <input type="text" class="cs-dropdown-search-input" id="cs-search-text" placeholder="Search platforms..." oninput="filterPlatformOptions(this, 'text')">
-                        <button type="button" class="cs-dropdown-search-clear" onclick="clearPlatformSearch('text')" title="Clear search">&times;</button>
+                        </div>
                       </div>
 
-                      <div class="cs-dropdown-header-bar">
-                        <span>CONNECTED PLATFORMS</span>
-                        <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllPlatforms('text')">Toggle All</span>
-                      </div>
+                      <!-- Floating Dropdown Window -->
+                      <div class="cs-multiselect-dropdown" id="cs-dropdown-text" style="display: none;" onclick="event.stopPropagation();">
+                        <div class="cs-dropdown-search-row">
+                          <span class="cs-dropdown-search-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="11" cy="11" r="8"></circle>
+                              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                          </span>
+                          <input type="text" class="cs-dropdown-search-input" id="cs-search-text" placeholder="Search platforms..." oninput="filterPlatformOptions(this, 'text')">
+                          <button type="button" class="cs-dropdown-search-clear" onclick="clearPlatformSearch('text')" title="Clear search">&times;</button>
+                        </div>
 
-                      <div class="cs-dropdown-options-list" id="cs-options-list-text">
-                        <!-- Options populated by JS -->
+                        <div class="cs-dropdown-header-bar">
+                          <span>CONNECTED PLATFORMS</span>
+                          <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllPlatforms('text')">Toggle All</span>
+                        </div>
+
+                        <div class="cs-dropdown-options-list" id="cs-options-list-text">
+                          <!-- Options populated by JS -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Post & Preview Action Controls -->
-                <div class="cs-post-action-group">
                   <button type="button" class="cs-preview-before-post-btn" onclick="openPostPreviewModal()" title="Preview how this post will look on Instagram, Facebook, LinkedIn and X before publishing">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -2263,6 +2722,28 @@
                     </svg>
                     <span>Preview before Post</span>
                   </button>
+                </div>
+
+                <!-- Bottom Actions Bar: Drafts, Gallery, Save, Schedule, Guardrail -->
+                <div class="cs-bottom-action-bar">
+                  <div class="cs-bottom-action-left">
+                    <button type="button" class="cs-outline-action-btn" onclick="openDraftsPickerModal('text')" title="Browse and restore saved text drafts">
+                      <span>📁</span> Load from Drafts
+                    </button>
+                    <button type="button" class="cs-outline-action-btn" onclick="savePostToLibrary()" title="Save post to your Media & Content Library">
+                      <span>💾</span> Save Post
+                    </button>
+                    <button type="button" class="cs-outline-action-btn cs-social-sched-btn" onclick="openScheduleModal('text')" title="Schedule organic post directly to connected social profile feeds (Not for Campaigns)">
+                      <span>📅</span> Schedule Social Post
+                    </button>
+                    <button type="button" class="cs-guardrail-action-btn" onclick="openGuardrailModal('text')" title="View AI Guardrail verification &amp; compliance details">
+                      <span>🛡️</span> Guardrail Check
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Master Post Action Controls -->
+                <div class="cs-post-action-group">
                   <button type="button" class="cs-big-post-btn" onclick="publishLivePost()">
                     <span>✨</span> Post
                   </button>
@@ -2299,21 +2780,54 @@
                 <!-- All Image Dropdowns in One Box -->
                 <div class="cs-unified-dropdowns-card">
                   
-                  <!-- Aspect Ratio Dropdown -->
+                  <!-- Choose Where It Will Be Used: Multi-Select Dropdown (replaces Aspect Ratio) -->
                   <div class="cs-unified-dropdown-item">
-                    <div class="cs-dropdown-card-header">
-                      <h4 class="cs-dropdown-card-title">
-                        <span class="cs-dropdown-card-icon">📐</span>
-                        <span>Aspect Ratio</span>
+                    <div class="cs-dropdown-card-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                      <h4 class="cs-dropdown-card-title" style="margin:0;display:flex;align-items:center;gap:6px;">
+                        <span class="cs-dropdown-card-icon" style="font-size:15px;">🎯</span>
+                        <span>Choose where it will be used</span>
                       </h4>
+                      <span style="font-size:11px;color:#64748B;">Select channels &amp; aspect ratios</span>
                     </div>
-                    <div class="cs-dropdown-select-wrap">
-                      <select id="cs-image-aspect-select" class="cs-modern-select" onchange="handleImageAspectSelectChange(this)">
-                        <option value="4:5" data-desc="Vertical (4:5) &bull; 896&times;1120" data-badge="4:5 Feed" selected>4:5 &bull; Social Feed (Portrait) — 896&times;1120 (Instagram / Facebook)</option>
-                        <option value="1:1" data-desc="Square (1:1) &bull; 1024&times;1024" data-badge="1:1 Square">1:1 &bull; Square (Post) — 1024&times;1024 (Instagram / LinkedIn / X)</option>
-                        <option value="9:16" data-desc="Portrait (9:16) &bull; 768&times;1344" data-badge="9:16 Story">9:16 &bull; Story / Reel / TikTok (Vertical) — 768&times;1344</option>
-                        <option value="16:9" data-desc="Landscape (16:9) &bull; 1344&times;768" data-badge="16:9 Widescreen">16:9 &bull; Landscape / Widescreen — 1344&times;768 (YouTube / Banner / Web)</option>
-                      </select>
+
+                    <div class="cs-platform-multiselect" id="cs-plat-multiselect-image-formats" style="position:relative;width:100%;">
+                      <div class="cs-multiselect-trigger" onclick="toggleImageFormatDropdown(event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to choose target channels and aspect ratios">
+                        <div class="cs-selected-chips-box" id="cs-chips-box-image-formats">
+                          <!-- Rendered by renderImageFormatMultiselect -->
+                        </div>
+                        <div class="cs-multiselect-arrow">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
+                          </svg>
+                        </div>
+                      </div>
+
+                      <!-- Floating Dropdown Window -->
+                      <div class="cs-multiselect-dropdown" id="cs-dropdown-image-formats" style="display:none;position:absolute;top:calc(100% + 4px);left:0;right:0;z-index:60;" onclick="event.stopPropagation();">
+                        <div class="cs-dropdown-search-row">
+                          <span class="cs-dropdown-search-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="11" cy="11" r="8"></circle>
+                              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                          </span>
+                          <input type="text" class="cs-dropdown-search-input" id="cs-search-image-formats" placeholder="Search channels..." oninput="filterImageFormatOptions(this)">
+                          <button type="button" class="cs-dropdown-search-clear" onclick="clearImageFormatSearch()" title="Clear search">&times;</button>
+                        </div>
+
+                        <div class="cs-dropdown-header-bar">
+                          <span>CHANNELS &amp; ASPECT RATIOS</span>
+                          <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllImageFormats()">Toggle All</span>
+                        </div>
+
+                        <div class="cs-dropdown-options-list" id="cs-options-list-image-formats">
+                          <!-- Populated by JS -->
+                        </div>
+                        <div class="cs-dropdown-footer-bar" style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#F8FAFC;border-top:1px solid #E2E8F0;border-radius:0 0 10px 10px;">
+                          <span style="font-size:11px;color:#64748B;">Multi-select enabled</span>
+                          <button type="button" class="cs-dropdown-done-btn" onclick="closeAllPlatformDropdowns()" style="background:#0F9D8A;color:#FFFFFF;border:none;border-radius:6px;padding:5px 14px;font-size:11.5px;font-weight:700;cursor:pointer;">Done</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
@@ -2373,73 +2887,29 @@
                     <span>Image Prompt Description</span>
                     <span class="cs-form-sec-hint">Describe the scene, subject, lighting &amp; vibe</span>
                   </label>
-                  <textarea id="cs-image-prompt-input" class="cs-gen-textarea" rows="3" placeholder="e.g. Modern minimalist workspace with glowing blue and teal holographic AI neural graph interface on desk, cinematic lighting, 8k..." oninput="updateGenPromptCharCount(this, 'cs-img-counter')">Modern minimalist tech studio workspace with glowing blue and emerald green holographic AI workflow dashboard on laptop, clean glass office, volumetric lighting, photorealistic 8k</textarea>
-                  <span class="cs-gen-counter" id="cs-img-counter">195/1000</span>
-                </div>
 
-                <!-- Reference Image Upload Area for Image Prompt -->
-                <div class="cs-ref-upload-section" id="cs-image-ref-section">
-                  <div class="cs-ref-upload-header">
-                    <div class="cs-ref-upload-title-wrap">
-                      <span class="cs-ref-upload-icon">🖼️</span>
-                      <h4 class="cs-ref-upload-title">Reference Image</h4>
-                      <span class="cs-ref-upload-hint">(Optional visual guide)</span>
-                    </div>
-                    <span class="cs-ref-badge-pill">Style &amp; Subject Guide</span>
+                  <!-- Compact Attachment Chip (shown when file is attached) -->
+                  <div class="cs-prompt-attached-chip" id="cs-image-attached-chip" style="display:none;">
+                    <img id="cs-image-ref-thumb" src="" alt="Attached reference" class="cs-prompt-attached-img">
+                    <span id="cs-image-ref-name" class="cs-prompt-attached-name">image.png</span>
+                    <button type="button" class="cs-prompt-attached-remove" onclick="removePromptReferenceImage('image')" title="Remove attachment">&times;</button>
                   </div>
 
-                  <!-- Hidden File Input -->
-                  <input type="file" id="cs-image-ref-input" accept="image/*" style="display:none;" onchange="handlePromptRefImageUpload(this, 'image')">
-
-                  <!-- Empty State Dropzone -->
-                  <div class="cs-ref-dropzone" id="cs-image-ref-dropzone" onclick="triggerRefUploadClick('image')" ondragover="handleRefDragOver(event, this)" ondragleave="handleRefDragLeave(event, this)" ondrop="handleRefDrop(event, 'image')">
-                    <div class="cs-ref-dropzone-icon-wrap">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/>
-                        <line x1="12" y1="3" x2="12" y2="15"/>
-                      </svg>
-                    </div>
-                    <p class="cs-ref-dropzone-prompt"><strong>Click to upload</strong> or drag &amp; drop reference image</p>
-                    <p class="cs-ref-dropzone-sub">PNG, JPG, WebP up to 15MB &bull; Guides style, color palette, or character identity</p>
-                    <div class="cs-ref-quick-btns-row" onclick="event.stopPropagation()">
-                      <button type="button" class="cs-ref-mini-btn" onclick="triggerRefUploadClick('image')">📁 Browse Files</button>
-                      <button type="button" class="cs-ref-mini-btn" onclick="applySamplePromptReference('image')">⚡ Use Sample Brand Asset</button>
-                    </div>
-                  </div>
-
-                  <!-- Attached Image State Card -->
-                  <div class="cs-ref-attached-card" id="cs-image-ref-attached">
-                    <div class="cs-ref-preview-row">
-                      <div class="cs-ref-thumb-wrap">
-                        <img id="cs-image-ref-thumb" src="" alt="Reference Preview" class="cs-ref-thumb-img">
+                  <div class="cs-prompt-box-inner" style="position:relative;">
+                    <textarea id="cs-image-prompt-input" class="cs-gen-textarea" rows="3" placeholder="e.g. Modern minimalist workspace with glowing blue and teal holographic AI neural graph interface on desk, cinematic lighting, 8k..." oninput="updateGenPromptCharCount(this, 'cs-img-counter')" style="padding-bottom:38px;">Modern minimalist tech studio workspace with glowing blue and emerald green holographic AI workflow dashboard on laptop, clean glass office, volumetric lighting, photorealistic 8k</textarea>
+                    
+                    <!-- Inside Prompt Box Toolbar: Attachment Icon with No Text + Counter -->
+                    <div class="cs-prompt-box-toolbar">
+                      <div class="cs-prompt-box-toolbar-left">
+                        <input type="file" id="cs-image-ref-input" accept="image/*" style="display:none;" onchange="handlePromptRefImageUpload(this, 'image')">
+                        <button type="button" class="cs-prompt-attach-icon-btn" onclick="triggerRefUploadClick('image')" title="Attach reference image">
+                          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                          </svg>
+                        </button>
                       </div>
-                      <div class="cs-ref-info-wrap">
-                        <div class="cs-ref-filename-row">
-                          <span class="cs-ref-filename" id="cs-image-ref-name">reference-asset.png</span>
-                          <button type="button" class="cs-ref-remove-btn" onclick="removePromptReferenceImage('image')" title="Remove Reference Image">&times; Remove</button>
-                        </div>
-                        <div class="cs-ref-meta-sub">
-                          <span>✓ Attached as prompt visual conditioning anchor</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    <!-- Influence Controls -->
-                    <div class="cs-ref-controls-row">
-                      <div class="cs-ref-modes-group">
-                        <span style="font-size:10.5px;color:#64748B;font-weight:700;">Conditioning:</span>
-                        <button type="button" class="cs-ref-mode-pill active" onclick="setRefConditioningMode(this, 'style')">🎨 Style &amp; Vibe</button>
-                        <button type="button" class="cs-ref-mode-pill" onclick="setRefConditioningMode(this, 'subject')">📦 Subject / Product</button>
-                        <button type="button" class="cs-ref-mode-pill" onclick="setRefConditioningMode(this, 'structure')">📐 Composition</button>
-                      </div>
-                      <div class="cs-ref-strength-wrap">
-                        <span>Influence:</span>
-                        <select class="cs-ref-strength-select" id="cs-image-ref-strength" onchange="showToast(`Reference influence set to ${this.value}`, '🎚️')">
-                          <option value="Subtle (30%)">Subtle (30%)</option>
-                          <option value="Balanced (65%)" selected>Balanced (65%)</option>
-                          <option value="Strong (85%)">Strong (85%)</option>
-                        </select>
+                      <div class="cs-prompt-box-toolbar-right">
+                        <span class="cs-gen-counter" id="cs-img-counter" style="position:static;">195/1000</span>
                       </div>
                     </div>
                   </div>
@@ -2491,7 +2961,7 @@
                   <div class="cs-media-preview-card featured" style="aspect-ratio:16/9;position:relative;">
                     <img id="cs-main-image-preview" src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80" alt="Generated Visual Creative" class="cs-media-img">
                     <span class="cs-media-overlay-badge">
-                      <span>✓</span> Generated &bull; <span id="cs-img-badge-ratio">4:5 Feed</span>
+                      <span>✓</span> Generated &bull; <span id="cs-img-badge-ratio">4:5 (Instagram)</span>
                     </span>
                     <button type="button" class="cs-media-refresh-overlay-btn" onclick="regenerateImageMediaOnly()" title="Regenerate Image Visual">
                       <span class="cs-refresh-icon">🔄</span> Refresh Image
@@ -2534,71 +3004,52 @@
                   </div>
                 </div>
 
-                <!-- Bottom Actions Bar -->
-                <div class="cs-bottom-action-bar">
-                  <div class="cs-bottom-action-left">
-                    <button type="button" class="cs-outline-action-btn" onclick="openDraftsPickerModal('image')" title="Browse and restore saved image drafts">
-                      <span>📁</span> Load from Drafts
-                    </button>
-                    <button type="button" class="cs-outline-action-btn" onclick="openGalleryPickerModal('image')" title="Browse and load image from asset gallery">
-                      <span>🖼️</span> Load from Gallery
-                    </button>
-                    <button type="button" class="cs-outline-action-btn" onclick="saveImageToLibrary()" title="Save image to library">
-                      <span>💾</span> Save to Library
-                    </button>
-                    <button type="button" class="cs-guardrail-action-btn" onclick="openGuardrailModal('image')" title="View AI Guardrail verification &amp; compliance details">
-                      <span>🛡️</span> Guardrail Check
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Destination Channels Selector -->
-                <div class="cs-post-channels-selector" style="margin-top: 14px;">
-                  <div class="cs-field-label-row" style="margin-bottom: 6px;">
-                    <label class="cs-field-label" style="font-size: 11.5px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 5px;">
-                      <span>🎯</span> Target Channels
-                    </label>
-                    <span class="cs-channels-hint" style="font-size: 11px; color: #64748B;">Select destination feeds</span>
-                  </div>
-                  <div class="cs-platform-multiselect" id="cs-plat-multiselect-image">
-                    <div class="cs-multiselect-trigger" onclick="togglePlatformDropdown('image', event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to select target destination channels">
-                      <div class="cs-selected-chips-box" id="cs-chips-box-image">
-                        <!-- Rendered by renderAllPlatformMultiselects -->
-                      </div>
-                      <div class="cs-multiselect-arrow">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="m6 9 6 6 6-6"/>
-                        </svg>
-                      </div>
+                <!-- Target Channels & Preview Before Post Row -->
+                <div class="cs-channels-with-preview-row">
+                  <div class="cs-channels-col">
+                    <div class="cs-field-label-row" style="margin-bottom: 6px;">
+                      <label class="cs-field-label" style="font-size: 11.5px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 5px;">
+                        <span>🎯</span> Target Channels
+                      </label>
+                      <span class="cs-channels-hint" style="font-size: 11px; color: #64748B;">Select destination feeds</span>
                     </div>
-
-                    <!-- Floating Dropdown Window -->
-                    <div class="cs-multiselect-dropdown" id="cs-dropdown-image" style="display: none;" onclick="event.stopPropagation();">
-                      <div class="cs-dropdown-search-row">
-                        <span class="cs-dropdown-search-icon">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <div class="cs-platform-multiselect" id="cs-plat-multiselect-image">
+                      <div class="cs-multiselect-trigger" onclick="togglePlatformDropdown('image', event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to select target destination channels">
+                        <div class="cs-selected-chips-box" id="cs-chips-box-image">
+                          <!-- Rendered by renderAllPlatformMultiselects -->
+                        </div>
+                        <div class="cs-multiselect-arrow">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
                           </svg>
-                        </span>
-                        <input type="text" class="cs-dropdown-search-input" id="cs-search-image" placeholder="Search platforms..." oninput="filterPlatformOptions(this, 'image')">
-                        <button type="button" class="cs-dropdown-search-clear" onclick="clearPlatformSearch('image')" title="Clear search">&times;</button>
+                        </div>
                       </div>
 
-                      <div class="cs-dropdown-header-bar">
-                        <span>CONNECTED PLATFORMS</span>
-                        <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllPlatforms('image')">Toggle All</span>
-                      </div>
+                      <!-- Floating Dropdown Window -->
+                      <div class="cs-multiselect-dropdown" id="cs-dropdown-image" style="display: none;" onclick="event.stopPropagation();">
+                        <div class="cs-dropdown-search-row">
+                          <span class="cs-dropdown-search-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="11" cy="11" r="8"></circle>
+                              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                          </span>
+                          <input type="text" class="cs-dropdown-search-input" id="cs-search-image" placeholder="Search platforms..." oninput="filterPlatformOptions(this, 'image')">
+                          <button type="button" class="cs-dropdown-search-clear" onclick="clearPlatformSearch('image')" title="Clear search">&times;</button>
+                        </div>
 
-                      <div class="cs-dropdown-options-list" id="cs-options-list-image">
-                        <!-- Options populated by JS -->
+                        <div class="cs-dropdown-header-bar">
+                          <span>CONNECTED PLATFORMS</span>
+                          <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllPlatforms('image')">Toggle All</span>
+                        </div>
+
+                        <div class="cs-dropdown-options-list" id="cs-options-list-image">
+                          <!-- Options populated by JS -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Post & Preview Action Controls -->
-                <div class="cs-post-action-group">
                   <button type="button" class="cs-preview-before-post-btn" onclick="openPostPreviewModal()" title="Preview how this post will look on Instagram, Facebook, LinkedIn and X before publishing">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -2606,6 +3057,28 @@
                     </svg>
                     <span>Preview before Post</span>
                   </button>
+                </div>
+
+                <!-- Bottom Actions Bar: Drafts, Gallery, Save, Schedule, Guardrail -->
+                <div class="cs-bottom-action-bar">
+                  <div class="cs-bottom-action-left">
+                    <button type="button" class="cs-outline-action-btn" onclick="openDraftsPickerModal('image')" title="Browse and restore saved image drafts">
+                      <span>📁</span> Load from Drafts
+                    </button>
+                    <button type="button" class="cs-outline-action-btn" onclick="saveImageToLibrary()" title="Save post to your Media & Content Library">
+                      <span>💾</span> Save Post
+                    </button>
+                    <button type="button" class="cs-outline-action-btn cs-social-sched-btn" onclick="openScheduleModal('image')" title="Schedule organic post directly to connected social profile feeds (Not for Campaigns)">
+                      <span>📅</span> Schedule Social Post
+                    </button>
+                    <button type="button" class="cs-guardrail-action-btn" onclick="openGuardrailModal('image')" title="View AI Guardrail verification &amp; compliance details">
+                      <span>🛡️</span> Guardrail Check
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Master Post Action Controls -->
+                <div class="cs-post-action-group">
                   <button type="button" class="cs-big-post-btn" onclick="publishLivePost()">
                     <span>✨</span> Post
                   </button>
@@ -2797,75 +3270,29 @@
                     </div>
                   </div>
 
-                  <div class="cs-gen-prompt-wrap" style="margin-bottom:12px;">
-                    <textarea id="cs-video-prompt-input" class="cs-gen-textarea cs-video-prompt-textarea" rows="4" placeholder="e.g. Fast-paced 15s tech reel showing agency founder looking stressed at spreadsheet, then transition to glowing Vibodh AI dashboard with happy team celebrating margin jump..." oninput="updateGenPromptCharCount(this, 'cs-vid-counter')">Fast-paced 15-second teaser video: Highlighting 5 hidden margin killers in agency operations with sleek motion graphics, smooth zoom-in camera transitions, and confident technical narrator voice.</textarea>
-                    <span class="cs-gen-counter" id="cs-vid-counter">228/1000</span>
-                  </div>
-
-                  <!-- Reference Image Upload Area for Video Prompt -->
-                  <div class="cs-ref-upload-section" id="cs-video-ref-section" style="margin-top:0;margin-bottom:12px;">
-                    <div class="cs-ref-upload-header">
-                      <div class="cs-ref-upload-title-wrap">
-                        <span class="cs-ref-upload-icon">🎬</span>
-                        <h4 class="cs-ref-upload-title">Reference Image / First Frame</h4>
-                        <span class="cs-ref-upload-hint">(Optional image-to-video start)</span>
-                      </div>
-                      <span class="cs-ref-badge-pill">Image-to-Video Anchor</span>
+                  <div class="cs-gen-prompt-wrap" style="margin-bottom:14px;">
+                    <!-- Compact Attachment Chip (shown when file is attached) -->
+                    <div class="cs-prompt-attached-chip" id="cs-video-attached-chip" style="display:none;">
+                      <img id="cs-video-ref-thumb" src="" alt="Attached reference" class="cs-prompt-attached-img">
+                      <span id="cs-video-ref-name" class="cs-prompt-attached-name">reference.png</span>
+                      <button type="button" class="cs-prompt-attached-remove" onclick="removePromptReferenceImage('video')" title="Remove attachment">&times;</button>
                     </div>
 
-                    <!-- Hidden File Input -->
-                    <input type="file" id="cs-video-ref-input" accept="image/*" style="display:none;" onchange="handlePromptRefImageUpload(this, 'video')">
-
-                    <!-- Empty State Dropzone -->
-                    <div class="cs-ref-dropzone" id="cs-video-ref-dropzone" onclick="triggerRefUploadClick('video')" ondragover="handleRefDragOver(event, this)" ondragleave="handleRefDragLeave(event, this)" ondrop="handleRefDrop(event, 'video')">
-                      <div class="cs-ref-dropzone-icon-wrap">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                          <polyline points="17 8 12 3 7 8"/>
-                          <line x1="12" y1="3" x2="12" y2="15"/>
-                        </svg>
-                      </div>
-                      <p class="cs-ref-dropzone-prompt"><strong>Click to upload</strong> or drag &amp; drop reference image</p>
-                      <p class="cs-ref-dropzone-sub">PNG, JPG, WebP up to 15MB &bull; Used as video opening scene, character, or visual style</p>
-                      <div class="cs-ref-quick-btns-row" onclick="event.stopPropagation()">
-                        <button type="button" class="cs-ref-mini-btn" onclick="triggerRefUploadClick('video')">📁 Browse Files</button>
-                        <button type="button" class="cs-ref-mini-btn" onclick="applySamplePromptReference('video')">⚡ Use Sample Reel Frame</button>
-                      </div>
-                    </div>
-
-                    <!-- Attached Image State Card -->
-                    <div class="cs-ref-attached-card" id="cs-video-ref-attached">
-                      <div class="cs-ref-preview-row">
-                        <div class="cs-ref-thumb-wrap">
-                          <img id="cs-video-ref-thumb" src="" alt="Video Reference Preview" class="cs-ref-thumb-img">
+                    <div class="cs-prompt-box-inner" style="position:relative;">
+                      <textarea id="cs-video-prompt-input" class="cs-gen-textarea cs-video-prompt-textarea" rows="4" placeholder="e.g. Fast-paced 15s tech reel showing agency founder looking stressed at spreadsheet, then transition to glowing Vibodh AI dashboard with happy team celebrating margin jump..." oninput="updateGenPromptCharCount(this, 'cs-vid-counter')" style="padding-bottom:38px;">Fast-paced 15-second teaser video: Highlighting 5 hidden margin killers in agency operations with sleek motion graphics, smooth zoom-in camera transitions, and confident technical narrator voice.</textarea>
+                      
+                      <!-- Inside Prompt Box Toolbar: Attachment Icon with No Text + Counter -->
+                      <div class="cs-prompt-box-toolbar">
+                        <div class="cs-prompt-box-toolbar-left">
+                          <input type="file" id="cs-video-ref-input" accept="image/*" style="display:none;" onchange="handlePromptRefImageUpload(this, 'video')">
+                          <button type="button" class="cs-prompt-attach-icon-btn" onclick="triggerRefUploadClick('video')" title="Attach reference image or first frame">
+                            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                              <path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+                            </svg>
+                          </button>
                         </div>
-                        <div class="cs-ref-info-wrap">
-                          <div class="cs-ref-filename-row">
-                            <span class="cs-ref-filename" id="cs-video-ref-name">video-start-frame.png</span>
-                            <button type="button" class="cs-ref-remove-btn" onclick="removePromptReferenceImage('video')" title="Remove Reference Image">&times; Remove</button>
-                          </div>
-                          <div class="cs-ref-meta-sub">
-                            <span>✓ Attached as Image-to-Video opening sequence</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- Influence Controls for Video -->
-                      <div class="cs-ref-controls-row">
-                        <div class="cs-ref-modes-group">
-                          <span style="font-size:10.5px;color:#64748B;font-weight:700;">Role:</span>
-                          <button type="button" class="cs-ref-mode-pill active" onclick="setRefConditioningMode(this, 'start')">🎬 Start Frame</button>
-                          <button type="button" class="cs-ref-mode-pill" onclick="setRefConditioningMode(this, 'style')">🎨 Visual Tone</button>
-                          <button type="button" class="cs-ref-mode-pill" onclick="setRefConditioningMode(this, 'subject')">👤 Character</button>
-                        </div>
-                        <div class="cs-ref-strength-wrap">
-                          <span>Camera Motion:</span>
-                          <select class="cs-ref-strength-select" id="cs-video-ref-motion" onchange="showToast(`Motion dynamics set to ${this.value}`, '🎥')">
-                            <option value="Dynamic Zoom" selected>Dynamic Zoom</option>
-                            <option value="Pan &amp; Orbit">Pan &amp; Orbit</option>
-                            <option value="Subtle Dolly">Subtle Dolly</option>
-                            <option value="Static Scene">Static Scene</option>
-                          </select>
+                        <div class="cs-prompt-box-toolbar-right">
+                          <span class="cs-gen-counter" id="cs-vid-counter" style="position:static;">228/1000</span>
                         </div>
                       </div>
                     </div>
@@ -2972,71 +3399,52 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                   </div>
                 </div>
 
-                <!-- Bottom Actions Bar -->
-                <div class="cs-bottom-action-bar">
-                  <div class="cs-bottom-action-left">
-                    <button type="button" class="cs-outline-action-btn" onclick="openDraftsPickerModal('video')" title="Browse and restore saved video drafts">
-                      <span>📁</span> Load from Drafts
-                    </button>
-                    <button type="button" class="cs-outline-action-btn" onclick="openGalleryPickerModal('video')" title="Browse and load video from asset gallery">
-                      <span>🎬</span> Load from Gallery
-                    </button>
-                    <button type="button" class="cs-outline-action-btn" onclick="saveVideoToLibrary()" title="Save video to library">
-                      <span>💾</span> Save to Library
-                    </button>
-                    <button type="button" class="cs-guardrail-action-btn" onclick="openGuardrailModal('video')" title="View AI Guardrail verification &amp; compliance details">
-                      <span>🛡️</span> Guardrail Check
-                    </button>
-                  </div>
-                </div>
-
-                <!-- Destination Channels Selector -->
-                <div class="cs-post-channels-selector" style="margin-top: 14px;">
-                  <div class="cs-field-label-row" style="margin-bottom: 6px;">
-                    <label class="cs-field-label" style="font-size: 11.5px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 5px;">
-                      <span>🎯</span> Target Channels
-                    </label>
-                    <span class="cs-channels-hint" style="font-size: 11px; color: #64748B;">Select destination feeds</span>
-                  </div>
-                  <div class="cs-platform-multiselect" id="cs-plat-multiselect-video">
-                    <div class="cs-multiselect-trigger" onclick="togglePlatformDropdown('video', event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to select target destination channels">
-                      <div class="cs-selected-chips-box" id="cs-chips-box-video">
-                        <!-- Rendered by renderAllPlatformMultiselects -->
-                      </div>
-                      <div class="cs-multiselect-arrow">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                          <path d="m6 9 6 6 6-6"/>
-                        </svg>
-                      </div>
+                <!-- Target Channels & Preview Before Post Row -->
+                <div class="cs-channels-with-preview-row">
+                  <div class="cs-channels-col">
+                    <div class="cs-field-label-row" style="margin-bottom: 6px;">
+                      <label class="cs-field-label" style="font-size: 11.5px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 5px;">
+                        <span>🎯</span> Target Channels
+                      </label>
+                      <span class="cs-channels-hint" style="font-size: 11px; color: #64748B;">Select destination feeds</span>
                     </div>
-
-                    <!-- Floating Dropdown Window -->
-                    <div class="cs-multiselect-dropdown" id="cs-dropdown-video" style="display: none;" onclick="event.stopPropagation();">
-                      <div class="cs-dropdown-search-row">
-                        <span class="cs-dropdown-search-icon">
-                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="11" cy="11" r="8"></circle>
-                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    <div class="cs-platform-multiselect" id="cs-plat-multiselect-video">
+                      <div class="cs-multiselect-trigger" onclick="togglePlatformDropdown('video', event)" tabindex="0" role="combobox" aria-haspopup="listbox" aria-expanded="false" title="Click to select target destination channels">
+                        <div class="cs-selected-chips-box" id="cs-chips-box-video">
+                          <!-- Rendered by renderAllPlatformMultiselects -->
+                        </div>
+                        <div class="cs-multiselect-arrow">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m6 9 6 6 6-6"/>
                           </svg>
-                        </span>
-                        <input type="text" class="cs-dropdown-search-input" id="cs-search-video" placeholder="Search platforms..." oninput="filterPlatformOptions(this, 'video')">
-                        <button type="button" class="cs-dropdown-search-clear" onclick="clearPlatformSearch('video')" title="Clear search">&times;</button>
+                        </div>
                       </div>
 
-                      <div class="cs-dropdown-header-bar">
-                        <span>CONNECTED PLATFORMS</span>
-                        <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllPlatforms('video')">Toggle All</span>
-                      </div>
+                      <!-- Floating Dropdown Window -->
+                      <div class="cs-multiselect-dropdown" id="cs-dropdown-video" style="display: none;" onclick="event.stopPropagation();">
+                        <div class="cs-dropdown-search-row">
+                          <span class="cs-dropdown-search-icon">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                              <circle cx="11" cy="11" r="8"></circle>
+                              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                            </svg>
+                          </span>
+                          <input type="text" class="cs-dropdown-search-input" id="cs-search-video" placeholder="Search platforms..." oninput="filterPlatformOptions(this, 'video')">
+                          <button type="button" class="cs-dropdown-search-clear" onclick="clearPlatformSearch('video')" title="Clear search">&times;</button>
+                        </div>
 
-                      <div class="cs-dropdown-options-list" id="cs-options-list-video">
-                        <!-- Options populated by JS -->
+                        <div class="cs-dropdown-header-bar">
+                          <span>CONNECTED PLATFORMS</span>
+                          <span class="cs-dropdown-toggle-all-btn" onclick="toggleAllPlatforms('video')">Toggle All</span>
+                        </div>
+
+                        <div class="cs-dropdown-options-list" id="cs-options-list-video">
+                          <!-- Options populated by JS -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <!-- Post & Preview Action Controls -->
-                <div class="cs-post-action-group">
                   <button type="button" class="cs-preview-before-post-btn" onclick="openPostPreviewModal()" title="Preview how this post will look on Instagram, Facebook, LinkedIn and X before publishing">
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
                       <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -3044,6 +3452,28 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                     </svg>
                     <span>Preview before Post</span>
                   </button>
+                </div>
+
+                <!-- Bottom Actions Bar: Drafts, Gallery, Save, Schedule, Guardrail -->
+                <div class="cs-bottom-action-bar">
+                  <div class="cs-bottom-action-left">
+                    <button type="button" class="cs-outline-action-btn" onclick="openDraftsPickerModal('video')" title="Browse and restore saved video drafts">
+                      <span>📁</span> Load from Drafts
+                    </button>
+                    <button type="button" class="cs-outline-action-btn" onclick="saveVideoToLibrary()" title="Save post to your Media & Content Library">
+                      <span>💾</span> Save Post
+                    </button>
+                    <button type="button" class="cs-outline-action-btn cs-social-sched-btn" onclick="openScheduleModal('video')" title="Schedule organic post directly to connected social profile feeds (Not for Campaigns)">
+                      <span>📅</span> Schedule Social Post
+                    </button>
+                    <button type="button" class="cs-guardrail-action-btn" onclick="openGuardrailModal('video')" title="View AI Guardrail verification &amp; compliance details">
+                      <span>🛡️</span> Guardrail Check
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Master Post Action Controls -->
+                <div class="cs-post-action-group">
                   <button type="button" class="cs-big-post-btn" onclick="publishLivePost()">
                     <span>✨</span> Post
                   </button>
@@ -3060,102 +3490,1070 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
       <!-- ═════════════════════════════════════════════════════════════════
            VIEW 4: BRAND DNA
       ══════════════════════════════════════════════════════════════════ -->
+            <!-- ═════════════════════════════════════════════════════════════════
+           VIEW 4: BRAND DNA & IDENTITY (7 COMPLETE SECTIONS)
+      ══════════════════════════════════════════════════════════════════ -->
       <div id="view-brand-dna" class="app-view">
-        <div class="view-header-row">
+        
+        <!-- Header Row -->
+        <div class="view-header-row" style="margin-bottom:14px;align-items:flex-start;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;">
           <div class="view-title-group">
-            <div class="view-title-line">
-              <h1 class="view-title">Brand DNA &amp; Identity</h1>
-              <span class="view-badge-pill badge-emerald">100% Ready</span>
+            <div class="view-title-line" style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+              <h1 class="view-title" style="margin:0;font-size:24px;font-weight:800;color:#0F172A;font-family:'Plus Jakarta Sans',sans-serif;">Brand DNA &amp; Identity</h1>
+              <div style="display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;border:2.5px solid #10B981;background:#ECFDF5;font-size:11px;font-weight:800;color:#059669;" title="100% Brand Completeness Score">
+                100%
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:#ECFDF5;border:1px solid #A7F3D0;font-size:11.5px;font-weight:700;color:#059669;">
+                <span>✓</span> 100% Ready
+              </span>
             </div>
-            <p class="view-subtitle">The foundational knowledge and style profile that grounds all generative outputs in your exact brand essence.</p>
+            <p class="view-subtitle" style="margin:5px 0 0;font-size:13px;color:#64748B;">
+              The authoritative source of truth grounding every generation, prompt, and asset in your authentic brand identity.
+            </p>
           </div>
-          <div class="view-actions-group">
-            <button type="button" class="btn-primary-teal" onclick="saveBrandDna()">&#10003; Save &amp; Re-index Vector</button>
+          <div class="view-actions-group" style="display:flex;align-items:center;gap:8px;">
+            <button type="button" class="btn-dna-top active" style="padding:7px 14px;background:#0F9D8A;color:#FFFFFF;border:none;border-radius:8px;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+              <span>📑</span> Editor (7 Sections)
+            </button>
+            <button type="button" class="btn-dna-top" onclick="showToast('Loading version history snapshots...', '🗂️')" style="padding:7px 14px;background:#FFFFFF;color:#334155;border:1.5px solid #CBD5E1;border-radius:8px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+              <span>🗂️</span> Version History
+            </button>
+            <button type="button" class="btn-dna-top" onclick="window.switchAppView('content-studio')" style="padding:7px 14px;background:#FFFFFF;color:#334155;border:1.5px solid #CBD5E1;border-radius:8px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+              <span>✦</span> Content Studio
+            </button>
+          </div>
+        </div>
+
+        <!-- Meta Sub-Header -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12.5px;color:#64748B;">
+          <div>Editing Brand DNA for: <strong style="color:#0F172A;" id="dna-current-brand-name">Vibodhai</strong></div>
+          <div id="dna-section-indicator" style="font-weight:600;">Section 1 of 7: <strong style="color:#0F172A;">Business Information</strong></div>
+        </div>
+
+        <!-- 7 Tab Navigation Pills -->
+        <div class="dna-tabs-pill-row">
+          <button type="button" class="dna-pill-btn active" data-sec="1" onclick="switchDnaSection(1)">
+            <span>🏢</span>
+            <span>Business Information</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+          <button type="button" class="dna-pill-btn" data-sec="2" onclick="switchDnaSection(2)">
+            <span>👥</span>
+            <span>Target Audience</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+          <button type="button" class="dna-pill-btn" data-sec="3" onclick="switchDnaSection(3)">
+            <span>🎙️</span>
+            <span>Brand Voice &amp; Tone</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+          <button type="button" class="dna-pill-btn" data-sec="4" onclick="switchDnaSection(4)">
+            <span>🎨</span>
+            <span>Visual Identity</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+          <button type="button" class="dna-pill-btn" data-sec="5" onclick="switchDnaSection(5)">
+            <span>📦</span>
+            <span>Products &amp; Offerings</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+          <button type="button" class="dna-pill-btn" data-sec="6" onclick="switchDnaSection(6)">
+            <span>🎯</span>
+            <span>Content Strategy</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+          <button type="button" class="dna-pill-btn" data-sec="7" onclick="switchDnaSection(7)">
+            <span>🌐</span>
+            <span>Regional Voice</span>
+            <span class="dna-check-badge">✓</span>
+          </button>
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 1: BUSINESS INFORMATION
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-1" class="dna-section-card">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#EEF2F6;color:#1E293B;">🏢</div>
+              <div>
+                <h2 class="dna-card-title">Business Information</h2>
+                <p class="dna-card-desc">Company overview, core mission statement, and sector focus</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Brand Logo & Mark -->
+          <div class="dna-group-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <label class="dna-label">Brand Logo</label>
+              <span style="font-size:11px;color:#64748B;">Primary brand logo (PNG, JPG, SVG, WebP)</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+              <div class="dna-logo-preview-box">
+                <!-- Vibodh Signal Orange V logo -->
+                <svg viewBox="0 0 100 100" style="width:58px;height:58px;" fill="none">
+                  <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
+                  <circle cx="22" cy="18" r="4" fill="#F97316"/>
+                  <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
+                  <circle cx="16" cy="32" r="3" fill="#FB923C"/>
+                  <circle cx="34" cy="42" r="3" fill="#F97316"/>
+                </svg>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="button" class="btn-dna-action" onclick="showToast('Logo upload dialog ready.', '📁')">
+                  <span>📁</span> Upload New Logo
+                </button>
+                <button type="button" class="btn-dna-action-danger" onclick="showToast('Logo reset to brand default.', '🗑️')">
+                  <span>🗑️</span> Remove Logo
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Company Name & Sector Form Grid -->
+          <div class="dna-2col-grid">
+            <div>
+              <label class="dna-label">Company / Brand Name</label>
+              <input type="text" class="dna-input-premium" value="Vibodhai">
+            </div>
+            <div>
+              <label class="dna-label">Industry &amp; Sector</label>
+              <select class="dna-select-premium">
+                <option selected>Software, SaaS &amp; AI</option>
+                <option>Enterprise B2B Technology</option>
+                <option>Digital Marketing &amp; Creative Agency</option>
+                <option>Fintech &amp; Banking</option>
+                <option>HealthTech &amp; Life Sciences</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Mission Statement -->
+          <div style="margin-bottom:18px;">
+            <label class="dna-label">Core Mission Statement</label>
+            <textarea class="dna-textarea-premium" rows="3">To empower businesses of all sizes to bridge the gap between AI prototypes and production scale through rigorous architectural consulting and resilient end-to-end AI delivery solutions.</textarea>
+          </div>
+
+          <!-- Brand Description & Positioning 2-Col -->
+          <div class="dna-2col-grid" style="margin-bottom:18px;">
+            <div>
+              <label class="dna-label">Brand Description</label>
+              <textarea class="dna-textarea-premium" rows="4">Vibodh AI delivers enterprise AI engineering, scalable system architecture, and production-grade AI delivery solutions for forward-thinking enterprises and high-growth SaaS companies.</textarea>
+            </div>
+            <div>
+              <label class="dna-label">Positioning / Value Proposition</label>
+              <textarea class="dna-textarea-premium" rows="4">For forward-thinking enterprises and SaaS companies seeking to move beyond fragile prototypes, Vibodh AI is an enterprise AI engineering and architecture partner that delivers production-grade, secure, and elastically scalable AI systems, unlike conventional dev shops or theoretical consulting agencies.</textarea>
+            </div>
+          </div>
+
+          <!-- Proof & Credibility Factors -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <label class="dna-label" style="margin-bottom:0;">Brand Proof &amp; Credibility Factors</label>
+              <span style="font-size:11.5px;color:#64748B;" id="dna-proof-factors-count">2 factors selected</span>
+            </div>
+            <p style="font-size:12px;color:#64748B;margin:0 0 10px;">Select the credibility factors that give customers confidence in your brand.</p>
+            <div class="dna-chips-wrap" id="dna-proof-chips-wrap">
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Quality</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Expertise</button>
+              <button type="button" class="dna-chip active" onclick="toggleDnaChip(this)">✓ Results</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Speed</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Craftsmanship</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Innovation</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Price or value</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Sustainability</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Community</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Awards or certifications</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Years in business</button>
+              <button type="button" class="dna-chip active" onclick="toggleDnaChip(this)">✓ Reviews or ratings</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Founder story</button>
+              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Other</button>
+            </div>
+          </div>
+
+          <!-- Supporting Proof Details -->
+          <div style="margin-bottom:20px;">
+            <label class="dna-label">Supporting Proof Details</label>
+            <textarea class="dna-textarea-premium" rows="3">Delivered hardened AI blueprints tested and validated in live enterprise environments.; Deep enterprise IT, cloud-native architecture, and generative AI engineering background.</textarea>
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <div style="width:160px;"></div>
+            <div class="dna-footer-sec-num">SECTION 1 OF 7</div>
+            <button type="button" class="btn-dna-nav-next" onclick="switchDnaSection(2)">
+              Next: Target Audience →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 2: TARGET AUDIENCE
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-2" class="dna-section-card" style="display:none;">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#EDE9FE;color:#6D28D9;">👥</div>
+              <div>
+                <h2 class="dna-card-title">Target Audience</h2>
+                <p class="dna-card-desc">Customer personas, pain points, desires, and target segments</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Primary Target Audience Persona -->
+          <div style="margin-bottom:18px;">
+            <label class="dna-label">Primary Target Audience Persona</label>
+            <textarea class="dna-textarea-premium" rows="3">Enterprise technology leaders, CTOs, VP of Engineering, and SaaS product founders seeking to deploy and scale production-grade AI systems.</textarea>
+          </div>
+
+          <!-- Audience Segments & Core Needs -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <label class="dna-label" style="margin-bottom:0;">Audience Segments &amp; Core Needs</label>
+              <span style="font-size:11.5px;color:#64748B;" id="dna-audience-seg-count">2 segments defined</span>
+            </div>
+            <div class="dna-tags-wrap" id="dna-audience-seg-tags" style="margin-bottom:10px;">
+              <span class="dna-tag-pill tag-mint">
+                <span>Chief Technology Officer / VP of Engineering</span>
+                <button type="button" onclick="this.parentElement.remove()">×</button>
+              </span>
+              <span class="dna-tag-pill tag-mint">
+                <span>Head of Product / AI Product Lead</span>
+                <button type="button" onclick="this.parentElement.remove()">×</button>
+              </span>
+            </div>
+            <div class="dna-input-add-row">
+              <input type="text" id="dna-input-new-seg" class="dna-input-premium" placeholder="Add audience segment (e.g. Enterprise CMOs, Boutique Founders)...">
+              <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-audience-seg-tags', 'dna-input-new-seg', 'tag-mint')">+ Add</button>
+            </div>
+          </div>
+
+          <!-- 2-Col Grid: Pain Points vs Desires -->
+          <div class="dna-2col-grid" style="margin-bottom:20px;">
+            
+            <!-- Left: Pain points -->
+            <div>
+              <label class="dna-label">Audience Pain Points &amp; Frustrations</label>
+              <div class="dna-tags-wrap" id="dna-pain-points-tags" style="margin-bottom:10px;min-height:120px;">
+                <span class="dna-tag-pill tag-rose">
+                  <span>High failure rate and fragility of generative AI prototypes transitioning into enterprise production workloads</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-rose">
+                  <span>Lack of internal specialized expertise in multi-agent orchestration, contextual retrieval, and MCP integration</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-rose">
+                  <span>Security, compliance, and PII leakage risks in runtime AI deployments</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-rose">
+                  <span>Architectural technical debt and sluggish feature velocity in legacy SaaS platforms</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-pain" class="dna-input-premium" placeholder="Add pain point (e.g. Inconsistent tone across teams)...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-pain-points-tags', 'dna-input-new-pain', 'tag-rose')">+ Add</button>
+              </div>
+            </div>
+
+            <!-- Right: Desires -->
+            <div>
+              <label class="dna-label">Desired Outcomes &amp; Aspirations</label>
+              <div class="dna-tags-wrap" id="dna-desires-tags" style="margin-bottom:10px;min-height:120px;">
+                <span class="dna-tag-pill tag-purple">
+                  <span>End-to-end engineering covering architecture, implementation, deployment, and governance</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-purple">
+                  <span>Compliance-ready AI frameworks adhering to NIST AI RMF, ISO/IEC 42001, OWASP, and the EU AI Act</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-purple">
+                  <span>Pre-engineered architectural accelerators to dramatically reduce time-to-market</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-desire" class="dna-input-premium" placeholder="Add desire (e.g. 10x faster content publishing)...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-desires-tags', 'dna-input-new-desire', 'tag-purple')">+ Add</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <button type="button" class="btn-dna-nav-prev" onclick="switchDnaSection(1)">
+              ← Previous: Business Information
+            </button>
+            <div class="dna-footer-sec-num">SECTION 2 OF 7</div>
+            <button type="button" class="btn-dna-nav-next" onclick="switchDnaSection(3)">
+              Next: Brand Voice &amp; Tone →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 3: BRAND VOICE & TONE
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-3" class="dna-section-card" style="display:none;">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#F1F5F9;color:#334155;">🎙️</div>
+              <div>
+                <h2 class="dna-card-title">Brand Voice &amp; Tone</h2>
+                <p class="dna-card-desc">Voice traits, personality instructions, and vocabulary guardrails</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Tone Selector -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <label class="dna-label" style="margin-bottom:0;">Tone Selector (Select up to 3 traits)</label>
+              <span style="font-size:11.5px;color:#64748B;" id="dna-tone-selected-count">2/3 selected</span>
+            </div>
+            <div class="dna-chips-wrap" id="dna-tone-chips-wrap" style="margin-bottom:10px;">
+              <button type="button" class="dna-chip active" onclick="toggleToneTrait(this)">✓ Professional ×</button>
+              <button type="button" class="dna-chip active" onclick="toggleToneTrait(this)">✓ Innovative ×</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Clear and professional</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Friendly and conversational</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Bold and direct</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Premium</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Playful</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Educational</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Inspirational</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Technical</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Empathetic</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Authoritative</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Witty</button>
+              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Warm and reassuring</button>
+            </div>
+            <div class="dna-input-add-row" style="max-width:480px;">
+              <input type="text" id="dna-input-new-tone" class="dna-input-premium" placeholder="Add custom tone trait (e.g. Quirky, Direct)...">
+              <button type="button" class="btn-dna-add" onclick="addCustomToneTrait()">+ Add Trait</button>
+            </div>
+          </div>
+
+          <!-- Brand Personality & Style Instructions -->
+          <div style="margin-bottom:18px;">
+            <label class="dna-label">Brand Personality &amp; Style Instructions</label>
+            <textarea class="dna-textarea-premium" rows="3">Direct, technical, and authoritative with an emphasis on production engineering outcomes. Avoid hype, fluff, buzzwords, and vague promises. Ground all messaging in architectural rigor, measurable ROI, security, and enterprise reliability.</textarea>
+          </div>
+
+          <!-- 2-Col Grid: Preferred vs Prohibited Vocabulary -->
+          <div class="dna-2col-grid" style="margin-bottom:20px;">
+            
+            <!-- Left: Preferred Vocabulary -->
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="dna-label" style="margin-bottom:0;">Preferred Vocabulary &amp; Power Words</label>
+                <span style="font-size:11.5px;color:#64748B;">9 words</span>
+              </div>
+              <div class="dna-tags-wrap" id="dna-pref-words-tags" style="margin-bottom:10px;min-height:95px;">
+                <span class="dna-tag-pill tag-emerald"><span>accelerators</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>architecture</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>blueprints</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>enterprise</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>governance</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>multi-agent</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>precision</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>production-grade</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-emerald"><span>scale</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-pref" class="dna-input-premium" placeholder="Add preferred word...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-pref-words-tags', 'dna-input-new-pref', 'tag-emerald')">+ Add</button>
+              </div>
+            </div>
+
+            <!-- Right: Prohibited Words -->
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="dna-label" style="margin-bottom:0;">Prohibited Words &amp; Claims to Avoid</label>
+                <span style="font-size:11.5px;color:#64748B;">6 words</span>
+              </div>
+              <div class="dna-tags-wrap" id="dna-proh-words-tags" style="margin-bottom:10px;min-height:95px;">
+                <span class="dna-tag-pill tag-rose"><span>cheap</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-rose"><span>experimental</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-rose"><span>hacky</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-rose"><span>magic</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-rose"><span>quick fix</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+                <span class="dna-tag-pill tag-rose"><span>silver bullet</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-proh" class="dna-input-premium" placeholder="Add prohibited word...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-proh-words-tags', 'dna-input-new-proh', 'tag-rose')">+ Add</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <button type="button" class="btn-dna-nav-prev" onclick="switchDnaSection(2)">
+              ← Previous: Target Audience
+            </button>
+            <div class="dna-footer-sec-num">SECTION 3 OF 7</div>
+            <button type="button" class="btn-dna-nav-next" onclick="switchDnaSection(4)">
+              Next: Visual Identity →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 4: VISUAL IDENTITY
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-4" class="dna-section-card" style="display:none;">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#FEF3C7;color:#D97706;">🎨</div>
+              <div>
+                <h2 class="dna-card-title">Visual Identity</h2>
+                <p class="dna-card-desc">5-swatch palette (60-30-10 rule), typography, and image styling</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Brand Logo & Mark -->
+          <div class="dna-group-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+              <label class="dna-label">Brand Logo &amp; Mark</label>
+              <span style="font-size:11px;color:#64748B;">Primary brand logo asset</span>
+            </div>
+            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+              <div class="dna-logo-preview-box">
+                <svg viewBox="0 0 100 100" style="width:58px;height:58px;" fill="none">
+                  <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
+                  <circle cx="22" cy="18" r="4" fill="#F97316"/>
+                  <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
+                  <circle cx="16" cy="32" r="3" fill="#FB923C"/>
+                  <circle cx="34" cy="42" r="3" fill="#F97316"/>
+                </svg>
+              </div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <button type="button" class="btn-dna-action" onclick="showToast('Logo upload dialog ready.', '📁')">
+                  <span>📁</span> Upload New Logo
+                </button>
+                <button type="button" class="btn-dna-action-danger" onclick="showToast('Logo reset to brand default.', '🗑️')">
+                  <span>🗑️</span> Remove Logo
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5-Swatch Color Palette (60-30-10 Design Rule) -->
+          <div style="margin-bottom:20px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <label class="dna-label" style="margin-bottom:0;">5-Swatch Color Palette (60-30-10 Design Rule)</label>
+              <span style="font-size:11px;color:#64748B;">Click swatch square to open native color picker</span>
+            </div>
+            <div class="dna-swatches-grid">
+              
+              <!-- 1: Dominant 60% -->
+              <div class="dna-swatch-card">
+                <div class="dna-swatch-header">
+                  <span class="dna-swatch-title">Dominant (60%)</span>
+                  <span class="dna-swatch-role">PRIMARY</span>
+                </div>
+                <div class="dna-swatch-preview-wrap">
+                  <input type="color" id="dna-color-picker-1" value="#F6F2F1" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-1', 'dna-box-1')">
+                  <div class="dna-swatch-color-box" id="dna-box-1" style="background:#F6F2F1;" onclick="document.getElementById('dna-color-picker-1').click()"></div>
+                </div>
+                <input type="text" id="dna-hex-1" class="dna-swatch-hex-input" value="#F6F2F1" onchange="syncHexInput(this, 'dna-color-picker-1', 'dna-box-1')">
+              </div>
+
+              <!-- 2: Secondary 30% -->
+              <div class="dna-swatch-card">
+                <div class="dna-swatch-header">
+                  <span class="dna-swatch-title">Secondary (30%)</span>
+                  <span class="dna-swatch-role">SUPPORT</span>
+                </div>
+                <div class="dna-swatch-preview-wrap">
+                  <input type="color" id="dna-color-picker-2" value="#CA4B16" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-2', 'dna-box-2')">
+                  <div class="dna-swatch-color-box" id="dna-box-2" style="background:#CA4B16;" onclick="document.getElementById('dna-color-picker-2').click()"></div>
+                </div>
+                <input type="text" id="dna-hex-2" class="dna-swatch-hex-input" value="#CA4B16" onchange="syncHexInput(this, 'dna-color-picker-2', 'dna-box-2')">
+              </div>
+
+              <!-- 3: Accent 10% -->
+              <div class="dna-swatch-card">
+                <div class="dna-swatch-header">
+                  <span class="dna-swatch-title">Accent (10%)</span>
+                  <span class="dna-swatch-role">HIGHLIGHT</span>
+                </div>
+                <div class="dna-swatch-preview-wrap">
+                  <input type="color" id="dna-color-picker-3" value="#B84514" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-3', 'dna-box-3')">
+                  <div class="dna-swatch-color-box" id="dna-box-3" style="background:#B84514;" onclick="document.getElementById('dna-color-picker-3').click()"></div>
+                </div>
+                <input type="text" id="dna-hex-3" class="dna-swatch-hex-input" value="#B84514" onchange="syncHexInput(this, 'dna-color-picker-3', 'dna-box-3')">
+              </div>
+
+              <!-- 4: Background -->
+              <div class="dna-swatch-card">
+                <div class="dna-swatch-header">
+                  <span class="dna-swatch-title">Background</span>
+                  <span class="dna-swatch-role">CANVAS</span>
+                </div>
+                <div class="dna-swatch-preview-wrap">
+                  <input type="color" id="dna-color-picker-4" value="#FFFFFF" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-4', 'dna-box-4')">
+                  <div class="dna-swatch-color-box" id="dna-box-4" style="background:#FFFFFF;border:1px solid #CBD5E1;" onclick="document.getElementById('dna-color-picker-4').click()"></div>
+                </div>
+                <input type="text" id="dna-hex-4" class="dna-swatch-hex-input" value="#FFFFFF" onchange="syncHexInput(this, 'dna-color-picker-4', 'dna-box-4')">
+              </div>
+
+              <!-- 5: Text / Neutral -->
+              <div class="dna-swatch-card">
+                <div class="dna-swatch-header">
+                  <span class="dna-swatch-title">Text / Neutral</span>
+                  <span class="dna-swatch-role">TYPO</span>
+                </div>
+                <div class="dna-swatch-preview-wrap">
+                  <input type="color" id="dna-color-picker-5" value="#0F172A" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-5', 'dna-box-5')">
+                  <div class="dna-swatch-color-box" id="dna-box-5" style="background:#0F172A;" onclick="document.getElementById('dna-color-picker-5').click()"></div>
+                </div>
+                <input type="text" id="dna-hex-5" class="dna-swatch-hex-input" value="#0F172A" onchange="syncHexInput(this, 'dna-color-picker-5', 'dna-box-5')">
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Typography Row -->
+          <div class="dna-2col-grid" style="margin-bottom:18px;">
+            <div>
+              <label class="dna-label">Primary Heading Typography</label>
+              <input type="text" class="dna-input-premium" value="Inter, system-ui, sans-serif">
+            </div>
+            <div>
+              <label class="dna-label">Secondary / Body Typography</label>
+              <input type="text" class="dna-input-premium" value="Merriweather, serif">
+            </div>
+          </div>
+
+          <!-- Image & Photography Directives -->
+          <div style="margin-bottom:20px;">
+            <label class="dna-label">Image &amp; Photography Style Directives</label>
+            <textarea class="dna-textarea-premium" rows="3">Modern, clean, enterprise engineering aesthetic. High-contrast diagrams, precise architectural blueprints, subtle dark-mode accents, uncluttered layouts with premium typography and authentic technical visuals.</textarea>
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <button type="button" class="btn-dna-nav-prev" onclick="switchDnaSection(3)">
+              ← Previous: Brand Voice &amp; Tone
+            </button>
+            <div class="dna-footer-sec-num">SECTION 4 OF 7</div>
+            <button type="button" class="btn-dna-nav-next" onclick="switchDnaSection(5)">
+              Next: Products &amp; Offerings →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 5: PRODUCTS & OFFERINGS
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-5" class="dna-section-card" style="display:none;">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#FFEDD5;color:#C2410C;">📦</div>
+              <div>
+                <h2 class="dna-card-title">Products &amp; Offerings</h2>
+                <p class="dna-card-desc">Catalog offerings, value propositions, and direct links</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Offerings Subheader & Actions -->
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+            <p style="font-size:12.5px;color:#64748B;margin:0;">
+              Document key products, flagship services, and tier pricing to empower targeted campaign copy.
+            </p>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span style="font-size:12px;font-weight:700;color:#0F172A;" id="dna-prod-count">3 Products Registered</span>
+              <button type="button" class="btn-dna-action" onclick="showToast('Scanning connected website for product catalog...', '🔄')">
+                <span>🔄</span> Find offerings from website
+              </button>
+            </div>
+          </div>
+
+          <!-- Reorderable Product Cards List -->
+          <div class="dna-products-list" id="dna-products-container" style="margin-bottom:20px;">
+            
+            <!-- Card 1 -->
+            <div class="dna-product-item-card" data-id="1">
+              <div class="dna-prod-num-box">1</div>
+              <div class="dna-prod-info">
+                <h4 class="dna-prod-name">Architecture &amp; Design</h4>
+                <p class="dna-prod-desc">
+                  Step 01 / 03 Architecture &amp; Design: Deep technical blueprinting and multi-layer structural optimization ensuring high-scale, distributed applications maintain elite performance, security compliance, and long-term elasticity. Discuss this service...
+                </p>
+              </div>
+              <div class="dna-prod-actions">
+                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
+                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
+                <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="dna-product-item-card" data-id="2">
+              <div class="dna-prod-num-box">2</div>
+              <div class="dna-prod-info">
+                <h4 class="dna-prod-name">AI Delivery Solutions</h4>
+                <p class="dna-prod-desc">
+                  Step 02 / 03 AI Delivery Solutions: End-to-end engineering from vector search ecosystems to multi-agent intelligence and production model deployment with enterprise governance.
+                </p>
+              </div>
+              <div class="dna-prod-actions">
+                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
+                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
+                <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="dna-product-item-card" data-id="3">
+              <div class="dna-prod-num-box">3</div>
+              <div class="dna-prod-info">
+                <h4 class="dna-prod-name">Product Engineering Accelerators</h4>
+                <p class="dna-prod-desc">
+                  Step 03 / 03 Product Engineering Accelerators: Pre-engineered scalability architectures and domain-specific processing hubs built to drastically shrink time-to-market and optimize resource efficiency. Discuss this service...
+                </p>
+              </div>
+              <div class="dna-prod-actions">
+                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
+                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
+                <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Add New Offering Box -->
+          <div class="dna-add-offering-card">
+            <h3 class="dna-add-offering-title">+ Add New Offering or Service</h3>
+            <div class="dna-2col-grid" style="margin-bottom:12px;">
+              <div>
+                <label class="dna-label">Product / Service Name *</label>
+                <input type="text" id="dna-new-prod-name" class="dna-input-premium" placeholder="e.g. Signal Engine Pro">
+              </div>
+              <div>
+                <label class="dna-label">Pricing / Tier (Optional)</label>
+                <input type="text" id="dna-new-prod-price" class="dna-input-premium" placeholder="e.g. $49/mo or Custom Enterprise">
+              </div>
+            </div>
+            <div class="dna-2col-grid" style="margin-bottom:16px;">
+              <div>
+                <label class="dna-label">Brief Pitch / Value Prop</label>
+                <input type="text" id="dna-new-prod-pitch" class="dna-input-premium" placeholder="e.g. Automated brand identity &amp; AI campaign engine">
+              </div>
+              <div>
+                <label class="dna-label">Destination / Landing URL</label>
+                <input type="text" id="dna-new-prod-url" class="dna-input-premium" placeholder="e.g. https://vibodh.com/engine">
+              </div>
+            </div>
+            <div style="display:flex;justify-content:flex-end;">
+              <button type="button" class="btn-dna-add" style="padding:9px 18px;" onclick="addNewProductFromForm()">
+                + Add Product
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <button type="button" class="btn-dna-nav-prev" onclick="switchDnaSection(4)">
+              ← Previous: Visual Identity
+            </button>
+            <div class="dna-footer-sec-num">SECTION 5 OF 7</div>
+            <button type="button" class="btn-dna-nav-next" onclick="switchDnaSection(6)">
+              Next: Content Strategy →
+            </button>
+          </div>
+
+        </div>
+
+                <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 6: CONTENT STRATEGY (EXACT MATCH TO SCREENSHOT)
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-6" class="dna-section-card" style="display:none;">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#FCE7F3;color:#BE185D;">🎯</div>
+              <div>
+                <h2 class="dna-card-title">Content Strategy</h2>
+                <p class="dna-card-desc">Strategic pillars, distribution ratios, objectives, and CTAs</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Content Pillars & Topic Allocation with Donut Chart -->
+          <div class="dna-group-card" style="padding:20px;background:#FFFFFF;border:1.5px solid #E2E8F0;border-radius:14px;margin-bottom:18px;">
+            <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:28px;">
+              
+              <!-- Left: Pillars List with Percentages -->
+              <div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+                  <label class="dna-label" style="margin-bottom:0;font-size:12.5px;">Content Pillars &amp; Topic Allocation</label>
+                  <span style="font-size:11.5px;font-weight:700;color:#0F9D8A;" id="dna-pillars-total-ratio">Total Ratio: 100% ✓ (Target 100%)</span>
+                </div>
+
+                <div class="dna-pillars-allocation-list" id="dna-pillars-allocation-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+                  
+                  <!-- Row 1: Navy -->
+                  <div class="dna-pillar-alloc-row">
+                    <span class="dna-pillar-swatch-dot" style="background:#1E293B;"></span>
+                    <input type="text" class="dna-input-premium dna-pillar-input" value="Production AI Architecture &amp; Engineering" onchange="updatePillarsChart()">
+                    <div class="dna-ratio-input-wrap">
+                      <input type="number" class="dna-ratio-input" value="35" min="0" max="100" onchange="updatePillarsChart()">
+                      <span class="dna-ratio-unit">%</span>
+                    </div>
+                    <div class="dna-pillar-swatch-box" style="background:#1E293B;"></div>
+                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
+                  </div>
+
+                  <!-- Row 2: Teal -->
+                  <div class="dna-pillar-alloc-row">
+                    <span class="dna-pillar-swatch-dot" style="background:#0F9D8A;"></span>
+                    <input type="text" class="dna-input-premium dna-pillar-input" value="Enterprise AI Governance &amp; Compliance" onchange="updatePillarsChart()">
+                    <div class="dna-ratio-input-wrap">
+                      <input type="number" class="dna-ratio-input" value="25" min="0" max="100" onchange="updatePillarsChart()">
+                      <span class="dna-ratio-unit">%</span>
+                    </div>
+                    <div class="dna-pillar-swatch-box" style="background:#0F9D8A;"></div>
+                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
+                  </div>
+
+                  <!-- Row 3: Purple -->
+                  <div class="dna-pillar-alloc-row">
+                    <span class="dna-pillar-swatch-dot" style="background:#7C3AED;"></span>
+                    <input type="text" class="dna-input-premium dna-pillar-input" value="SaaS Platform Modernization &amp; Velocity" onchange="updatePillarsChart()">
+                    <div class="dna-ratio-input-wrap">
+                      <input type="number" class="dna-ratio-input" value="20" min="0" max="100" onchange="updatePillarsChart()">
+                      <span class="dna-ratio-unit">%</span>
+                    </div>
+                    <div class="dna-pillar-swatch-box" style="background:#7C3AED;"></div>
+                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
+                  </div>
+
+                  <!-- Row 4: Orange -->
+                  <div class="dna-pillar-alloc-row">
+                    <span class="dna-pillar-swatch-dot" style="background:#EA580C;"></span>
+                    <input type="text" class="dna-input-premium dna-pillar-input" value="Real-World Case Studies &amp; Field Notes" onchange="updatePillarsChart()">
+                    <div class="dna-ratio-input-wrap">
+                      <input type="number" class="dna-ratio-input" value="20" min="0" max="100" onchange="updatePillarsChart()">
+                      <span class="dna-ratio-unit">%</span>
+                    </div>
+                    <div class="dna-pillar-swatch-box" style="background:#EA580C;"></div>
+                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
+                  </div>
+
+                </div>
+
+                <!-- Add New Pillar Row -->
+                <div class="dna-add-pillar-row" style="display:flex;align-items:center;gap:8px;">
+                  <input type="text" id="dna-new-pillar-name" class="dna-input-premium" placeholder="New pillar (e.g. Founder Stories)..." style="flex:1;">
+                  <div class="dna-ratio-input-wrap" style="width:75px;">
+                    <input type="number" id="dna-new-pillar-pct" class="dna-ratio-input" value="25" min="0" max="100">
+                    <span class="dna-ratio-unit">%</span>
+                  </div>
+                  <div class="dna-pillar-swatch-box" style="background:#0F9D8A;"></div>
+                  <button type="button" class="btn-dna-add" onclick="addNewPillarRow()">+ Add</button>
+                </div>
+
+              </div>
+
+              <!-- Right: Donut Chart & Legend -->
+              <div class="dna-donut-section" style="display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid #F1F5F9;padding-left:18px;">
+                <h4 style="margin:0 0 14px 0;font-size:12.5px;font-weight:700;color:#0F172A;text-align:center;">Content Distribution Breakdown</h4>
+                
+                <!-- SVG Donut Chart -->
+                <div style="position:relative;width:140px;height:140px;margin-bottom:14px;">
+                  <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);border-radius:50%;">
+                    <!-- Background Circle -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#F1F5F9" stroke-width="15"/>
+                    <!-- Navy: 35% (Circumference ~ 238.76 -> 35% = 83.56) -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#1E293B" stroke-width="15" stroke-dasharray="83.56 238.76" stroke-dashoffset="0"/>
+                    <!-- Teal: 25% (25% = 59.69, offset = -83.56) -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#0F9D8A" stroke-width="15" stroke-dasharray="59.69 238.76" stroke-dashoffset="-83.56"/>
+                    <!-- Purple: 20% (20% = 47.75, offset = -143.25) -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#7C3AED" stroke-width="15" stroke-dasharray="47.75 238.76" stroke-dashoffset="-143.25"/>
+                    <!-- Orange: 20% (20% = 47.75, offset = -191.0) -->
+                    <circle cx="50" cy="50" r="38" fill="none" stroke="#EA580C" stroke-width="15" stroke-dasharray="47.75 238.76" stroke-dashoffset="-191.0"/>
+                  </svg>
+                  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center;pointer-events:none;">
+                    <div style="font-size:17px;font-weight:800;color:#0F172A;line-height:1;">100%</div>
+                    <div style="font-size:9.5px;font-weight:800;color:#64748B;letter-spacing:0.04em;margin-top:2px;">PILLARS</div>
+                  </div>
+                </div>
+
+                <!-- Legend List -->
+                <div style="width:100%;display:flex;flex-direction:column;gap:6px;font-size:11.5px;">
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="display:flex;align-items:center;gap:6px;color:#334155;">
+                      <span style="width:8px;height:8px;border-radius:50%;background:#1E293B;"></span>
+                      <span style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Production AI Architecture</span>
+                    </span>
+                    <strong style="color:#0F172A;">35%</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="display:flex;align-items:center;gap:6px;color:#334155;">
+                      <span style="width:8px;height:8px;border-radius:50%;background:#0F9D8A;"></span>
+                      <span style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Enterprise AI Governance</span>
+                    </span>
+                    <strong style="color:#0F172A;">25%</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="display:flex;align-items:center;gap:6px;color:#334155;">
+                      <span style="width:8px;height:8px;border-radius:50%;background:#7C3AED;"></span>
+                      <span style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">SaaS Platform Modernization</span>
+                    </span>
+                    <strong style="color:#0F172A;">20%</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;">
+                    <span style="display:flex;align-items:center;gap:6px;color:#334155;">
+                      <span style="width:8px;height:8px;border-radius:50%;background:#EA580C;"></span>
+                      <span style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Real-World Case Studies</span>
+                    </span>
+                    <strong style="color:#0F172A;">20%</strong>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 2-Col Grid: Primary Content Objectives vs Preferred Calls to Action -->
+          <div class="dna-2col-grid" style="margin-bottom:20px;">
+            
+            <!-- Left: Objectives -->
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="dna-label" style="margin-bottom:0;">Primary Content Objectives</label>
+                <span style="font-size:11.5px;color:#64748B;" id="dna-objectives-count">3 objectives</span>
+              </div>
+              <div class="dna-tags-wrap" id="dna-content-obj-tags" style="margin-bottom:10px;min-height:95px;">
+                <span class="dna-tag-pill tag-mint">
+                  <span>Articulate unique differentiation over existing solutions</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-mint">
+                  <span>Establish authoritative Software, SaaS &amp; AI category presence</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-mint">
+                  <span>Generate high-intent qualified customer opportunities</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-objective" class="dna-input-premium" placeholder="Add objective (e.g. Lead Gen, Brand Authority)...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-content-obj-tags', 'dna-input-new-objective', 'tag-mint')">+ Add</button>
+              </div>
+            </div>
+
+            <!-- Right: Preferred CTAs -->
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="dna-label" style="margin-bottom:0;">Preferred Calls to Action (CTAs)</label>
+                <span style="font-size:11.5px;color:#64748B;" id="dna-ctas-count">3 CTAs</span>
+              </div>
+              <div class="dna-tags-wrap" id="dna-preferred-ctas-tags" style="margin-bottom:10px;min-height:95px;">
+                <span class="dna-tag-pill tag-purple">
+                  <span>Explore Core Solutions</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-purple">
+                  <span>Get Started Today</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+                <span class="dna-tag-pill tag-purple">
+                  <span>Schedule a Strategic Consultation</span>
+                  <button type="button" onclick="this.parentElement.remove()">×</button>
+                </span>
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-cta-val" class="dna-input-premium" placeholder="Add CTA (e.g. Try Free, Book Demo)...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-preferred-ctas-tags', 'dna-input-new-cta-val', 'tag-purple')">+ Add</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <button type="button" class="btn-dna-nav-prev" onclick="switchDnaSection(5)">
+              ← Previous: Products &amp; Offerings
+            </button>
+            <div class="dna-footer-sec-num">SECTION 6 OF 7</div>
+            <button type="button" class="btn-dna-nav-next" onclick="switchDnaSection(7)">
+              Next: Regional Voice →
+            </button>
+          </div>
+
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 7: REGIONAL VOICE (EXACT MATCH TO SCREENSHOT)
+        ══════════════════════════════════════════════════════════════════ -->
+        <div id="dna-section-7" class="dna-section-card" style="display:none;">
+          
+          <!-- Card Header -->
+          <div class="dna-card-header">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div class="dna-card-icon-wrap" style="background:#E0F2FE;color:#0284C7;">🌐</div>
+              <div>
+                <h2 class="dna-card-title">Regional Voice</h2>
+                <p class="dna-card-desc">Multi-language regional dialect, colloquial slang, and bilingual AI grounding</p>
+              </div>
+            </div>
+            <span class="dna-section-complete-badge">✓ Section Complete</span>
+          </div>
+
+          <!-- Enable Regional Language & Dialect Grounding Banner -->
+          <div class="dna-regional-enable-card">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+              <div>
+                <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#9A3412;">
+                  <span>🌐</span> Enable Regional Language &amp; Dialect Grounding
+                </div>
+                <p style="margin:4px 0 0;font-size:12px;color:#C2410C;">
+                  When enabled, AI post generators blend authentic colloquial phrasing, idioms, and dialect style into your content.
+                </p>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;">
+                <label class="dna-toggle-switch">
+                  <input type="checkbox" id="dna-regional-toggle" onchange="toggleRegionalDialect(this)">
+                  <span class="dna-toggle-slider"></span>
+                </label>
+                <span id="dna-regional-status-text" style="font-size:12px;font-weight:700;color:#64748B;">Disabled</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Language Presets -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+              <label class="dna-label" style="margin-bottom:0;">Quick Language Presets</label>
+              <button type="button" class="btn-dna-extract-voice" onclick="showToast('Extracting voice and colloquial idioms via AI...', '✨')">
+                <span>✨</span> Extract Voice via AI
+              </button>
+            </div>
+            <div class="dna-lang-presets-row">
+              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Hindi (हिंदी)')">Hindi (हिंदी)</button>
+              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Kannada (ಕನ್ನಡ)')">Kannada (ಕನ್ನಡ)</button>
+              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Telugu (తెలుగు)')">Telugu (తెలుగు)</button>
+              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Tamil (தமிழ்)')">Tamil (தமிழ்)</button>
+              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Hinglish')">Hinglish</button>
+              <button type="button" class="dna-lang-pill active" onclick="selectLangPreset(this, 'English')">English</button>
+            </div>
+          </div>
+
+          <!-- 2-Col Grid: Target Regional Language & Conversational Style -->
+          <div class="dna-2col-grid" style="margin-bottom:16px;">
+            <div>
+              <label class="dna-label">Target Regional Language</label>
+              <input type="text" id="dna-target-lang-input" class="dna-input-premium" value="English">
+            </div>
+            <div>
+              <label class="dna-label">Conversational Style &amp; Dialect Syntax</label>
+              <input type="text" id="dna-dialect-style-input" class="dna-input-premium" value="Professional with conversational warmth &amp; authentic cultural grounding">
+            </div>
+          </div>
+
+          <!-- Colloquial Phrasing Example Textarea -->
+          <div style="margin-bottom:18px;">
+            <textarea class="dna-textarea-premium" rows="3" placeholder="e.g. Science-backed skincare jo sach mein kaam kare ✨" style="font-style:italic;color:#334155;">e.g. Science-backed skincare jo sach mein kaam kare ✨</textarea>
+          </div>
+
+          <!-- 2-Col Grid: Approved Vocabulary & Colloquial Slang vs Prohibited Regional Claims -->
+          <div class="dna-2col-grid" style="margin-bottom:20px;">
+            
+            <!-- Left: Approved Vocabulary & Colloquial Slang -->
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="dna-label" style="margin-bottom:0;">Approved Vocabulary &amp; Colloquial Slang</label>
+                <span style="font-size:11.5px;color:#64748B;" id="dna-approved-slang-count">0 approved</span>
+              </div>
+              <div class="dna-tags-wrap" id="dna-approved-slang-tags" style="margin-bottom:10px;min-height:48px;">
+                <!-- Dynamically populated or empty -->
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-slang" class="dna-input-premium" placeholder="Add phrase (e.g. Bindaas, Superu, Dil se)...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTagWithCounter('dna-approved-slang-tags', 'dna-input-new-slang', 'tag-mint', 'dna-approved-slang-count', 'approved')">+ Add</button>
+              </div>
+            </div>
+
+            <!-- Right: Prohibited Regional Claims & Avoid Words -->
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <label class="dna-label" style="margin-bottom:0;">Prohibited Regional Claims &amp; Avoid Words</label>
+                <span style="font-size:11.5px;color:#64748B;" id="dna-prohibited-slang-count">0 prohibited</span>
+              </div>
+              <div class="dna-tags-wrap" id="dna-prohibited-slang-tags" style="margin-bottom:10px;min-height:48px;">
+                <!-- Dynamically populated or empty -->
+              </div>
+              <div class="dna-input-add-row">
+                <input type="text" id="dna-input-new-prohib-slang" class="dna-input-premium" placeholder="Add prohibited regional phrase...">
+                <button type="button" class="btn-dna-add" onclick="addDnaTagWithCounter('dna-prohibited-slang-tags', 'dna-input-new-prohib-slang', 'tag-rose', 'dna-prohibited-slang-count', 'prohibited')">+ Add</button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Footer Navigation -->
+          <div class="dna-card-footer">
+            <button type="button" class="btn-dna-nav-prev" onclick="switchDnaSection(6)">
+              ← Previous: Content Strategy
+            </button>
+            <div class="dna-footer-sec-num">SECTION 7 OF 7</div>
+            <div style="width:160px;"></div>
+          </div>
+
+        </div>
+
+        <!-- Common Status & Actions Bar for All 7 Brand DNA Tabs -->
+        <!-- Common Status & Actions Dock Attached to Bottom of Screen (Always Visible while Scrolling) -->
+        <div class="dna-common-bottom-bar-wrapper">
+          <div class="dna-common-bottom-bar">
+            <div class="dna-status-left">
+              <span class="dna-complete-pill">100% Complete</span>
+              <span class="dna-saved-indicator"><span class="green-dot"></span> All changes saved</span>
+            </div>
+            <div class="dna-status-right">
+              <button type="button" class="dna-btn-saved" onclick="saveBrandDna()">✓ Brand DNA Saved</button>
+              <button type="button" class="dna-btn-delete" onclick="deleteWorkspaceConfirm()">Delete Workspace</button>
+            </div>
           </div>
         </div>
 
-        <div class="dna-shell">
-          <div class="dna-nav-bar">
-            <button type="button" class="dna-nav-btn active" onclick="switchDnaTab(this, 'core')">Brand Core</button>
-            <button type="button" class="dna-nav-btn" onclick="switchDnaTab(this, 'visual')">Visual Identity</button>
-            <button type="button" class="dna-nav-btn" onclick="switchDnaTab(this, 'voice')">Voice &amp; Tone</button>
-            <button type="button" class="dna-nav-btn" onclick="switchDnaTab(this, 'audience')">Target Audience</button>
-            <button type="button" class="dna-nav-btn" onclick="switchDnaTab(this, 'products')">Products &amp; Services</button>
-            <button type="button" class="dna-nav-btn" onclick="switchDnaTab(this, 'proof')">Proof Factors</button>
-            <button type="button" class="dna-nav-btn" onclick="switchDnaTab(this, 'compliance')">Compliance</button>
-          </div>
 
-          <div class="dna-panel-content">
-            <!-- Tab 1: Core -->
-            <div id="dna-panel-core" class="dna-tab-panel">
-              <div class="dna-form-grid">
-                <div class="dna-field-group">
-                  <label class="dna-label">Brand Name</label>
-                  <input type="text" class="dna-input" value="Vibodh AI">
-                </div>
-                <div class="dna-field-group">
-                  <label class="dna-label">Tagline</label>
-                  <input type="text" class="dna-input" value="Autonomous AI Marketing &amp; Creative Automation">
-                </div>
-              </div>
-              <div class="dna-field-group">
-                <label class="dna-label">Mission Statement</label>
-                <textarea class="dna-input" style="height:78px;resize:vertical;">Empowering businesses and marketing teams to scale consistent, high-converting digital marketing autonomously without agency friction or complex tool stacks.</textarea>
-              </div>
-              <div class="dna-field-group">
-                <label class="dna-label">Core Value Pillars</label>
-                <input type="text" class="dna-input" value="Autonomous Velocity, Grounded Accuracy, Multi-channel Cohesion, Enterprise Privacy">
-              </div>
-            </div>
-
-            <!-- Tab 2: Visual Identity -->
-            <div id="dna-panel-visual" class="dna-tab-panel" style="display:none;">
-              <div class="dna-field-group">
-                <label class="dna-label">Primary Brand Colors</label>
-                <div class="dna-colors-row">
-                  <div class="dna-color-chip"><div class="dna-color-dot" style="background:#243B6B;"></div>#243B6B (Navy)</div>
-                  <div class="dna-color-chip"><div class="dna-color-dot" style="background:#0F9D8A;"></div>#0F9D8A (Teal)</div>
-                  <div class="dna-color-chip"><div class="dna-color-dot" style="background:#7C3AED;"></div>#7C3AED (Purple)</div>
-                  <div class="dna-color-chip"><div class="dna-color-dot" style="background:#F0512D;"></div>#F0512D (Orange)</div>
-                </div>
-              </div>
-              <div class="dna-form-grid">
-                <div class="dna-field-group">
-                  <label class="dna-label">Primary Typography</label>
-                  <input type="text" class="dna-input" value="Plus Jakarta Sans (Headings)">
-                </div>
-                <div class="dna-field-group">
-                  <label class="dna-label">Body Typography</label>
-                  <input type="text" class="dna-input" value="Inter (Body copy)">
-                </div>
-              </div>
-            </div>
-
-            <!-- Tab 3: Voice & Tone -->
-            <div id="dna-panel-voice" class="dna-tab-panel" style="display:none;">
-              <div class="dna-form-grid">
-                <div class="dna-field-group">
-                  <label class="dna-label">Formality Level (65% Professional)</label>
-                  <input type="range" min="0" max="100" value="65" style="width:100%;accent-color:#0F9D8A;">
-                </div>
-                <div class="dna-field-group">
-                  <label class="dna-label">Technical Depth (70% Authoritative)</label>
-                  <input type="range" min="0" max="100" value="70" style="width:100%;accent-color:#0F9D8A;">
-                </div>
-              </div>
-              <div class="dna-field-group">
-                <label class="dna-label">Key Vocabulary to Emphasize</label>
-                <input type="text" class="dna-input" value="Autonomous, Grounded, Velocity, Omnichannel, Closed-loop, Zero-friction">
-              </div>
-              <div class="dna-field-group">
-                <label class="dna-label">Prohibited Words / Negative Keywords</label>
-                <input type="text" class="dna-input" value="Synergy, Cheap, Guru, Ninja, Overwhelming, Complicated">
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
-
 
       <!-- ═════════════════════════════════════════════════════════════════
            VIEW 5: CALENDAR
@@ -3170,7 +4568,7 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
             <p class="view-subtitle">Omnichannel visual schedule with AI-optimized peak engagement windows.</p>
           </div>
           <div class="view-actions-group">
-            <button type="button" class="btn-primary-teal" onclick="openScheduleModal()">+ Schedule New Post</button>
+            <button type="button" class="btn-primary-teal" onclick="openScheduleModal()">+ Schedule Social Post</button>
           </div>
         </div>
 
@@ -5725,13 +7123,159 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
       </div>
 
       <div style="display:flex;align-items:center;gap:12px;">
-        <button type="button" class="social-footer-btn-outline" onclick="closePostPreviewModal(); openScheduleModal();">
-          <span>📅</span> Schedule Post
-        </button>
         <button type="button" class="social-footer-btn-primary" onclick="confirmPublishFromPreview()" id="preview-confirm-publish-btn">
           <span>🚀</span> Confirm &amp; Publish Now
         </button>
       </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Modal: Dedicated Social Profiles Post Scheduler (Not Campaign) -->
+<div id="modal-schedule-social-post" class="modal-overlay-backdrop" style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.65);backdrop-filter:blur(6px);z-index:99999;align-items:center;justify-content:center;padding:20px;">
+  <div class="social-sched-modal-card" style="background:#ffffff;border-radius:16px;max-width:580px;width:100%;box-shadow:0 24px 60px rgba(15,23,42,0.25);position:relative;overflow:hidden;border:1px solid #E2E8F0;animation:socialSchedIn 0.22s ease-out;">
+    
+    <!-- Modal Header -->
+    <div style="padding:18px 24px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div style="width:38px;height:38px;border-radius:10px;background:#E6F7F5;color:#0F9D8A;display:flex;align-items:center;justify-content:center;font-size:19px;border:1px solid #99F6E4;">
+          📅
+        </div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <h3 style="margin:0;font-size:16px;font-weight:700;color:#0F172A;font-family:'Plus Jakarta Sans',sans-serif;">Schedule Social Profile Post</h3>
+            <span style="font-size:10.5px;font-weight:700;background:#E6F7F5;color:#0F9D8A;padding:2px 7px;border-radius:99px;border:1px solid #99F6E4;">Social Feeds Only</span>
+          </div>
+          <p style="margin:2px 0 0;font-size:12px;color:#64748B;">Automate publishing directly to your connected social profile feeds &bull; No Ad Campaign</p>
+        </div>
+      </div>
+      <button type="button" onclick="closeScheduleModal()" style="border:none;background:none;font-size:22px;color:#94A3B8;cursor:pointer;line-height:1;padding:4px;" title="Close">&times;</button>
+    </div>
+
+    <!-- Modal Body -->
+    <div style="padding:22px 24px;max-height:calc(85vh - 140px);overflow-y:auto;display:flex;flex-direction:column;gap:16px;">
+      
+      <!-- Distinction Notice: Social Profiles Only (Not Campaign) -->
+      <div style="background:#F0FDF9;border:1px solid #99F6E4;border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:12px;">
+        <div style="display:flex;align-items:flex-start;gap:10px;">
+          <span style="font-size:17px;line-height:1.2;">📱</span>
+          <div>
+            <div style="font-size:12px;font-weight:700;color:#0F9D8A;">Direct Social Profile Publishing</div>
+            <div style="font-size:11px;color:#047857;line-height:1.4;margin-top:2px;">Publishes organically to your selected social account feeds with 0 ad spend. Not tied to paid marketing campaigns.</div>
+          </div>
+        </div>
+        <span style="font-size:11px;font-weight:700;color:#0F9D8A;background:#FFFFFF;padding:4px 9px;border-radius:99px;border:1px solid #99F6E4;white-space:nowrap;flex-shrink:0;">
+          ✓ Organic Feed
+        </span>
+      </div>
+
+      <!-- Target Social Profiles Row -->
+      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:12px 14px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <span style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;letter-spacing:0.04em;display:flex;align-items:center;gap:5px;">
+            <span>🎯</span> Destination Profiles
+          </span>
+          <span style="font-size:11px;color:#64748B;">Synced from Target Channels</span>
+        </div>
+        <div id="social-sched-platforms-pills" style="display:flex;flex-wrap:wrap;gap:8px;">
+          <!-- Dynamically populated from active target channels -->
+        </div>
+      </div>
+
+      <!-- Post Summary Card -->
+      <div style="background:#FFFFFF;border:1.5px solid #E2E8F0;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;">
+        <div id="social-sched-thumb-wrap" style="width:52px;height:52px;border-radius:8px;background:#F1F5F9;overflow:hidden;flex-shrink:0;border:1px solid #CBD5E1;display:flex;align-items:center;justify-content:center;font-size:22px;">
+          📝
+        </div>
+        <div style="flex:1;min-width:0;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:3px;">
+            <div style="font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;" id="social-sched-mode-badge">Social Post Copy</div>
+            <span style="font-size:10.5px;color:#0F9D8A;font-weight:600;">🛡️ Guardrail 100% Passed</span>
+          </div>
+          <div id="social-sched-preview-text" style="font-size:12.5px;color:#1E293B;line-height:1.45;max-height:48px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">
+            Post copy loading...
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule Date & Time Selection -->
+      <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:14px 16px;">
+        <div style="font-size:12.5px;font-weight:700;color:#0F172A;margin-bottom:10px;display:flex;align-items:center;gap:6px;">
+          <span>⏰</span> Choose Publish Date &amp; Time
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;">
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;">Publish Date</label>
+            <input type="date" id="social-sched-date-input" style="width:100%;padding:9px 12px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;color:#0F172A;background:#FFFFFF;outline:none;box-sizing:border-box;">
+          </div>
+          <div>
+            <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;">Publish Time</label>
+            <input type="time" id="social-sched-time-input" style="width:100%;padding:9px 12px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;color:#0F172A;background:#FFFFFF;outline:none;box-sizing:border-box;" value="10:30">
+          </div>
+        </div>
+
+        <!-- Timezone Selector -->
+        <div style="margin-bottom:12px;">
+          <label style="display:block;font-size:11px;font-weight:600;color:#64748B;margin-bottom:4px;">Profile Timezone</label>
+          <select id="social-sched-tz-select" style="width:100%;padding:8px 12px;border:1.5px solid #CBD5E1;border-radius:8px;font-size:12.5px;color:#0F172A;background:#FFFFFF;outline:none;">
+            <option value="Asia/Kolkata" selected>Asia/Kolkata (IST &bull; GMT+05:30) &bull; Local Standard</option>
+            <option value="America/New_York">America/New York (EST/EDT &bull; GMT-05:00)</option>
+            <option value="America/Los_Angeles">America/Los Angeles (PST/PDT &bull; GMT-08:00)</option>
+            <option value="Europe/London">Europe/London (GMT/BST &bull; GMT+00:00)</option>
+            <option value="Asia/Dubai">Asia/Dubai (GST &bull; GMT+04:00)</option>
+            <option value="Asia/Singapore">Asia/Singapore (SGT &bull; GMT+08:00)</option>
+          </select>
+        </div>
+
+        <!-- Quick AI Engagement Slots -->
+        <div>
+          <div style="font-size:11px;font-weight:700;color:#0F9D8A;margin-bottom:6px;display:flex;align-items:center;gap:4px;">
+            <span>⚡</span> Recommended Peak Engagement Times
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;">
+            <button type="button" class="social-sched-quick-pill active" onclick="setScheduleQuickSlot('tomorrow', '10:30', this)">
+              Tomorrow 10:30 AM (Peak Feed Reach)
+            </button>
+            <button type="button" class="social-sched-quick-pill" onclick="setScheduleQuickSlot('tomorrow', '14:00', this)">
+              Tomorrow 2:00 PM (Highest CTR)
+            </button>
+            <button type="button" class="social-sched-quick-pill" onclick="setScheduleQuickSlot('tomorrow', '18:30', this)">
+              Tomorrow 6:30 PM (Evening Traffic)
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informational Callout: Campaigns vs Social Profiles -->
+      <div style="display:flex;align-items:center;gap:8px;font-size:11.5px;color:#64748B;background:#F8FAFC;padding:10px 14px;border-radius:8px;border:1px dashed #CBD5E1;">
+        <span style="font-size:14px;">💡</span>
+        <span>Looking to run paid multi-channel ad campaigns with budgets and conversion targeting? Use the <a href="javascript:void(0)" onclick="closeScheduleModal();window.switchAppView('campaigns')" style="color:#0F9D8A;font-weight:700;text-decoration:underline;">Campaigns Workspace</a> instead.</span>
+      </div>
+
+      <!-- Additional Social Options -->
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#334155;cursor:pointer;user-select:none;">
+          <input type="checkbox" id="social-sched-opt-notify" checked style="accent-color:#0F9D8A;width:15px;height:15px;">
+          <span>Notify me via notification center when post goes live on social feeds</span>
+        </label>
+        <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#334155;cursor:pointer;user-select:none;">
+          <input type="checkbox" id="social-sched-opt-comment" checked style="accent-color:#0F9D8A;width:15px;height:15px;">
+          <span>Automatically add hashtags as first comment on Instagram</span>
+        </label>
+      </div>
+
+    </div>
+
+    <!-- Modal Footer -->
+    <div style="padding:16px 24px;border-top:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;background:#F8FAFC;">
+      <button type="button" onclick="closeScheduleModal()" style="padding:9px 16px;background:#FFFFFF;border:1.5px solid #CBD5E1;border-radius:8px;font-size:13px;font-weight:600;color:#475569;cursor:pointer;transition:all 0.15s ease;">
+        Cancel
+      </button>
+      <button type="button" onclick="confirmScheduleSocialPost()" style="padding:10px 20px;background:#0F9D8A;border:none;border-radius:8px;font-size:13.5px;font-weight:700;color:#FFFFFF;cursor:pointer;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 12px rgba(15,157,138,0.25);transition:all 0.15s ease;">
+        <span>📅</span> Confirm &amp; Schedule to Social Feeds
+      </button>
     </div>
 
   </div>
