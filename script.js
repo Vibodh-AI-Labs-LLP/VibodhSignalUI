@@ -4374,10 +4374,21 @@ window.addNewPillarRow = addNewPillarRow;
 
 function toggleRegionalDialect(toggle) {
   const statusText = document.getElementById('dna-regional-status-text');
+  const warningBanner = document.getElementById('dna-regional-warning-banner');
+  const chipsCount = document.querySelectorAll('#dna-approved-chips .dna-regional-chip').length;
+
   if (toggle.checked) {
     if (statusText) {
       statusText.innerText = 'Enabled';
       statusText.style.color = '#EA580C';
+    }
+    if (warningBanner) {
+      // When enabled, show warning message as in Image 2 if approved vocabulary is empty
+      if (chipsCount === 0) {
+        warningBanner.style.display = 'flex';
+      } else {
+        warningBanner.style.display = 'none';
+      }
     }
     showToast('Regional language & dialect grounding enabled!', '🌐');
   } else {
@@ -4385,22 +4396,254 @@ function toggleRegionalDialect(toggle) {
       statusText.innerText = 'Disabled';
       statusText.style.color = '#64748B';
     }
+    if (warningBanner) {
+      warningBanner.style.display = 'none';
+    }
     showToast('Regional grounding disabled.', 'ℹ️');
   }
 }
 window.toggleRegionalDialect = toggleRegionalDialect;
 
+// ══════════════════════════════════════════════════════════════════════
+// REGIONAL VOICE & DIALECT MANAGEMENT (SECTION 7 REDESIGN)
+// ══════════════════════════════════════════════════════════════════════
+const REGIONAL_LANG_PRESETS = [
+  { code: "hi", name: "Hindi (हिंदी)", style: "Hinglish Conversational", sampleTagline: "Science-backed skincare jo sach mein kaam kare ✨" },
+  { code: "kn", name: "Kannada (ಕನ್ನಡ)", style: "Kanglish Colloquial", sampleTagline: "Nimma brand, nija-vada prabhava ✨" },
+  { code: "te", name: "Telugu (తెలుగు)", style: "Teluglish Conversational", sampleTagline: "Mee brand, nijamaina prabhavam ✨" },
+  { code: "ta", name: "Tamil (தமிழ்)", style: "Tanglish Colloquial", sampleTagline: "Ungal brand, unmaiyana thaakkam ✨" },
+  { code: "hinglish", name: "Hinglish", style: "Commercial / Casual", sampleTagline: "Smart solutions jo aapki growth ko boost karein ✨" },
+  { code: "en", name: "English", style: "Global Contemporary", sampleTagline: "Built for scale and authentic connection ✨" }
+];
+
+const REGIONAL_STYLE_PRESETS = [
+  "Hinglish Conversational",
+  "Formal Hindi",
+  "Regional Colloquial",
+  "Urban Colloquial",
+  "Commercial / Casual",
+  "Modern Conversational",
+  "Creative Youth Slang",
+  "Professional / Tech",
+  "Colloquial Storytelling"
+];
+
 function selectLangPreset(btn, langName) {
+  // Update active pill UI
   document.querySelectorAll('.dna-lang-pill').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  const targetInput = document.getElementById('dna-target-lang-input');
-  if (targetInput) targetInput.value = langName;
-  showToast(`Language preset switched to ${langName}`, '🌐');
+  if (btn) btn.classList.add('active');
+
+  const preset = REGIONAL_LANG_PRESETS.find(p => p.name === langName || p.name.includes(langName));
+  
+  // 1. Update Target Regional Language select
+  const langSelect = document.getElementById('dna-reg-lang');
+  if (langSelect) {
+    langSelect.value = preset ? preset.name : langName;
+  }
+
+  // 2. Update Conversational Style select & input
+  const styleSelect = document.getElementById('dna-reg-style-preset');
+  const styleInput = document.getElementById('dna-reg-style-input');
+  const targetStyle = preset ? preset.style : 'Commercial / Casual';
+  if (styleInput) styleInput.value = targetStyle;
+  if (styleSelect) {
+    let found = false;
+    for (let opt of styleSelect.options) {
+      if (opt.value === targetStyle) {
+        styleSelect.value = targetStyle;
+        found = true;
+        break;
+      }
+    }
+    if (!found) styleSelect.value = '';
+  }
+
+  // 3. Update Sample Tagline textarea
+  const taglineEl = document.getElementById('dna-reg-tagline');
+  if (taglineEl && preset) {
+    if (taglineEl.tagName === 'INPUT' || taglineEl.tagName === 'TEXTAREA') {
+      taglineEl.value = preset.sampleTagline;
+    } else {
+      taglineEl.textContent = preset.sampleTagline;
+    }
+  }
+
+  if (typeof showToast === 'function') {
+    showToast(`Switched regional voice preset to ${langName}`, '🌐');
+  }
 }
 window.selectLangPreset = selectLangPreset;
 
+function onRegLangChange(selectEl) {
+  const selectedLang = selectEl.value;
+  // Sync with pill
+  const pills = document.querySelectorAll('.dna-lang-pill');
+  pills.forEach(p => {
+    if (p.textContent.trim() === selectedLang || selectedLang.includes(p.textContent.trim())) {
+      p.classList.add('active');
+    } else {
+      p.classList.remove('active');
+    }
+  });
+
+  const preset = REGIONAL_LANG_PRESETS.find(p => p.name === selectedLang);
+  if (preset) {
+    const styleSelect = document.getElementById('dna-reg-style-preset');
+    const styleInput = document.getElementById('dna-reg-style-input');
+    if (styleInput) styleInput.value = preset.style;
+    if (styleSelect) {
+      for (let opt of styleSelect.options) {
+        if (opt.value === preset.style) {
+          styleSelect.value = preset.style;
+          break;
+        }
+      }
+    }
+    const taglineEl = document.getElementById('dna-reg-tagline');
+    if (taglineEl) {
+      if (taglineEl.tagName === 'INPUT' || taglineEl.tagName === 'TEXTAREA') {
+        taglineEl.value = preset.sampleTagline;
+      } else {
+        taglineEl.textContent = preset.sampleTagline;
+      }
+    }
+  }
+}
+window.onRegLangChange = onRegLangChange;
+
+function onRegStylePresetChange(selectEl) {
+  if (selectEl && selectEl.value && typeof showToast === 'function') {
+    showToast(`Conversational style set to ${selectEl.value}`, '💬');
+  }
+}
+window.onRegStylePresetChange = onRegStylePresetChange;
+
+function addApprovedSlang() {
+  const input = document.getElementById('dna-approved-slang-input');
+  const container = document.getElementById('dna-approved-chips');
+  if (!input || !container) return;
+
+  const phrase = input.value.trim();
+  if (!phrase) return;
+
+  const chip = document.createElement('span');
+  chip.className = 'dna-regional-chip approved';
+  const cleanPhrase = phrase.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  chip.innerHTML = `<span>${cleanPhrase}</span><button type="button" class="dna-regional-chip-remove" onclick="removeApprovedSlang(this)" title="Remove">×</button>`;
+  container.appendChild(chip);
+
+  input.value = '';
+  updateSlangCounts();
+}
+window.addApprovedSlang = addApprovedSlang;
+
+function removeApprovedSlang(btn) {
+  const chip = btn.closest('.dna-regional-chip');
+  if (chip) chip.remove();
+  updateSlangCounts();
+}
+window.removeApprovedSlang = removeApprovedSlang;
+
+function addProhibitedSlang() {
+  const input = document.getElementById('dna-prohib-slang-input');
+  const container = document.getElementById('dna-prohib-chips');
+  if (!input || !container) return;
+
+  const phrase = input.value.trim();
+  if (!phrase) return;
+
+  const chip = document.createElement('span');
+  chip.className = 'dna-regional-chip prohibited';
+  const cleanPhrase = phrase.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  chip.innerHTML = `<span>${cleanPhrase}</span><button type="button" class="dna-regional-chip-remove" onclick="removeProhibitedSlang(this)" title="Remove">×</button>`;
+  container.appendChild(chip);
+
+  input.value = '';
+  updateSlangCounts();
+}
+window.addProhibitedSlang = addProhibitedSlang;
+
+function removeProhibitedSlang(btn) {
+  const chip = btn.closest('.dna-regional-chip');
+  if (chip) chip.remove();
+  updateSlangCounts();
+}
+window.removeProhibitedSlang = removeProhibitedSlang;
+
+function updateSlangCounts() {
+  const appContainer = document.getElementById('dna-approved-chips');
+  const appCountEl = document.getElementById('dna-approved-slang-count');
+  if (appContainer && appCountEl) {
+    const total = appContainer.querySelectorAll('.dna-regional-chip').length;
+    appCountEl.textContent = `${total} approved`;
+  }
+
+  const proContainer = document.getElementById('dna-prohib-chips');
+  const proCountEl = document.getElementById('dna-prohib-slang-count');
+  if (proContainer && proCountEl) {
+    const total = proContainer.querySelectorAll('.dna-regional-chip').length;
+    proCountEl.textContent = `${total} prohibited`;
+  }
+}
+window.updateSlangCounts = updateSlangCounts;
+
+function extractRegionalVoiceAi() {
+  const lang = document.getElementById('dna-reg-lang')?.value || 'Hinglish';
+  const taglineEl = document.getElementById('dna-reg-tagline');
+  if (typeof showToast === 'function') {
+    showToast(`✨ Extracting voice and colloquial idioms via AI for ${lang}...`, '✨');
+  }
+  if (taglineEl) {
+    taglineEl.style.transition = 'all 0.3s ease';
+    taglineEl.style.boxShadow = '0 0 0 4px rgba(245, 158, 11, 0.25)';
+    taglineEl.style.borderColor = '#F59E0B';
+    setTimeout(() => {
+      taglineEl.style.boxShadow = '';
+      taglineEl.style.borderColor = '#CBD5E1';
+    }, 1200);
+  }
+
+  // Populate sample vocabulary for the language if empty
+  const appContainer = document.getElementById('dna-approved-chips');
+  if (appContainer && appContainer.querySelectorAll('.dna-regional-chip').length === 0) {
+    const samples = {
+      'Hindi (हिंदी)': ['Bindaas', 'Kamaal ka', 'Dil se'],
+      'Kannada (ಕನ್ನಡ)': ['Bombaat', 'Chindi', 'Sakkat'],
+      'Telugu (తెలుగు)': ['Keka', 'Adurs', 'Kiraak'],
+      'Tamil (தமிழ்)': ['Semma', 'Gethu', 'Mass'],
+      'Hinglish': ['Bindaas', 'Jugaad', 'Solid', 'Dhamaal'],
+      'English': ['Disruptive', 'Scalable', 'Zero-friction']
+    };
+    const words = samples[lang] || ['Bindaas', 'Jugaad', 'Solid'];
+    appContainer.innerHTML = words.map(w => `<span class="dna-regional-chip approved"><span>${w}</span></span>`).join('');
+    const countEl = document.getElementById('dna-approved-slang-count');
+    if (countEl) countEl.innerText = `${words.length} approved`;
+    const warningBanner = document.getElementById('dna-regional-warning-banner');
+    if (warningBanner) warningBanner.style.display = 'none';
+  }
+}
+window.extractRegionalVoiceAi = extractRegionalVoiceAi;
+
 function addDnaTagWithCounter(containerId, inputId, tagClass, countId, typeWord) {
-  addDnaTag(containerId, inputId, tagClass);
+  const input = document.getElementById(inputId);
+  const container = document.getElementById(containerId);
+  const countEl = document.getElementById(countId);
+  if (!input || !container) return;
+  const val = input.value.trim();
+  if (!val) return;
+  const pill = document.createElement('span');
+  pill.className = 'dna-tag-pill ' + (tagClass || '');
+  pill.innerHTML = `<span>${val}</span><button type="button" class="dna-tag-remove" onclick="this.parentElement.remove(); updateTagCounter('${containerId}', '${countId}', '${typeWord}');">×</button>`;
+  container.appendChild(pill);
+  input.value = '';
+  if (countEl) {
+    const total = container.querySelectorAll('.dna-tag-pill').length;
+    countEl.innerText = `${total} ${typeWord}`;
+  }
+}
+window.addDnaTagWithCounter = addDnaTagWithCounter;
+
+function updateTagCounter(containerId, countId, typeWord) {
   const container = document.getElementById(containerId);
   const countEl = document.getElementById(countId);
   if (container && countEl) {
@@ -4408,7 +4651,7 @@ function addDnaTagWithCounter(containerId, inputId, tagClass, countId, typeWord)
     countEl.innerText = `${total} ${typeWord}`;
   }
 }
-window.addDnaTagWithCounter = addDnaTagWithCounter;
+window.updateTagCounter = updateTagCounter;
 
 // 10d. Brand DNA Tabs & All 7 Sections Navigation & Management
 const DNA_SECTION_NAMES = {
@@ -4566,6 +4809,93 @@ function reindexProducts(container) {
   const countEl = document.getElementById('dna-prod-registered-count');
   if (countEl) countEl.innerText = cards.length + ' Products Registered';
 }
+
+// Section 5: Modal Offering Management Helpers (Edit, Reorder, Delete, Add inside modal)
+function updateModalOfferingBadges() {
+  const container = document.getElementById('modal-offerings-container');
+  if (!container) return;
+  const cards = container.querySelectorAll('.modal-offering-edit-card');
+  cards.forEach((c, idx) => {
+    const badge = c.querySelector('.modal-offering-badge');
+    if (badge) badge.innerText = (idx + 1);
+    const titleSpan = c.querySelector('.modal-offering-title-label');
+    if (titleSpan) titleSpan.innerText = 'Offering #' + (idx + 1);
+  });
+  const countEl = document.getElementById('modal-offerings-count');
+  if (countEl) countEl.innerText = cards.length;
+}
+window.updateModalOfferingBadges = updateModalOfferingBadges;
+
+function moveModalOffering(btn, direction) {
+  const card = btn.closest('.modal-offering-edit-card');
+  if (!card) return;
+  const container = card.parentElement;
+  if (direction === -1 && card.previousElementSibling) {
+    container.insertBefore(card, card.previousElementSibling);
+    updateModalOfferingBadges();
+  } else if (direction === 1 && card.nextElementSibling) {
+    container.insertBefore(card.nextElementSibling, card);
+    updateModalOfferingBadges();
+  }
+}
+window.moveModalOffering = moveModalOffering;
+
+function deleteModalOffering(btn) {
+  const card = btn.closest('.modal-offering-edit-card');
+  if (!card) return;
+  card.remove();
+  updateModalOfferingBadges();
+}
+window.deleteModalOffering = deleteModalOffering;
+
+function addNewOfferingInModal() {
+  const nameInp = document.getElementById('modal-new-offering-name');
+  const descInp = document.getElementById('modal-new-offering-desc');
+  const name = nameInp ? nameInp.value.trim() : '';
+  const desc = descInp ? descInp.value.trim() : '';
+  if (!name) {
+    showToast('Please enter an offering name', '⚠️');
+    if (nameInp) nameInp.focus();
+    return;
+  }
+  const container = document.getElementById('modal-offerings-container');
+  if (!container) return;
+  const newIdx = container.querySelectorAll('.modal-offering-edit-card').length + 1;
+  const escapeVal = s => (s || '').replace(/"/g, '&quot;');
+  const escapeTxt = s => (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  
+  const cardDiv = document.createElement('div');
+  cardDiv.className = 'modal-offering-edit-card';
+  cardDiv.style.cssText = 'background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px;margin-bottom:12px;position:relative;';
+  cardDiv.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#0F172A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">${newIdx}</span>
+        <span class="modal-offering-title-label" style="font-size:11.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.04em;">Offering #${newIdx}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;">
+        <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▲</button>
+        <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▼</button>
+        <button type="button" class="btn-dna-delete-prod" onclick="deleteModalOffering(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:12px;font-weight:700;">✕</button>
+      </div>
+    </div>
+    <div style="margin-bottom:8px;">
+      <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Name</label>
+      <input type="text" class="dna-input-premium modal-offering-name" value="${escapeVal(name)}" placeholder="e.g. Architecture & Design" style="width:100%;font-weight:700;">
+    </div>
+    <div>
+      <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Pitch & Description</label>
+      <textarea class="dna-textarea-premium modal-offering-desc" rows="2" placeholder="Describe key deliverables, architecture, value proposition..." style="width:100%;">${escapeTxt(desc)}</textarea>
+    </div>
+  `;
+  container.appendChild(cardDiv);
+  if (nameInp) nameInp.value = '';
+  if (descInp) descInp.value = '';
+  updateModalOfferingBadges();
+  cardDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  showToast('✓ Added to offerings list!', '➕');
+}
+window.addNewOfferingInModal = addNewOfferingInModal;
 
 function addNewProductFromForm() {
   const nameInput = document.getElementById('dna-new-prod-name');
@@ -5976,3 +6306,1856 @@ document.addEventListener('click', function(e) {
     if (toneTrigger) toneTrigger.classList.remove('open');
   }
 });
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// BRAND DNA FLOATING WINDOW (MODAL) CONTROLLER FOR ALL 7 TABS
+// ═══════════════════════════════════════════════════════════════════════════
+
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 🎨 DNA SECTION 4: 5-SWATCH COLOR PALETTE INTERACTIVE ENGINE
+// ═══════════════════════════════════════════════════════════════════════════
+
+const DNA_PALETTE_COLORS = [
+  {
+    index: 0,
+    hex: '#F6F2F1',
+    role: 'Dominant (60%)',
+    roleTag: 'PRIMARY',
+    glow: 'rgba(203, 213, 225, 0.6)'
+  },
+  {
+    index: 1,
+    hex: '#CA4B16',
+    role: 'Secondary (30%)',
+    roleTag: 'SUPPORT',
+    glow: 'rgba(202, 75, 22, 0.45)'
+  },
+  {
+    index: 2,
+    hex: '#B84514',
+    role: 'Accent (10%)',
+    roleTag: 'HIGHLIGHT',
+    glow: 'rgba(184, 69, 20, 0.45)'
+  },
+  {
+    index: 3,
+    hex: '#FFFFFF',
+    role: 'Background',
+    roleTag: 'CANVAS',
+    glow: 'rgba(148, 163, 184, 0.5)'
+  },
+  {
+    index: 4,
+    hex: '#0F172A',
+    role: 'Text / Neutral',
+    roleTag: 'TYPO',
+    glow: 'rgba(15, 23, 42, 0.45)'
+  }
+];
+
+let activeDnaPaletteIndex = 0;
+
+function selectDnaPaletteColor(index) {
+  if (index < 0 || index >= DNA_PALETTE_COLORS.length) return;
+  activeDnaPaletteIndex = index;
+
+  // Update bubble active states on both button and wrapper items
+  for (let i = 0; i < DNA_PALETTE_COLORS.length; i++) {
+    const item = document.getElementById('dna-bubble-item-' + i);
+    const btn = document.getElementById('dna-bubble-btn-' + i);
+    const isAct = (i === activeDnaPaletteIndex);
+    if (item) {
+      if (isAct) item.classList.add('active');
+      else item.classList.remove('active');
+    }
+    if (btn) {
+      if (isAct) {
+        btn.classList.add('active');
+        btn.setAttribute('aria-checked', 'true');
+      } else {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-checked', 'false');
+      }
+    }
+  }
+
+  renderDnaSelectedColorInfo();
+}
+window.selectDnaPaletteColor = selectDnaPaletteColor;
+
+// Render the 3 pieces of information directly under each circle
+function renderDnaSelectedColorInfo() {
+  for (let i = 0; i < DNA_PALETTE_COLORS.length; i++) {
+    const col = DNA_PALETTE_COLORS[i];
+    const roleEl = document.getElementById('dna-bubble-role-' + i);
+    if (roleEl) roleEl.innerText = col.role;
+
+    const badgeEl = document.getElementById('dna-bubble-badge-' + i);
+    if (badgeEl) badgeEl.innerText = col.roleTag;
+
+    const hexEl = document.getElementById('dna-bubble-hex-' + i);
+    if (hexEl) hexEl.innerText = col.hex;
+  }
+}
+window.renderDnaSelectedColorInfo = renderDnaSelectedColorInfo;
+
+// 1-Click Copy Hex with Toast Notification
+function copyDnaColorHex(hex) {
+  if (!hex) return;
+  if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(hex).then(() => {
+      showToast('✓ Copied color code ' + hex + ' to clipboard!', '📋');
+    }).catch(() => {
+      fallbackCopy(hex);
+    });
+  } else {
+    fallbackCopy(hex);
+  }
+}
+window.copyDnaColorHex = copyDnaColorHex;
+
+function fallbackCopy(hex) {
+  const t = document.createElement('textarea');
+  t.value = hex;
+  document.body.appendChild(t);
+  t.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(t);
+  showToast('✓ Copied color code ' + hex + ' to clipboard!', '📋');
+}
+
+// Sync bubbles with any updated colors from modal
+function syncDnaPaletteBubblesFromData() {
+  for (let i = 0; i < DNA_PALETTE_COLORS.length; i++) {
+    const col = DNA_PALETTE_COLORS[i];
+    const btn = document.getElementById('dna-bubble-btn-' + i);
+    if (btn) {
+      btn.style.background = col.hex;
+      btn.style.setProperty('--bubble-color', col.hex);
+      btn.style.setProperty('--bubble-glow', col.glow || 'rgba(15, 23, 42, 0.25)');
+      if (col.hex.toUpperCase() === '#FFFFFF' || col.hex.toUpperCase() === '#F6F2F1') {
+        btn.style.border = '1.5px solid #CBD5E1';
+      } else {
+        btn.style.border = 'none';
+      }
+      btn.setAttribute('title', col.role + ' · ' + col.roleTag + ' (' + col.hex + ')');
+    }
+  }
+  renderDnaSelectedColorInfo();
+}
+window.syncDnaPaletteBubblesFromData = syncDnaPaletteBubblesFromData;
+
+let activeDnaEditType = null;
+let activeDnaEditMeta = null;
+
+function openDnaEditModal(type, meta) {
+  activeDnaEditType = type;
+  activeDnaEditMeta = meta;
+
+  const modal = document.getElementById('dna-edit-modal');
+  const iconEl = document.getElementById('dna-modal-icon');
+  const titleEl = document.getElementById('dna-modal-title');
+  const subEl = document.getElementById('dna-modal-subtitle');
+  const bodyEl = document.getElementById('dna-modal-body');
+
+  if (!modal || !bodyEl) return;
+
+  let title = 'Edit Brand DNA';
+  let subtitle = 'Update your brand parameters and save changes';
+  let icon = '✏️';
+  let formHtml = '';
+
+  switch (type) {
+    // ── SECTION 1: BRAND LOGO ─────────────────────────────────────
+    case 'sec1-logo': {
+      icon = '🎨';
+      title = 'Edit Brand Logo';
+      subtitle = 'Upload a new logo, vector mark, or manage brand graphic assets';
+
+      const currentGraphic = document.getElementById('dna-logo-display-graphic')?.innerHTML || `
+        <svg viewBox="0 0 100 100" style="width:64px;height:64px;" fill="none">
+          <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
+          <circle cx="22" cy="18" r="4" fill="#F97316"/>
+          <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
+          <circle cx="16" cy="32" r="3" fill="#FB923C"/>
+          <circle cx="34" cy="42" r="3" fill="#F97316"/>
+        </svg>
+      `;
+
+      window.pendingModalLogoData = null;
+
+      formHtml = `
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <!-- Logo Preview & Actions Card -->
+          <div style="display:flex;align-items:center;gap:20px;padding:18px 20px;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:14px;flex-wrap:wrap;">
+            <div id="modal-logo-preview" style="width:90px;height:90px;border:2px dashed #CBD5E1;border-radius:12px;background:#FFFFFF;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;">
+              ${currentGraphic}
+            </div>
+
+            <div style="flex:1;min-width:220px;">
+              <div style="font-size:13.5px;font-weight:700;color:#0F172A;margin-bottom:3px;">Brand Logo Actions</div>
+              <div style="font-size:12px;color:#64748B;margin-bottom:12px;">Upload a vector mark, PNG, or JPG (SVG recommended for sharp resolution)</div>
+              
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <input type="file" id="modal-file-upload-logo" accept="image/*,.svg" style="display:none;" onchange="handleModalLogoUpload(this)">
+                <button type="button" class="btn-dna-action" onclick="document.getElementById('modal-file-upload-logo').click()" style="background:#0F9D8A;color:#FFFFFF;border-color:#0F9D8A;font-weight:700;padding:8px 16px;box-shadow:0 2px 6px rgba(15,157,138,0.25);">
+                  <span>📁</span> Upload New Logo
+                </button>
+                <button type="button" class="btn-dna-action-danger" onclick="handleModalLogoRemove()" style="padding:8px 14px;">
+                  <span>🗑️</span> Remove Logo
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    // ── SECTION 1: COMPANY IDENTITY (4 FIELDS ONLY) ────────────────────
+    case 'sec1-brand-info': {
+      icon = '🏢';
+      title = 'Edit Company Identity';
+      subtitle = 'Update company name, sector focus, operating location, and website URL';
+
+      const curName = (document.getElementById('dna-display-brand-name')?.innerText || 'Vibodhai').trim();
+      const curIndEl = document.getElementById('dna-display-brand-industry');
+      const curInd = (curIndEl ? curIndEl.innerText : 'Software, SaaS & AI').trim();
+      const curLocation = (document.getElementById('dna-display-location')?.innerText || 'Bengaluru, Karnataka, India').trim();
+      const curWebsite = (document.getElementById('dna-display-website')?.innerText || 'https://vibodhai.com').trim();
+
+      const escapeVal = s => (s || '').replace(/"/g, '&quot;');
+
+      formHtml = `
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <!-- Row 1: Company Name & Industry Sector (2-Col Grid) -->
+          <div class="dna-2col-grid" style="margin-bottom:0;gap:18px;">
+            <div class="modal-form-group" style="margin-bottom:0;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+                <span>🏢</span> COMPANY / BRAND NAME
+              </label>
+              <input type="text" id="modal-inp-brand-name" class="dna-input-premium" value="${escapeVal(curName)}" placeholder="e.g. Vibodhai" style="font-size:14px;font-weight:700;">
+            </div>
+
+            <div class="modal-form-group" style="margin-bottom:0;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+                <span>⚡</span> INDUSTRY &amp; SECTOR
+              </label>
+              <input type="text" id="modal-inp-brand-industry" list="industry-presets" class="dna-input-premium" value="${escapeVal(curInd)}" placeholder="e.g. Software, SaaS &amp; AI" style="font-size:13.5px;font-weight:600;">
+              <datalist id="industry-presets">
+                <option value="Software, SaaS &amp; AI">
+                <option value="E-Commerce &amp; Retail">
+                <option value="FinTech &amp; Financial Services">
+                <option value="Healthcare &amp; MedTech">
+                <option value="Digital Agency &amp; Marketing">
+                <option value="B2B Technology &amp; Cloud">
+                <option value="Education &amp; EdTech">
+                <option value="Consulting &amp; Professional Services">
+              </datalist>
+            </div>
+          </div>
+
+          <!-- Row 2: Operating Location / Headquarters & Website URL (2-Col Grid) -->
+          <div class="dna-2col-grid" style="margin-bottom:0;gap:18px;">
+            <div class="modal-form-group" style="margin-bottom:0;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+                <span>📍</span> OPERATING LOCATION / HEADQUARTERS
+              </label>
+              <input type="text" id="modal-inp-brand-location" class="dna-input-premium" value="${escapeVal(curLocation)}" placeholder="e.g. Bengaluru, Karnataka, India" style="font-size:13.5px;font-weight:600;">
+            </div>
+
+            <div class="modal-form-group" style="margin-bottom:0;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+                <span>🌐</span> WEBSITE URL
+              </label>
+              <input type="text" id="modal-inp-brand-website" class="dna-input-premium" value="${escapeVal(curWebsite)}" placeholder="e.g. https://vibodhai.com" style="font-size:13.5px;font-weight:600;">
+            </div>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    // ── SECTION 1: MISSION, DESCRIPTION & POSITIONING (3 FIELDS) ─────────
+    case 'sec1-mission':
+    case 'sec1-description':
+    case 'sec1-positioning': {
+      icon = '🎯';
+      title = 'Edit Mission, Description & Value Proposition';
+      subtitle = 'Edit core mission statement, brand description, and market positioning';
+
+      const curMission = (document.getElementById('dna-display-mission')?.innerText || '').trim();
+      const curDesc = (document.getElementById('dna-display-desc')?.innerText || '').trim();
+      const curPos = (document.getElementById('dna-display-positioning')?.innerText || '').trim();
+
+      const escapeTxt = s => (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+      formHtml = `
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <!-- Row 1: Core Mission Statement (Full Width) -->
+          <div class="modal-form-group" style="margin-bottom:0;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <span>🎯</span> CORE MISSION STATEMENT
+            </label>
+            <textarea id="modal-inp-mission" class="dna-textarea-premium" rows="3" placeholder="Enter your core mission statement..." style="line-height:1.55;font-size:13.5px;">${escapeTxt(curMission)}</textarea>
+            <div style="font-size:11.5px;color:#94A3B8;margin-top:4px;">Define why your company exists and the high-impact value you deliver to customers.</div>
+          </div>
+
+          <!-- Row 2: Brand Description (Full Width) -->
+          <div class="modal-form-group" style="margin-bottom:0;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <span>📖</span> BRAND DESCRIPTION
+            </label>
+            <textarea id="modal-inp-desc" class="dna-textarea-premium" rows="3" placeholder="Brief summary of what your company does..." style="line-height:1.55;font-size:13px;">${escapeTxt(curDesc)}</textarea>
+            <div style="font-size:11.5px;color:#94A3B8;margin-top:4px;">Elevator pitch describing what your company does and who it serves.</div>
+          </div>
+
+          <!-- Row 3: Positioning / Value Proposition (Full Width) -->
+          <div class="modal-form-group" style="margin-bottom:0;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <span>💎</span> POSITIONING / VALUE PROPOSITION
+            </label>
+            <textarea id="modal-inp-positioning" class="dna-textarea-premium" rows="3" placeholder="For [target audience] who [problem], [Brand] is [solution]..." style="line-height:1.55;font-size:13px;">${escapeTxt(curPos)}</textarea>
+            <div style="font-size:11.5px;color:#94A3B8;margin-top:4px;">Clear differentiation vs conventional competitors and market alternatives.</div>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    case 'sec1-proof':
+      icon = '🏆';
+      title = 'Edit Proof & Credibility Factors';
+      subtitle = 'Select credibility factors and provide supporting verification details';
+      const proofDetails = document.getElementById('dna-display-proof-details')?.innerText.trim() || '';
+      const activeFactors = Array.from(document.querySelectorAll('#dna-display-proof-chips .dna-tag-pill')).map(p => p.innerText.replace(/^[✓+s]+/, '').trim());
+      const allFactors = ['Quality', 'Expertise', 'Results', 'Speed', 'Craftsmanship', 'Innovation', 'Price or value', 'Sustainability', 'Community', 'Awards or certifications', 'Years in business', 'Reviews or ratings', 'Founder story', 'Other'];
+      
+      let chipsHtml = allFactors.map(f => {
+        const isAct = activeFactors.includes(f);
+        return `<button type="button" class="dna-chip ${isAct ? 'active' : ''}" onclick="toggleModalDnaChip(this)">${isAct ? '✓ ' : '+ '}${f}</button>`;
+      }).join('');
+
+      formHtml = `
+        <div class="modal-form-group">
+          <label class="modal-form-label">Select Credibility Factors</label>
+          <div class="dna-chips-wrap" id="modal-proof-chips-wrap" style="margin-bottom:12px;">
+            ${chipsHtml}
+          </div>
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">Supporting Proof Details</label>
+          <textarea id="modal-inp-proof-details" class="dna-textarea-premium" rows="4">${proofDetails}</textarea>
+        </div>
+      `;
+      break;
+
+    // ── SECTION 2: TARGET AUDIENCE ───────────────────────────────────────
+    case 'sec2-combined':
+    case 'sec2-persona':
+    case 'sec2-segments': {
+      icon = '👥';
+      title = 'Edit Target Audience & Segments';
+      subtitle = 'Define ideal customer profile, technical roles, and targeted audience segments';
+      const curPersona = document.getElementById('dna-display-persona')?.innerText.trim() || '';
+      const segTags = Array.from(document.querySelectorAll('#dna-display-segments .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      
+      const tagSpans = segTags.map(txt => `
+        <span class="modal-tag-item">
+          <span>${txt}</span>
+          <button type="button" class="modal-tag-remove-btn" onclick="this.parentElement.remove(); if(window.updateModalSegCounter) window.updateModalSegCounter();">✕</button>
+        </span>
+      `).join('');
+
+      formHtml = `
+        <div class="modal-form-group" style="margin-bottom:20px;">
+          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+            <span>👤</span> PRIMARY TARGET AUDIENCE PERSONA
+          </label>
+          <textarea id="modal-inp-persona" class="dna-textarea-premium" rows="4" placeholder="Describe the primary customer persona, target titles, and company profile...">${curPersona}</textarea>
+        </div>
+
+        <div class="modal-form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:0;font-size:12px;font-weight:700;color:#334155;">
+              <span>👥</span> AUDIENCE SEGMENTS &amp; CORE NEEDS
+            </label>
+            <span style="font-size:12px;color:#64748B;font-weight:600;" id="modal-seg-counter">${segTags.length} segments</span>
+          </div>
+          <div id="modal-tags-list" style="display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;min-height:70px;margin-bottom:12px;">
+            ${tagSpans || '<span style="color:#94A3B8;font-size:12px;font-style:italic;">No segments defined. Add one below.</span>'}
+          </div>
+          <div class="dna-input-add-row">
+            <input type="text" id="modal-inp-new-tag" class="dna-input-premium" placeholder="Add audience segment (e.g. Chief Technology Officer / VP of Engineering)..." onkeydown="if(event.key==='Enter'){event.preventDefault();addModalTag('modal-tags-list');}">
+            <button type="button" class="btn-dna-add" onclick="addModalTag('modal-tags-list')">+ Add</button>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    case 'sec2-pain-points':
+      icon = '⚠️';
+      title = 'Edit Audience Pain Points & Frustrations';
+      subtitle = 'Add or remove major customer pain points and objections';
+      const painTags = Array.from(document.querySelectorAll('#dna-display-pain-points .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', painTags, 'tag-rose', 'Add pain point (e.g. Inconsistent tone)...');
+      break;
+
+    case 'sec2-desires':
+      icon = '✨';
+      title = 'Edit Desired Outcomes & Aspirations';
+      subtitle = 'Add or remove customer goals, metrics, and desired transformations';
+      const desireTags = Array.from(document.querySelectorAll('#dna-display-desires .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', desireTags, 'tag-purple', 'Add desired outcome (e.g. 10x faster delivery)...');
+      break;
+
+    // ── SECTION 3: BRAND VOICE & TONE ───────────────────────────────────
+    case 'sec3-combined':
+    case 'sec3-tones':
+    case 'sec3-personality': {
+      icon = '🎙️';
+      title = 'Edit Brand Voice & Personality';
+      subtitle = 'Select core tone traits and customize brand messaging style instructions';
+      const curTones = Array.from(document.querySelectorAll('#dna-display-tone-chips .dna-chip')).map(c => c.innerText.replace(/^[✓+s]+/, '').replace(/×$/, '').trim());
+      const availableTones = ['Professional', 'Innovative', 'Clear and professional', 'Friendly and conversational', 'Bold and direct', 'Premium', 'Playful', 'Educational', 'Inspirational', 'Technical', 'Empathetic', 'Authoritative', 'Witty', 'Warm and reassuring'];
+      
+      let toneChipsHtml = availableTones.map(t => {
+        const isAct = curTones.includes(t);
+        return `<button type="button" class="dna-chip ${isAct ? 'active' : ''}" onclick="toggleModalToneTrait(this)">${isAct ? '✓ ' + t + ' ×' : '+ ' + t}</button>`;
+      }).join('');
+
+      const curPers = document.getElementById('dna-display-personality')?.innerText.trim() || '';
+
+      formHtml = `
+        <div class="modal-form-group" style="margin-bottom:20px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:0;font-size:12px;font-weight:700;color:#334155;">
+              <span>🎙️</span> BRAND TONE TRAITS (Select up to 3)
+            </label>
+            <span style="font-size:12px;font-weight:700;color:#0F9D8A;" id="modal-tone-counter">${curTones.length}/3 selected</span>
+          </div>
+          <div class="dna-chips-wrap" id="modal-tone-chips-wrap" style="margin-bottom:12px;">
+            ${toneChipsHtml}
+          </div>
+          <div class="dna-input-add-row">
+            <input type="text" id="modal-inp-custom-tone" class="dna-input-premium" placeholder="Add custom tone trait (e.g. Quirky, Direct)..." onkeydown="if(event.key==='Enter'){event.preventDefault();addModalCustomTone();}">
+            <button type="button" class="btn-dna-add" onclick="addModalCustomTone()">+ Add Trait</button>
+          </div>
+        </div>
+
+        <div class="modal-form-group">
+          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+            <span>🎭</span> BRAND PERSONALITY &amp; STYLE INSTRUCTIONS
+          </label>
+          <textarea id="modal-inp-personality" class="dna-textarea-premium" rows="4" placeholder="Direct, technical, and authoritative with an emphasis on production engineering outcomes...">${curPers}</textarea>
+        </div>
+      `;
+      break;
+    }
+
+    case 'sec3-pref-words':
+      icon = '📗';
+      title = 'Edit Preferred Vocabulary';
+      subtitle = 'Add or remove power words favored in copy generation';
+      const prefTags = Array.from(document.querySelectorAll('#dna-display-pref-words .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', prefTags, 'tag-emerald', 'Add preferred word (e.g. accelerators)...');
+      break;
+
+    case 'sec3-proh-words':
+      icon = '🚫';
+      title = 'Edit Prohibited Words';
+      subtitle = 'Add or remove words and phrases never to be used in marketing copy';
+      const prohTags = Array.from(document.querySelectorAll('#dna-display-proh-words .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', prohTags, 'tag-rose', 'Add prohibited word (e.g. cheap, hacky)...');
+      break;
+
+    // ── SECTION 4: VISUAL IDENTITY ──────────────────────────────────────
+    case 'sec4-palette': {
+      icon = '🎨';
+      title = 'Edit 5-Swatch Color Palette';
+      subtitle = 'Configure the 60-30-10 design rule palette for brand generation';
+
+      const items = [
+        { num: 1, role: 'Dominant (60%)', badge: 'PRIMARY', hex: DNA_PALETTE_COLORS[0].hex, desc: 'Dominant canvas and structural foundation' },
+        { num: 2, role: 'Secondary (30%)', badge: 'SUPPORT', hex: DNA_PALETTE_COLORS[1].hex, desc: 'Brand secondary accent and support tone' },
+        { num: 3, role: 'Accent (10%)', badge: 'HIGHLIGHT', hex: DNA_PALETTE_COLORS[2].hex, desc: 'Buttons, badges, and attention calls' },
+        { num: 4, role: 'Background', badge: 'CANVAS', hex: DNA_PALETTE_COLORS[3].hex, desc: 'Page canvas and light surface tone' },
+        { num: 5, role: 'Text / Neutral', badge: 'TYPO', hex: DNA_PALETTE_COLORS[4].hex, desc: 'Headings, body typography & dark contrast' }
+      ];
+
+      formHtml = `
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          ${items.map(it => `
+            <div class="dna-display-swatch-card" style="display:flex;align-items:center;flex-direction:row;justify-content:space-between;padding:12px 16px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;">
+              <div style="display:flex;align-items:center;gap:14px;">
+                <input type="color" id="modal-color-${it.num}" value="${it.hex}"
+                  style="width:42px;height:42px;border-radius:8px;border:1px solid #CBD5E1;cursor:pointer;padding:2px;background:#FFFFFF;"
+                  oninput="document.getElementById('modal-hex-${it.num}').value = this.value.toUpperCase()">
+                <div>
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <span style="font-weight:700;font-size:13.5px;color:#0F172A;">${it.role}</span>
+                    <span style="font-size:10.5px;font-weight:700;background:#EEF2F6;color:#475569;padding:2px 7px;border-radius:4px;letter-spacing:0.5px;">${it.badge}</span>
+                  </div>
+                  <div style="font-size:12px;color:#64748B;margin-top:2px;">${it.desc}</div>
+                </div>
+              </div>
+              <input type="text" id="modal-hex-${it.num}" class="dna-input-premium"
+                style="width:115px;font-family:monospace;font-weight:700;text-transform:uppercase;"
+                value="${it.hex}"
+                oninput="if(/^#[0-9A-Fa-f]{6}$/.test(this.value)){ document.getElementById('modal-color-${it.num}').value = this.value; }">
+            </div>
+          `).join('')}
+        </div>
+      `;
+      break;
+    }
+
+    case 'sec4-combined':
+    case 'sec4-typography':
+    case 'sec4-image-style': {
+      icon = '🎨';
+      title = 'Edit Typography & Image Style Directives';
+      subtitle = 'Configure font families for headings and body, and set image photography directives';
+      const curPrimaryFont = document.getElementById('dna-display-typo-primary')?.innerText.trim() || 'Inter, system-ui, sans-serif';
+      const curSecFont = document.getElementById('dna-display-typo-secondary')?.innerText.trim() || 'Merriweather, serif';
+      const curImgStyle = document.getElementById('dna-display-image-style')?.innerText.trim() || '';
+
+      formHtml = `
+        <div class="dna-2col-grid" style="gap:16px;margin-bottom:20px;">
+          <div class="modal-form-group" style="margin-bottom:0;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+              <span>🔤</span> PRIMARY HEADING TYPOGRAPHY
+            </label>
+            <input type="text" id="modal-inp-typo-primary" class="dna-input-premium" value="${curPrimaryFont}" placeholder="e.g. Inter, system-ui, sans-serif">
+          </div>
+          <div class="modal-form-group" style="margin-bottom:0;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+              <span>🔠</span> SECONDARY / BODY TYPOGRAPHY
+            </label>
+            <input type="text" id="modal-inp-typo-secondary" class="dna-input-premium" value="${curSecFont}" placeholder="e.g. Merriweather, serif">
+          </div>
+        </div>
+
+        <div class="modal-form-group">
+          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+            <span>📸</span> IMAGE &amp; PHOTOGRAPHY STYLE DIRECTIVES
+          </label>
+          <textarea id="modal-inp-image-style" class="dna-textarea-premium" rows="5" placeholder="Specify visual framing, aesthetic directives, lighting, and art direction...">${curImgStyle}</textarea>
+        </div>
+      `;
+      break;
+    }
+
+    // ── SECTION 5: PRODUCTS & OFFERINGS ─────────────────────────────────
+    case 'sec5-manage-offerings':
+    case 'sec5-edit-prod':
+    case 'sec5-add-prod': {
+      icon = '📦';
+      title = 'Edit or Add Offerings';
+      subtitle = 'Edit existing offerings, reorder items, delete offerings, or register new ones';
+
+      const list = document.getElementById('dna-products-list');
+      const cards = list ? Array.from(list.querySelectorAll('.dna-product-item-card')) : [];
+
+      let itemsHtml = '';
+      const escapeVal = s => (s || '').replace(/"/g, '&quot;');
+      const escapeTxt = s => (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+      cards.forEach((c, idx) => {
+        const name = (c.querySelector('.dna-prod-name')?.innerText || '').trim();
+        const desc = (c.querySelector('.dna-prod-desc')?.innerText || '').trim();
+
+        itemsHtml += `
+          <div class="modal-offering-edit-card" data-idx="${idx}" style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px;margin-bottom:12px;position:relative;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <div style="display:flex;align-items:center;gap:8px;">
+                <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#0F172A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">${idx + 1}</span>
+                <span class="modal-offering-title-label" style="font-size:11.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.04em;">Offering #${idx + 1}</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px;">
+                <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▲</button>
+                <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▼</button>
+                <button type="button" class="btn-dna-delete-prod" onclick="deleteModalOffering(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:12px;font-weight:700;">✕</button>
+              </div>
+            </div>
+            <div style="margin-bottom:8px;">
+              <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Name</label>
+              <input type="text" class="dna-input-premium modal-offering-name" value="${escapeVal(name)}" placeholder="e.g. Architecture & Design" style="width:100%;font-weight:700;">
+            </div>
+            <div>
+              <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Pitch & Description</label>
+              <textarea class="dna-textarea-premium modal-offering-desc" rows="2" placeholder="Describe key deliverables, architecture, value proposition..." style="width:100%;">${escapeTxt(desc)}</textarea>
+            </div>
+          </div>
+        `;
+      });
+
+      formHtml = `
+        <div style="max-height:65vh;overflow-y:auto;padding-right:4px;">
+          <!-- Existing Offerings List -->
+          <div style="margin-bottom:18px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+              <span style="font-size:12px;font-weight:800;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
+                Current Offerings (<span id="modal-offerings-count">${cards.length}</span>)
+              </span>
+              <span style="font-size:11.5px;color:#64748B;">Reorder with ▲ ▼, edit inline, or remove</span>
+            </div>
+            <div id="modal-offerings-container">
+              ${itemsHtml}
+            </div>
+          </div>
+
+          <!-- Add New Offering Section -->
+          <div style="background:#F0FDF4;border:1.5px dashed #86EFAC;border-radius:12px;padding:16px;">
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
+              <span style="font-size:14px;">➕</span>
+              <strong style="font-size:12.5px;color:#166534;text-transform:uppercase;letter-spacing:0.04em;">Add New Offering to Catalog</strong>
+            </div>
+            <div style="margin-bottom:10px;">
+              <label style="font-size:11px;font-weight:700;color:#166534;display:block;margin-bottom:4px;">New Offering Title *</label>
+              <input type="text" id="modal-new-offering-name" class="dna-input-premium" placeholder="e.g. Enterprise AI Scaling Engine" style="width:100%;background:#FFFFFF;">
+            </div>
+            <div style="margin-bottom:12px;">
+              <label style="font-size:11px;font-weight:700;color:#166534;display:block;margin-bottom:4px;">New Offering Pitch / Description</label>
+              <textarea id="modal-new-offering-desc" class="dna-textarea-premium" rows="2" placeholder="Detail the flagship service, target deliverable, or technical scope..." style="width:100%;background:#FFFFFF;"></textarea>
+            </div>
+            <button type="button" onclick="addNewOfferingInModal()" class="btn-dna-action" style="background:#16A34A;color:#FFFFFF;border:none;font-weight:700;padding:7px 14px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12px;">
+              <span>+</span> Add to Offerings List
+            </button>
+          </div>
+        </div>
+      `;
+      break;
+    }
+
+    // ── SECTION 6: CONTENT STRATEGY ─────────────────────────────────────
+    case 'sec6-pillars':
+      icon = '🎯';
+      title = 'Edit Content Pillars & Topic Allocation';
+      subtitle = 'Adjust topic names, allocations, and distribution percentages (Target 100%)';
+      const pillarCards = Array.from(document.querySelectorAll('#dna-display-pillars-list .dna-display-pillar-card'));
+      const pillars = pillarCards.map(c => {
+        const dot = c.querySelector('.dna-pillar-swatch-dot');
+        const color = dot ? dot.style.background || '#0F9D8A' : '#0F9D8A';
+        const name = c.querySelector('.dna-display-pillar-name')?.innerText.trim() || '';
+        const pct = parseInt(c.querySelector('.dna-display-pillar-pct')?.innerText.replace('%', ''), 10) || 25;
+        return { color, name, pct };
+      });
+
+      let pillarsRowsHtml = pillars.map((p, idx) => {
+        const hex = colorToHex(p.color);
+        return `
+        <div class="dna-pillar-alloc-row modal-pillar-row" data-idx="${idx}" style="display:flex;align-items:center;gap:10px;">
+          <span class="dna-pillar-swatch-dot" style="background:${hex};"></span>
+          <input type="text" class="dna-input-premium modal-pillar-name" value="${p.name}" style="flex:1;">
+          <div class="dna-ratio-input-wrap" style="width:72px;">
+            <input type="number" class="dna-ratio-input modal-pillar-pct" value="${p.pct}" min="0" max="100" onchange="updateModalPillarsTotal()">
+            <span class="dna-ratio-unit">%</span>
+          </div>
+          <input type="color" class="dna-pillar-color-picker modal-pillar-color" value="${hex}" oninput="updateModalPillarRowColor(this)" title="Choose pillar color">
+          <button type="button" class="btn-dna-delete-prod" onclick="this.closest('.modal-pillar-row').remove(); updateModalPillarsTotal();" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:16px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
+        </div>
+      `;
+      }).join('');
+
+      formHtml = `
+        <div class="modal-form-group">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <label class="modal-form-label" style="margin-bottom:0;">Pillars &amp; Ratios</label>
+            <span id="modal-pillars-total-ratio" style="font-size:12px;font-weight:700;color:#0F9D8A;">Total Ratio: 100% ✓</span>
+          </div>
+          <div id="modal-pillars-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+            ${pillarsRowsHtml}
+          </div>
+          <div class="dna-add-pillar-row" style="display:flex;align-items:center;gap:10px;margin-top:10px;">
+            <input type="text" id="modal-new-pillar-name" class="dna-input-premium" placeholder="New pillar (e.g. Founder Stories)..." style="flex:1;">
+            <div class="dna-ratio-input-wrap" style="width:72px;">
+              <input type="number" id="modal-new-pillar-pct" class="dna-ratio-input" value="25" min="0" max="100">
+              <span class="dna-ratio-unit">%</span>
+            </div>
+            <input type="color" id="modal-new-pillar-color" class="dna-pillar-color-picker" value="#0F9D8A" title="Choose color for new pillar">
+            <button type="button" class="btn-dna-add" onclick="addModalPillarRow()">+ Add</button>
+          </div>
+        </div>
+      `;
+      break;
+
+    case 'sec6-objectives':
+      icon = '🎯';
+      title = 'Edit Content Objectives';
+      subtitle = 'Add or remove primary content marketing objectives';
+      const objTags = Array.from(document.querySelectorAll('#dna-display-objectives .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', objTags, 'tag-mint', 'Add objective (e.g. Lead Gen, Brand Authority)...');
+      break;
+
+    case 'sec6-ctas':
+      icon = '📣';
+      title = 'Edit Preferred Calls to Action';
+      subtitle = 'Add or remove target CTAs for AI generation campaigns';
+      const ctaTags = Array.from(document.querySelectorAll('#dna-display-ctas .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', ctaTags, 'tag-purple', 'Add CTA (e.g. Try Free, Book Demo)...');
+      break;
+
+    // ── SECTION 7: REGIONAL VOICE ───────────────────────────────────────
+    case 'sec7-lang-style':
+      icon = '🌐';
+      title = 'Edit Regional Language & Conversational Style';
+      subtitle = 'Configure primary vernacular and conversational dialect style';
+      const curLang = document.getElementById('dna-display-regional-lang')?.innerText.trim().replace(/^🌐s*/, '') || 'English';
+      const curDialect = document.getElementById('dna-display-dialect-style')?.innerText.trim() || '';
+      formHtml = `
+        <div class="modal-form-group">
+          <label class="modal-form-label">Target Regional Language</label>
+          <input type="text" id="modal-inp-regional-lang" class="dna-input-premium" value="${curLang}">
+        </div>
+        <div class="modal-form-group">
+          <label class="modal-form-label">Conversational Style &amp; Dialect Syntax</label>
+          <input type="text" id="modal-inp-dialect-style" class="dna-input-premium" value="${curDialect}">
+        </div>
+      `;
+      break;
+
+    case 'sec7-example':
+      icon = '💬';
+      title = 'Edit Colloquial Phrasing Example';
+      subtitle = 'Provide authentic cultural grounding sample text for generation models';
+      const curEg = document.getElementById('dna-display-regional-example')?.innerText.trim() || '';
+      formHtml = `
+        <div class="modal-form-group">
+          <label class="modal-form-label">Colloquial Phrasing Example</label>
+          <textarea id="modal-inp-regional-example" class="dna-textarea-premium" rows="4">${curEg}</textarea>
+        </div>
+      `;
+      break;
+
+    case 'sec7-slang':
+      icon = '✅';
+      title = 'Edit Approved Regional Slang';
+      subtitle = 'Add or remove approved cultural idioms and colloquial terms';
+      const slangTags = Array.from(document.querySelectorAll('#dna-approved-chips .dna-regional-chip span, #dna-approved-chips .dna-tag-pill span, #dna-display-approved-slang .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', slangTags, 'tag-mint', 'Add phrase (e.g. Bindaas, Superu, Dil se)...');
+      break;
+
+    case 'sec7-prohib-slang':
+      icon = '❌';
+      title = 'Edit Prohibited Regional Claims';
+      subtitle = 'Add or remove prohibited colloquial slang and regional expressions';
+      const prohibSlangTags = Array.from(document.querySelectorAll('#dna-prohib-chips .dna-regional-chip span, #dna-prohib-chips .dna-tag-pill span, #dna-display-prohib-slang .dna-tag-pill span')).map(s => s.innerText.trim()).filter(Boolean);
+      formHtml = renderModalTagManager('modal-tags-list', prohibSlangTags, 'tag-rose', 'Add prohibited regional phrase...');
+      break;
+
+    default:
+      formHtml = '<p style="color:#64748B;">No editor configured for this section.</p>';
+  }
+
+  iconEl.innerText = icon;
+  titleEl.innerText = title;
+  subEl.innerText = subtitle;
+  bodyEl.innerHTML = formHtml;
+
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  // If editing pillars, check ratio
+  if (type === 'sec6-pillars') {
+    updateModalPillarsTotal();
+  }
+}
+window.openDnaEditModal = openDnaEditModal;
+
+window.pendingModalLogoData = null;
+
+function handleModalLogoUpload(input) {
+  if (!input.files || !input.files[0]) return;
+  const file = input.files[0];
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    window.pendingModalLogoData = e.target.result;
+    const preview = document.getElementById('modal-logo-preview');
+    if (preview) {
+      preview.innerHTML = `<img src="${window.pendingModalLogoData}" alt="Brand Logo" style="width:100%;height:100%;object-fit:contain;padding:6px;">`;
+    }
+    showToast(`✓ "${file.name}" loaded! Click Save Changes to confirm.`, '📁');
+  };
+  reader.readAsDataURL(file);
+}
+window.handleModalLogoUpload = handleModalLogoUpload;
+
+function handleModalLogoRemove() {
+  window.pendingModalLogoData = 'REMOVED';
+  const preview = document.getElementById('modal-logo-preview');
+  if (preview) {
+    preview.innerHTML = `
+      <div style="width:58px;height:58px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">
+        V
+      </div>
+    `;
+  }
+  showToast('Logo marked for removal. Click Save Changes to confirm.', '🗑️');
+}
+window.handleModalLogoRemove = handleModalLogoRemove;
+
+function closeDnaEditModal() {
+  const modal = document.getElementById('dna-edit-modal');
+  if (modal) modal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+window.closeDnaEditModal = closeDnaEditModal;
+
+function openDnaSectionModal(secNum) {
+  const map = {
+    1: 'sec1-brand-info',
+    2: 'sec2-persona',
+    3: 'sec3-tones',
+    4: 'sec4-palette',
+    5: 'sec5-manage-offerings',
+    6: 'sec6-pillars',
+    7: 'sec7-lang-style'
+  };
+  openDnaEditModal(map[secNum] || 'sec1-brand-info');
+}
+window.openDnaSectionModal = openDnaSectionModal;
+
+// Modal Tag Manager Renderer
+function renderModalTagManager(listId, items, tagClass, placeholder) {
+  const tagSpans = items.map(txt => `
+    <span class="modal-tag-item">
+      <span>${txt}</span>
+      <button type="button" class="modal-tag-remove-btn" onclick="this.parentElement.remove()">✕</button>
+    </span>
+  `).join('');
+
+  return `
+    <div class="modal-form-group">
+      <label class="modal-form-label">Current Active Items</label>
+      <div id="${listId}" style="display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;min-height:75px;margin-bottom:12px;">
+        ${tagSpans || '<span style="color:#94A3B8;font-size:12px;font-style:italic;">No items defined. Use the input below to add items.</span>'}
+      </div>
+      <div class="dna-input-add-row">
+        <input type="text" id="modal-inp-new-tag" class="dna-input-premium" placeholder="${placeholder}" onkeydown="if(event.key==='Enter'){event.preventDefault();addModalTag('${listId}');}">
+        <button type="button" class="btn-dna-add" onclick="addModalTag('${listId}')">+ Add Item</button>
+      </div>
+    </div>
+  `;
+}
+
+function addModalTag(listId) {
+  const input = document.getElementById('modal-inp-new-tag');
+  const list = document.getElementById(listId);
+  if (!input || !list || !input.value.trim()) return;
+
+  const val = input.value.trim();
+  // Clear empty placeholder if present
+  if (list.querySelector('span[style*="italic"]')) {
+    list.innerHTML = '';
+  }
+
+  const span = document.createElement('span');
+  span.className = 'modal-tag-item';
+  span.innerHTML = `
+    <span>${val}</span>
+    <button type="button" class="modal-tag-remove-btn" onclick="this.parentElement.remove()">✕</button>
+  `;
+  list.appendChild(span);
+  input.value = '';
+  input.focus();
+}
+window.addModalTag = addModalTag;
+
+function toggleModalDnaChip(btn) {
+  const isAct = btn.classList.toggle('active');
+  const txt = btn.innerText.replace(/^[+✓✕s]+/, '').trim();
+  btn.innerText = (isAct ? '✓ ' : '+ ') + txt;
+}
+window.toggleModalDnaChip = toggleModalDnaChip;
+
+function toggleModalToneTrait(btn) {
+  const wrap = document.getElementById('modal-tone-chips-wrap');
+  const isAct = btn.classList.contains('active');
+  const activeCount = wrap?.querySelectorAll('.dna-chip.active').length || 0;
+
+  if (!isAct && activeCount >= 3) {
+    showToast('Maximum of 3 tone traits can be active.', '⚠️');
+    return;
+  }
+
+  btn.classList.toggle('active');
+  const clean = btn.innerText.replace(/^[+✓✕s]+/, '').replace(/×$/, '').trim();
+  btn.innerText = btn.classList.contains('active') ? ('✓ ' + clean + ' ×') : ('+ ' + clean);
+
+  const counter = document.getElementById('modal-tone-counter');
+  const newCount = wrap?.querySelectorAll('.dna-chip.active').length || 0;
+  if (counter) counter.innerText = `${newCount}/3 selected`;
+}
+window.toggleModalToneTrait = toggleModalToneTrait;
+
+function addModalCustomTone() {
+  const input = document.getElementById('modal-inp-custom-tone');
+  const wrap = document.getElementById('modal-tone-chips-wrap');
+  if (!input || !wrap || !input.value.trim()) return;
+
+  const val = input.value.trim();
+  const activeCount = wrap.querySelectorAll('.dna-chip.active').length;
+  const canActivate = activeCount < 3;
+
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'dna-chip' + (canActivate ? ' active' : '');
+  btn.onclick = function() { toggleModalToneTrait(this); };
+  btn.innerText = canActivate ? ('✓ ' + val + ' ×') : ('+ ' + val);
+  wrap.appendChild(btn);
+
+  input.value = '';
+  const counter = document.getElementById('modal-tone-counter');
+  const newCount = wrap.querySelectorAll('.dna-chip.active').length;
+  if (counter) counter.innerText = `${newCount}/3 selected`;
+}
+window.addModalCustomTone = addModalCustomTone;
+
+function colorToHex(color) {
+  if (!color) return '#0F9D8A';
+  color = color.trim();
+  if (color.startsWith('#')) {
+    if (color.length === 4) {
+      return '#' + color[1] + color[1] + color[2] + color[2] + color[3] + color[3];
+    }
+    return color.substring(0, 7);
+  }
+  const rgbMatch = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)/i);
+  if (rgbMatch) {
+    const r = parseInt(rgbMatch[1], 10).toString(16).padStart(2, '0');
+    const g = parseInt(rgbMatch[2], 10).toString(16).padStart(2, '0');
+    const b = parseInt(rgbMatch[3], 10).toString(16).padStart(2, '0');
+    return '#' + r + g + b;
+  }
+  return '#0F9D8A';
+}
+window.colorToHex = colorToHex;
+
+function updateModalPillarRowColor(input) {
+  const row = input.closest('.modal-pillar-row');
+  if (!row) return;
+  const dot = row.querySelector('.dna-pillar-swatch-dot');
+  if (dot) {
+    dot.style.background = input.value;
+  }
+}
+window.updateModalPillarRowColor = updateModalPillarRowColor;
+
+function updateModalPillarsTotal() {
+  const inputs = document.querySelectorAll('#modal-pillars-list .modal-pillar-pct');
+  let sum = 0;
+  inputs.forEach(inp => sum += parseInt(inp.value, 10) || 0);
+
+  const totalEl = document.getElementById('modal-pillars-total-ratio');
+  if (totalEl) {
+    if (sum === 100) {
+      totalEl.innerHTML = 'Total Ratio: 100% ✓';
+      totalEl.style.color = '#0F9D8A';
+    } else {
+      totalEl.innerHTML = `Total Ratio: ${sum}% (Target 100%)`;
+      totalEl.style.color = sum > 100 ? '#EF4444' : '#D97706';
+    }
+  }
+}
+window.updateModalPillarsTotal = updateModalPillarsTotal;
+
+function addModalPillarRow() {
+  const nameInp = document.getElementById('modal-new-pillar-name');
+  const pctInp = document.getElementById('modal-new-pillar-pct');
+  const colorInp = document.getElementById('modal-new-pillar-color');
+  const list = document.getElementById('modal-pillars-list');
+  if (!nameInp || !list || !nameInp.value.trim()) return;
+
+  const name = nameInp.value.trim();
+  const pct = parseInt(pctInp?.value, 10) || 25;
+  const colors = ['#0F9D8A', '#7C3AED', '#EA580C', '#2563EB', '#D97706', '#1E293B'];
+  const count = list.querySelectorAll('.modal-pillar-row').length;
+  const color = colorInp ? colorInp.value : colors[count % colors.length];
+  const nextColor = colors[(count + 1) % colors.length];
+
+  const row = document.createElement('div');
+  row.className = 'dna-pillar-alloc-row modal-pillar-row';
+  row.style.cssText = 'display:flex;align-items:center;gap:10px;';
+  row.innerHTML = `
+    <span class="dna-pillar-swatch-dot" style="background:${color};"></span>
+    <input type="text" class="dna-input-premium modal-pillar-name" value="${name}" style="flex:1;">
+    <div class="dna-ratio-input-wrap" style="width:72px;">
+      <input type="number" class="dna-ratio-input modal-pillar-pct" value="${pct}" min="0" max="100" onchange="updateModalPillarsTotal()">
+      <span class="dna-ratio-unit">%</span>
+    </div>
+    <input type="color" class="dna-pillar-color-picker modal-pillar-color" value="${color}" oninput="updateModalPillarRowColor(this)" title="Choose pillar color">
+    <button type="button" class="btn-dna-delete-prod" onclick="this.closest('.modal-pillar-row').remove(); updateModalPillarsTotal();" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:16px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
+  `;
+  list.appendChild(row);
+  nameInp.value = '';
+  if (colorInp) colorInp.value = nextColor;
+  updateModalPillarsTotal();
+}
+window.addModalPillarRow = addModalPillarRow;
+
+// ── SAVE MODAL CHANGES HANDLER ──────────────────────────────────────────
+function saveDnaModalChanges() {
+  const type = activeDnaEditType;
+  if (!type) {
+    closeDnaEditModal();
+    return;
+  }
+
+  switch (type) {
+    case 'sec1-logo': {
+      const graphicEls = document.querySelectorAll('.dna-logo-display-graphic, #dna-logo-display-graphic');
+      if (window.pendingModalLogoData === 'REMOVED') {
+        graphicEls.forEach(el => {
+          el.innerHTML = `
+            <div style="width:58px;height:58px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">
+              V
+            </div>
+          `;
+        });
+        showToast('✓ Brand logo reset to default placeholder', '🗑️');
+      } else if (window.pendingModalLogoData) {
+        graphicEls.forEach(el => {
+          el.innerHTML = `<img src="${window.pendingModalLogoData}" alt="Brand Logo" style="width:100%;height:100%;object-fit:contain;padding:6px;border-radius:8px;">`;
+        });
+        showToast('✓ New brand logo uploaded and saved!', '🎨');
+      } else {
+        showToast('✓ Brand logo details updated!', '🎨');
+      }
+      window.pendingModalLogoData = null;
+      break;
+    }
+
+    case 'sec1-brand-info': {
+      const newName = document.getElementById('modal-inp-brand-name')?.value?.trim();
+      const newInd = (document.getElementById('modal-inp-brand-industry')?.value || document.getElementById('modal-sel-brand-industry')?.value || '').trim();
+      const newLocation = document.getElementById('modal-inp-brand-location')?.value?.trim();
+      const newWebsite = document.getElementById('modal-inp-brand-website')?.value?.trim();
+
+      if (newName) {
+        const brandDisplay = document.getElementById('dna-display-brand-name');
+        if (brandDisplay) brandDisplay.innerText = newName;
+        const curBrandHeader = document.getElementById('dna-current-brand-name');
+        if (curBrandHeader) curBrandHeader.innerText = newName;
+      }
+      if (newInd) {
+        const indDisplay = document.getElementById('dna-display-brand-industry');
+        if (indDisplay) indDisplay.innerHTML = `<span style="display:inline-flex;align-items:center;gap:6px;background:#F1F5F9;padding:4px 10px;border-radius:6px;color:#1E293B;font-size:13.5px;font-weight:700;">${newInd}</span>`;
+      }
+      if (newLocation !== undefined) {
+        const locDisplay = document.getElementById('dna-display-location');
+        if (locDisplay) locDisplay.innerText = newLocation || 'Bengaluru, Karnataka, India';
+      }
+      if (newWebsite !== undefined) {
+        const webDisplay = document.getElementById('dna-display-website');
+        if (webDisplay) {
+          const val = newWebsite || 'https://vibodhai.com';
+          webDisplay.innerText = val;
+          if (webDisplay.tagName === 'A') {
+            webDisplay.href = val.startsWith('http') ? val : 'https://' + val;
+          }
+        }
+      }
+      showToast('✓ Company Identity updated successfully!', '🏢');
+      break;
+    }
+
+    case 'sec1-mission':
+    case 'sec1-description':
+    case 'sec1-positioning': {
+      const newMission = document.getElementById('modal-inp-mission')?.value?.trim();
+      const newDesc = document.getElementById('modal-inp-desc')?.value?.trim();
+      const newPos = document.getElementById('modal-inp-positioning')?.value?.trim();
+
+      if (newMission !== undefined) {
+        const missionDisplay = document.getElementById('dna-display-mission');
+        if (missionDisplay) missionDisplay.innerText = newMission;
+      }
+      if (newDesc !== undefined) {
+        const descDisplay = document.getElementById('dna-display-desc');
+        if (descDisplay) descDisplay.innerText = newDesc;
+      }
+      if (newPos !== undefined) {
+        const posDisplay = document.getElementById('dna-display-positioning');
+        if (posDisplay) posDisplay.innerText = newPos;
+      }
+      showToast('✓ Mission, Description & Positioning updated successfully!', '🎯');
+      break;
+    }
+
+    case 'sec1-proof': {
+      const activeChips = Array.from(document.querySelectorAll('#modal-proof-chips-wrap .dna-chip.active')).map(c => c.innerText.replace(/^[✓+s]+/, '').trim());
+      const details = document.getElementById('modal-inp-proof-details')?.value.trim();
+      
+      const chipsContainer = document.getElementById('dna-display-proof-chips');
+      if (chipsContainer) {
+        chipsContainer.innerHTML = activeChips.map(c => `<span class="dna-tag-pill tag-mint">✓ ${c}</span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No factors selected</span>';
+      }
+      const countEl = document.getElementById('dna-display-proof-count');
+      if (countEl) countEl.innerText = `${activeChips.length} factors active`;
+
+      const detailsEl = document.getElementById('dna-display-proof-details');
+      if (detailsEl && details) detailsEl.innerText = details;
+
+      showToast('✓ Proof & Credibility Factors updated!', '🏆');
+      break;
+    }
+
+    case 'sec2-combined':
+    case 'sec2-persona':
+    case 'sec2-segments': {
+      const personaEl = document.getElementById('dna-display-persona');
+      const personaInp = document.getElementById('modal-inp-persona');
+      if (personaEl && personaInp && personaInp.value.trim() !== '') {
+        personaEl.innerText = personaInp.value.trim();
+      }
+
+      const tagsList = document.getElementById('modal-tags-list');
+      if (tagsList) {
+        const items = Array.from(tagsList.querySelectorAll('.modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+        const container = document.getElementById('dna-display-segments');
+        if (container) {
+          container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-mint"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No segments defined</span>';
+        }
+        const countEl = document.getElementById('dna-display-seg-count');
+        if (countEl) countEl.innerText = `${items.length} segments defined`;
+      }
+
+      showToast('✓ Target Audience & Segments updated!', '👥');
+      break;
+    }
+
+    case 'sec2-pain-points': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-display-pain-points');
+      if (container) {
+        container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-rose"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No pain points defined</span>';
+      }
+      showToast('✓ Audience Pain Points updated!', '⚠️');
+      break;
+    }
+
+    case 'sec2-desires': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-display-desires');
+      if (container) {
+        container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-purple"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No desired outcomes defined</span>';
+      }
+      showToast('✓ Desired Outcomes updated!', '✨');
+      break;
+    }
+
+    case 'sec3-combined':
+    case 'sec3-tones':
+    case 'sec3-personality': {
+      const toneWrap = document.getElementById('modal-tone-chips-wrap');
+      if (toneWrap) {
+        const activeTones = Array.from(toneWrap.querySelectorAll('.dna-chip.active')).map(c => c.innerText.replace(/^[✓+s]+/, '').replace(/×$/, '').trim());
+        const container = document.getElementById('dna-display-tone-chips');
+        if (container) {
+          container.innerHTML = activeTones.map(t => `<span class="dna-chip active">✓ ${t}</span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No tone traits selected</span>';
+        }
+        const countEl = document.getElementById('dna-display-tone-count');
+        if (countEl) countEl.innerText = `${activeTones.length}/3 selected`;
+      }
+
+      const persInp = document.getElementById('modal-inp-personality');
+      if (persInp && persInp.value.trim() !== '') {
+        const persEl = document.getElementById('dna-display-personality');
+        if (persEl) persEl.innerText = persInp.value.trim();
+      }
+
+      showToast('✓ Brand Voice & Personality updated!', '🎙️');
+      break;
+    }
+
+    case 'sec3-pref-words': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-display-pref-words');
+      if (container) {
+        container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-emerald"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No preferred words defined</span>';
+      }
+      const countEl = document.getElementById('dna-display-pref-count');
+      if (countEl) countEl.innerText = `${items.length} words`;
+      showToast('✓ Preferred Vocabulary updated!', '📗');
+      break;
+    }
+
+    case 'sec3-proh-words': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-display-proh-words');
+      if (container) {
+        container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-rose"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No prohibited words defined</span>';
+      }
+      const countEl = document.getElementById('dna-display-proh-count');
+      if (countEl) countEl.innerText = `${items.length} words`;
+      showToast('✓ Prohibited Words updated!', '🚫');
+      break;
+    }
+
+    case 'sec4-palette': {
+      for (let i = 1; i <= 5; i++) {
+        const hexInput = document.getElementById(`modal-hex-${i}`);
+        const colorInput = document.getElementById(`modal-color-${i}`);
+        let hex = hexInput?.value.trim() || colorInput?.value.trim();
+        if (hex) {
+          if (!hex.startsWith('#')) hex = '#' + hex;
+          const upperHex = hex.toUpperCase();
+          const box = document.getElementById(`dna-display-swatch-box-${i}`);
+          if (box) box.style.background = upperHex;
+          const hexLabel = document.getElementById(`dna-display-hex-${i}`);
+          if (hexLabel) hexLabel.innerText = upperHex;
+          if (DNA_PALETTE_COLORS[i - 1]) {
+            DNA_PALETTE_COLORS[i - 1].hex = upperHex;
+          }
+        }
+      }
+      syncDnaPaletteBubblesFromData();
+      closeDnaEditModal();
+      showToast('✓ 5-Swatch Color Palette updated and saved!', '🎨');
+      break;
+    }
+
+    case 'sec4-combined':
+    case 'sec4-typography':
+    case 'sec4-image-style': {
+      const pInp = document.getElementById('modal-inp-typo-primary');
+      if (pInp && pInp.value.trim() !== '') {
+        const el = document.getElementById('dna-display-typo-primary');
+        if (el) {
+          el.innerText = pInp.value.trim();
+          el.style.fontFamily = pInp.value.trim();
+        }
+      }
+
+      const sInp = document.getElementById('modal-inp-typo-secondary');
+      if (sInp && sInp.value.trim() !== '') {
+        const el = document.getElementById('dna-display-typo-secondary');
+        if (el) {
+          el.innerText = sInp.value.trim();
+          el.style.fontFamily = sInp.value.trim();
+        }
+      }
+
+      const imgInp = document.getElementById('modal-inp-image-style');
+      if (imgInp && imgInp.value.trim() !== '') {
+        const el = document.getElementById('dna-display-image-style');
+        if (el) el.innerText = imgInp.value.trim();
+      }
+
+      showToast('✓ Typography & Image Directives updated!', '🎨');
+      break;
+    }
+
+    case 'sec5-manage-offerings':
+    case 'sec5-edit-prod':
+    case 'sec5-add-prod': {
+      // Check if user entered text in "Add New Offering" fields without clicking "+ Add to Offerings List"
+      const pendingName = document.getElementById('modal-new-offering-name')?.value.trim();
+      const pendingDesc = document.getElementById('modal-new-offering-desc')?.value.trim() || '';
+      
+      const container = document.getElementById('modal-offerings-container');
+      const offeringCards = container ? Array.from(container.querySelectorAll('.modal-offering-edit-card')) : [];
+      
+      const offeringsData = [];
+      offeringCards.forEach(card => {
+        const name = card.querySelector('.modal-offering-name')?.value.trim();
+        const desc = card.querySelector('.modal-offering-desc')?.value.trim() || '';
+        if (name) {
+          offeringsData.push({ name, desc });
+        }
+      });
+
+      if (pendingName) {
+        offeringsData.push({ name: pendingName, desc: pendingDesc });
+      }
+
+      if (offeringsData.length === 0) {
+        showToast('Please keep or add at least one offering to save', '⚠️');
+        return;
+      }
+
+      const list = document.getElementById('dna-products-list');
+      if (list) {
+        list.innerHTML = '';
+        const escapeTxt = s => (s || '').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        offeringsData.forEach((item, idx) => {
+          const card = document.createElement('div');
+          card.className = 'dna-product-item-card';
+          card.setAttribute('data-id', idx + 1);
+          card.innerHTML = `
+            <div class="dna-prod-num-box">${idx + 1}</div>
+            <div class="dna-prod-info">
+              <h4 class="dna-prod-name">${escapeTxt(item.name)}</h4>
+              <p class="dna-prod-desc">${escapeTxt(item.desc)}</p>
+            </div>
+          `;
+          list.appendChild(card);
+        });
+      }
+
+      const countEl = document.getElementById('dna-prod-registered-count');
+      if (countEl) {
+        countEl.innerText = offeringsData.length + ' Products Registered';
+      }
+
+      showToast('✓ Offerings catalog updated successfully!', '📦');
+      break;
+    }
+
+    case 'sec6-pillars': {
+      const rows = Array.from(document.querySelectorAll('#modal-pillars-list .modal-pillar-row'));
+      const container = document.getElementById('dna-display-pillars-list');
+      const colors = ['#1E293B', '#0F9D8A', '#7C3AED', '#EA580C', '#2563EB', '#D97706'];
+      
+      let total = 0;
+      const fallbackColors = ['#1E293B', '#0F9D8A', '#7C3AED', '#EA580C', '#2563EB', '#D97706'];
+      const updatedPillars = rows.map((r, i) => {
+        const name = r.querySelector('.modal-pillar-name')?.value.trim() || `Pillar ${i+1}`;
+        const pct = parseInt(r.querySelector('.modal-pillar-pct')?.value, 10) || 0;
+        const color = r.querySelector('.modal-pillar-color')?.value || fallbackColors[i % fallbackColors.length];
+        total += pct;
+        return { name, pct, color };
+      });
+
+      if (container) {
+        container.innerHTML = updatedPillars.map((p, i) => `
+          <div class="dna-display-pillar-card" data-pillar-idx="${i}">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-pillar-swatch-dot" style="background:${p.color};"></span>
+              <span style="font-size:13.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name}</span>
+            </div>
+            <span style="font-size:12px;font-weight:800;color:${p.color};background:#F8FAFC;padding:3px 10px;border-radius:6px;border:1px solid #E2E8F0;" class="dna-display-pillar-pct">${p.pct}%</span>
+          </div>
+        `).join('');
+      }
+
+      const ratioLabel = document.getElementById('dna-display-pillars-ratio');
+      if (ratioLabel) {
+        ratioLabel.innerHTML = total === 100 ? 'Total Ratio: 100% ✓' : `Total Ratio: ${total}% (Target 100%)`;
+        ratioLabel.style.color = total === 100 ? '#0F9D8A' : '#D97706';
+      }
+
+      // Re-render Donut Chart & Legend
+      renderDnaDonutChart(updatedPillars, total);
+      showToast('✓ Content Pillars & Distribution updated!', '🎯');
+      break;
+    }
+
+    case 'sec6-objectives': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-display-objectives');
+      if (container) {
+        container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-mint"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No objectives defined</span>';
+      }
+      const countEl = document.getElementById('dna-display-objectives-count');
+      if (countEl) countEl.innerText = `${items.length} objectives`;
+      showToast('✓ Primary Content Objectives updated!', '🎯');
+      break;
+    }
+
+    case 'sec6-ctas': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-display-ctas');
+      if (container) {
+        container.innerHTML = items.map(t => `<span class="dna-tag-pill tag-purple"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No CTAs defined</span>';
+      }
+      const countEl = document.getElementById('dna-display-ctas-count');
+      if (countEl) countEl.innerText = `${items.length} CTAs`;
+      showToast('✓ Preferred CTAs updated!', '📣');
+      break;
+    }
+
+    case 'sec7-lang-style': {
+      const lang = document.getElementById('modal-inp-regional-lang')?.value.trim();
+      const style = document.getElementById('modal-inp-dialect-style')?.value.trim();
+      if (lang) {
+        const el = document.getElementById('dna-display-regional-lang');
+        if (el) el.innerHTML = `<span style="display:inline-flex;align-items:center;gap:6px;background:#E0F2FE;color:#0284C7;padding:4px 10px;border-radius:6px;">🌐 ${lang}</span>`;
+      }
+      if (style) {
+        const el = document.getElementById('dna-display-dialect-style');
+        if (el) el.innerText = style;
+      }
+      showToast('✓ Regional Language & Style updated!', '🌐');
+      break;
+    }
+
+    case 'sec7-example': {
+      const val = document.getElementById('modal-inp-regional-example')?.value.trim();
+      const el = document.getElementById('dna-display-regional-example');
+      if (el && val) el.innerText = val;
+      showToast('✓ Colloquial Phrasing Example updated!', '💬');
+      break;
+    }
+
+    case 'sec7-slang': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-approved-chips') || document.getElementById('dna-display-approved-slang');
+      if (container) {
+        if (items.length > 0) {
+          container.innerHTML = items.map(t => `<span class="dna-regional-chip approved"><span>${t}</span></span>`).join('');
+        } else {
+          container.innerHTML = '<span class="dna-vocab-empty-text" style="font-size:12.5px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit Words&quot; to add regional slang and cultural phrasing.</span>';
+        }
+      }
+      const countEl = document.getElementById('dna-approved-slang-count') || document.getElementById('dna-display-approved-slang-count');
+      if (countEl) countEl.innerText = `${items.length} approved`;
+
+      // Update warning banner if regional voice is enabled
+      const toggle = document.getElementById('dna-regional-toggle');
+      const warningBanner = document.getElementById('dna-regional-warning-banner');
+      if (toggle && toggle.checked && warningBanner) {
+        warningBanner.style.display = items.length === 0 ? 'flex' : 'none';
+      }
+
+      showToast('✓ Approved Colloquial Slang updated!', '✅');
+      break;
+    }
+
+    case 'sec7-prohib-slang': {
+      const items = Array.from(document.querySelectorAll('#modal-tags-list .modal-tag-item span:first-child')).map(s => s.innerText.trim()).filter(Boolean);
+      const container = document.getElementById('dna-prohib-chips') || document.getElementById('dna-display-prohib-slang');
+      if (container) {
+        if (items.length > 0) {
+          container.innerHTML = items.map(t => `<span class="dna-regional-chip prohibited"><span>${t}</span></span>`).join('');
+        } else {
+          container.innerHTML = '<span class="dna-vocab-empty-text" style="font-size:12.5px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit Words&quot; to add guardrails.</span>';
+        }
+      }
+      const countEl = document.getElementById('dna-prohib-slang-count') || document.getElementById('dna-display-prohib-slang-count');
+      if (countEl) countEl.innerText = `${items.length} prohibited`;
+      showToast('✓ Prohibited Regional Claims updated!', '❌');
+      break;
+    }
+  }
+
+  closeDnaEditModal();
+}
+window.saveDnaModalChanges = saveDnaModalChanges;
+
+function renderDnaDonutChart(pillars, total) {
+  const svg = document.getElementById('dna-donut-svg');
+  const legend = document.getElementById('dna-donut-legend');
+  const centerPct = document.getElementById('dna-donut-center-pct');
+
+  if (centerPct) centerPct.innerText = total + '%';
+
+  if (!svg || !pillars.length) return;
+
+  const circumference = 238.76; // 2 * PI * 38
+  let currentOffset = 0;
+
+  let circlesHtml = `<circle cx="50" cy="50" r="38" fill="none" stroke="#F1F5F9" stroke-width="15"/>`;
+  let legendHtml = '';
+
+  pillars.forEach(p => {
+    const dashLength = (p.pct / 100) * circumference;
+    circlesHtml += `<circle cx="50" cy="50" r="38" fill="none" stroke="${p.color}" stroke-width="15" stroke-dasharray="${dashLength.toFixed(2)} ${circumference}" stroke-dashoffset="${(-currentOffset).toFixed(2)}"/>`;
+    currentOffset += dashLength;
+
+    legendHtml += `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="display:flex;align-items:center;gap:6px;color:#334155;">
+          <span style="width:8px;height:8px;border-radius:50%;background:${p.color};"></span>
+          <span style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${p.name}</span>
+        </span>
+        <strong style="color:#0F172A;">${p.pct}%</strong>
+      </div>
+    `;
+  });
+
+  svg.innerHTML = circlesHtml;
+  if (legend) legend.innerHTML = legendHtml;
+}
+window.renderDnaDonutChart = renderDnaDonutChart;
+
+
+/* ═══════════════════════════════════════════════════════════════════
+   BRAND DNA: VERSION HISTORY & SNAPSHOT TRACEABILITY
+   ═══════════════════════════════════════════════════════════════════ */
+
+// Default Seed Snapshot
+const DEFAULT_DNA_SNAPSHOTS = [
+  {
+    version: 'v1.0',
+    description: 'Initial baseline snapshot from onboarding',
+    author: 'Sahana Viswanath',
+    date: 'Oct 15, 2026, 03:53 PM',
+    completeness: '100% completeness',
+    active: true,
+    data: {
+      brandName: 'Vibodhai',
+      industry: 'Digital Marketing Automation & AI Operations',
+      mission: 'Empower digital marketing agencies to automate end-to-end multi-channel operations, delivering 10x content velocity while preserving 100% brand fidelity.',
+      description: 'Vibodh Signal is an AI-powered digital marketing operating system designed specifically for marketing agencies, brand managers, and growth teams. It unifies campaign planning, multi-format creative production, cross-platform distribution, and real-time performance analytics into a single governed workspace.',
+      positioning: 'The premier autonomous marketing orchestration engine that bridges strategic brand intelligence with enterprise-grade multi-channel distribution.',
+      targetAudience: 'Mid-Market & Boutique Digital Marketing Agencies, Founders, Heads of Growth',
+      voiceTone: 'Authoritative, Visionary, Data-Driven, Empathetic',
+      colors: '#0F9D8A (Teal), #0F172A (Deep Slate), #F59E0B (Amber Gold)',
+      typography: 'Plus Jakarta Sans (Headings), Inter (Body)',
+      pillars: 'AI Marketing Automation (40%), Agency Operations & Client ROI (35%), Brand Integrity (25%)',
+      guardrails: 'Strict Claim Verification, Zero AI Hallucination Grounding, Competitor Anti-Drift'
+    }
+  }
+];
+
+function getDnaSnapshots() {
+  try {
+    const raw = localStorage.getItem('vibodh_dna_snapshots');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+    }
+  } catch (e) {
+    console.warn('Failed to parse saved snapshots', e);
+  }
+  return JSON.parse(JSON.stringify(DEFAULT_DNA_SNAPSHOTS));
+}
+
+function saveDnaSnapshots(list) {
+  try {
+    localStorage.setItem('vibodh_dna_snapshots', JSON.stringify(list));
+  } catch (e) {
+    console.warn('Failed to save snapshots', e);
+  }
+}
+
+function switchDnaMainView(viewName) {
+  const editorView = document.getElementById('dna-editor-view');
+  const historyView = document.getElementById('dna-version-history-view');
+  const btnEditor = document.getElementById('btn-dna-view-editor');
+  const btnHistory = document.getElementById('btn-dna-view-history');
+
+  if (viewName === 'history') {
+    if (editorView) editorView.style.display = 'none';
+    if (historyView) historyView.style.display = 'block';
+
+    if (btnEditor) {
+      btnEditor.classList.remove('active');
+      btnEditor.style.background = 'transparent';
+      btnEditor.style.color = '#475569';
+      btnEditor.style.border = 'none';
+      btnEditor.style.fontWeight = '600';
+      btnEditor.style.boxShadow = 'none';
+    }
+    if (btnHistory) {
+      btnHistory.classList.add('active');
+      btnHistory.style.background = '#0F9D8A';
+      btnHistory.style.color = '#FFFFFF';
+      btnHistory.style.border = 'none';
+      btnHistory.style.fontWeight = '700';
+      btnHistory.style.boxShadow = '0 2px 8px rgba(15, 157, 138, 0.28)';
+    }
+
+    renderDnaSnapshots();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } else {
+    if (editorView) editorView.style.display = 'block';
+    if (historyView) historyView.style.display = 'none';
+
+    if (btnEditor) {
+      btnEditor.classList.add('active');
+      btnEditor.style.background = '#0F9D8A';
+      btnEditor.style.color = '#FFFFFF';
+      btnEditor.style.border = 'none';
+      btnEditor.style.fontWeight = '700';
+      btnEditor.style.boxShadow = '0 2px 8px rgba(15, 157, 138, 0.28)';
+    }
+    if (btnHistory) {
+      btnHistory.classList.remove('active');
+      btnHistory.style.background = 'transparent';
+      btnHistory.style.color = '#475569';
+      btnHistory.style.border = 'none';
+      btnHistory.style.fontWeight = '600';
+      btnHistory.style.boxShadow = 'none';
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+window.switchDnaMainView = switchDnaMainView;
+
+function renderDnaSnapshots() {
+  const container = document.getElementById('dna-snapshots-list');
+  if (!container) return;
+
+  const snapshots = getDnaSnapshots();
+  let html = '';
+
+  snapshots.forEach(snap => {
+    const isActive = snap.active;
+    const itemClass = isActive ? 'dna-snapshot-item active-prompt' : 'dna-snapshot-item archived';
+    const statusPill = isActive
+      ? '<span class="dna-snap-status-badge">ACTIVE IN AI PROMPTS</span>'
+      : '<span class="dna-snap-status-badge archived-badge">PRESERVED SNAPSHOT</span>';
+
+    const activateAction = !isActive
+      ? `<button type="button" class="btn-activate-snapshot" onclick="activateSnapshot('${snap.version}')" title="Set this version as active prompt context">Restore as Active</button>`
+      : '';
+
+    html += `
+      <div class="${itemClass}" id="dna-snapshot-${snap.version.replace('.', '-')}">
+        <div class="dna-snap-item-left">
+          <div class="dna-snap-version-line">
+            <span class="dna-snap-version-tag">${snap.version}</span>
+            ${statusPill}
+          </div>
+          <div class="dna-snap-description">
+            ${snap.description}
+          </div>
+        </div>
+        
+        <div class="dna-snap-item-right">
+          <div class="dna-snap-meta-text">
+            ${snap.author} &bull; ${snap.date}
+          </div>
+          <div class="dna-snap-completeness-pill">
+            ${snap.completeness || '100% completeness'}
+          </div>
+          ${activateAction}
+          <button type="button" class="btn-inspect-snapshot" onclick="inspectSnapshot('${snap.version}')">
+            <span class="btn-inspect-icon">🔍</span> Inspect
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+window.renderDnaSnapshots = renderDnaSnapshots;
+
+let currentInspectedSnapshot = null;
+
+function inspectSnapshot(version) {
+  const snapshots = getDnaSnapshots();
+  const snap = snapshots.find(s => s.version === version) || snapshots[0];
+  if (!snap) return;
+
+  currentInspectedSnapshot = snap;
+
+  const modal = document.getElementById('dna-inspect-modal');
+  const title = document.getElementById('dna-inspect-modal-title');
+  const body = document.getElementById('dna-inspect-modal-body');
+  const statusBadge = document.getElementById('dna-inspect-modal-status-badge');
+
+  if (title) title.innerHTML = `Snapshot Inspector &bull; ${snap.version}`;
+  if (statusBadge) {
+    statusBadge.innerHTML = snap.active 
+      ? '<span class="dna-snap-status-badge" style="font-size:11px;">ACTIVE IN AI PROMPTS</span>'
+      : '<span class="dna-snap-status-badge archived-badge" style="font-size:11px;">PRESERVED ARCHIVE</span>';
+  }
+
+  const d = snap.data || {};
+  if (body) {
+    body.innerHTML = `
+      <div style="background:#FFFDF5;border:1.5px solid #FDE68A;border-radius:10px;padding:14px 18px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:6px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <strong style="color:#EA580C;font-family:monospace;font-size:16px;">${snap.version}</strong>
+            <span style="font-size:13px;font-weight:600;color:#1E293B;">${snap.description}</span>
+          </div>
+          <span style="font-size:12px;color:#64748B;">Committed by <strong>${snap.author}</strong> on ${snap.date}</span>
+        </div>
+        <p style="margin:4px 0 0;font-size:12px;color:#64748B;">This immutable snapshot stores the exact grounding state injected into generation prompts across Reels, Shorts, Newsletters, and Ad variants.</p>
+      </div>
+
+      <div class="dna-inspect-grid">
+        <div class="dna-inspect-card">
+          <div class="dna-inspect-card-title"><span>🏢</span> 1. Business Info &amp; Positioning</div>
+          <div class="dna-inspect-card-content">
+            <div><strong>Brand:</strong> ${d.brandName || 'Vibodhai'}</div>
+            <div><strong>Industry:</strong> ${d.industry || 'Digital Marketing Automation'}</div>
+            <div style="margin-top:6px;"><strong>Core Mission:</strong> <br><em style="color:#475569;">"${d.mission || 'Empower digital marketing agencies to automate end-to-end multi-channel operations.'}"</em></div>
+          </div>
+        </div>
+
+        <div class="dna-inspect-card">
+          <div class="dna-inspect-card-title"><span>🎯</span> 2. Target Audience &amp; ICP</div>
+          <div class="dna-inspect-card-content">
+            <div><strong>Primary ICP:</strong> ${d.targetAudience || 'Mid-Market & Boutique Digital Marketing Agencies'}</div>
+            <div style="margin-top:4px;"><strong>Key Decision Makers:</strong> Agency Founders, Heads of Growth</div>
+            <div style="margin-top:4px;"><strong>Core Pain Points:</strong> Operational bottlenecks, client churn, brand drift</div>
+          </div>
+        </div>
+
+        <div class="dna-inspect-card">
+          <div class="dna-inspect-card-title"><span>🗣️</span> 3. Voice &amp; Tone Guardrails</div>
+          <div class="dna-inspect-card-content">
+            <div><strong>Primary Attributes:</strong> ${d.voiceTone || 'Authoritative, Visionary, Data-Driven, Empathetic'}</div>
+            <div style="margin-top:4px;"><strong>Reading Grade Level:</strong> Professional / Executive</div>
+            <div style="margin-top:4px;"><strong>Prohibited Terms:</strong> Cheap, Quick fix, Miracle, Gurus, Hacky</div>
+          </div>
+        </div>
+
+        <div class="dna-inspect-card">
+          <div class="dna-inspect-card-title"><span>🎨</span> 4. Visual Identity &amp; Palette</div>
+          <div class="dna-inspect-card-content">
+            <div><strong>Colors:</strong> ${d.colors || '#0F9D8A (Teal), #0F172A (Deep Slate), #F59E0B (Amber Gold)'}</div>
+            <div style="margin-top:4px;"><strong>Headings Font:</strong> Plus Jakarta Sans</div>
+            <div style="margin-top:4px;"><strong>Body Font:</strong> Inter</div>
+          </div>
+        </div>
+
+        <div class="dna-inspect-card">
+          <div class="dna-inspect-card-title"><span>📊</span> 5 &amp; 6. Strategy &amp; Pillars</div>
+          <div class="dna-inspect-card-content">
+            <div><strong>Allocations:</strong> ${d.pillars || 'AI Automation (40%), Agency ROI (35%), Brand Integrity (25%)'}</div>
+            <div style="margin-top:4px;"><strong>Cadence:</strong> 12 Multi-Format Assets / Week</div>
+          </div>
+        </div>
+
+        <div class="dna-inspect-card">
+          <div class="dna-inspect-card-title"><span>🛡️</span> 7. Compliance &amp; AI Safety</div>
+          <div class="dna-inspect-card-content">
+            <div><strong>Guardrails:</strong> ${d.guardrails || 'Strict Claim Verification, Zero Hallucination Grounding, Anti-Drift'}</div>
+            <div style="margin-top:4px;"><strong>Audit Trail:</strong> SHA-256 Prompt Grounding Active</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  if (modal) modal.style.display = 'flex';
+}
+window.inspectSnapshot = inspectSnapshot;
+
+function closeDnaInspectModal() {
+  const modal = document.getElementById('dna-inspect-modal');
+  if (modal) modal.style.display = 'none';
+}
+window.closeDnaInspectModal = closeDnaInspectModal;
+
+function openCreateSnapshotModal() {
+  const modal = document.getElementById('dna-create-snapshot-modal');
+  const snapshots = getDnaSnapshots();
+  
+  // Calculate next version
+  let nextVer = 'v1.1';
+  if (snapshots.length > 0) {
+    const highest = snapshots.reduce((max, s) => {
+      const match = s.version.match(/v(\d+)\.(\d+)/);
+      if (match) {
+        const val = parseFloat(match[1] + '.' + match[2]);
+        return Math.max(max, val);
+      }
+      return max;
+    }, 1.0);
+    nextVer = 'v' + (highest + 0.1).toFixed(1);
+  }
+
+  const verLabel = document.getElementById('dna-new-version-label');
+  if (verLabel) verLabel.innerText = nextVer;
+
+  const descInput = document.getElementById('dna-new-snap-desc');
+  if (descInput) descInput.value = 'Updated prompt context & brand parameters';
+
+  if (modal) modal.style.display = 'flex';
+}
+window.openCreateSnapshotModal = openCreateSnapshotModal;
+
+function closeCreateSnapshotModal() {
+  const modal = document.getElementById('dna-create-snapshot-modal');
+  if (modal) modal.style.display = 'none';
+}
+window.closeCreateSnapshotModal = closeCreateSnapshotModal;
+
+function saveNewSnapshotCommit() {
+  const verLabel = document.getElementById('dna-new-version-label');
+  const descInput = document.getElementById('dna-new-snap-desc');
+  const activeCheck = document.getElementById('dna-new-snap-active');
+
+  const ver = verLabel ? verLabel.innerText : 'v1.1';
+  const desc = (descInput && descInput.value.trim()) ? descInput.value.trim() : 'Manual snapshot commit';
+  const makeActive = activeCheck ? activeCheck.checked : true;
+
+  const now = new Date();
+  const dateFormatted = now.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + ', ' +
+    now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+
+  const snapshots = getDnaSnapshots();
+
+  if (makeActive) {
+    snapshots.forEach(s => s.active = false);
+  }
+
+  const newSnap = {
+    version: ver,
+    description: desc,
+    author: 'Sahana Viswanath',
+    date: dateFormatted,
+    completeness: '100% completeness',
+    active: makeActive,
+    data: {
+      brandName: 'Vibodhai',
+      industry: 'Digital Marketing Automation & AI Operations',
+      mission: 'Empower digital marketing agencies to automate end-to-end multi-channel operations, delivering 10x content velocity while preserving 100% brand fidelity.',
+      description: 'Vibodh Signal is an AI-powered digital marketing operating system designed specifically for marketing agencies, brand managers, and growth teams.',
+      positioning: 'The premier autonomous marketing orchestration engine that bridges strategic brand intelligence with enterprise-grade multi-channel distribution.',
+      targetAudience: 'Mid-Market & Boutique Digital Marketing Agencies',
+      voiceTone: 'Authoritative, Visionary, Data-Driven, Empathetic',
+      colors: '#0F9D8A (Teal), #0F172A (Deep Slate), #F59E0B (Amber Gold)',
+      typography: 'Plus Jakarta Sans, Inter',
+      pillars: 'AI Automation (40%), Agency ROI (35%), Brand Integrity (25%)',
+      guardrails: 'Strict Claim Verification, Zero Hallucination'
+    }
+  };
+
+  // Add to top of list
+  snapshots.unshift(newSnap);
+
+  // Retain up to 5 rolling versions
+  if (snapshots.length > 5) {
+    snapshots.length = 5;
+  }
+
+  saveDnaSnapshots(snapshots);
+  closeCreateSnapshotModal();
+  renderDnaSnapshots();
+
+  if (typeof showToast === 'function') {
+    showToast(`Snapshot ${ver} created and activated in AI prompts!`, '⏱️');
+  }
+}
+window.saveNewSnapshotCommit = saveNewSnapshotCommit;
+
+function activateSnapshot(ver) {
+  const snapshots = getDnaSnapshots();
+  snapshots.forEach(s => {
+    s.active = (s.version === ver);
+  });
+  saveDnaSnapshots(snapshots);
+  renderDnaSnapshots();
+  if (typeof showToast === 'function') {
+    showToast(`Snapshot ${ver} is now active in AI prompt context!`, '✅');
+  }
+}
+window.activateSnapshot = activateSnapshot;
+
+function exportSnapshotJSON() {
+  const snap = currentInspectedSnapshot || getDnaSnapshots()[0];
+  const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(snap, null, 2));
+  const downloadAnchor = document.createElement('a');
+  downloadAnchor.setAttribute('href', dataStr);
+  downloadAnchor.setAttribute('download', `brand-dna-snapshot-${snap.version}.json`);
+  document.body.appendChild(downloadAnchor);
+  downloadAnchor.click();
+  downloadAnchor.remove();
+  if (typeof showToast === 'function') {
+    showToast(`Snapshot ${snap.version} exported as JSON`, '📥');
+  }
+}
+window.exportSnapshotJSON = exportSnapshotJSON;
+
+
+window.updateModalSegCounter = function() {
+  const sc = document.getElementById('modal-seg-counter');
+  const tagsList = document.getElementById('modal-tags-list');
+  if (sc && tagsList) {
+    const count = tagsList.querySelectorAll('.modal-tag-item').length;
+    sc.innerText = `${count} segments`;
+  }
+};

@@ -3508,69 +3508,106 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
               </span>
             </div>
             <p class="view-subtitle" style="margin:5px 0 0;font-size:13px;color:#64748B;">
-              The authoritative source of truth grounding every generation, prompt, and asset in your authentic brand identity.
+              Keep your brand details in one place so all generated content and campaigns stay consistent and on-brand.
             </p>
           </div>
-          <div class="view-actions-group" style="display:flex;align-items:center;gap:8px;">
-            <button type="button" class="btn-dna-top active" style="padding:7px 14px;background:#0F9D8A;color:#FFFFFF;border:none;border-radius:8px;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-              <span>📑</span> Editor (7 Sections)
-            </button>
-            <button type="button" class="btn-dna-top" onclick="showToast('Loading version history snapshots...', '🗂️')" style="padding:7px 14px;background:#FFFFFF;color:#334155;border:1.5px solid #CBD5E1;border-radius:8px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-              <span>🗂️</span> Version History
-            </button>
+          <div class="view-actions-group" style="display:flex;align-items:center;gap:10px;">
+            <!-- Segmented Toggling Switching Tabs -->
+            <div class="dna-toggle-tab-group" style="display:inline-flex;align-items:center;background:#F1F5F9;border:1.5px solid #CBD5E1;border-radius:10px;padding:3px;gap:3px;">
+              <button type="button" class="dna-toggle-tab-btn active" id="btn-dna-view-editor" onclick="switchDnaMainView('editor')" style="padding:6px 14px;background:#0F9D8A;color:#FFFFFF;border:none;border-radius:7px;font-size:12.5px;font-weight:700;display:inline-flex;align-items:center;gap:6px;cursor:pointer;box-shadow:0 2px 8px rgba(15,157,138,0.28);transition:all 0.2s ease;">
+                <span>📝</span> Editor (7 Sections)
+              </button>
+              <button type="button" class="dna-toggle-tab-btn" id="btn-dna-view-history" onclick="switchDnaMainView('history')" style="padding:6px 14px;background:transparent;color:#475569;border:none;border-radius:7px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;transition:all 0.2s ease;">
+                <span>⏱️</span> Version History
+              </button>
+            </div>
+
+            <!-- Content Studio Action Button -->
             <button type="button" class="btn-dna-top" onclick="window.switchAppView('content-studio')" style="padding:7px 14px;background:#FFFFFF;color:#334155;border:1.5px solid #CBD5E1;border-radius:8px;font-size:12.5px;font-weight:600;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
-              <span>✦</span> Content Studio
+              <span style="font-weight:800;font-size:14px;">+</span> Content Studio
             </button>
           </div>
         </div>
 
+        <div id="dna-editor-view">
         <!-- Meta Sub-Header -->
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;font-size:12.5px;color:#64748B;">
           <div>Editing Brand DNA for: <strong style="color:#0F172A;" id="dna-current-brand-name">Vibodhai</strong></div>
           <div id="dna-section-indicator" style="font-weight:600;">Section 1 of 7: <strong style="color:#0F172A;">Business Information</strong></div>
         </div>
 
-        <!-- 7 Tab Navigation Pills -->
+        <!-- 7 Tab Navigation Bar (All 7 Visible on Screen with Selected Highlight) -->
         <div class="dna-tabs-pill-row">
-          <button type="button" class="dna-pill-btn active" data-sec="1" onclick="switchDnaSection(1)">
-            <span>🏢</span>
-            <span>Business Information</span>
+          <button type="button" class="dna-pill-btn active" data-sec="1" onclick="switchDnaSection(1)" title="Section 1: Business Information">
+            <span class="dna-tab-icon">🏢</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Business Information</span>
+              <span class="dna-tab-short">Business Info</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
-          <button type="button" class="dna-pill-btn" data-sec="2" onclick="switchDnaSection(2)">
-            <span>👥</span>
-            <span>Target Audience</span>
+          
+          <button type="button" class="dna-pill-btn" data-sec="2" onclick="switchDnaSection(2)" title="Section 2: Target Audience">
+            <span class="dna-tab-icon">👥</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Target Audience</span>
+              <span class="dna-tab-short">Audience</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
-          <button type="button" class="dna-pill-btn" data-sec="3" onclick="switchDnaSection(3)">
-            <span>🎙️</span>
-            <span>Brand Voice &amp; Tone</span>
+          
+          <button type="button" class="dna-pill-btn" data-sec="3" onclick="switchDnaSection(3)" title="Section 3: Brand Voice &amp; Tone">
+            <span class="dna-tab-icon">🎙️</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Brand Voice &amp; Tone</span>
+              <span class="dna-tab-short">Voice &amp; Tone</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
-          <button type="button" class="dna-pill-btn" data-sec="4" onclick="switchDnaSection(4)">
-            <span>🎨</span>
-            <span>Visual Identity</span>
+          
+          <button type="button" class="dna-pill-btn" data-sec="4" onclick="switchDnaSection(4)" title="Section 4: Visual Identity">
+            <span class="dna-tab-icon">🎨</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Visual Identity</span>
+              <span class="dna-tab-short">Visuals</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
-          <button type="button" class="dna-pill-btn" data-sec="5" onclick="switchDnaSection(5)">
-            <span>📦</span>
-            <span>Products &amp; Offerings</span>
+          
+          <button type="button" class="dna-pill-btn" data-sec="5" onclick="switchDnaSection(5)" title="Section 5: Products &amp; Offerings">
+            <span class="dna-tab-icon">📦</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Products &amp; Offerings</span>
+              <span class="dna-tab-short">Offerings</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
-          <button type="button" class="dna-pill-btn" data-sec="6" onclick="switchDnaSection(6)">
-            <span>🎯</span>
-            <span>Content Strategy</span>
+          
+          <button type="button" class="dna-pill-btn" data-sec="6" onclick="switchDnaSection(6)" title="Section 6: Content Strategy">
+            <span class="dna-tab-icon">🎯</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Content Strategy</span>
+              <span class="dna-tab-short">Strategy</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
-          <button type="button" class="dna-pill-btn" data-sec="7" onclick="switchDnaSection(7)">
-            <span>🌐</span>
-            <span>Regional Voice</span>
+          
+          <button type="button" class="dna-pill-btn" data-sec="7" onclick="switchDnaSection(7)" title="Section 7: Regional Voice">
+            <span class="dna-tab-icon">🌐</span>
+            <span class="dna-tab-title">
+              <span class="dna-tab-full">Regional Voice</span>
+              <span class="dna-tab-short">Regional</span>
+            </span>
             <span class="dna-check-badge">✓</span>
           </button>
         </div>
 
         <!-- ═════════════════════════════════════════════════════════════════
              SECTION 1: BUSINESS INFORMATION
+        ══════════════════════════════════════════════════════════════════ -->
+        
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 1: BUSINESS INFORMATION (REDESIGNED)
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-1" class="dna-section-card">
           
@@ -3583,102 +3620,153 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">Company overview, core mission statement, and sector focus</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
+            </div>
           </div>
 
-          <!-- Brand Logo & Mark -->
-          <div class="dna-group-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-              <label class="dna-label">Brand Logo</label>
-              <span style="font-size:11px;color:#64748B;">Primary brand logo (PNG, JPG, SVG, WebP)</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-              <div class="dna-logo-preview-box">
-                <!-- Vibodh Signal Orange V logo -->
-                <svg viewBox="0 0 100 100" style="width:58px;height:58px;" fill="none">
-                  <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
-                  <circle cx="22" cy="18" r="4" fill="#F97316"/>
-                  <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
-                  <circle cx="16" cy="32" r="3" fill="#FB923C"/>
-                  <circle cx="34" cy="42" r="3" fill="#F97316"/>
-                </svg>
+          <!-- Brand Logo & Core Company Identity Display Box (All in One Box with Edit Option) -->
+          <div class="dna-display-box" style="margin-bottom:18px;">
+            <div class="dna-display-box-header" style="margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #F1F5F9;">
+              <div class="dna-display-box-label">
+                <span>🏢</span> COMPANY IDENTITY &amp; BRAND LOGO
               </div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                <button type="button" class="btn-dna-action" onclick="showToast('Logo upload dialog ready.', '📁')">
-                  <span>📁</span> Upload New Logo
-                </button>
-                <button type="button" class="btn-dna-action-danger" onclick="showToast('Logo reset to brand default.', '🗑️')">
-                  <span>🗑️</span> Remove Logo
-                </button>
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-brand-info')" title="Edit Company Information">
+                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+              </button>
+            </div>
+
+            <div style="display:flex;align-items:stretch;gap:28px;flex-wrap:wrap;">
+              <!-- LEFT COLUMN: BRAND LOGO (Matches user design) -->
+              <div style="flex:0 0 250px;display:flex;flex-direction:column;border-right:1px solid #F1F5F9;padding-right:28px;">
+                <div class="dna-display-box-label" style="margin-bottom:12px;">
+                  <span>🎨</span> BRAND LOGO
+                </div>
+                
+                <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:20px;padding:28px 20px;min-height:260px;">
+                  <!-- Dashed Logo Container with Corner Edit Pencil -->
+                  <div class="dna-logo-preview-box" id="dna-logo-preview-container" style="position:relative;cursor:pointer;width:130px;height:130px;border:1.5px dashed #CBD5E1;border-radius:18px;background:transparent;display:flex;align-items:center;justify-content:center;padding:12px;" onclick="openDnaEditModal('sec1-logo')" title="Edit Brand Logo">
+                    <div id="dna-logo-display-graphic" class="dna-logo-display-graphic" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                      <svg viewBox="0 0 100 100" style="width:76px;height:76px;" fill="none">
+                        <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
+                        <circle cx="22" cy="18" r="4" fill="#F97316"/>
+                        <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
+                        <circle cx="16" cy="32" r="3" fill="#FB923C"/>
+                        <circle cx="34" cy="42" r="3" fill="#F97316"/>
+                      </svg>
+                    </div>
+                    <!-- Small Edit Button attached to the Right Corner of the Image -->
+                    <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();openDnaEditModal('sec1-logo');" title="Edit Brand Logo" style="width:28px;height:28px;right:-8px;bottom:-8px;box-shadow:0 3px 8px rgba(15,23,42,0.12);">
+                      <img src="edit-pencil.png" alt="Edit" style="width:12px;height:12px;object-fit:contain;">
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RIGHT COLUMN: 4 INFORMATION ROWS ALIGNED PROPERLY WITH LABELS NEXT TO VALUES -->
+              <div style="flex:1;min-width:320px;display:grid;grid-template-columns:max-content 1fr;column-gap:24px;row-gap:18px;align-items:center;align-content:center;">
+                <!-- 1. Company / Brand Name -->
+                <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
+                  <span>🏢</span> COMPANY / BRAND NAME
+                </div>
+                <div id="dna-display-brand-name" class="dna-display-box-content" style="font-size:16px;font-weight:800;color:#0F172A;font-family:'Plus Jakarta Sans',sans-serif;margin:0;">
+                  Vibodhai
+                </div>
+
+                <!-- 2. Industry & Sector -->
+                <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
+                  <span>⚡</span> INDUSTRY &amp; SECTOR
+                </div>
+                <div id="dna-display-brand-industry" class="dna-display-box-content" style="margin:0;display:inline-flex;">
+                  <span class="dna-info-badge">
+                    Software, SaaS &amp; AI
+                  </span>
+                </div>
+
+                <!-- 3. Operating Location / Headquarters -->
+                <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
+                  <span>📍</span> OPERATING LOCATION / HQ
+                </div>
+                <div style="margin:0;display:inline-flex;">
+                  <span id="dna-display-location" class="dna-info-badge">
+                    Bengaluru, Karnataka, India
+                  </span>
+                </div>
+
+                <!-- 4. Website URL -->
+                <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
+                  <span>🌐</span> WEBSITE URL
+                </div>
+                <div style="margin:0;display:inline-flex;">
+                  <a id="dna-display-website" href="https://vibodhai.com" target="_blank" class="dna-info-badge" style="text-decoration:none;">
+                    https://vibodhai.com
+                  </a>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Company Name & Sector Form Grid -->
-          <div class="dna-2col-grid">
-            <div>
-              <label class="dna-label">Company / Brand Name</label>
-              <input type="text" class="dna-input-premium" value="Vibodhai">
+          <!-- Combined Mission, Description & Positioning Box -->
+          <div class="dna-display-box" style="margin-bottom:18px;">
+            <div class="dna-display-box-header" style="margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #F1F5F9;">
+              <div class="dna-display-box-label">
+                <span>🎯</span> CORE MISSION, DESCRIPTION &amp; VALUE PROPOSITION
+              </div>
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-mission')" title="Edit Mission, Description &amp; Positioning">
+                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+              </button>
             </div>
+
+            <!-- Row 1: Core Mission Statement (Full Width) -->
+            <div style="margin-bottom:20px;">
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                <span>🎯</span> CORE MISSION STATEMENT
+              </div>
+              <div id="dna-display-mission" class="dna-display-box-content dna-display-box-quote" style="margin:0;">
+                To empower businesses of all sizes to bridge the gap between AI prototypes and production scale through rigorous architectural consulting and resilient end-to-end AI delivery solutions.
+              </div>
+            </div>
+
+            <!-- Row 2: Brand Description (Full Width, Styled as Quote Box) -->
+            <div style="margin-bottom:20px;">
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                <span>📖</span> BRAND DESCRIPTION
+              </div>
+              <div id="dna-display-desc" class="dna-display-box-content dna-display-box-quote" style="margin:0;">
+                Vibodh AI delivers enterprise AI engineering, scalable system architecture, and production-grade AI delivery solutions for forward-thinking enterprises and high-growth SaaS companies.
+              </div>
+            </div>
+
+            <!-- Row 3: Positioning / Value Proposition (Full Width, Styled as Quote Box) -->
             <div>
-              <label class="dna-label">Industry &amp; Sector</label>
-              <select class="dna-select-premium">
-                <option selected>Software, SaaS &amp; AI</option>
-                <option>Enterprise B2B Technology</option>
-                <option>Digital Marketing &amp; Creative Agency</option>
-                <option>Fintech &amp; Banking</option>
-                <option>HealthTech &amp; Life Sciences</option>
-              </select>
+              <div style="font-size:11px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
+                <span>💎</span> POSITIONING / VALUE PROPOSITION
+              </div>
+              <div id="dna-display-positioning" class="dna-display-box-content dna-display-box-quote" style="margin:0;">
+                For forward-thinking enterprises and SaaS companies seeking to move beyond fragile prototypes, Vibodh AI is an enterprise AI engineering and architecture partner that delivers production-grade, secure, and elastically scalable AI systems, unlike conventional dev shops or theoretical consulting agencies.
+              </div>
             </div>
           </div>
 
-          <!-- Mission Statement -->
-          <div style="margin-bottom:18px;">
-            <label class="dna-label">Core Mission Statement</label>
-            <textarea class="dna-textarea-premium" rows="3">To empower businesses of all sizes to bridge the gap between AI prototypes and production scale through rigorous architectural consulting and resilient end-to-end AI delivery solutions.</textarea>
-          </div>
-
-          <!-- Brand Description & Positioning 2-Col -->
-          <div class="dna-2col-grid" style="margin-bottom:18px;">
-            <div>
-              <label class="dna-label">Brand Description</label>
-              <textarea class="dna-textarea-premium" rows="4">Vibodh AI delivers enterprise AI engineering, scalable system architecture, and production-grade AI delivery solutions for forward-thinking enterprises and high-growth SaaS companies.</textarea>
+          <!-- Brand Proof & Credibility Factors Display Box -->
+          <div class="dna-display-box">
+            <div class="dna-display-box-header">
+              <div class="dna-display-box-label">
+                <span>🏆</span> BRAND PROOF &amp; CREDIBILITY FACTORS
+                <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-proof-count">2 factors active</span>
+              </div>
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-proof')" title="Edit Proof & Credibility">
+                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+              </button>
             </div>
-            <div>
-              <label class="dna-label">Positioning / Value Proposition</label>
-              <textarea class="dna-textarea-premium" rows="4">For forward-thinking enterprises and SaaS companies seeking to move beyond fragile prototypes, Vibodh AI is an enterprise AI engineering and architecture partner that delivers production-grade, secure, and elastically scalable AI systems, unlike conventional dev shops or theoretical consulting agencies.</textarea>
+            <div class="dna-chips-wrap" id="dna-display-proof-chips" style="margin-bottom:12px;">
+              <span class="dna-tag-pill tag-mint">✓ Results</span>
+              <span class="dna-tag-pill tag-mint">✓ Reviews or ratings</span>
             </div>
-          </div>
-
-          <!-- Proof & Credibility Factors -->
-          <div style="margin-bottom:18px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <label class="dna-label" style="margin-bottom:0;">Brand Proof &amp; Credibility Factors</label>
-              <span style="font-size:11.5px;color:#64748B;" id="dna-proof-factors-count">2 factors selected</span>
+            <div style="font-size:11px;font-weight:700;color:#64748B;text-transform:uppercase;margin-bottom:5px;">Supporting Proof Details</div>
+            <div id="dna-display-proof-details" class="dna-display-box-content dna-display-box-quote">
+              Delivered hardened AI blueprints tested and validated in live enterprise environments.; Deep enterprise IT, cloud-native architecture, and generative AI engineering background.
             </div>
-            <p style="font-size:12px;color:#64748B;margin:0 0 10px;">Select the credibility factors that give customers confidence in your brand.</p>
-            <div class="dna-chips-wrap" id="dna-proof-chips-wrap">
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Quality</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Expertise</button>
-              <button type="button" class="dna-chip active" onclick="toggleDnaChip(this)">✓ Results</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Speed</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Craftsmanship</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Innovation</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Price or value</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Sustainability</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Community</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Awards or certifications</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Years in business</button>
-              <button type="button" class="dna-chip active" onclick="toggleDnaChip(this)">✓ Reviews or ratings</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Founder story</button>
-              <button type="button" class="dna-chip" onclick="toggleDnaChip(this)">+ Other</button>
-            </div>
-          </div>
-
-          <!-- Supporting Proof Details -->
-          <div style="margin-bottom:20px;">
-            <label class="dna-label">Supporting Proof Details</label>
-            <textarea class="dna-textarea-premium" rows="3">Delivered hardened AI blueprints tested and validated in live enterprise environments.; Deep enterprise IT, cloud-native architecture, and generative AI engineering background.</textarea>
           </div>
 
           <!-- Bottom Footer Navigation -->
@@ -3693,7 +3781,7 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
         </div>
 
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 2: TARGET AUDIENCE
+             SECTION 2: TARGET AUDIENCE (REDESIGNED)
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-2" class="dna-section-card" style="display:none;">
           
@@ -3706,87 +3794,101 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">Customer personas, pain points, desires, and target segments</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
+            </div>
           </div>
 
-          <!-- Primary Target Audience Persona -->
-          <div style="margin-bottom:18px;">
-            <label class="dna-label">Primary Target Audience Persona</label>
-            <textarea class="dna-textarea-premium" rows="3">Enterprise technology leaders, CTOs, VP of Engineering, and SaaS product founders seeking to deploy and scale production-grade AI systems.</textarea>
-          </div>
+          <!-- Combined Target Audience Persona & Segments Display Box (Single Edit Button) -->
+          <div class="dna-display-box" style="margin-bottom:20px;">
+            
+            <!-- Row 1: Primary Target Audience Persona -->
+            <div style="margin-bottom:0;">
+              <div class="dna-display-box-header" style="margin-bottom:10px;">
+                <div class="dna-display-box-label">
+                  <span>👤</span> PRIMARY TARGET AUDIENCE PERSONA
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec2-combined')" title="Edit Target Audience Persona &amp; Segments">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+              </div>
+              <div id="dna-display-persona" class="dna-display-box-content dna-display-box-quote">
+                Enterprise technology leaders, CTOs, VP of Engineering, and SaaS product founders seeking to deploy and scale production-grade AI systems.
+              </div>
+            </div>
 
-          <!-- Audience Segments & Core Needs -->
-          <div style="margin-bottom:18px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <label class="dna-label" style="margin-bottom:0;">Audience Segments &amp; Core Needs</label>
-              <span style="font-size:11.5px;color:#64748B;" id="dna-audience-seg-count">2 segments defined</span>
+            <!-- Divider Line -->
+            <div class="dna-box-divider" style="height:1px;background:#E2E8F0;margin:18px 0;"></div>
+
+            <!-- Row 2: Audience Segments & Core Needs -->
+            <div>
+              <div class="dna-display-box-header" style="margin-bottom:10px;">
+                <div class="dna-display-box-label">
+                  <span>👥</span> AUDIENCE SEGMENTS &amp; CORE NEEDS
+                  <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-seg-count">2 segments defined</span>
+                </div>
+              </div>
+              <div class="dna-tags-wrap" id="dna-display-segments">
+                <span class="dna-tag-pill tag-mint">
+                  <span>Chief Technology Officer / VP of Engineering</span>
+                </span>
+                <span class="dna-tag-pill tag-mint">
+                  <span>Head of Product / AI Product Lead</span>
+                </span>
+              </div>
             </div>
-            <div class="dna-tags-wrap" id="dna-audience-seg-tags" style="margin-bottom:10px;">
-              <span class="dna-tag-pill tag-mint">
-                <span>Chief Technology Officer / VP of Engineering</span>
-                <button type="button" onclick="this.parentElement.remove()">×</button>
-              </span>
-              <span class="dna-tag-pill tag-mint">
-                <span>Head of Product / AI Product Lead</span>
-                <button type="button" onclick="this.parentElement.remove()">×</button>
-              </span>
-            </div>
-            <div class="dna-input-add-row">
-              <input type="text" id="dna-input-new-seg" class="dna-input-premium" placeholder="Add audience segment (e.g. Enterprise CMOs, Boutique Founders)...">
-              <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-audience-seg-tags', 'dna-input-new-seg', 'tag-mint')">+ Add</button>
-            </div>
+
           </div>
 
           <!-- 2-Col Grid: Pain Points vs Desires -->
           <div class="dna-2col-grid" style="margin-bottom:20px;">
             
-            <!-- Left: Pain points -->
-            <div>
-              <label class="dna-label">Audience Pain Points &amp; Frustrations</label>
-              <div class="dna-tags-wrap" id="dna-pain-points-tags" style="margin-bottom:10px;min-height:120px;">
+            <!-- Left: Pain points Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div class="dna-display-box-label">
+                  <span>⚠️</span> AUDIENCE PAIN POINTS &amp; FRUSTRATIONS
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec2-pain-points')" title="Edit Pain Points">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+              </div>
+              <div class="dna-tags-wrap" id="dna-display-pain-points" style="min-height:90px;">
                 <span class="dna-tag-pill tag-rose">
                   <span>High failure rate and fragility of generative AI prototypes transitioning into enterprise production workloads</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-rose">
                   <span>Lack of internal specialized expertise in multi-agent orchestration, contextual retrieval, and MCP integration</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-rose">
                   <span>Security, compliance, and PII leakage risks in runtime AI deployments</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-rose">
                   <span>Architectural technical debt and sluggish feature velocity in legacy SaaS platforms</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-pain" class="dna-input-premium" placeholder="Add pain point (e.g. Inconsistent tone across teams)...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-pain-points-tags', 'dna-input-new-pain', 'tag-rose')">+ Add</button>
               </div>
             </div>
 
-            <!-- Right: Desires -->
-            <div>
-              <label class="dna-label">Desired Outcomes &amp; Aspirations</label>
-              <div class="dna-tags-wrap" id="dna-desires-tags" style="margin-bottom:10px;min-height:120px;">
+            <!-- Right: Desires Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div class="dna-display-box-label">
+                  <span>✨</span> DESIRED OUTCOMES &amp; ASPIRATIONS
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec2-desires')" title="Edit Desires">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+              </div>
+              <div class="dna-tags-wrap" id="dna-display-desires" style="min-height:90px;">
                 <span class="dna-tag-pill tag-purple">
                   <span>End-to-end engineering covering architecture, implementation, deployment, and governance</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-purple">
                   <span>Compliance-ready AI frameworks adhering to NIST AI RMF, ISO/IEC 42001, OWASP, and the EU AI Act</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-purple">
                   <span>Pre-engineered architectural accelerators to dramatically reduce time-to-market</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-desire" class="dna-input-premium" placeholder="Add desire (e.g. 10x faster content publishing)...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-desires-tags', 'dna-input-new-desire', 'tag-purple')">+ Add</button>
               </div>
             </div>
 
@@ -3806,7 +3908,7 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
         </div>
 
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 3: BRAND VOICE & TONE
+             SECTION 3: BRAND VOICE & TONE (REDESIGNED)
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-3" class="dna-section-card" style="display:none;">
           
@@ -3819,86 +3921,93 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">Voice traits, personality instructions, and vocabulary guardrails</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
-          </div>
-
-          <!-- Tone Selector -->
-          <div style="margin-bottom:18px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <label class="dna-label" style="margin-bottom:0;">Tone Selector (Select up to 3 traits)</label>
-              <span style="font-size:11.5px;color:#64748B;" id="dna-tone-selected-count">2/3 selected</span>
-            </div>
-            <div class="dna-chips-wrap" id="dna-tone-chips-wrap" style="margin-bottom:10px;">
-              <button type="button" class="dna-chip active" onclick="toggleToneTrait(this)">✓ Professional ×</button>
-              <button type="button" class="dna-chip active" onclick="toggleToneTrait(this)">✓ Innovative ×</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Clear and professional</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Friendly and conversational</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Bold and direct</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Premium</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Playful</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Educational</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Inspirational</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Technical</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Empathetic</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Authoritative</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Witty</button>
-              <button type="button" class="dna-chip" onclick="toggleToneTrait(this)">+ Warm and reassuring</button>
-            </div>
-            <div class="dna-input-add-row" style="max-width:480px;">
-              <input type="text" id="dna-input-new-tone" class="dna-input-premium" placeholder="Add custom tone trait (e.g. Quirky, Direct)...">
-              <button type="button" class="btn-dna-add" onclick="addCustomToneTrait()">+ Add Trait</button>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
             </div>
           </div>
 
-          <!-- Brand Personality & Style Instructions -->
-          <div style="margin-bottom:18px;">
-            <label class="dna-label">Brand Personality &amp; Style Instructions</label>
-            <textarea class="dna-textarea-premium" rows="3">Direct, technical, and authoritative with an emphasis on production engineering outcomes. Avoid hype, fluff, buzzwords, and vague promises. Ground all messaging in architectural rigor, measurable ROI, security, and enterprise reliability.</textarea>
+          <!-- Combined Brand Tone Traits & Personality Style Display Box (Single Edit Button) -->
+          <div class="dna-display-box" style="margin-bottom:20px;">
+            
+            <!-- Row 1: Brand Tone Traits -->
+            <div style="margin-bottom:0;">
+              <div class="dna-display-box-header" style="margin-bottom:10px;">
+                <div class="dna-display-box-label">
+                  <span>🎙️</span> BRAND TONE TRAITS
+                  <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-tone-count">2/3 selected</span>
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec3-combined')" title="Edit Brand Tone Traits &amp; Personality">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+              </div>
+              <div class="dna-chips-wrap" id="dna-display-tone-chips">
+                <span class="dna-chip active">✓ Professional</span>
+                <span class="dna-chip active">✓ Innovative</span>
+              </div>
+            </div>
+
+            <!-- Divider Line -->
+            <div class="dna-box-divider" style="height:1px;background:#E2E8F0;margin:18px 0;"></div>
+
+            <!-- Row 2: Brand Personality & Style Instructions -->
+            <div>
+              <div class="dna-display-box-header" style="margin-bottom:10px;">
+                <div class="dna-display-box-label">
+                  <span>🎭</span> BRAND PERSONALITY &amp; STYLE INSTRUCTIONS
+                </div>
+              </div>
+              <div id="dna-display-personality" class="dna-display-box-content dna-display-box-quote">
+                Direct, technical, and authoritative with an emphasis on production engineering outcomes. Avoid hype, fluff, buzzwords, and vague promises. Ground all messaging in architectural rigor, measurable ROI, security, and enterprise reliability.
+              </div>
+            </div>
+
           </div>
 
           <!-- 2-Col Grid: Preferred vs Prohibited Vocabulary -->
           <div class="dna-2col-grid" style="margin-bottom:20px;">
             
-            <!-- Left: Preferred Vocabulary -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <label class="dna-label" style="margin-bottom:0;">Preferred Vocabulary &amp; Power Words</label>
-                <span style="font-size:11.5px;color:#64748B;">9 words</span>
+            <!-- Left: Preferred Vocabulary Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div class="dna-display-box-label">
+                  <span>📗</span> PREFERRED VOCABULARY &amp; POWER WORDS
+                  <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-pref-count">9 words</span>
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec3-pref-words')" title="Edit Preferred Words">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
               </div>
-              <div class="dna-tags-wrap" id="dna-pref-words-tags" style="margin-bottom:10px;min-height:95px;">
-                <span class="dna-tag-pill tag-emerald"><span>accelerators</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>architecture</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>blueprints</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>enterprise</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>governance</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>multi-agent</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>precision</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>production-grade</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-emerald"><span>scale</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-pref" class="dna-input-premium" placeholder="Add preferred word...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-pref-words-tags', 'dna-input-new-pref', 'tag-emerald')">+ Add</button>
+              <div class="dna-tags-wrap" id="dna-display-pref-words" style="min-height:80px;">
+                <span class="dna-tag-pill tag-emerald"><span>accelerators</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>architecture</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>blueprints</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>enterprise</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>governance</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>multi-agent</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>precision</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>production-grade</span></span>
+                <span class="dna-tag-pill tag-emerald"><span>scale</span></span>
               </div>
             </div>
 
-            <!-- Right: Prohibited Words -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <label class="dna-label" style="margin-bottom:0;">Prohibited Words &amp; Claims to Avoid</label>
-                <span style="font-size:11.5px;color:#64748B;">6 words</span>
+            <!-- Right: Prohibited Words Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div class="dna-display-box-label">
+                  <span>🚫</span> PROHIBITED WORDS &amp; CLAIMS TO AVOID
+                  <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-proh-count">6 words</span>
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec3-proh-words')" title="Edit Prohibited Words">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
               </div>
-              <div class="dna-tags-wrap" id="dna-proh-words-tags" style="margin-bottom:10px;min-height:95px;">
-                <span class="dna-tag-pill tag-rose"><span>cheap</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-rose"><span>experimental</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-rose"><span>hacky</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-rose"><span>magic</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-rose"><span>quick fix</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-                <span class="dna-tag-pill tag-rose"><span>silver bullet</span><button type="button" onclick="this.parentElement.remove()">×</button></span>
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-proh" class="dna-input-premium" placeholder="Add prohibited word...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-proh-words-tags', 'dna-input-new-proh', 'tag-rose')">+ Add</button>
+              <div class="dna-tags-wrap" id="dna-display-proh-words" style="min-height:80px;">
+                <span class="dna-tag-pill tag-rose"><span>cheap</span></span>
+                <span class="dna-tag-pill tag-rose"><span>experimental</span></span>
+                <span class="dna-tag-pill tag-rose"><span>hacky</span></span>
+                <span class="dna-tag-pill tag-rose"><span>magic</span></span>
+                <span class="dna-tag-pill tag-rose"><span>quick fix</span></span>
+                <span class="dna-tag-pill tag-rose"><span>silver bullet</span></span>
               </div>
             </div>
 
@@ -3918,7 +4027,7 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
         </div>
 
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 4: VISUAL IDENTITY
+             SECTION 4: VISUAL IDENTITY (REDESIGNED)
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-4" class="dna-section-card" style="display:none;">
           
@@ -3931,128 +4040,229 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">5-swatch palette (60-30-10 rule), typography, and image styling</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
-          </div>
-
-          <!-- Brand Logo & Mark -->
-          <div class="dna-group-card">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
-              <label class="dna-label">Brand Logo &amp; Mark</label>
-              <span style="font-size:11px;color:#64748B;">Primary brand logo asset</span>
-            </div>
-            <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-              <div class="dna-logo-preview-box">
-                <svg viewBox="0 0 100 100" style="width:58px;height:58px;" fill="none">
-                  <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
-                  <circle cx="22" cy="18" r="4" fill="#F97316"/>
-                  <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
-                  <circle cx="16" cy="32" r="3" fill="#FB923C"/>
-                  <circle cx="34" cy="42" r="3" fill="#F97316"/>
-                </svg>
-              </div>
-              <div style="display:flex;gap:10px;flex-wrap:wrap;">
-                <button type="button" class="btn-dna-action" onclick="showToast('Logo upload dialog ready.', '📁')">
-                  <span>📁</span> Upload New Logo
-                </button>
-                <button type="button" class="btn-dna-action-danger" onclick="showToast('Logo reset to brand default.', '🗑️')">
-                  <span>🗑️</span> Remove Logo
-                </button>
-              </div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
             </div>
           </div>
 
-          <!-- 5-Swatch Color Palette (60-30-10 Design Rule) -->
-          <div style="margin-bottom:20px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-              <label class="dna-label" style="margin-bottom:0;">5-Swatch Color Palette (60-30-10 Design Rule)</label>
-              <span style="font-size:11px;color:#64748B;">Click swatch square to open native color picker</span>
-            </div>
-            <div class="dna-swatches-grid">
+          <!-- Combined Brand Logo & 5-Swatch Color Palette Display Box -->
+          <div class="dna-display-box" id="dna-palette-box" style="margin-bottom:18px;">
+            <div style="display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:stretch;">
               
-              <!-- 1: Dominant 60% -->
-              <div class="dna-swatch-card">
-                <div class="dna-swatch-header">
-                  <span class="dna-swatch-title">Dominant (60%)</span>
-                  <span class="dna-swatch-role">PRIMARY</span>
+              <!-- LEFT COLUMN: BRAND LOGO -->
+              <div style="display:flex;flex-direction:column;border-right:1px solid #F1F5F9;padding-right:24px;">
+                <div class="dna-display-box-header" style="margin-bottom:12px;">
+                  <div class="dna-display-box-label">
+                    <span>🎨</span> BRAND LOGO
+                  </div>
                 </div>
-                <div class="dna-swatch-preview-wrap">
-                  <input type="color" id="dna-color-picker-1" value="#F6F2F1" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-1', 'dna-box-1')">
-                  <div class="dna-swatch-color-box" id="dna-box-1" style="background:#F6F2F1;" onclick="document.getElementById('dna-color-picker-1').click()"></div>
+                
+                <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:20px 16px;min-height:224px;">
+                  <!-- Logo Image Container with Small Edit Button on Right Corner -->
+                  <div class="dna-logo-preview-box" id="dna-logo-preview-container-sec4" style="position:relative;cursor:pointer;width:104px;height:104px;" onclick="openDnaEditModal('sec1-logo')" title="Edit Brand Logo">
+                    <div class="dna-logo-display-graphic" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
+                      <svg viewBox="0 0 100 100" style="width:72px;height:72px;" fill="none">
+                        <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
+                        <circle cx="22" cy="18" r="4" fill="#F97316"/>
+                        <circle cx="28" cy="28" r="3.5" fill="#FDBA74"/>
+                        <circle cx="16" cy="32" r="3" fill="#FB923C"/>
+                        <circle cx="34" cy="42" r="3" fill="#F97316"/>
+                      </svg>
+                    </div>
+                    <!-- Small Edit Button attached to the Right Corner of the Image -->
+                    <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();openDnaEditModal('sec1-logo');" title="Edit Brand Logo">
+                      <img src="edit-pencil.png" alt="Edit" style="width:11px;height:11px;object-fit:contain;">
+                    </button>
+                  </div>
                 </div>
-                <input type="text" id="dna-hex-1" class="dna-swatch-hex-input" value="#F6F2F1" onchange="syncHexInput(this, 'dna-color-picker-1', 'dna-box-1')">
               </div>
 
-              <!-- 2: Secondary 30% -->
-              <div class="dna-swatch-card">
-                <div class="dna-swatch-header">
-                  <span class="dna-swatch-title">Secondary (30%)</span>
-                  <span class="dna-swatch-role">SUPPORT</span>
+              <!-- RIGHT COLUMN: 5-SWATCH COLOR PALETTE -->
+              <div style="display:flex;flex-direction:column;min-width:0;">
+                <div class="dna-display-box-header" style="margin-bottom:12px;">
+                  <div class="dna-display-box-label">
+                    <span>🎨</span> 5-SWATCH COLOR PALETTE (60-30-10 DESIGN RULE)
+                  </div>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec4-palette')" title="Edit Color Palette">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                  </div>
                 </div>
-                <div class="dna-swatch-preview-wrap">
-                  <input type="color" id="dna-color-picker-2" value="#CA4B16" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-2', 'dna-box-2')">
-                  <div class="dna-swatch-color-box" id="dna-box-2" style="background:#CA4B16;" onclick="document.getElementById('dna-color-picker-2').click()"></div>
-                </div>
-                <input type="text" id="dna-hex-2" class="dna-swatch-hex-input" value="#CA4B16" onchange="syncHexInput(this, 'dna-color-picker-2', 'dna-box-2')">
-              </div>
 
-              <!-- 3: Accent 10% -->
-              <div class="dna-swatch-card">
-                <div class="dna-swatch-header">
-                  <span class="dna-swatch-title">Accent (10%)</span>
-                  <span class="dna-swatch-role">HIGHLIGHT</span>
+                <!-- Horizontal Circular Bubbles Stage -->
+                <div class="dna-color-palette-stage" id="dna-color-palette-stage" style="margin-bottom:0;">
+              <div class="dna-color-bubbles-row" id="dna-color-bubbles-row" role="radiogroup" aria-label="Brand Color Palette">
+                
+                <!-- Bubble 0: Dominant (60%) (#F6F2F1) - Active by default -->
+                <div class="dna-color-bubble-item active" id="dna-bubble-item-0">
+                  <button type="button" class="dna-color-bubble active" id="dna-bubble-btn-0" data-index="0"
+                    onclick="selectDnaPaletteColor(0)"
+                    style="background:#F6F2F1; --bubble-color:#F6F2F1; --bubble-glow:rgba(203, 213, 225, 0.6); border: 1.5px solid #CBD5E1;"
+                    aria-label="Color 1: Dominant (60%) #F6F2F1 PRIMARY"
+                    title="Dominant (60%) · PRIMARY · #F6F2F1">
+                  </button>
+                  <div class="dna-bubble-info" id="dna-bubble-info-0">
+                    <div class="dna-bubble-role" id="dna-bubble-role-0">Dominant (60%)</div>
+                    <div class="dna-bubble-badge-wrap">
+                      <span class="dna-bubble-badge" id="dna-bubble-badge-0">PRIMARY</span>
+                    </div>
+                    <div class="dna-bubble-hex-wrap">
+                      <span class="dna-bubble-hex" id="dna-bubble-hex-0">#F6F2F1</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="dna-swatch-preview-wrap">
-                  <input type="color" id="dna-color-picker-3" value="#B84514" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-3', 'dna-box-3')">
-                  <div class="dna-swatch-color-box" id="dna-box-3" style="background:#B84514;" onclick="document.getElementById('dna-color-picker-3').click()"></div>
-                </div>
-                <input type="text" id="dna-hex-3" class="dna-swatch-hex-input" value="#B84514" onchange="syncHexInput(this, 'dna-color-picker-3', 'dna-box-3')">
-              </div>
 
-              <!-- 4: Background -->
-              <div class="dna-swatch-card">
-                <div class="dna-swatch-header">
-                  <span class="dna-swatch-title">Background</span>
-                  <span class="dna-swatch-role">CANVAS</span>
+                <!-- Bubble 1: Secondary (30%) (#CA4B16) -->
+                <div class="dna-color-bubble-item" id="dna-bubble-item-1">
+                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-1" data-index="1"
+                    onclick="selectDnaPaletteColor(1)"
+                    style="background:#CA4B16; --bubble-color:#CA4B16; --bubble-glow:rgba(202, 75, 22, 0.45);"
+                    aria-label="Color 2: Secondary (30%) #CA4B16 SUPPORT"
+                    title="Secondary (30%) · SUPPORT · #CA4B16">
+                  </button>
+                  <div class="dna-bubble-info" id="dna-bubble-info-1">
+                    <div class="dna-bubble-role" id="dna-bubble-role-1">Secondary (30%)</div>
+                    <div class="dna-bubble-badge-wrap">
+                      <span class="dna-bubble-badge" id="dna-bubble-badge-1">SUPPORT</span>
+                    </div>
+                    <div class="dna-bubble-hex-wrap">
+                      <span class="dna-bubble-hex" id="dna-bubble-hex-1">#CA4B16</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="dna-swatch-preview-wrap">
-                  <input type="color" id="dna-color-picker-4" value="#FFFFFF" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-4', 'dna-box-4')">
-                  <div class="dna-swatch-color-box" id="dna-box-4" style="background:#FFFFFF;border:1px solid #CBD5E1;" onclick="document.getElementById('dna-color-picker-4').click()"></div>
-                </div>
-                <input type="text" id="dna-hex-4" class="dna-swatch-hex-input" value="#FFFFFF" onchange="syncHexInput(this, 'dna-color-picker-4', 'dna-box-4')">
-              </div>
 
-              <!-- 5: Text / Neutral -->
-              <div class="dna-swatch-card">
-                <div class="dna-swatch-header">
-                  <span class="dna-swatch-title">Text / Neutral</span>
-                  <span class="dna-swatch-role">TYPO</span>
+                <!-- Bubble 2: Accent (10%) (#B84514) -->
+                <div class="dna-color-bubble-item" id="dna-bubble-item-2">
+                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-2" data-index="2"
+                    onclick="selectDnaPaletteColor(2)"
+                    style="background:#B84514; --bubble-color:#B84514; --bubble-glow:rgba(184, 69, 20, 0.45);"
+                    aria-label="Color 3: Accent (10%) #B84514 HIGHLIGHT"
+                    title="Accent (10%) · HIGHLIGHT · #B84514">
+                  </button>
+                  <div class="dna-bubble-info" id="dna-bubble-info-2">
+                    <div class="dna-bubble-role" id="dna-bubble-role-2">Accent (10%)</div>
+                    <div class="dna-bubble-badge-wrap">
+                      <span class="dna-bubble-badge" id="dna-bubble-badge-2">HIGHLIGHT</span>
+                    </div>
+                    <div class="dna-bubble-hex-wrap">
+                      <span class="dna-bubble-hex" id="dna-bubble-hex-2">#B84514</span>
+                    </div>
+                  </div>
                 </div>
-                <div class="dna-swatch-preview-wrap">
-                  <input type="color" id="dna-color-picker-5" value="#0F172A" class="dna-color-native-input" onchange="syncColorInput(this, 'dna-hex-5', 'dna-box-5')">
-                  <div class="dna-swatch-color-box" id="dna-box-5" style="background:#0F172A;" onclick="document.getElementById('dna-color-picker-5').click()"></div>
-                </div>
-                <input type="text" id="dna-hex-5" class="dna-swatch-hex-input" value="#0F172A" onchange="syncHexInput(this, 'dna-color-picker-5', 'dna-box-5')">
-              </div>
 
+                <!-- Bubble 3: Background (#FFFFFF) -->
+                <div class="dna-color-bubble-item" id="dna-bubble-item-3">
+                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-3" data-index="3"
+                    onclick="selectDnaPaletteColor(3)"
+                    style="background:#FFFFFF; --bubble-color:#FFFFFF; --bubble-glow:rgba(148, 163, 184, 0.5); border: 1.5px solid #CBD5E1;"
+                    aria-label="Color 4: Background #FFFFFF CANVAS"
+                    title="Background · CANVAS · #FFFFFF">
+                  </button>
+                  <div class="dna-bubble-info" id="dna-bubble-info-3">
+                    <div class="dna-bubble-role" id="dna-bubble-role-3">Background</div>
+                    <div class="dna-bubble-badge-wrap">
+                      <span class="dna-bubble-badge" id="dna-bubble-badge-3">CANVAS</span>
+                    </div>
+                    <div class="dna-bubble-hex-wrap">
+                      <span class="dna-bubble-hex" id="dna-bubble-hex-3">#FFFFFF</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bubble 4: Text / Neutral (#0F172A) -->
+                <div class="dna-color-bubble-item" id="dna-bubble-item-4">
+                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-4" data-index="4"
+                    onclick="selectDnaPaletteColor(4)"
+                    style="background:#0F172A; --bubble-color:#0F172A; --bubble-glow:rgba(15, 23, 42, 0.45);"
+                    aria-label="Color 5: Text / Neutral #0F172A TYPO"
+                    title="Text / Neutral · TYPO · #0F172A">
+                  </button>
+                  <div class="dna-bubble-info" id="dna-bubble-info-4">
+                    <div class="dna-bubble-role" id="dna-bubble-role-4">Text / Neutral</div>
+                    <div class="dna-bubble-badge-wrap">
+                      <span class="dna-bubble-badge" id="dna-bubble-badge-4">TYPO</span>
+                    </div>
+                    <div class="dna-bubble-hex-wrap">
+                      <span class="dna-bubble-hex" id="dna-bubble-hex-4">#0F172A</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
             </div>
+            <!-- /dna-color-palette-stage -->
+          </div>
+          <!-- /RIGHT COLUMN -->
+
+        </div>
+        <!-- /Combined Grid -->
+
+            <!-- Hidden compatibility elements for existing modal read/save logic -->
+            <div style="display:none;" aria-hidden="true">
+              <div class="dna-display-swatch-color-box" id="dna-display-swatch-box-1" style="background:#F6F2F1;"></div>
+              <span class="dna-display-swatch-hex" id="dna-display-hex-1">#F6F2F1</span>
+              <div class="dna-display-swatch-color-box" id="dna-display-swatch-box-2" style="background:#CA4B16;"></div>
+              <span class="dna-display-swatch-hex" id="dna-display-hex-2">#CA4B16</span>
+              <div class="dna-display-swatch-color-box" id="dna-display-swatch-box-3" style="background:#B84514;"></div>
+              <span class="dna-display-swatch-hex" id="dna-display-hex-3">#B84514</span>
+              <div class="dna-display-swatch-color-box" id="dna-display-swatch-box-4" style="background:#FFFFFF;"></div>
+              <span class="dna-display-swatch-hex" id="dna-display-hex-4">#FFFFFF</span>
+              <div class="dna-display-swatch-color-box" id="dna-display-swatch-box-5" style="background:#0F172A;"></div>
+              <span class="dna-display-swatch-hex" id="dna-display-hex-5">#0F172A</span>
+            </div>
+
           </div>
 
-          <!-- Typography Row -->
-          <div class="dna-2col-grid" style="margin-bottom:18px;">
-            <div>
-              <label class="dna-label">Primary Heading Typography</label>
-              <input type="text" class="dna-input-premium" value="Inter, system-ui, sans-serif">
-            </div>
-            <div>
-              <label class="dna-label">Secondary / Body Typography</label>
-              <input type="text" class="dna-input-premium" value="Merriweather, serif">
-            </div>
-          </div>
+          <!-- Combined Typography & Image Directives Display Box -->
+          <!-- Combined Typography & Image Directives Display Box (Single Edit Button) -->
+          <div class="dna-display-box" style="margin-bottom:20px;">
+            
+            <!-- Row 1: Typography (2-Col Grid) -->
+            <div class="dna-2col-grid" style="margin-bottom:0;align-items:start;">
+              <!-- Primary Heading Typography -->
+              <div>
+                <div class="dna-display-box-header" style="height:32px;min-height:32px;display:flex;align-items:center;margin-bottom:8px;">
+                  <div class="dna-display-box-label" style="margin:0;">
+                    <span>🔤</span> PRIMARY HEADING TYPOGRAPHY
+                  </div>
+                </div>
+                <div id="dna-display-typo-primary" class="dna-display-box-content" style="font-size:16px;font-weight:700;color:#0F172A;font-family:'Inter',system-ui,sans-serif;line-height:1.4;margin:0;">
+                  Inter, system-ui, sans-serif
+                </div>
+              </div>
 
-          <!-- Image & Photography Directives -->
-          <div style="margin-bottom:20px;">
-            <label class="dna-label">Image &amp; Photography Style Directives</label>
-            <textarea class="dna-textarea-premium" rows="3">Modern, clean, enterprise engineering aesthetic. High-contrast diagrams, precise architectural blueprints, subtle dark-mode accents, uncluttered layouts with premium typography and authentic technical visuals.</textarea>
+              <!-- Secondary Body Typography -->
+              <div>
+                <div class="dna-display-box-header" style="height:32px;min-height:32px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div class="dna-display-box-label" style="margin:0;">
+                    <span>🔠</span> SECONDARY / BODY TYPOGRAPHY
+                  </div>
+                  <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec4-combined')" title="Edit Typography &amp; Image Directives">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                </div>
+                <div id="dna-display-typo-secondary" class="dna-display-box-content" style="font-size:15px;color:#0F172A;font-family:'Merriweather',serif;line-height:1.4;margin:0;">
+                  Merriweather, serif
+                </div>
+              </div>
+            </div>
+
+            <!-- Divider Line -->
+            <div class="dna-box-divider" style="height:1px;background:#E2E8F0;margin:18px 0;"></div>
+
+            <!-- Row 2: Image & Photography Style Directives (Full Width) -->
+            <div>
+              <div class="dna-display-box-header" style="margin-bottom:10px;">
+                <div class="dna-display-box-label">
+                  <span>📸</span> IMAGE &amp; PHOTOGRAPHY STYLE DIRECTIVES
+                </div>
+              </div>
+              <div id="dna-display-image-style" class="dna-display-box-content dna-display-box-quote">
+                Modern, clean, enterprise engineering aesthetic. High-contrast diagrams, precise architectural blueprints, subtle dark-mode accents, uncluttered layouts with premium typography and authentic technical visuals.
+              </div>
+            </div>
+
           </div>
 
           <!-- Bottom Footer Navigation -->
@@ -4069,7 +4279,7 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
         </div>
 
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 5: PRODUCTS & OFFERINGS
+             SECTION 5: PRODUCTS & OFFERINGS (REDESIGNED)
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-5" class="dna-section-card" style="display:none;">
           
@@ -4082,7 +4292,9 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">Catalog offerings, value propositions, and direct links</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
+            </div>
           </div>
 
           <!-- Offerings Subheader & Actions -->
@@ -4090,94 +4302,60 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
             <p style="font-size:12.5px;color:#64748B;margin:0;">
               Document key products, flagship services, and tier pricing to empower targeted campaign copy.
             </p>
-            <div style="display:flex;align-items:center;gap:12px;">
-              <span style="font-size:12px;font-weight:700;color:#0F172A;" id="dna-prod-count">3 Products Registered</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:12px;font-weight:700;color:#0F172A;" id="dna-prod-registered-count">3 Products Registered</span>
               <button type="button" class="btn-dna-action" onclick="showToast('Scanning connected website for product catalog...', '🔄')">
                 <span>🔄</span> Find offerings from website
               </button>
             </div>
           </div>
 
-          <!-- Reorderable Product Cards List -->
-          <div class="dna-products-list" id="dna-products-container" style="margin-bottom:20px;">
-            
-            <!-- Card 1 -->
-            <div class="dna-product-item-card" data-id="1">
-              <div class="dna-prod-num-box">1</div>
-              <div class="dna-prod-info">
-                <h4 class="dna-prod-name">Architecture &amp; Design</h4>
-                <p class="dna-prod-desc">
-                  Step 01 / 03 Architecture &amp; Design: Deep technical blueprinting and multi-layer structural optimization ensuring high-scale, distributed applications maintain elite performance, security compliance, and long-term elasticity. Discuss this service...
-                </p>
+          <!-- Product Cards List inside Display Box (View-Only Mode) -->
+          <div class="dna-display-box" style="padding:16px;">
+            <div class="dna-display-box-header">
+              <div class="dna-display-box-label">
+                <span>📦</span> REGISTERED OFFERINGS CATALOG
               </div>
-              <div class="dna-prod-actions">
-                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
-                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
-                <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
-              </div>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="dna-product-item-card" data-id="2">
-              <div class="dna-prod-num-box">2</div>
-              <div class="dna-prod-info">
-                <h4 class="dna-prod-name">AI Delivery Solutions</h4>
-                <p class="dna-prod-desc">
-                  Step 02 / 03 AI Delivery Solutions: End-to-end engineering from vector search ecosystems to multi-agent intelligence and production model deployment with enterprise governance.
-                </p>
-              </div>
-              <div class="dna-prod-actions">
-                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
-                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
-                <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
-              </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="dna-product-item-card" data-id="3">
-              <div class="dna-prod-num-box">3</div>
-              <div class="dna-prod-info">
-                <h4 class="dna-prod-name">Product Engineering Accelerators</h4>
-                <p class="dna-prod-desc">
-                  Step 03 / 03 Product Engineering Accelerators: Pre-engineered scalability architectures and domain-specific processing hubs built to drastically shrink time-to-market and optimize resource efficiency. Discuss this service...
-                </p>
-              </div>
-              <div class="dna-prod-actions">
-                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, -1)" title="Move Up">▲</button>
-                <button type="button" class="btn-dna-arrow" onclick="moveProductItem(this, 1)" title="Move Down">▼</button>
-                <button type="button" class="btn-dna-delete-prod" onclick="removeProductItem(this)" title="Remove Product">✕</button>
-              </div>
-            </div>
-
-          </div>
-
-          <!-- Add New Offering Box -->
-          <div class="dna-add-offering-card">
-            <h3 class="dna-add-offering-title">+ Add New Offering or Service</h3>
-            <div class="dna-2col-grid" style="margin-bottom:12px;">
-              <div>
-                <label class="dna-label">Product / Service Name *</label>
-                <input type="text" id="dna-new-prod-name" class="dna-input-premium" placeholder="e.g. Signal Engine Pro">
-              </div>
-              <div>
-                <label class="dna-label">Pricing / Tier (Optional)</label>
-                <input type="text" id="dna-new-prod-price" class="dna-input-premium" placeholder="e.g. $49/mo or Custom Enterprise">
-              </div>
-            </div>
-            <div class="dna-2col-grid" style="margin-bottom:16px;">
-              <div>
-                <label class="dna-label">Brief Pitch / Value Prop</label>
-                <input type="text" id="dna-new-prod-pitch" class="dna-input-premium" placeholder="e.g. Automated brand identity &amp; AI campaign engine">
-              </div>
-              <div>
-                <label class="dna-label">Destination / Landing URL</label>
-                <input type="text" id="dna-new-prod-url" class="dna-input-premium" placeholder="e.g. https://vibodh.com/engine">
-              </div>
-            </div>
-            <div style="display:flex;justify-content:flex-end;">
-              <button type="button" class="btn-dna-add" style="padding:9px 18px;" onclick="addNewProductFromForm()">
-                + Add Product
+              <button type="button" class="dna-header-edit-btn" onclick="openDnaEditModal('sec5-manage-offerings')" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:12px;font-weight:700;">
+                <span>✏️</span> Edit or Add Offering
               </button>
+            </div>
+
+            <div class="dna-products-list" id="dna-products-list">
+              
+              <!-- Card 1 -->
+              <div class="dna-product-item-card" data-id="1">
+                <div class="dna-prod-num-box">1</div>
+                <div class="dna-prod-info">
+                  <h4 class="dna-prod-name">Architecture &amp; Design</h4>
+                  <p class="dna-prod-desc">
+                    Step 01 / 03 Architecture &amp; Design: Deep technical blueprinting and multi-layer structural optimization ensuring high-scale, distributed applications maintain elite performance, security compliance, and long-term elasticity. Discuss this service...
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card 2 -->
+              <div class="dna-product-item-card" data-id="2">
+                <div class="dna-prod-num-box">2</div>
+                <div class="dna-prod-info">
+                  <h4 class="dna-prod-name">AI Delivery Solutions</h4>
+                  <p class="dna-prod-desc">
+                    Step 02 / 03 AI Delivery Solutions: End-to-end engineering from vector search ecosystems to multi-agent intelligence and production model deployment with enterprise governance.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Card 3 -->
+              <div class="dna-product-item-card" data-id="3">
+                <div class="dna-prod-num-box">3</div>
+                <div class="dna-prod-info">
+                  <h4 class="dna-prod-name">Product Engineering Accelerators</h4>
+                  <p class="dna-prod-desc">
+                    Step 03 / 03 Product Engineering Accelerators: Pre-engineered scalability architectures and domain-specific processing hubs built to drastically shrink time-to-market and optimize resource efficiency. Discuss this service...
+                  </p>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -4194,8 +4372,8 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
 
         </div>
 
-                <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 6: CONTENT STRATEGY (EXACT MATCH TO SCREENSHOT)
+        <!-- ═════════════════════════════════════════════════════════════════
+             SECTION 6: CONTENT STRATEGY (REDESIGNED)
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-6" class="dna-section-card" style="display:none;">
           
@@ -4208,111 +4386,87 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">Strategic pillars, distribution ratios, objectives, and CTAs</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
+            </div>
           </div>
 
-          <!-- Content Pillars & Topic Allocation with Donut Chart -->
-          <div class="dna-group-card" style="padding:20px;background:#FFFFFF;border:1.5px solid #E2E8F0;border-radius:14px;margin-bottom:18px;">
+          <!-- Content Pillars & Topic Allocation Display Box -->
+          <div class="dna-display-box" style="padding:20px;">
+            <div class="dna-display-box-header">
+              <div class="dna-display-box-label">
+                <span>🎯</span> CONTENT PILLARS &amp; TOPIC ALLOCATION
+                <span style="font-size:11.5px;font-weight:700;color:#0F9D8A;margin-left:8px;" id="dna-display-pillars-ratio">Total Ratio: 100% ✓</span>
+              </div>
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec6-pillars')" title="Edit Content Pillars">
+                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+              </button>
+            </div>
+
             <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:28px;">
               
-              <!-- Left: Pillars List with Percentages -->
-              <div>
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-                  <label class="dna-label" style="margin-bottom:0;font-size:12.5px;">Content Pillars &amp; Topic Allocation</label>
-                  <span style="font-size:11.5px;font-weight:700;color:#0F9D8A;" id="dna-pillars-total-ratio">Total Ratio: 100% ✓ (Target 100%)</span>
-                </div>
-
-                <div class="dna-pillars-allocation-list" id="dna-pillars-allocation-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
-                  
-                  <!-- Row 1: Navy -->
-                  <div class="dna-pillar-alloc-row">
+              <!-- Left: Pillars List Display Cards -->
+              <div id="dna-display-pillars-list" style="display:flex;flex-direction:column;gap:10px;">
+                
+                <!-- Pillar 1 -->
+                <div class="dna-display-pillar-card" data-pillar-idx="0">
+                  <div style="display:flex;align-items:center;gap:10px;">
                     <span class="dna-pillar-swatch-dot" style="background:#1E293B;"></span>
-                    <input type="text" class="dna-input-premium dna-pillar-input" value="Production AI Architecture &amp; Engineering" onchange="updatePillarsChart()">
-                    <div class="dna-ratio-input-wrap">
-                      <input type="number" class="dna-ratio-input" value="35" min="0" max="100" onchange="updatePillarsChart()">
-                      <span class="dna-ratio-unit">%</span>
-                    </div>
-                    <div class="dna-pillar-swatch-box" style="background:#1E293B;"></div>
-                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
+                    <span style="font-size:13.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">Production AI Architecture &amp; Engineering</span>
                   </div>
-
-                  <!-- Row 2: Teal -->
-                  <div class="dna-pillar-alloc-row">
-                    <span class="dna-pillar-swatch-dot" style="background:#0F9D8A;"></span>
-                    <input type="text" class="dna-input-premium dna-pillar-input" value="Enterprise AI Governance &amp; Compliance" onchange="updatePillarsChart()">
-                    <div class="dna-ratio-input-wrap">
-                      <input type="number" class="dna-ratio-input" value="25" min="0" max="100" onchange="updatePillarsChart()">
-                      <span class="dna-ratio-unit">%</span>
-                    </div>
-                    <div class="dna-pillar-swatch-box" style="background:#0F9D8A;"></div>
-                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
-                  </div>
-
-                  <!-- Row 3: Purple -->
-                  <div class="dna-pillar-alloc-row">
-                    <span class="dna-pillar-swatch-dot" style="background:#7C3AED;"></span>
-                    <input type="text" class="dna-input-premium dna-pillar-input" value="SaaS Platform Modernization &amp; Velocity" onchange="updatePillarsChart()">
-                    <div class="dna-ratio-input-wrap">
-                      <input type="number" class="dna-ratio-input" value="20" min="0" max="100" onchange="updatePillarsChart()">
-                      <span class="dna-ratio-unit">%</span>
-                    </div>
-                    <div class="dna-pillar-swatch-box" style="background:#7C3AED;"></div>
-                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
-                  </div>
-
-                  <!-- Row 4: Orange -->
-                  <div class="dna-pillar-alloc-row">
-                    <span class="dna-pillar-swatch-dot" style="background:#EA580C;"></span>
-                    <input type="text" class="dna-input-premium dna-pillar-input" value="Real-World Case Studies &amp; Field Notes" onchange="updatePillarsChart()">
-                    <div class="dna-ratio-input-wrap">
-                      <input type="number" class="dna-ratio-input" value="20" min="0" max="100" onchange="updatePillarsChart()">
-                      <span class="dna-ratio-unit">%</span>
-                    </div>
-                    <div class="dna-pillar-swatch-box" style="background:#EA580C;"></div>
-                    <button type="button" class="btn-dna-delete-prod" onclick="removePillarRow(this)" title="Remove Pillar">✕</button>
-                  </div>
-
+                  <span style="font-size:12px;font-weight:800;color:#1E293B;background:#EEF2F6;padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">35%</span>
                 </div>
 
-                <!-- Add New Pillar Row -->
-                <div class="dna-add-pillar-row" style="display:flex;align-items:center;gap:8px;">
-                  <input type="text" id="dna-new-pillar-name" class="dna-input-premium" placeholder="New pillar (e.g. Founder Stories)..." style="flex:1;">
-                  <div class="dna-ratio-input-wrap" style="width:75px;">
-                    <input type="number" id="dna-new-pillar-pct" class="dna-ratio-input" value="25" min="0" max="100">
-                    <span class="dna-ratio-unit">%</span>
+                <!-- Pillar 2 -->
+                <div class="dna-display-pillar-card" data-pillar-idx="1">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span class="dna-pillar-swatch-dot" style="background:#0F9D8A;"></span>
+                    <span style="font-size:13.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">Enterprise AI Governance &amp; Compliance</span>
                   </div>
-                  <div class="dna-pillar-swatch-box" style="background:#0F9D8A;"></div>
-                  <button type="button" class="btn-dna-add" onclick="addNewPillarRow()">+ Add</button>
+                  <span style="font-size:12px;font-weight:800;color:#0F9D8A;background:#E6F7F5;padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">25%</span>
+                </div>
+
+                <!-- Pillar 3 -->
+                <div class="dna-display-pillar-card" data-pillar-idx="2">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span class="dna-pillar-swatch-dot" style="background:#7C3AED;"></span>
+                    <span style="font-size:13.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">SaaS Platform Modernization &amp; Velocity</span>
+                  </div>
+                  <span style="font-size:12px;font-weight:800;color:#7C3AED;background:#F5F3FF;padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">20%</span>
+                </div>
+
+                <!-- Pillar 4 -->
+                <div class="dna-display-pillar-card" data-pillar-idx="3">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <span class="dna-pillar-swatch-dot" style="background:#EA580C;"></span>
+                    <span style="font-size:13.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">Real-World Case Studies &amp; Field Notes</span>
+                  </div>
+                  <span style="font-size:12px;font-weight:800;color:#EA580C;background:#FFF7ED;padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">20%</span>
                 </div>
 
               </div>
 
               <!-- Right: Donut Chart & Legend -->
               <div class="dna-donut-section" style="display:flex;flex-direction:column;align-items:center;justify-content:center;border-left:1px solid #F1F5F9;padding-left:18px;">
-                <h4 style="margin:0 0 14px 0;font-size:12.5px;font-weight:700;color:#0F172A;text-align:center;">Content Distribution Breakdown</h4>
+                <h4 style="margin:0 0 14px 0;font-size:12px;font-weight:800;color:#0F172A;text-align:center;text-transform:uppercase;letter-spacing:0.04em;">Content Breakdown</h4>
                 
                 <!-- SVG Donut Chart -->
                 <div style="position:relative;width:140px;height:140px;margin-bottom:14px;">
-                  <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);border-radius:50%;">
-                    <!-- Background Circle -->
+                  <svg viewBox="0 0 100 100" style="width:100%;height:100%;transform:rotate(-90deg);border-radius:50%;" id="dna-donut-svg">
                     <circle cx="50" cy="50" r="38" fill="none" stroke="#F1F5F9" stroke-width="15"/>
-                    <!-- Navy: 35% (Circumference ~ 238.76 -> 35% = 83.56) -->
                     <circle cx="50" cy="50" r="38" fill="none" stroke="#1E293B" stroke-width="15" stroke-dasharray="83.56 238.76" stroke-dashoffset="0"/>
-                    <!-- Teal: 25% (25% = 59.69, offset = -83.56) -->
                     <circle cx="50" cy="50" r="38" fill="none" stroke="#0F9D8A" stroke-width="15" stroke-dasharray="59.69 238.76" stroke-dashoffset="-83.56"/>
-                    <!-- Purple: 20% (20% = 47.75, offset = -143.25) -->
                     <circle cx="50" cy="50" r="38" fill="none" stroke="#7C3AED" stroke-width="15" stroke-dasharray="47.75 238.76" stroke-dashoffset="-143.25"/>
-                    <!-- Orange: 20% (20% = 47.75, offset = -191.0) -->
                     <circle cx="50" cy="50" r="38" fill="none" stroke="#EA580C" stroke-width="15" stroke-dasharray="47.75 238.76" stroke-dashoffset="-191.0"/>
                   </svg>
                   <div style="position:absolute;top:50%;left:50%;transform:translate(-50%, -50%);text-align:center;pointer-events:none;">
-                    <div style="font-size:17px;font-weight:800;color:#0F172A;line-height:1;">100%</div>
+                    <div style="font-size:17px;font-weight:800;color:#0F172A;line-height:1;" id="dna-donut-center-pct">100%</div>
                     <div style="font-size:9.5px;font-weight:800;color:#64748B;letter-spacing:0.04em;margin-top:2px;">PILLARS</div>
                   </div>
                 </div>
 
                 <!-- Legend List -->
-                <div style="width:100%;display:flex;flex-direction:column;gap:6px;font-size:11.5px;">
+                <div style="width:100%;display:flex;flex-direction:column;gap:6px;font-size:11.5px;" id="dna-donut-legend">
                   <div style="display:flex;justify-content:space-between;align-items:center;">
                     <span style="display:flex;align-items:center;gap:6px;color:#334155;">
                       <span style="width:8px;height:8px;border-radius:50%;background:#1E293B;"></span>
@@ -4348,58 +4502,54 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
             </div>
           </div>
 
-          <!-- 2-Col Grid: Primary Content Objectives vs Preferred Calls to Action -->
+          <!-- 2-Col Grid: Objectives vs CTAs -->
           <div class="dna-2col-grid" style="margin-bottom:20px;">
             
-            <!-- Left: Objectives -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <label class="dna-label" style="margin-bottom:0;">Primary Content Objectives</label>
-                <span style="font-size:11.5px;color:#64748B;" id="dna-objectives-count">3 objectives</span>
+            <!-- Left: Objectives Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div class="dna-display-box-label">
+                  <span>🎯</span> PRIMARY CONTENT OBJECTIVES
+                  <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-objectives-count">3 objectives</span>
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec6-objectives')" title="Edit Objectives">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
               </div>
-              <div class="dna-tags-wrap" id="dna-content-obj-tags" style="margin-bottom:10px;min-height:95px;">
+              <div class="dna-tags-wrap" id="dna-display-objectives" style="min-height:80px;">
                 <span class="dna-tag-pill tag-mint">
                   <span>Articulate unique differentiation over existing solutions</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-mint">
                   <span>Establish authoritative Software, SaaS &amp; AI category presence</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-mint">
                   <span>Generate high-intent qualified customer opportunities</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-objective" class="dna-input-premium" placeholder="Add objective (e.g. Lead Gen, Brand Authority)...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-content-obj-tags', 'dna-input-new-objective', 'tag-mint')">+ Add</button>
               </div>
             </div>
 
-            <!-- Right: Preferred CTAs -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <label class="dna-label" style="margin-bottom:0;">Preferred Calls to Action (CTAs)</label>
-                <span style="font-size:11.5px;color:#64748B;" id="dna-ctas-count">3 CTAs</span>
+            <!-- Right: Preferred CTAs Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div class="dna-display-box-label">
+                  <span>📣</span> PREFERRED CALLS TO ACTION (CTAS)
+                  <span style="font-size:11px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-ctas-count">3 CTAs</span>
+                </div>
+                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec6-ctas')" title="Edit CTAs">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
               </div>
-              <div class="dna-tags-wrap" id="dna-preferred-ctas-tags" style="margin-bottom:10px;min-height:95px;">
+              <div class="dna-tags-wrap" id="dna-display-ctas" style="min-height:80px;">
                 <span class="dna-tag-pill tag-purple">
                   <span>Explore Core Solutions</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-purple">
                   <span>Get Started Today</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
                 <span class="dna-tag-pill tag-purple">
                   <span>Schedule a Strategic Consultation</span>
-                  <button type="button" onclick="this.parentElement.remove()">×</button>
                 </span>
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-cta-val" class="dna-input-premium" placeholder="Add CTA (e.g. Try Free, Book Demo)...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTag('dna-preferred-ctas-tags', 'dna-input-new-cta-val', 'tag-purple')">+ Add</button>
               </div>
             </div>
 
@@ -4419,7 +4569,10 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
         </div>
 
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 7: REGIONAL VOICE (EXACT MATCH TO SCREENSHOT)
+             SECTION 7: REGIONAL VOICE (REDESIGNED)
+        ══════════════════════════════════════════════════════════════════ -->
+        <!-- ══════════════════════════════════════════════════════════════════
+        SECTION 7: REGIONAL VOICE
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-7" class="dna-section-card" style="display:none;">
           
@@ -4432,98 +4585,118 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 <p class="dna-card-desc">Multi-language regional dialect, colloquial slang, and bilingual AI grounding</p>
               </div>
             </div>
-            <span class="dna-section-complete-badge">✓ Section Complete</span>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span class="dna-section-complete-badge">✓ Section Complete</span>
+            </div>
           </div>
 
-          <!-- Enable Regional Language & Dialect Grounding Banner -->
-          <div class="dna-regional-enable-card">
-            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
-              <div>
-                <div style="display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:700;color:#9A3412;">
-                  <span>🌐</span> Enable Regional Language &amp; Dialect Grounding
+          <!-- Enable Regional Language & Dialect Grounding Banner (Image 1) -->
+          <div class="dna-regional-enable-card" style="background:#FFF9F5;border:1px solid #FFEDD5;border-radius:12px;padding:16px 20px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:16px;">
+            <div>
+              <div style="font-size:14px;font-weight:800;color:#9A3412;display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+                <span>🌐</span> Enable Regional Language &amp; Dialect Grounding
+              </div>
+              <div style="font-size:12.5px;color:#C2410C;line-height:1.45;">
+                When enabled, AI post generators blend authentic colloquial phrasing, idioms, and dialect style into your content.
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;">
+              <label class="dna-toggle-switch" style="margin:0;">
+                <input type="checkbox" id="dna-regional-toggle" onchange="toggleRegionalDialect(this)">
+                <span class="dna-toggle-slider"></span>
+              </label>
+              <span id="dna-regional-status-text" style="font-size:12.5px;font-weight:700;color:#64748B;">Disabled</span>
+            </div>
+          </div>
+
+          <!-- Warning Message (Image 2) Shown when enabled and approved vocabulary is empty -->
+          <div id="dna-regional-warning-banner" style="background:#FEF9C3;border:1px solid #FDE047;border-radius:10px;padding:12px 18px;margin-bottom:18px;display:none;align-items:flex-start;gap:12px;">
+            <span style="font-size:16px;line-height:1.2;flex-shrink:0;">⚠️</span>
+            <div style="font-size:12.5px;line-height:1.5;color:#854D0E;">
+              <strong style="color:#854D0E;font-weight:700;">Approved Vocabulary is empty:</strong> Regional voice is enabled, but no colloquial words or approved phrases have been added. Add at least 1-2 phrases below or use &quot;Extract Voice via AI&quot; to give the AI proper dialect grounding.
+            </div>
+          </div>
+
+          <!-- Target Language & Conversational Style 2-Col Grid -->
+          <div class="dna-regional-grid-2col" style="margin-bottom:16px;">
+            <div>
+              <div style="display:flex;justify-content:space-between;align-items:center;min-height:22px;margin-bottom:6px;">
+                <label class="dna-regional-label" for="dna-reg-lang" style="margin-bottom:0;">Target Regional Language</label>
+                <button type="button" class="btn-dna-extract-voice" id="btn-extract-voice" onclick="extractRegionalVoiceAi()" title="Use AI to automatically extract brand voice archetypes and regional tone">
+                  <span style="font-size:14px;color:#F59E0B;">✨</span>
+                  <span>Extract Voice via AI</span>
+                </button>
+              </div>
+              <select id="dna-reg-lang" class="dna-regional-select" onchange="onRegLangChange(this)">
+                <option disabled value="">Select regional language</option>
+                <option value="Hindi (हिंदी)">Hindi (हिंदी)</option>
+                <option value="Kannada (ಕನ್ನಡ)">Kannada (ಕನ್ನಡ)</option>
+                <option value="Telugu (తెలుగు)">Telugu (తెలుగు)</option>
+                <option value="Tamil (தமிழ்)">Tamil (தமிழ்)</option>
+                <option value="Hinglish" selected>Hinglish</option>
+                <option value="English">English</option>
+              </select>
+            </div>
+
+            <div>
+              <div style="display:flex;align-items:center;min-height:22px;margin-bottom:6px;">
+                <label class="dna-regional-label" for="dna-reg-style-preset" style="margin-bottom:0;">Conversational Style &amp; Dialect Syntax</label>
+              </div>
+              <select id="dna-reg-style-preset" class="dna-regional-select" onchange="onRegStylePresetChange(this)">
+                <option value="Hinglish Conversational">Hinglish Conversational</option>
+                <option value="Formal Hindi">Formal Hindi</option>
+                <option value="Regional Colloquial">Regional Colloquial</option>
+                <option value="Urban Colloquial">Urban Colloquial</option>
+                <option value="Commercial / Casual" selected>Commercial / Casual</option>
+                <option value="Modern Conversational">Modern Conversational</option>
+                <option value="Creative Youth Slang">Creative Youth Slang</option>
+                <option value="Professional / Tech">Professional / Tech</option>
+                <option value="Colloquial Storytelling">Colloquial Storytelling</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Sample Regional Tagline / Hook (Display Only) -->
+          <div style="margin-bottom:18px;">
+            <label class="dna-regional-label">Sample Regional Tagline / Hook</label>
+            <div id="dna-reg-tagline" class="dna-regional-tagline-display">Smart solutions jo aapki growth ko boost karein ✨</div>
+          </div>
+
+          <!-- 2-Col Grid: Approved Vocabulary vs Prohibited Regional Claims (Display Only with Edit Buttons) -->
+          <div class="dna-regional-grid-2col" style="margin-bottom:24px;">
+            <!-- Left: Approved Vocabulary Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <label class="dna-regional-label" style="margin:0;">Approved Vocabulary &amp; Colloquial Slang</label>
+                  <span id="dna-approved-slang-count" class="dna-regional-counter">0 approved</span>
                 </div>
-                <p style="margin:4px 0 0;font-size:12px;color:#C2410C;">
-                  When enabled, AI post generators blend authentic colloquial phrasing, idioms, and dialect style into your content.
-                </p>
+                <button type="button" class="dna-box-edit-btn" onclick="openDnaEditModal('sec7-slang')" title="Edit Approved Vocabulary">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  <span>Edit Words</span>
+                </button>
               </div>
-              <div style="display:flex;align-items:center;gap:10px;">
-                <label class="dna-toggle-switch">
-                  <input type="checkbox" id="dna-regional-toggle" onchange="toggleRegionalDialect(this)">
-                  <span class="dna-toggle-slider"></span>
-                </label>
-                <span id="dna-regional-status-text" style="font-size:12px;font-weight:700;color:#64748B;">Disabled</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Quick Language Presets -->
-          <div style="margin-bottom:18px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-              <label class="dna-label" style="margin-bottom:0;">Quick Language Presets</label>
-              <button type="button" class="btn-dna-extract-voice" onclick="showToast('Extracting voice and colloquial idioms via AI...', '✨')">
-                <span>✨</span> Extract Voice via AI
-              </button>
-            </div>
-            <div class="dna-lang-presets-row">
-              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Hindi (हिंदी)')">Hindi (हिंदी)</button>
-              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Kannada (ಕನ್ನಡ)')">Kannada (ಕನ್ನಡ)</button>
-              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Telugu (తెలుగు)')">Telugu (తెలుగు)</button>
-              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Tamil (தமிழ்)')">Tamil (தமிழ்)</button>
-              <button type="button" class="dna-lang-pill" onclick="selectLangPreset(this, 'Hinglish')">Hinglish</button>
-              <button type="button" class="dna-lang-pill active" onclick="selectLangPreset(this, 'English')">English</button>
-            </div>
-          </div>
-
-          <!-- 2-Col Grid: Target Regional Language & Conversational Style -->
-          <div class="dna-2col-grid" style="margin-bottom:16px;">
-            <div>
-              <label class="dna-label">Target Regional Language</label>
-              <input type="text" id="dna-target-lang-input" class="dna-input-premium" value="English">
-            </div>
-            <div>
-              <label class="dna-label">Conversational Style &amp; Dialect Syntax</label>
-              <input type="text" id="dna-dialect-style-input" class="dna-input-premium" value="Professional with conversational warmth &amp; authentic cultural grounding">
-            </div>
-          </div>
-
-          <!-- Colloquial Phrasing Example Textarea -->
-          <div style="margin-bottom:18px;">
-            <textarea class="dna-textarea-premium" rows="3" placeholder="e.g. Science-backed skincare jo sach mein kaam kare ✨" style="font-style:italic;color:#334155;">e.g. Science-backed skincare jo sach mein kaam kare ✨</textarea>
-          </div>
-
-          <!-- 2-Col Grid: Approved Vocabulary & Colloquial Slang vs Prohibited Regional Claims -->
-          <div class="dna-2col-grid" style="margin-bottom:20px;">
-            
-            <!-- Left: Approved Vocabulary & Colloquial Slang -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <label class="dna-label" style="margin-bottom:0;">Approved Vocabulary &amp; Colloquial Slang</label>
-                <span style="font-size:11.5px;color:#64748B;" id="dna-approved-slang-count">0 approved</span>
-              </div>
-              <div class="dna-tags-wrap" id="dna-approved-slang-tags" style="margin-bottom:10px;min-height:48px;">
-                <!-- Dynamically populated or empty -->
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-slang" class="dna-input-premium" placeholder="Add phrase (e.g. Bindaas, Superu, Dil se)...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTagWithCounter('dna-approved-slang-tags', 'dna-input-new-slang', 'tag-mint', 'dna-approved-slang-count', 'approved')">+ Add</button>
+              <div id="dna-approved-chips" class="dna-regional-chips-container" style="min-height:50px;align-items:center;">
+                <span class="dna-vocab-empty-text" style="font-size:12.5px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit Words&quot; to add regional slang and cultural phrasing.</span>
               </div>
             </div>
 
-            <!-- Right: Prohibited Regional Claims & Avoid Words -->
-            <div>
-              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-                <label class="dna-label" style="margin-bottom:0;">Prohibited Regional Claims &amp; Avoid Words</label>
-                <span style="font-size:11.5px;color:#64748B;" id="dna-prohibited-slang-count">0 prohibited</span>
+            <!-- Right: Prohibited Regional Claims Display Box -->
+            <div class="dna-display-box" style="margin-bottom:0;">
+              <div class="dna-display-box-header">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <label class="dna-regional-label" style="margin:0;">Prohibited Regional Claims &amp; Avoid Words</label>
+                  <span id="dna-prohib-slang-count" class="dna-regional-counter">0 prohibited</span>
+                </div>
+                <button type="button" class="dna-box-edit-btn" onclick="openDnaEditModal('sec7-prohib-slang')" title="Edit Prohibited Regional Claims">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  <span>Edit Words</span>
+                </button>
               </div>
-              <div class="dna-tags-wrap" id="dna-prohibited-slang-tags" style="margin-bottom:10px;min-height:48px;">
-                <!-- Dynamically populated or empty -->
-              </div>
-              <div class="dna-input-add-row">
-                <input type="text" id="dna-input-new-prohib-slang" class="dna-input-premium" placeholder="Add prohibited regional phrase...">
-                <button type="button" class="btn-dna-add" onclick="addDnaTagWithCounter('dna-prohibited-slang-tags', 'dna-input-new-prohib-slang', 'tag-rose', 'dna-prohibited-slang-count', 'prohibited')">+ Add</button>
+              <div id="dna-prohib-chips" class="dna-regional-chips-container" style="min-height:50px;align-items:center;">
+                <span class="dna-vocab-empty-text" style="font-size:12.5px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit Words&quot; to add guardrails.</span>
               </div>
             </div>
-
           </div>
 
           <!-- Bottom Footer Navigation -->
@@ -4551,8 +4724,191 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
             </div>
           </div>
         </div>
+        </div>
+
+        <!-- ═════════════════════════════════════════════════════════════
+             BRAND DNA: VERSION HISTORY VIEW
+        ══════════════════════════════════════════════════════════════ -->
+        <div id="dna-version-history-view" style="display:none;">
+          <!-- Back to Section Editor -->
+          <div class="dna-history-back-row">
+            <button type="button" class="dna-back-link-btn" onclick="switchDnaMainView('editor')">
+              <span style="font-size:14px;font-weight:700;">&larr;</span> Back to Section Editor
+            </button>
+          </div>
+
+          <!-- Main White Card -->
+          <div class="dna-version-history-card">
+            <div class="dna-version-history-card-header">
+              <div class="dna-vh-header-left">
+                <div class="dna-vh-title-row">
+                  <span class="dna-vh-clock-icon">⏱️</span>
+                  <h2 class="dna-vh-title">Versioned Snapshots &amp; AI Traceability</h2>
+                  <span class="dna-vh-retention-pill">✦ Rolling 5 Versions Retained</span>
+                </div>
+                <p class="dna-vh-desc">
+                  Immutable point-in-time snapshots track how Brand DNA prompt context evolves across campaigns. Vibodh automatically preserves the latest 5 versions and prunes older commits.
+                </p>
+              </div>
+              <div class="dna-vh-header-right">
+                <button type="button" class="btn-create-snapshot" onclick="openCreateSnapshotModal()">
+                  <span style="font-weight:800;font-size:14px;">+</span> Create New Snapshot
+                </button>
+              </div>
+            </div>
+
+            <!-- Dynamic Snapshots List (Rendered by JS) -->
+            <div class="dna-snapshots-list" id="dna-snapshots-list">
+              <!-- Default Snapshot v1.0 Item -->
+              <div class="dna-snapshot-item active-prompt" id="dna-snapshot-v1-0">
+                <div class="dna-snap-item-left">
+                  <div class="dna-snap-version-line">
+                    <span class="dna-snap-version-tag">v1.0</span>
+                    <span class="dna-snap-status-badge">ACTIVE IN AI PROMPTS</span>
+                  </div>
+                  <div class="dna-snap-description">
+                    Initial baseline snapshot from onboarding
+                  </div>
+                </div>
+                
+                <div class="dna-snap-item-right">
+                  <div class="dna-snap-meta-text">
+                    Sahana Viswanath &bull; Oct 15, 2026, 03:53 PM
+                  </div>
+                  <div class="dna-snap-completeness-pill">
+                    100% completeness
+                  </div>
+                  <button type="button" class="btn-inspect-snapshot" onclick="inspectSnapshot('v1.0')">
+                    <span class="btn-inspect-icon">🔍</span> Inspect
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
 
+      
+      <!-- ═════════════════════════════════════════════════════════════════
+           FLOATING WINDOW / MODAL FOR EDITING BRAND DNA
+      ══════════════════════════════════════════════════════════════════ -->
+      <!-- ═════════════════════════════════════════════════════════════
+           MODAL: INSPECT BRAND DNA SNAPSHOT
+      ══════════════════════════════════════════════════════════════ -->
+      <div id="dna-inspect-modal" class="dna-modal-backdrop" style="display:none;" onclick="if(event.target===this) closeDnaInspectModal()">
+        <div class="dna-modal-window" style="max-width: 760px;">
+          <div class="dna-modal-header">
+            <div class="dna-modal-header-left">
+              <div class="dna-modal-icon-badge" style="background:#E0F2FE;color:#0284C7;">🔍</div>
+              <div>
+                <h3 class="dna-modal-title" id="dna-inspect-modal-title">Snapshot Inspector &bull; v1.0</h3>
+                <p class="dna-modal-subtitle" id="dna-inspect-modal-subtitle">Point-in-time Brand DNA grounding context used in AI generation</p>
+              </div>
+            </div>
+            <button type="button" class="dna-modal-close-btn" onclick="closeDnaInspectModal()" title="Close">✕</button>
+          </div>
+          
+          <div class="dna-modal-body" id="dna-inspect-modal-body" style="max-height: 58vh; overflow-y: auto;">
+            <!-- Populated dynamically by inspectSnapshot() -->
+          </div>
+          
+          <div class="dna-modal-footer" style="display:flex;justify-content:space-between;align-items:center;">
+            <div id="dna-inspect-modal-status-badge">
+              <span class="dna-snap-status-badge" style="font-size:11px;">ACTIVE IN AI PROMPTS</span>
+            </div>
+            <div style="display:flex;gap:10px;">
+              <button type="button" class="btn-dna-modal-cancel" onclick="exportSnapshotJSON()">
+                <span>📥</span> Export JSON
+              </button>
+              <button type="button" class="btn-dna-modal-save" onclick="closeDnaInspectModal()">
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ═════════════════════════════════════════════════════════════
+           MODAL: CREATE NEW BRAND DNA SNAPSHOT
+      ══════════════════════════════════════════════════════════════ -->
+      <div id="dna-create-snapshot-modal" class="dna-modal-backdrop" style="display:none;" onclick="if(event.target===this) closeCreateSnapshotModal()">
+        <div class="dna-modal-window" style="max-width: 520px;">
+          <div class="dna-modal-header">
+            <div class="dna-modal-header-left">
+              <div class="dna-modal-icon-badge" style="background:#ECFDF5;color:#059669;">⏱️</div>
+              <div>
+                <h3 class="dna-modal-title">Create New Snapshot</h3>
+                <p class="dna-modal-subtitle">Freeze current Brand DNA configuration into an immutable version</p>
+              </div>
+            </div>
+            <button type="button" class="dna-modal-close-btn" onclick="closeCreateSnapshotModal()" title="Close">✕</button>
+          </div>
+          
+          <div class="dna-modal-body">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;padding:12px 16px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;">
+              <div>
+                <span style="font-size:11.5px;color:#64748B;display:block;">TARGET COMMIT VERSION</span>
+                <strong style="font-size:16px;color:#EA580C;font-family:'JetBrains Mono',monospace;" id="dna-new-version-label">v1.1</strong>
+              </div>
+              <span style="display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:99px;background:#ECFDF5;border:1px solid #A7F3D0;font-size:11px;font-weight:700;color:#059669;">
+                <span>✓</span> 100% Ready
+              </span>
+            </div>
+
+            <div class="dna-modal-field" style="margin-bottom:16px;">
+              <label class="dna-modal-label" for="dna-new-snap-desc">Snapshot Summary / Commit Note</label>
+              <input type="text" id="dna-new-snap-desc" class="dna-modal-input" placeholder="e.g., Q4 Campaign Tone Updates &amp; Visual Identity refresh" value="Updated prompt context &amp; brand parameters">
+              <span class="dna-modal-hint">A concise note describing the updates or campaign phase captured in this snapshot.</span>
+            </div>
+
+            <div style="display:flex;align-items:flex-start;gap:10px;padding:12px 14px;background:#FFFDF5;border:1.5px solid #FDE68A;border-radius:10px;">
+              <input type="checkbox" id="dna-new-snap-active" checked style="accent-color:#0F9D8A;width:17px;height:17px;cursor:pointer;margin-top:2px;">
+              <div>
+                <label for="dna-new-snap-active" style="font-size:12.5px;font-weight:700;color:#0F172A;cursor:pointer;display:block;margin-bottom:2px;">
+                  Set as Active Prompt Context
+                </label>
+                <span style="font-size:11.5px;color:#64748B;line-height:1.4;display:block;">
+                  Immediately grounds all Content Studio generations and AI agent workflows in this snapshot.
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="dna-modal-footer">
+            <button type="button" class="btn-dna-modal-cancel" onclick="closeCreateSnapshotModal()">Cancel</button>
+            <button type="button" class="btn-dna-modal-save" onclick="saveNewSnapshotCommit()">
+              <span>✓</span> Create Snapshot
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div id="dna-edit-modal" class="dna-modal-backdrop" style="display:none;" onclick="if(event.target===this) closeDnaEditModal()">
+        <div class="dna-modal-window">
+          <div class="dna-modal-header">
+            <div class="dna-modal-header-left">
+              <div class="dna-modal-icon-badge" id="dna-modal-icon">✏️</div>
+              <div>
+                <h3 class="dna-modal-title" id="dna-modal-title">Edit Brand DNA</h3>
+                <p class="dna-modal-subtitle" id="dna-modal-subtitle">Modify parameters and save changes to update the live brand identity</p>
+              </div>
+            </div>
+            <button type="button" class="dna-modal-close-btn" onclick="closeDnaEditModal()" title="Close">✕</button>
+          </div>
+          
+          <div class="dna-modal-body" id="dna-modal-body">
+            <!-- Injected dynamically by openDnaEditModal() -->
+          </div>
+          
+          <div class="dna-modal-footer">
+            <button type="button" class="btn-dna-modal-cancel" onclick="closeDnaEditModal()">Cancel</button>
+            <button type="button" class="btn-dna-modal-save" id="dna-modal-save-btn" onclick="saveDnaModalChanges()">
+              <span>✓</span> Save Changes
+            </button>
+          </div>
+        </div>
+      </div>
+  
       </div>
 
       <!-- ═════════════════════════════════════════════════════════════════
