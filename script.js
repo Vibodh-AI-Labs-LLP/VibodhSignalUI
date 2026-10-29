@@ -135,7 +135,7 @@ function modalHeader(title, subtitle = '') {
           <div style="font-size:1.125rem; font-weight:700; color:#1C1917; line-height:1.3;">${title}</div>
           ${subtitle ? `<div style="font-size:0.8125rem; color:#78716C; margin-top:4px;">${subtitle}</div>` : ''}
         </div>
-        <button onclick="closeModal()" style="border:none; background:#F5F5F4; border-radius:8px; width:32px; height:32px; cursor:pointer; font-size:18px; color:#78716C; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-left:16px;">&times;</button>
+        <button onclick="closeModal()" style="border:none; background:#F5F5F4; border-radius:8px; width:32px; height:32px; cursor:pointer; font-size:15px; color:#78716C; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-left:16px;">&times;</button>
       </div>
     </div>`;
 }
@@ -154,10 +154,10 @@ function stepIndicator(current, total, labels) {
           <div style="display:flex; align-items:center; flex:1; ${i === 0 ? 'flex:0;' : ''}">
             ${i > 0 ? `<div style="flex:1; height:2px; background:${lc}; min-width:20px;"></div>` : ''}
             <div style="display:flex; flex-direction:column; align-items:center; gap:4px;">
-              <div style="width:28px; height:28px; border-radius:50%; background:${bg}; color:${tc}; font-size:12px; font-weight:700; display:flex; align-items:center; justify-content:center;">
+              <div style="width:28px; height:28px; border-radius:50%; background:${bg}; color:${tc}; font-size:10.5px; font-weight:700; display:flex; align-items:center; justify-content:center;">
                 ${done ? '✓' : idx}
               </div>
-              <div style="font-size:10px; font-weight:600; color:${active ? '#243B6B' : '#A8A29E'}; white-space:nowrap;">${label}</div>
+              <div style="font-size:9px; font-weight:600; color:${active ? '#243B6B' : '#A8A29E'}; white-space:nowrap;">${label}</div>
             </div>
           </div>`;
       }).join('')}
@@ -199,7 +199,7 @@ function renderCheckoutStep(step) {
     body = `
       <div style="padding:24px 28px;">
         <div style="background:linear-gradient(135deg,#EFF6FF,#F0FDF4); border:1.5px solid #DBEAFE; border-radius:12px; padding:20px; margin-bottom:24px;">
-          <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#78716C; margin-bottom:6px;">Selected Plan</div>
+          <div style="font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#78716C; margin-bottom:6px;">Selected Plan</div>
           <div style="font-size:1.5rem; font-weight:800; color:#243B6B;">${plan.name}</div>
           <div id="co-price-display" style="font-size:1rem; font-weight:600; color:#0F9D8A; margin-top:4px;">${price} <span style="font-size:.8125rem; font-weight:400; color:#78716C;">${PRICING_DATA[checkoutState.cycle].periodLabel}</span></div>
           <div id="co-cycle-caption" style="font-size:.75rem; color:#78716C; margin-top:2px;">${PRICING_DATA[checkoutState.cycle].subCaption}</div>
@@ -215,7 +215,7 @@ function renderCheckoutStep(step) {
                   <div style="font-weight:600; color:#1C1917; font-size:.875rem;">${opt.label}</div>
                   <div style="font-size:.75rem; color:#78716C;">${opt.sub}</div>
                 </div>
-                ${opt.savings ? `<span style="background:#DCFCE7; color:#15803D; font-size:10px; font-weight:700; padding:2px 8px; border-radius:99px;">${opt.savings}</span>` : ''}
+                ${opt.savings ? `<span style="background:#DCFCE7; color:#15803D; font-size:9px; font-weight:700; padding:2px 8px; border-radius:99px;">${opt.savings}</span>` : ''}
                 <div style="font-size:.875rem; font-weight:700; color:#243B6B;" id="co-opt-price-${opt.key}">${cyclePrice(checkoutState.plan, opt.key)}</div>
               </label>`).join('')}
           </div>
@@ -599,7 +599,7 @@ function openContactSales(source) {
 
   const agencyInfoHTML = isAgency ? `
     <div style="background:#F0FDFA; border:1.5px solid #99F6E4; border-radius:10px; padding:12px 14px; margin-bottom:16px;">
-      <div style="font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#0F9D8A; margin-bottom:6px;">Agency Plan Baseline (Custom Scope)</div>
+      <div style="font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:#0F9D8A; margin-bottom:6px;">Agency Plan Baseline (Custom Scope)</div>
       <div style="font-size:.8125rem; color:#134E4A; line-height:1.55; display:grid; grid-template-columns:1fr 1fr; gap:4px 12px;">
         <div>&bull; <strong>5+ brands</strong> (Custom)</div>
         <div>&bull; <strong>20+ social profiles</strong></div>
@@ -711,10 +711,10 @@ function renderCreditPackModal() {
           const sel = selectedCreditPack && selectedCreditPack.credits === pack.credits;
           let badgeHTML = '';
           if (pack.popular) {
-            badgeHTML = `<span style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:#0F9D8A; color:#fff; font-size:9px; font-weight:700; padding:2px 8px; border-radius:99px; white-space:nowrap;">⭐ Popular</span>`;
+            badgeHTML = `<span style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:#0F9D8A; color:#fff; font-size:8.5px; font-weight:700; padding:2px 8px; border-radius:99px; white-space:nowrap;">⭐ Popular</span>`;
           } else if (pack.discount) {
             const badgeBg = pack.credits === 1000 ? '#7C3AED' : '#243B6B';
-            badgeHTML = `<span style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:${badgeBg}; color:#fff; font-size:9px; font-weight:700; padding:2px 8px; border-radius:99px; white-space:nowrap;">${pack.discount}</span>`;
+            badgeHTML = `<span style="position:absolute; top:-10px; left:50%; transform:translateX(-50%); background:${badgeBg}; color:#fff; font-size:8.5px; font-weight:700; padding:2px 8px; border-radius:99px; white-space:nowrap;">${pack.discount}</span>`;
           }
           return `
             <div onclick="selectCreditPack(${i})" id="cp-card-${i}"
@@ -808,7 +808,7 @@ window.completeCreditPurchase = function() {
     modalHeader('Credits Added! ⚡') + `
     <div style="padding:40px 28px; text-align:center;">
       <div style="width:64px; height:64px; background:linear-gradient(135deg,#F59E0B,#F97316); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
-        <span style="font-size:28px;">⚡</span>
+        <span style="font-size:22px;">⚡</span>
       </div>
       <h3 style="font-size:1.25rem; font-weight:800; color:#1C1917; margin-bottom:8px;">${p.label} Added!</h3>
       <p style="color:#78716C; font-size:.9375rem; margin-bottom:20px;">Your workspace has been topped up with <strong>${p.label}</strong>. Credits are ready to use immediately.</p>
@@ -840,7 +840,7 @@ function openLoginModal() {
           <input id="li-pwd" type="password" placeholder="Enter your password"
             style="width:100%; padding:10px 40px 10px 12px; border:1.5px solid #E7E5E4; border-radius:8px; font-size:.875rem; outline:none;" onfocus="this.style.borderColor='#243B6B'" onblur="this.style.borderColor='#E7E5E4'">
           <button onclick="let i=document.getElementById('li-pwd');i.type=i.type==='password'?'text':'password';this.textContent=i.type==='password'?'👁':'🔒'"
-            style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:14px; color:#78716C;">👁</button>
+            style="position:absolute; right:10px; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; font-size:12px; color:#78716C;">👁</button>
         </div>
       </div>
       <div style="text-align:right; margin-bottom:20px;">
@@ -1015,7 +1015,7 @@ function openAdScopeModal() {
         <!-- Included Column -->
         <div style="background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px; padding:18px;">
           <div style="display:flex; align-items:center; gap:8px; font-size:.9rem; font-weight:800; color:#166534; margin-bottom:12px;">
-            <span style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:#166534; color:#fff; border-radius:50%; font-size:12px;">&#10003;</span>
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:#166534; color:#fff; border-radius:50%; font-size:10.5px;">&#10003;</span>
             What &lsquo;Ad Management&rsquo; Includes
           </div>
           <p style="font-size:.75rem; color:#15803D; margin-bottom:12px; line-height:1.4;">Covered in full by your 10% Vibodh Signal management fee:</p>
@@ -1054,7 +1054,7 @@ function openAdScopeModal() {
         <!-- Excluded Column -->
         <div style="background:#FFF1F2; border:1px solid #FECDD3; border-radius:12px; padding:18px;">
           <div style="display:flex; align-items:center; gap:8px; font-size:.9rem; font-weight:800; color:#9F1239; margin-bottom:12px;">
-            <span style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:#9F1239; color:#fff; border-radius:50%; font-size:12px;">&#10005;</span>
+            <span style="display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; background:#9F1239; color:#fff; border-radius:50%; font-size:10.5px;">&#10005;</span>
             What Is NOT Included
           </div>
           <p style="font-size:.75rem; color:#BE123C; margin-bottom:12px; line-height:1.4;">External costs or out-of-scope services billed separately:</p>
@@ -1252,8 +1252,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ── 9h. Mobile Sidebar Drawer ───────────────────────── */
+  /* ── 9h. Sidebar Collapse & Mobile Drawer ────────────── */
   const sidebar = document.getElementById('sidebar');
+  const sidebarCollapseBtn = document.getElementById('sidebar-collapse-btn');
   const sidebarToggle = document.getElementById('sidebar-toggle-btn');
   const sidebarClose = document.getElementById('sidebar-close-btn');
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
@@ -1270,9 +1271,38 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = '';
   }
 
+  function toggleSidebarCollapse() {
+    if (!sidebar) return;
+    const isCollapsed = sidebar.classList.toggle('collapsed');
+    try {
+      localStorage.setItem('vibodh_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+    } catch (e) {}
+    if (sidebarCollapseBtn) {
+      sidebarCollapseBtn.setAttribute('title', isCollapsed ? 'Expand sidebar' : 'Collapse sidebar');
+      sidebarCollapseBtn.setAttribute('aria-label', isCollapsed ? 'Expand sidebar' : 'Collapse sidebar');
+    }
+  }
+
+  // Restore saved collapse state on desktop
+  try {
+    if (window.innerWidth > 991 && localStorage.getItem('vibodh_sidebar_collapsed') === 'true') {
+      sidebar?.classList.add('collapsed');
+      sidebarCollapseBtn?.setAttribute('title', 'Expand sidebar');
+    }
+  } catch (e) {}
+
+  sidebarCollapseBtn?.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSidebarCollapse();
+  });
+
   sidebarToggle?.addEventListener('click', e => {
     e.stopPropagation();
-    openSidebar();
+    if (window.innerWidth <= 991) {
+      openSidebar();
+    } else {
+      toggleSidebarCollapse();
+    }
   });
   sidebarClose?.addEventListener('click', closeSidebar);
   sidebarBackdrop?.addEventListener('click', closeSidebar);
@@ -2757,13 +2787,13 @@ function openScheduleModal(mode) {
     const activePlats = AVAILABLE_PLATFORMS.filter(p => selectedPlatformIds.includes(p.id));
     if (activePlats.length > 0) {
       pillsWrap.innerHTML = activePlats.map(p => `
-        <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;background:${p.bg};border:1px solid ${p.color}40;color:${p.color};font-size:11.5px;font-weight:700;">
+        <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;background:${p.bg};border:1px solid ${p.color}40;color:${p.color};font-size:10px;font-weight:700;">
           ${p.iconSvg}
           <span>${p.name}</span>
         </span>
       `).join('');
     } else {
-      pillsWrap.innerHTML = '<span style="font-size:11.5px;color:#94A3B8;">No channels selected. Please select at least one target channel.</span>';
+      pillsWrap.innerHTML = '<span style="font-size:10px;color:#94A3B8;">No channels selected. Please select at least one target channel.</span>';
     }
   }
 
@@ -4870,21 +4900,21 @@ function addNewOfferingInModal() {
   cardDiv.innerHTML = `
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
       <div style="display:flex;align-items:center;gap:8px;">
-        <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#0F172A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">${newIdx}</span>
-        <span class="modal-offering-title-label" style="font-size:11.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.04em;">Offering #${newIdx}</span>
+        <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#0F172A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;">${newIdx}</span>
+        <span class="modal-offering-title-label" style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.04em;">Offering #${newIdx}</span>
       </div>
       <div style="display:flex;align-items:center;gap:6px;">
-        <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▲</button>
-        <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▼</button>
-        <button type="button" class="btn-dna-delete-prod" onclick="deleteModalOffering(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:12px;font-weight:700;">✕</button>
+        <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▲</button>
+        <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▼</button>
+        <button type="button" class="btn-dna-delete-prod" onclick="deleteModalOffering(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:10.5px;font-weight:700;">✕</button>
       </div>
     </div>
     <div style="margin-bottom:8px;">
-      <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Name</label>
+      <label style="font-size:9.5px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Name</label>
       <input type="text" class="dna-input-premium modal-offering-name" value="${escapeVal(name)}" placeholder="e.g. Architecture & Design" style="width:100%;font-weight:700;">
     </div>
     <div>
-      <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Pitch & Description</label>
+      <label style="font-size:9.5px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Pitch & Description</label>
       <textarea class="dna-textarea-premium modal-offering-desc" rows="2" placeholder="Describe key deliverables, architecture, value proposition..." style="width:100%;">${escapeTxt(desc)}</textarea>
     </div>
   `;
@@ -4926,7 +4956,7 @@ function addNewProductFromForm() {
     <div class="dna-prod-info">
       <div style="display:flex;align-items:center;gap:8px;">
         <h4 class="dna-prod-name">${name}</h4>
-        ${price ? `<span style="font-size:11px;font-weight:700;color:#0F9D8A;background:#E6F7F5;padding:2px 7px;border-radius:6px;">${price}</span>` : ''}
+        ${price ? `<span style="font-size:9.5px;font-weight:700;color:#0F9D8A;background:#E6F7F5;padding:2px 7px;border-radius:6px;">${price}</span>` : ''}
       </div>
       <p class="dna-prod-desc">${pitch}${url ? ` &bull; <a href="${url}" target="_blank" style="color:#0F9D8A;text-decoration:underline;">${url}</a>` : ''}</p>
     </div>
@@ -5164,7 +5194,7 @@ function renderImageFormatMultiselect() {
       return `
         <span class="cs-plat-chip" style="background:${f.bg}; border-color:${f.color}40;" title="${f.name} (${f.desc})">
           <span class="cs-chip-icon">${f.iconSvg}</span>
-          <span class="cs-chip-label" style="font-weight:600;color:#0F172A;">${f.name} <span style="color:#64748B;font-weight:500;font-size:10.5px;">(${f.ratio})</span></span>
+          <span class="cs-chip-label" style="font-weight:600;color:#0F172A;">${f.name} <span style="color:#64748B;font-weight:500;font-size:9.5px;">(${f.ratio})</span></span>
           <span class="cs-chip-remove" onclick="removeImageFormatChip('${f.id}', event)" title="Remove ${f.name}">&times;</span>
         </span>
       `;
@@ -5187,11 +5217,11 @@ function renderImageFormatMultiselect() {
               ${f.iconSvg}
             </span>
             <div style="display:flex;flex-direction:column;">
-              <span class="cs-option-name" style="${isSelected ? 'color:' + f.color + '; font-weight:700;' : 'color:#0F172A; font-weight:600;'}font-size:13px;">${f.name}</span>
-              <span style="font-size:11px;color:#64748B;">${f.desc}</span>
+              <span class="cs-option-name" style="${isSelected ? 'color:' + f.color + '; font-weight:700;' : 'color:#0F172A; font-weight:600;'}font-size:11.5px;">${f.name}</span>
+              <span style="font-size:9.5px;color:#64748B;">${f.desc}</span>
             </div>
           </div>
-          <span class="cs-option-check" style="font-size:13px;font-weight:800;color:${isSelected ? f.color : '#CBD5E1'};">${isSelected ? '✓' : '＋'}</span>
+          <span class="cs-option-check" style="font-size:11.5px;font-weight:800;color:${isSelected ? f.color : '#CBD5E1'};">${isSelected ? '✓' : '＋'}</span>
         </div>
       `;
     }).join('');
@@ -5496,7 +5526,7 @@ function renderLiveTrendsCards() {
   );
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div style="padding:16px;text-align:center;color:#64748B;font-size:12px;">No trending topics match your search. Click "Scan Live" to fetch new trends.</div>';
+    container.innerHTML = '<div style="padding:16px;text-align:center;color:#64748B;font-size:10.5px;">No trending topics match your search. Click "Scan Live" to fetch new trends.</div>';
     return;
   }
 
@@ -5689,7 +5719,7 @@ function renderHolidayCards() {
   });
 
   if (filtered.length === 0) {
-    container.innerHTML = '<div style="padding:16px;text-align:center;color:#64748B;font-size:12px;">No occasions found matching your filter. Try searching for Diwali, Halloween, etc.</div>';
+    container.innerHTML = '<div style="padding:16px;text-align:center;color:#64748B;font-size:10.5px;">No occasions found matching your filter. Try searching for Diwali, Halloween, etc.</div>';
     return;
   }
 
@@ -6495,8 +6525,8 @@ function openDnaEditModal(type, meta) {
             </div>
 
             <div style="flex:1;min-width:220px;">
-              <div style="font-size:13.5px;font-weight:700;color:#0F172A;margin-bottom:3px;">Brand Logo Actions</div>
-              <div style="font-size:12px;color:#64748B;margin-bottom:12px;">Upload a vector mark, PNG, or JPG (SVG recommended for sharp resolution)</div>
+              <div style="font-size:11.5px;font-weight:700;color:#0F172A;margin-bottom:3px;">Brand Logo Actions</div>
+              <div style="font-size:10.5px;color:#64748B;margin-bottom:12px;">Upload a vector mark, PNG, or JPG (SVG recommended for sharp resolution)</div>
               
               <div style="display:flex;gap:10px;flex-wrap:wrap;">
                 <input type="file" id="modal-file-upload-logo" accept="image/*,.svg" style="display:none;" onchange="handleModalLogoUpload(this)">
@@ -6533,17 +6563,17 @@ function openDnaEditModal(type, meta) {
           <!-- Row 1: Company Name & Industry Sector (2-Col Grid) -->
           <div class="dna-2col-grid" style="margin-bottom:0;gap:18px;">
             <div class="modal-form-group" style="margin-bottom:0;">
-              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
                 <span>🏢</span> COMPANY / BRAND NAME
               </label>
-              <input type="text" id="modal-inp-brand-name" class="dna-input-premium" value="${escapeVal(curName)}" placeholder="e.g. Vibodhai" style="font-size:14px;font-weight:700;">
+              <input type="text" id="modal-inp-brand-name" class="dna-input-premium" value="${escapeVal(curName)}" placeholder="e.g. Vibodhai" style="font-size:12px;font-weight:700;">
             </div>
 
             <div class="modal-form-group" style="margin-bottom:0;">
-              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
                 <span>⚡</span> INDUSTRY &amp; SECTOR
               </label>
-              <input type="text" id="modal-inp-brand-industry" list="industry-presets" class="dna-input-premium" value="${escapeVal(curInd)}" placeholder="e.g. Software, SaaS &amp; AI" style="font-size:13.5px;font-weight:600;">
+              <input type="text" id="modal-inp-brand-industry" list="industry-presets" class="dna-input-premium" value="${escapeVal(curInd)}" placeholder="e.g. Software, SaaS &amp; AI" style="font-size:11.5px;font-weight:600;">
               <datalist id="industry-presets">
                 <option value="Software, SaaS &amp; AI">
                 <option value="E-Commerce &amp; Retail">
@@ -6560,17 +6590,17 @@ function openDnaEditModal(type, meta) {
           <!-- Row 2: Operating Location / Headquarters & Website URL (2-Col Grid) -->
           <div class="dna-2col-grid" style="margin-bottom:0;gap:18px;">
             <div class="modal-form-group" style="margin-bottom:0;">
-              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
                 <span>📍</span> OPERATING LOCATION / HEADQUARTERS
               </label>
-              <input type="text" id="modal-inp-brand-location" class="dna-input-premium" value="${escapeVal(curLocation)}" placeholder="e.g. Bengaluru, Karnataka, India" style="font-size:13.5px;font-weight:600;">
+              <input type="text" id="modal-inp-brand-location" class="dna-input-premium" value="${escapeVal(curLocation)}" placeholder="e.g. Bengaluru, Karnataka, India" style="font-size:11.5px;font-weight:600;">
             </div>
 
             <div class="modal-form-group" style="margin-bottom:0;">
-              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+              <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
                 <span>🌐</span> WEBSITE URL
               </label>
-              <input type="text" id="modal-inp-brand-website" class="dna-input-premium" value="${escapeVal(curWebsite)}" placeholder="e.g. https://vibodhai.com" style="font-size:13.5px;font-weight:600;">
+              <input type="text" id="modal-inp-brand-website" class="dna-input-premium" value="${escapeVal(curWebsite)}" placeholder="e.g. https://vibodhai.com" style="font-size:11.5px;font-weight:600;">
             </div>
           </div>
         </div>
@@ -6596,29 +6626,29 @@ function openDnaEditModal(type, meta) {
         <div style="display:flex;flex-direction:column;gap:18px;">
           <!-- Row 1: Core Mission Statement (Full Width) -->
           <div class="modal-form-group" style="margin-bottom:0;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
               <span>🎯</span> CORE MISSION STATEMENT
             </label>
-            <textarea id="modal-inp-mission" class="dna-textarea-premium" rows="3" placeholder="Enter your core mission statement..." style="line-height:1.55;font-size:13.5px;">${escapeTxt(curMission)}</textarea>
-            <div style="font-size:11.5px;color:#94A3B8;margin-top:4px;">Define why your company exists and the high-impact value you deliver to customers.</div>
+            <textarea id="modal-inp-mission" class="dna-textarea-premium" rows="3" placeholder="Enter your core mission statement..." style="line-height:1.55;font-size:11.5px;">${escapeTxt(curMission)}</textarea>
+            <div style="font-size:10px;color:#94A3B8;margin-top:4px;">Define why your company exists and the high-impact value you deliver to customers.</div>
           </div>
 
           <!-- Row 2: Brand Description (Full Width) -->
           <div class="modal-form-group" style="margin-bottom:0;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
               <span>📖</span> BRAND DESCRIPTION
             </label>
-            <textarea id="modal-inp-desc" class="dna-textarea-premium" rows="3" placeholder="Brief summary of what your company does..." style="line-height:1.55;font-size:13px;">${escapeTxt(curDesc)}</textarea>
-            <div style="font-size:11.5px;color:#94A3B8;margin-top:4px;">Elevator pitch describing what your company does and who it serves.</div>
+            <textarea id="modal-inp-desc" class="dna-textarea-premium" rows="3" placeholder="Brief summary of what your company does..." style="line-height:1.55;font-size:11.5px;">${escapeTxt(curDesc)}</textarea>
+            <div style="font-size:10px;color:#94A3B8;margin-top:4px;">Elevator pitch describing what your company does and who it serves.</div>
           </div>
 
           <!-- Row 3: Positioning / Value Proposition (Full Width) -->
           <div class="modal-form-group" style="margin-bottom:0;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:11.5px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:0.04em;text-transform:uppercase;color:#475569;">
               <span>💎</span> POSITIONING / VALUE PROPOSITION
             </label>
-            <textarea id="modal-inp-positioning" class="dna-textarea-premium" rows="3" placeholder="For [target audience] who [problem], [Brand] is [solution]..." style="line-height:1.55;font-size:13px;">${escapeTxt(curPos)}</textarea>
-            <div style="font-size:11.5px;color:#94A3B8;margin-top:4px;">Clear differentiation vs conventional competitors and market alternatives.</div>
+            <textarea id="modal-inp-positioning" class="dna-textarea-premium" rows="3" placeholder="For [target audience] who [problem], [Brand] is [solution]..." style="line-height:1.55;font-size:11.5px;">${escapeTxt(curPos)}</textarea>
+            <div style="font-size:10px;color:#94A3B8;margin-top:4px;">Clear differentiation vs conventional competitors and market alternatives.</div>
           </div>
         </div>
       `;
@@ -6671,7 +6701,7 @@ function openDnaEditModal(type, meta) {
 
       formHtml = `
         <div class="modal-form-group" style="margin-bottom:20px;">
-          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#334155;">
             <span>👤</span> PRIMARY TARGET AUDIENCE PERSONA
           </label>
           <textarea id="modal-inp-persona" class="dna-textarea-premium" rows="4" placeholder="Describe the primary customer persona, target titles, and company profile...">${curPersona}</textarea>
@@ -6679,13 +6709,13 @@ function openDnaEditModal(type, meta) {
 
         <div class="modal-form-group">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:0;font-size:12px;font-weight:700;color:#334155;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:0;font-size:10.5px;font-weight:700;color:#334155;">
               <span>👥</span> AUDIENCE SEGMENTS &amp; CORE NEEDS
             </label>
-            <span style="font-size:12px;color:#64748B;font-weight:600;" id="modal-seg-counter">${segTags.length} segments</span>
+            <span style="font-size:10.5px;color:#64748B;font-weight:600;" id="modal-seg-counter">${segTags.length} segments</span>
           </div>
           <div id="modal-tags-list" style="display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;min-height:70px;margin-bottom:12px;">
-            ${tagSpans || '<span style="color:#94A3B8;font-size:12px;font-style:italic;">No segments defined. Add one below.</span>'}
+            ${tagSpans || '<span style="color:#94A3B8;font-size:10.5px;font-style:italic;">No segments defined. Add one below.</span>'}
           </div>
           <div class="dna-input-add-row">
             <input type="text" id="modal-inp-new-tag" class="dna-input-premium" placeholder="Add audience segment (e.g. Chief Technology Officer / VP of Engineering)..." onkeydown="if(event.key==='Enter'){event.preventDefault();addModalTag('modal-tags-list');}">
@@ -6732,10 +6762,10 @@ function openDnaEditModal(type, meta) {
       formHtml = `
         <div class="modal-form-group" style="margin-bottom:20px;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:0;font-size:12px;font-weight:700;color:#334155;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;margin-bottom:0;font-size:10.5px;font-weight:700;color:#334155;">
               <span>🎙️</span> BRAND TONE TRAITS (Select up to 3)
             </label>
-            <span style="font-size:12px;font-weight:700;color:#0F9D8A;" id="modal-tone-counter">${curTones.length}/3 selected</span>
+            <span style="font-size:10.5px;font-weight:700;color:#0F9D8A;" id="modal-tone-counter">${curTones.length}/3 selected</span>
           </div>
           <div class="dna-chips-wrap" id="modal-tone-chips-wrap" style="margin-bottom:12px;">
             ${toneChipsHtml}
@@ -6747,7 +6777,7 @@ function openDnaEditModal(type, meta) {
         </div>
 
         <div class="modal-form-group">
-          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#334155;">
             <span>🎭</span> BRAND PERSONALITY &amp; STYLE INSTRUCTIONS
           </label>
           <textarea id="modal-inp-personality" class="dna-textarea-premium" rows="4" placeholder="Direct, technical, and authoritative with an emphasis on production engineering outcomes...">${curPers}</textarea>
@@ -6796,10 +6826,10 @@ function openDnaEditModal(type, meta) {
                   oninput="document.getElementById('modal-hex-${it.num}').value = this.value.toUpperCase()">
                 <div>
                   <div style="display:flex;align-items:center;gap:8px;">
-                    <span style="font-weight:700;font-size:13.5px;color:#0F172A;">${it.role}</span>
-                    <span style="font-size:10.5px;font-weight:700;background:#EEF2F6;color:#475569;padding:2px 7px;border-radius:4px;letter-spacing:0.5px;">${it.badge}</span>
+                    <span style="font-weight:700;font-size:11.5px;color:#0F172A;">${it.role}</span>
+                    <span style="font-size:9.5px;font-weight:700;background:#EEF2F6;color:#475569;padding:2px 7px;border-radius:4px;letter-spacing:0.5px;">${it.badge}</span>
                   </div>
-                  <div style="font-size:12px;color:#64748B;margin-top:2px;">${it.desc}</div>
+                  <div style="font-size:10.5px;color:#64748B;margin-top:2px;">${it.desc}</div>
                 </div>
               </div>
               <input type="text" id="modal-hex-${it.num}" class="dna-input-premium"
@@ -6826,13 +6856,13 @@ function openDnaEditModal(type, meta) {
       formHtml = `
         <div class="dna-2col-grid" style="gap:16px;margin-bottom:20px;">
           <div class="modal-form-group" style="margin-bottom:0;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#334155;">
               <span>🔤</span> PRIMARY HEADING TYPOGRAPHY
             </label>
             <input type="text" id="modal-inp-typo-primary" class="dna-input-premium" value="${curPrimaryFont}" placeholder="e.g. Inter, system-ui, sans-serif">
           </div>
           <div class="modal-form-group" style="margin-bottom:0;">
-            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+            <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#334155;">
               <span>🔠</span> SECONDARY / BODY TYPOGRAPHY
             </label>
             <input type="text" id="modal-inp-typo-secondary" class="dna-input-premium" value="${curSecFont}" placeholder="e.g. Merriweather, serif">
@@ -6840,7 +6870,7 @@ function openDnaEditModal(type, meta) {
         </div>
 
         <div class="modal-form-group">
-          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#334155;">
+          <label class="modal-form-label" style="display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;color:#334155;">
             <span>📸</span> IMAGE &amp; PHOTOGRAPHY STYLE DIRECTIVES
           </label>
           <textarea id="modal-inp-image-style" class="dna-textarea-premium" rows="5" placeholder="Specify visual framing, aesthetic directives, lighting, and art direction...">${curImgStyle}</textarea>
@@ -6872,21 +6902,21 @@ function openDnaEditModal(type, meta) {
           <div class="modal-offering-edit-card" data-idx="${idx}" style="background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px;margin-bottom:12px;position:relative;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
               <div style="display:flex;align-items:center;gap:8px;">
-                <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#0F172A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;">${idx + 1}</span>
-                <span class="modal-offering-title-label" style="font-size:11.5px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.04em;">Offering #${idx + 1}</span>
+                <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#0F172A;color:#FFFFFF;display:inline-flex;align-items:center;justify-content:center;font-size:10.5px;font-weight:800;">${idx + 1}</span>
+                <span class="modal-offering-title-label" style="font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:0.04em;">Offering #${idx + 1}</span>
               </div>
               <div style="display:flex;align-items:center;gap:6px;">
-                <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▲</button>
-                <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:11px;">▼</button>
-                <button type="button" class="btn-dna-delete-prod" onclick="deleteModalOffering(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:12px;font-weight:700;">✕</button>
+                <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▲</button>
+                <button type="button" class="btn-dna-arrow" onclick="moveModalOffering(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▼</button>
+                <button type="button" class="btn-dna-delete-prod" onclick="deleteModalOffering(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:10.5px;font-weight:700;">✕</button>
               </div>
             </div>
             <div style="margin-bottom:8px;">
-              <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Name</label>
+              <label style="font-size:9.5px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Name</label>
               <input type="text" class="dna-input-premium modal-offering-name" value="${escapeVal(name)}" placeholder="e.g. Architecture & Design" style="width:100%;font-weight:700;">
             </div>
             <div>
-              <label style="font-size:11px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Pitch & Description</label>
+              <label style="font-size:9.5px;font-weight:700;color:#475569;text-transform:uppercase;display:block;margin-bottom:4px;">Offering Pitch & Description</label>
               <textarea class="dna-textarea-premium modal-offering-desc" rows="2" placeholder="Describe key deliverables, architecture, value proposition..." style="width:100%;">${escapeTxt(desc)}</textarea>
             </div>
           </div>
@@ -6898,10 +6928,10 @@ function openDnaEditModal(type, meta) {
           <!-- Existing Offerings List -->
           <div style="margin-bottom:18px;">
             <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-              <span style="font-size:12px;font-weight:800;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
+              <span style="font-size:10.5px;font-weight:800;color:#0F172A;text-transform:uppercase;letter-spacing:0.04em;">
                 Current Offerings (<span id="modal-offerings-count">${cards.length}</span>)
               </span>
-              <span style="font-size:11.5px;color:#64748B;">Reorder with ▲ ▼, edit inline, or remove</span>
+              <span style="font-size:10px;color:#64748B;">Reorder with ▲ ▼, edit inline, or remove</span>
             </div>
             <div id="modal-offerings-container">
               ${itemsHtml}
@@ -6911,18 +6941,18 @@ function openDnaEditModal(type, meta) {
           <!-- Add New Offering Section -->
           <div style="background:#F0FDF4;border:1.5px dashed #86EFAC;border-radius:12px;padding:16px;">
             <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px;">
-              <span style="font-size:14px;">➕</span>
-              <strong style="font-size:12.5px;color:#166534;text-transform:uppercase;letter-spacing:0.04em;">Add New Offering to Catalog</strong>
+              <span style="font-size:12px;">➕</span>
+              <strong style="font-size:11px;color:#166534;text-transform:uppercase;letter-spacing:0.04em;">Add New Offering to Catalog</strong>
             </div>
             <div style="margin-bottom:10px;">
-              <label style="font-size:11px;font-weight:700;color:#166534;display:block;margin-bottom:4px;">New Offering Title *</label>
+              <label style="font-size:9.5px;font-weight:700;color:#166534;display:block;margin-bottom:4px;">New Offering Title *</label>
               <input type="text" id="modal-new-offering-name" class="dna-input-premium" placeholder="e.g. Enterprise AI Scaling Engine" style="width:100%;background:#FFFFFF;">
             </div>
             <div style="margin-bottom:12px;">
-              <label style="font-size:11px;font-weight:700;color:#166534;display:block;margin-bottom:4px;">New Offering Pitch / Description</label>
+              <label style="font-size:9.5px;font-weight:700;color:#166534;display:block;margin-bottom:4px;">New Offering Pitch / Description</label>
               <textarea id="modal-new-offering-desc" class="dna-textarea-premium" rows="2" placeholder="Detail the flagship service, target deliverable, or technical scope..." style="width:100%;background:#FFFFFF;"></textarea>
             </div>
-            <button type="button" onclick="addNewOfferingInModal()" class="btn-dna-action" style="background:#16A34A;color:#FFFFFF;border:none;font-weight:700;padding:7px 14px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:12px;">
+            <button type="button" onclick="addNewOfferingInModal()" class="btn-dna-action" style="background:#16A34A;color:#FFFFFF;border:none;font-weight:700;padding:7px 14px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:10.5px;">
               <span>+</span> Add to Offerings List
             </button>
           </div>
@@ -6956,7 +6986,7 @@ function openDnaEditModal(type, meta) {
             <span class="dna-ratio-unit">%</span>
           </div>
           <input type="color" class="dna-pillar-color-picker modal-pillar-color" value="${hex}" oninput="updateModalPillarRowColor(this)" title="Choose pillar color">
-          <button type="button" class="btn-dna-delete-prod" onclick="this.closest('.modal-pillar-row').remove(); updateModalPillarsTotal();" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:16px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
+          <button type="button" class="btn-dna-delete-prod" onclick="this.closest('.modal-pillar-row').remove(); updateModalPillarsTotal();" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:13.5px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
         </div>
       `;
       }).join('');
@@ -6965,7 +6995,7 @@ function openDnaEditModal(type, meta) {
         <div class="modal-form-group">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
             <label class="modal-form-label" style="margin-bottom:0;">Pillars &amp; Ratios</label>
-            <span id="modal-pillars-total-ratio" style="font-size:12px;font-weight:700;color:#0F9D8A;">Total Ratio: 100% ✓</span>
+            <span id="modal-pillars-total-ratio" style="font-size:10.5px;font-weight:700;color:#0F9D8A;">Total Ratio: 100% ✓</span>
           </div>
           <div id="modal-pillars-list" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
             ${pillarsRowsHtml}
@@ -7089,7 +7119,7 @@ function handleModalLogoRemove() {
   const preview = document.getElementById('modal-logo-preview');
   if (preview) {
     preview.innerHTML = `
-      <div style="width:58px;height:58px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">
+      <div style="width:58px;height:58px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:19px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">
         V
       </div>
     `;
@@ -7132,7 +7162,7 @@ function renderModalTagManager(listId, items, tagClass, placeholder) {
     <div class="modal-form-group">
       <label class="modal-form-label">Current Active Items</label>
       <div id="${listId}" style="display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;min-height:75px;margin-bottom:12px;">
-        ${tagSpans || '<span style="color:#94A3B8;font-size:12px;font-style:italic;">No items defined. Use the input below to add items.</span>'}
+        ${tagSpans || '<span style="color:#94A3B8;font-size:10.5px;font-style:italic;">No items defined. Use the input below to add items.</span>'}
       </div>
       <div class="dna-input-add-row">
         <input type="text" id="modal-inp-new-tag" class="dna-input-premium" placeholder="${placeholder}" onkeydown="if(event.key==='Enter'){event.preventDefault();addModalTag('${listId}');}">
@@ -7288,7 +7318,7 @@ function addModalPillarRow() {
       <span class="dna-ratio-unit">%</span>
     </div>
     <input type="color" class="dna-pillar-color-picker modal-pillar-color" value="${color}" oninput="updateModalPillarRowColor(this)" title="Choose pillar color">
-    <button type="button" class="btn-dna-delete-prod" onclick="this.closest('.modal-pillar-row').remove(); updateModalPillarsTotal();" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:16px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
+    <button type="button" class="btn-dna-delete-prod" onclick="this.closest('.modal-pillar-row').remove(); updateModalPillarsTotal();" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:13.5px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
   `;
   list.appendChild(row);
   nameInp.value = '';
@@ -7311,7 +7341,7 @@ function saveDnaModalChanges() {
       if (window.pendingModalLogoData === 'REMOVED') {
         graphicEls.forEach(el => {
           el.innerHTML = `
-            <div style="width:58px;height:58px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:24px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">
+            <div style="width:58px;height:58px;border-radius:10px;background:#F1F5F9;display:flex;align-items:center;justify-content:center;color:#64748B;font-size:19px;font-weight:800;font-family:'Plus Jakarta Sans',sans-serif;">
               V
             </div>
           `;
@@ -7343,7 +7373,7 @@ function saveDnaModalChanges() {
       }
       if (newInd) {
         const indDisplay = document.getElementById('dna-display-brand-industry');
-        if (indDisplay) indDisplay.innerHTML = `<span style="display:inline-flex;align-items:center;gap:6px;background:#F1F5F9;padding:4px 10px;border-radius:6px;color:#1E293B;font-size:13.5px;font-weight:700;">${newInd}</span>`;
+        if (indDisplay) indDisplay.innerHTML = `<span style="display:inline-flex;align-items:center;gap:6px;background:#F1F5F9;padding:4px 10px;border-radius:6px;color:#1E293B;font-size:11.5px;font-weight:700;">${newInd}</span>`;
       }
       if (newLocation !== undefined) {
         const locDisplay = document.getElementById('dna-display-location');
@@ -7626,9 +7656,9 @@ function saveDnaModalChanges() {
           <div class="dna-display-pillar-card" data-pillar-idx="${i}">
             <div style="display:flex;align-items:center;gap:10px;">
               <span class="dna-pillar-swatch-dot" style="background:${p.color};"></span>
-              <span style="font-size:13.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name}</span>
+              <span style="font-size:11.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name}</span>
             </div>
-            <span style="font-size:12px;font-weight:800;color:${p.color};background:#F8FAFC;padding:3px 10px;border-radius:6px;border:1px solid #E2E8F0;" class="dna-display-pillar-pct">${p.pct}%</span>
+            <span style="font-size:10.5px;font-weight:800;color:${p.color};background:#F8FAFC;padding:3px 10px;border-radius:6px;border:1px solid #E2E8F0;" class="dna-display-pillar-pct">${p.pct}%</span>
           </div>
         `).join('');
       }
@@ -7699,7 +7729,7 @@ function saveDnaModalChanges() {
         if (items.length > 0) {
           container.innerHTML = items.map(t => `<span class="dna-regional-chip approved"><span>${t}</span></span>`).join('');
         } else {
-          container.innerHTML = '<span class="dna-vocab-empty-text" style="font-size:12.5px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit Words&quot; to add regional slang and cultural phrasing.</span>';
+          container.innerHTML = '<span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit Words&quot; to add regional slang and cultural phrasing.</span>';
         }
       }
       const countEl = document.getElementById('dna-approved-slang-count') || document.getElementById('dna-display-approved-slang-count');
@@ -7723,7 +7753,7 @@ function saveDnaModalChanges() {
         if (items.length > 0) {
           container.innerHTML = items.map(t => `<span class="dna-regional-chip prohibited"><span>${t}</span></span>`).join('');
         } else {
-          container.innerHTML = '<span class="dna-vocab-empty-text" style="font-size:12.5px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit Words&quot; to add guardrails.</span>';
+          container.innerHTML = '<span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit Words&quot; to add guardrails.</span>';
         }
       }
       const countEl = document.getElementById('dna-prohib-slang-count') || document.getElementById('dna-display-prohib-slang-count');
@@ -7945,8 +7975,8 @@ function inspectSnapshot(version) {
   if (title) title.innerHTML = `Snapshot Inspector &bull; ${snap.version}`;
   if (statusBadge) {
     statusBadge.innerHTML = snap.active 
-      ? '<span class="dna-snap-status-badge" style="font-size:11px;">ACTIVE IN AI PROMPTS</span>'
-      : '<span class="dna-snap-status-badge archived-badge" style="font-size:11px;">PRESERVED ARCHIVE</span>';
+      ? '<span class="dna-snap-status-badge" style="font-size:9.5px;">ACTIVE IN AI PROMPTS</span>'
+      : '<span class="dna-snap-status-badge archived-badge" style="font-size:9.5px;">PRESERVED ARCHIVE</span>';
   }
 
   const d = snap.data || {};
@@ -7955,12 +7985,12 @@ function inspectSnapshot(version) {
       <div style="background:#FFFDF5;border:1.5px solid #FDE68A;border-radius:10px;padding:14px 18px;margin-bottom:16px;">
         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:6px;">
           <div style="display:flex;align-items:center;gap:10px;">
-            <strong style="color:#EA580C;font-family:monospace;font-size:16px;">${snap.version}</strong>
-            <span style="font-size:13px;font-weight:600;color:#1E293B;">${snap.description}</span>
+            <strong style="color:#EA580C;font-family:monospace;font-size:13.5px;">${snap.version}</strong>
+            <span style="font-size:11.5px;font-weight:600;color:#1E293B;">${snap.description}</span>
           </div>
-          <span style="font-size:12px;color:#64748B;">Committed by <strong>${snap.author}</strong> on ${snap.date}</span>
+          <span style="font-size:10.5px;color:#64748B;">Committed by <strong>${snap.author}</strong> on ${snap.date}</span>
         </div>
-        <p style="margin:4px 0 0;font-size:12px;color:#64748B;">This immutable snapshot stores the exact grounding state injected into generation prompts across Reels, Shorts, Newsletters, and Ad variants.</p>
+        <p style="margin:4px 0 0;font-size:10.5px;color:#64748B;">This immutable snapshot stores the exact grounding state injected into generation prompts across Reels, Shorts, Newsletters, and Ad variants.</p>
       </div>
 
       <div class="dna-inspect-grid">
@@ -8159,3 +8189,26 @@ window.updateModalSegCounter = function() {
     sc.innerText = `${count} segments`;
   }
 };
+
+/* ── Content Studio Right Sidebar Toggle ───────────────── */
+function toggleCsRightSidebar() {
+  const containers = document.querySelectorAll('.cs-layout-container');
+  let isHidden = false;
+  containers.forEach(c => {
+    isHidden = c.classList.toggle('sidebar-hidden');
+  });
+
+  const moreBtns = document.querySelectorAll('.btn-more-options, .cs-preview-options-toggle');
+  moreBtns.forEach(b => {
+    if (isHidden) {
+      b.classList.remove('active');
+    } else {
+      b.classList.add('active');
+    }
+  });
+
+  if (window.showToast) {
+    showToast(isHidden ? 'Options sidebar hidden' : 'Options sidebar opened', '🎛️');
+  }
+}
+window.toggleCsRightSidebar = toggleCsRightSidebar;
