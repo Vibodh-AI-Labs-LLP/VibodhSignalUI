@@ -2539,32 +2539,61 @@
             </div>
 
             <!-- RIGHT SIDEBAR: All Parameters & Creation Controls -->
-            <div class="cs-workspace-col">
-              <!-- Right Sidebar Header -->
+            <div class="cs-workspace-col cs-right-sidebar">
               <div class="cs-right-sidebar-header">
                 <div class="cs-right-sidebar-title">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14"></line>
-                    <line x1="4" y1="10" x2="4" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="3"></line>
-                    <line x1="20" y1="21" x2="20" y2="16"></line>
-                    <line x1="20" y1="12" x2="20" y2="3"></line>
-                    <line x1="1" y1="14" x2="7" y2="14"></line>
-                    <line x1="9" y1="8" x2="15" y2="8"></line>
-                    <line x1="17" y1="16" x2="23" y2="16"></line>
-                  </svg>
-                  <span>Text Generation Options</span>
+                  <span class="cs-right-sidebar-title-icon">🎛️</span>
+                  <span class="cs-right-sidebar-title-text">Text Generation Options</span>
                 </div>
-                <button type="button" class="cs-right-sidebar-close" onclick="toggleCsRightSidebar()" title="Collapse options sidebar" aria-label="Collapse options">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                <button type="button" class="cs-right-sidebar-collapse-btn" onclick="toggleCsRightSidebar()" aria-label="Toggle options sidebar">
+                  <!-- Default Icon: Box with Right Vertical Bar (Image 1 style for right panel) -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-default" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="15.5" y1="7.5" x2="15.5" y2="16.5" stroke-width="2.4"></line>
                   </svg>
+                  <!-- Hover Close State: Box with Right Bar and Right Chevron >| -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-hover-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="16" y1="7.5" x2="16" y2="16.5" stroke-width="2.4"></line>
+                    <polyline points="9 8.5 12.5 12 9 15.5" stroke-width="2.2"></polyline>
+                  </svg>
+                  <!-- Hover Open State: For Collapsed State (Box with Right Bar and Left Chevron |< ) -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-hover-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="16" y1="7.5" x2="16" y2="16.5" stroke-width="2.4"></line>
+                    <polyline points="12 8.5 8.5 12 12 15.5" stroke-width="2.2"></polyline>
+                  </svg>
+                  <!-- Hover Floating Pill Tooltip as in Image 2 -->
+                  <span class="cs-sidebar-pill-tooltip" role="tooltip">
+                    <span class="cs-pill-close">Collapse options</span>
+                    <span class="cs-pill-open">Expand options</span>
+                  </span>
                 </button>
               </div>
-              
-              <div class="cs-gen-form-card">
+              <div class="cs-right-sidebar-mini">
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Open More Options">
+                  <span class="cs-mini-rail-icon">🎛️</span>
+                  <span class="cs-mini-rail-pill">More Options</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Prompt & Topics">
+                  <span class="cs-mini-rail-icon">✍️</span>
+                  <span class="cs-mini-rail-pill">Prompt & Topics</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Style & Tone">
+                  <span class="cs-mini-rail-icon">🎭</span>
+                  <span class="cs-mini-rail-pill">Style & Tone</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="AI Model & Sliders">
+                  <span class="cs-mini-rail-icon">⚙️</span>
+                  <span class="cs-mini-rail-pill">AI Model & Sliders</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item cs-mini-rail-action" onclick="toggleCsRightSidebar(true)" aria-label="Generate Text Copy">
+                  <span class="cs-mini-rail-icon">🚀</span>
+                  <span class="cs-mini-rail-pill">Generate Text Copy</span>
+                </button>
+              </div>
+              <div class="cs-right-sidebar-full">
+                <div class="cs-gen-form-card">
                 <div class="cs-gen-card-header">
                   <div class="cs-gen-header-left">
                     <span class="cs-gen-header-icon">✍️</span>
@@ -3149,7 +3178,7 @@
                 </div>
 
               </div>
-
+              </div>
             </div>
           </div>
         </div>
@@ -3322,32 +3351,61 @@
             </div>
 
             <!-- RIGHT SIDEBAR: All Parameters & Creation Controls -->
-            <div class="cs-workspace-col">
-              <!-- Right Sidebar Header -->
+            <div class="cs-workspace-col cs-right-sidebar">
               <div class="cs-right-sidebar-header">
                 <div class="cs-right-sidebar-title">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14"></line>
-                    <line x1="4" y1="10" x2="4" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="3"></line>
-                    <line x1="20" y1="21" x2="20" y2="16"></line>
-                    <line x1="20" y1="12" x2="20" y2="3"></line>
-                    <line x1="1" y1="14" x2="7" y2="14"></line>
-                    <line x1="9" y1="8" x2="15" y2="8"></line>
-                    <line x1="17" y1="16" x2="23" y2="16"></line>
-                  </svg>
-                  <span>Image Generation Options</span>
+                  <span class="cs-right-sidebar-title-icon">🎛️</span>
+                  <span class="cs-right-sidebar-title-text">Image Generation Options</span>
                 </div>
-                <button type="button" class="cs-right-sidebar-close" onclick="toggleCsRightSidebar()" title="Collapse options sidebar" aria-label="Collapse options">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                <button type="button" class="cs-right-sidebar-collapse-btn" onclick="toggleCsRightSidebar()" aria-label="Toggle options sidebar">
+                  <!-- Default Icon: Box with Right Vertical Bar (Image 1 style for right panel) -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-default" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="15.5" y1="7.5" x2="15.5" y2="16.5" stroke-width="2.4"></line>
                   </svg>
+                  <!-- Hover Close State: Box with Right Bar and Right Chevron >| -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-hover-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="16" y1="7.5" x2="16" y2="16.5" stroke-width="2.4"></line>
+                    <polyline points="9 8.5 12.5 12 9 15.5" stroke-width="2.2"></polyline>
+                  </svg>
+                  <!-- Hover Open State: For Collapsed State (Box with Right Bar and Left Chevron |< ) -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-hover-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="16" y1="7.5" x2="16" y2="16.5" stroke-width="2.4"></line>
+                    <polyline points="12 8.5 8.5 12 12 15.5" stroke-width="2.2"></polyline>
+                  </svg>
+                  <!-- Hover Floating Pill Tooltip as in Image 2 -->
+                  <span class="cs-sidebar-pill-tooltip" role="tooltip">
+                    <span class="cs-pill-close">Collapse options</span>
+                    <span class="cs-pill-open">Expand options</span>
+                  </span>
                 </button>
               </div>
-              
-              <div class="cs-gen-form-card">
+              <div class="cs-right-sidebar-mini">
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Open More Options">
+                  <span class="cs-mini-rail-icon">🎛️</span>
+                  <span class="cs-mini-rail-pill">More Options</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Prompt & Negatives">
+                  <span class="cs-mini-rail-icon">🖼️</span>
+                  <span class="cs-mini-rail-pill">Prompt & Negatives</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Art Styles & Aspect">
+                  <span class="cs-mini-rail-icon">🎨</span>
+                  <span class="cs-mini-rail-pill">Art Styles & Aspect</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Model & Seed">
+                  <span class="cs-mini-rail-icon">⚙️</span>
+                  <span class="cs-mini-rail-pill">Model & Seed</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item cs-mini-rail-action" onclick="toggleCsRightSidebar(true)" aria-label="Generate AI Image">
+                  <span class="cs-mini-rail-icon">✨</span>
+                  <span class="cs-mini-rail-pill">Generate AI Image</span>
+                </button>
+              </div>
+              <div class="cs-right-sidebar-full">
+                <div class="cs-gen-form-card">
                 <div class="cs-gen-card-header">
                   <div class="cs-gen-header-left">
                     <span class="cs-gen-header-icon">🎨</span>
@@ -3523,7 +3581,7 @@
                 </button>
 
               </div>
-
+              </div>
             </div>
           </div>
         </div>
@@ -3690,32 +3748,61 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
             </div>
 
             <!-- RIGHT SIDEBAR: All Parameters & Creation Controls -->
-            <div class="cs-workspace-col">
-              <!-- Right Sidebar Header -->
+            <div class="cs-workspace-col cs-right-sidebar">
               <div class="cs-right-sidebar-header">
                 <div class="cs-right-sidebar-title">
-                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="4" y1="21" x2="4" y2="14"></line>
-                    <line x1="4" y1="10" x2="4" y2="3"></line>
-                    <line x1="12" y1="21" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12" y2="3"></line>
-                    <line x1="20" y1="21" x2="20" y2="16"></line>
-                    <line x1="20" y1="12" x2="20" y2="3"></line>
-                    <line x1="1" y1="14" x2="7" y2="14"></line>
-                    <line x1="9" y1="8" x2="15" y2="8"></line>
-                    <line x1="17" y1="16" x2="23" y2="16"></line>
-                  </svg>
-                  <span>Video Generation Options</span>
+                  <span class="cs-right-sidebar-title-icon">🎛️</span>
+                  <span class="cs-right-sidebar-title-text">Video Generation Options</span>
                 </div>
-                <button type="button" class="cs-right-sidebar-close" onclick="toggleCsRightSidebar()" title="Collapse options sidebar" aria-label="Collapse options">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                <button type="button" class="cs-right-sidebar-collapse-btn" onclick="toggleCsRightSidebar()" aria-label="Toggle options sidebar">
+                  <!-- Default Icon: Box with Right Vertical Bar (Image 1 style for right panel) -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-default" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="15.5" y1="7.5" x2="15.5" y2="16.5" stroke-width="2.4"></line>
                   </svg>
+                  <!-- Hover Close State: Box with Right Bar and Right Chevron >| -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-hover-close" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="16" y1="7.5" x2="16" y2="16.5" stroke-width="2.4"></line>
+                    <polyline points="9 8.5 12.5 12 9 15.5" stroke-width="2.2"></polyline>
+                  </svg>
+                  <!-- Hover Open State: For Collapsed State (Box with Right Bar and Left Chevron |< ) -->
+                  <svg class="cs-sidebar-btn-icon cs-sidebar-icon-hover-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+                    <line x1="16" y1="7.5" x2="16" y2="16.5" stroke-width="2.4"></line>
+                    <polyline points="12 8.5 8.5 12 12 15.5" stroke-width="2.2"></polyline>
+                  </svg>
+                  <!-- Hover Floating Pill Tooltip as in Image 2 -->
+                  <span class="cs-sidebar-pill-tooltip" role="tooltip">
+                    <span class="cs-pill-close">Collapse options</span>
+                    <span class="cs-pill-open">Expand options</span>
+                  </span>
                 </button>
               </div>
-              
-              <div class="cs-gen-form-card">
+              <div class="cs-right-sidebar-mini">
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Open More Options">
+                  <span class="cs-mini-rail-icon">🎛️</span>
+                  <span class="cs-mini-rail-pill">More Options</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Script & Prompt">
+                  <span class="cs-mini-rail-icon">🎥</span>
+                  <span class="cs-mini-rail-pill">Script & Prompt</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Motion & Duration">
+                  <span class="cs-mini-rail-icon">⚡</span>
+                  <span class="cs-mini-rail-pill">Motion & Duration</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item" onclick="toggleCsRightSidebar(true)" aria-label="Video Engine & Res">
+                  <span class="cs-mini-rail-icon">⚙️</span>
+                  <span class="cs-mini-rail-pill">Video Engine & Res</span>
+                </button>
+                <button type="button" class="cs-mini-rail-item cs-mini-rail-action" onclick="toggleCsRightSidebar(true)" aria-label="Generate Video">
+                  <span class="cs-mini-rail-icon">🎬</span>
+                  <span class="cs-mini-rail-pill">Generate Video</span>
+                </button>
+              </div>
+              <div class="cs-right-sidebar-full">
+                <div class="cs-gen-form-card">
                 <div class="cs-gen-card-header">
                   <div class="cs-gen-header-left">
                     <span class="cs-gen-header-icon">🎬</span>
@@ -3957,7 +4044,7 @@ In this quick 15-second breakdown, see how digital agencies are switching to uni
                 </button>
 
               </div>
-
+              </div>
             </div>
           </div>
         </div>

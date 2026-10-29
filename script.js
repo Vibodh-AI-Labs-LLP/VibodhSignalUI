@@ -8191,24 +8191,37 @@ window.updateModalSegCounter = function() {
 };
 
 /* ── Content Studio Right Sidebar Toggle ───────────────── */
-function toggleCsRightSidebar() {
+function toggleCsRightSidebar(forceExpand) {
   const containers = document.querySelectorAll('.cs-layout-container');
-  let isHidden = false;
-  containers.forEach(c => {
-    isHidden = c.classList.toggle('sidebar-hidden');
-  });
+  let isCollapsed;
+  if (typeof forceExpand === 'boolean') {
+    isCollapsed = !forceExpand;
+    containers.forEach(c => {
+      c.classList.toggle('sidebar-collapsed', isCollapsed);
+      c.classList.remove('sidebar-hidden');
+    });
+  } else {
+    containers.forEach(c => {
+      isCollapsed = c.classList.toggle('sidebar-collapsed');
+      c.classList.remove('sidebar-hidden');
+    });
+  }
 
   const moreBtns = document.querySelectorAll('.btn-more-options, .cs-preview-options-toggle');
   moreBtns.forEach(b => {
-    if (isHidden) {
+    if (isCollapsed) {
       b.classList.remove('active');
     } else {
       b.classList.add('active');
     }
   });
 
+  try {
+    localStorage.setItem('vibodh_cs_right_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+  } catch(e) {}
+
   if (window.showToast) {
-    showToast(isHidden ? 'Options sidebar hidden' : 'Options sidebar opened', '🎛️');
+    showToast(isCollapsed ? 'Options sidebar collapsed to icons' : 'Options sidebar expanded', '🎛️');
   }
 }
 window.toggleCsRightSidebar = toggleCsRightSidebar;

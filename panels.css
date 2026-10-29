@@ -1523,25 +1523,23 @@
 }
 
 /* Main Two-Column Layout (45% Creation / 55% Live Preview Panel, +10% Preview Area) */
-/* Content Studio 2-Column Responsive Layout (Preview on Page, Options in Right Sidebar) */
+/* Content Studio 2-Column Responsive Layout (Preview Canvas on Page, Options in Right Sidebar) */
 .cs-layout-container {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 400px;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) 390px;
+  gap: 20px;
   align-items: start;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  transition: grid-template-columns 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: grid-template-columns 0.24s cubic-bezier(0.16, 1, 0.3, 1), gap 0.24s ease;
 }
 
+/* Collapsed Right Sidebar: shrinks to 68px icon rail (like the left sidebar!) */
+.cs-layout-container.sidebar-collapsed,
 .cs-layout-container.sidebar-hidden {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-}
-
-.cs-layout-container.sidebar-hidden .cs-workspace-col {
-  display: none !important;
+  grid-template-columns: minmax(0, 1fr) 68px;
+  gap: 16px;
 }
 
 /* Main Display on Page: Generated Preview & Editor Canvas */
@@ -1553,7 +1551,8 @@
 }
 
 /* Right Sidebar: Workspace Parameters & Creative Options */
-.cs-workspace-col {
+.cs-workspace-col,
+.cs-workspace-col.cs-right-sidebar {
   min-width: 0;
   max-width: 100%;
   box-sizing: border-box;
@@ -1564,10 +1563,12 @@
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
   max-height: calc(100vh - 130px);
   overflow-y: auto;
+  overflow-x: hidden;
   position: sticky;
   top: 16px;
   scrollbar-width: thin;
   scrollbar-color: #CBD5E1 transparent;
+  transition: width 0.24s cubic-bezier(0.16, 1, 0.3, 1), padding 0.24s ease, border-color 0.2s ease;
 }
 
 .cs-workspace-col::-webkit-scrollbar {
@@ -1578,8 +1579,19 @@
   border-radius: 99px;
 }
 
+/* Collapsed Right Sidebar: padding & overflow */
+.cs-layout-container.sidebar-collapsed .cs-workspace-col,
+.cs-layout-container.sidebar-hidden .cs-workspace-col {
+  padding: 12px 6px;
+  overflow: visible; /* Allows floating tooltips to display cleanly */
+}
+
 @media (max-width: 1200px) {
   .cs-layout-container {
+    grid-template-columns: 1fr;
+  }
+  .cs-layout-container.sidebar-collapsed,
+  .cs-layout-container.sidebar-hidden {
     grid-template-columns: 1fr;
   }
   .cs-workspace-col {
@@ -1588,6 +1600,7 @@
     margin-top: 20px;
   }
 }
+
 /* Creation Workspace Cards */
 .cs-section-card {
   background: #ffffff;
@@ -3908,41 +3921,227 @@
   padding-bottom: 12px;
   margin-bottom: 16px;
   border-bottom: 1px solid #E2E8F0;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.cs-layout-container.sidebar-collapsed .cs-right-sidebar-header,
+.cs-layout-container.sidebar-hidden .cs-right-sidebar-header {
+  justify-content: center;
+  padding-bottom: 10px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #EEF2F6;
 }
 
 .cs-right-sidebar-title {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12.5px;
+  gap: 7px;
+  font-size: 12px;
   font-weight: 700;
   color: #0F172A;
   font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
 }
 
-.cs-right-sidebar-title svg {
-  color: #1B355B;
+.cs-layout-container.sidebar-collapsed .cs-right-sidebar-title,
+.cs-layout-container.sidebar-hidden .cs-right-sidebar-title {
+  display: none !important;
 }
 
-.cs-right-sidebar-close {
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  border: 1px solid #E2E8F0;
+/* Right Sidebar Collapse Button (Matching Left Sidebar Movement Button Design) */
+.cs-right-sidebar-collapse-btn {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
   background: #F8FAFC;
-  color: #64748B;
+  border: 1px solid #E2E8F0;
+  color: #475569;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.16s ease;
+  flex-shrink: 0;
+  padding: 0;
+  outline: none;
+}
+
+.cs-right-sidebar-collapse-btn:hover {
+  background: #EEF2F6;
+  border-color: #CBD5E1;
+  color: #0F172A;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Icon state toggles */
+.cs-right-sidebar-collapse-btn .cs-sidebar-icon-default {
+  display: block;
+}
+.cs-right-sidebar-collapse-btn .cs-sidebar-icon-hover-close,
+.cs-right-sidebar-collapse-btn .cs-sidebar-icon-hover-open {
+  display: none;
+}
+
+/* When expanded: on hover switch to close icon >| */
+.cs-layout-container:not(.sidebar-collapsed):not(.sidebar-hidden) .cs-right-sidebar-collapse-btn:hover .cs-sidebar-icon-default {
+  display: none;
+}
+.cs-layout-container:not(.sidebar-collapsed):not(.sidebar-hidden) .cs-right-sidebar-collapse-btn:hover .cs-sidebar-icon-hover-close {
+  display: block;
+}
+
+/* When collapsed: on hover switch to open icon |< */
+.cs-layout-container.sidebar-collapsed .cs-right-sidebar-collapse-btn:hover .cs-sidebar-icon-default,
+.cs-layout-container.sidebar-hidden .cs-right-sidebar-collapse-btn:hover .cs-sidebar-icon-default {
+  display: none;
+}
+.cs-layout-container.sidebar-collapsed .cs-right-sidebar-collapse-btn:hover .cs-sidebar-icon-hover-open,
+.cs-layout-container.sidebar-hidden .cs-right-sidebar-collapse-btn:hover .cs-sidebar-icon-hover-open {
+  display: block;
+}
+
+/* Floating Pill Tooltip (matching Left Sidebar Tooltip) */
+.cs-sidebar-pill-tooltip {
+  position: absolute;
+  right: calc(100% + 8px);
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: #ECEEF1;
+  color: #18181B;
+  font-family: 'Plus Jakarta Sans', var(--font), sans-serif;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  z-index: 999999;
+}
+
+.cs-right-sidebar-collapse-btn:hover .cs-sidebar-pill-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+.cs-layout-container:not(.sidebar-collapsed):not(.sidebar-hidden) .cs-sidebar-pill-tooltip .cs-pill-close {
+  display: inline;
+}
+.cs-layout-container:not(.sidebar-collapsed):not(.sidebar-hidden) .cs-sidebar-pill-tooltip .cs-pill-open {
+  display: none;
+}
+
+.cs-layout-container.sidebar-collapsed .cs-sidebar-pill-tooltip .cs-pill-close,
+.cs-layout-container.sidebar-hidden .cs-sidebar-pill-tooltip .cs-pill-close {
+  display: none;
+}
+.cs-layout-container.sidebar-collapsed .cs-sidebar-pill-tooltip .cs-pill-open,
+.cs-layout-container.sidebar-hidden .cs-sidebar-pill-tooltip .cs-pill-open {
+  display: inline;
+}
+
+/* Mini Rail: Only shows when collapsed (like the Left Sidebar icon rail) */
+.cs-right-sidebar-mini {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  width: 100%;
+}
+
+.cs-layout-container.sidebar-collapsed .cs-right-sidebar-mini,
+.cs-layout-container.sidebar-hidden .cs-right-sidebar-mini {
+  display: flex !important;
+}
+
+.cs-mini-rail-item {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
   padding: 0;
 }
 
-.cs-right-sidebar-close:hover {
-  background: #F1F5F9;
-  color: #0F172A;
-  border-color: #CBD5E1;
+.cs-mini-rail-item:hover {
+  background: #EEF2F6;
+  border-color: #1B355B;
+  transform: scale(1.05);
+  box-shadow: 0 3px 8px rgba(27, 53, 91, 0.12);
+}
+
+.cs-mini-rail-icon {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.cs-mini-rail-action {
+  background: #F0FDF9;
+  border-color: #0F9D8A;
+}
+.cs-mini-rail-action:hover {
+  background: #0F9D8A;
+  border-color: #0F9D8A;
+}
+.cs-mini-rail-action:hover .cs-mini-rail-icon {
+  filter: brightness(1.2);
+}
+
+/* Floating Pill Tooltip for Mini Rail Items */
+.cs-mini-rail-pill {
+  position: absolute;
+  right: calc(100% + 10px);
+  left: auto;
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+  background: #ECEEF1;
+  color: #18181B;
+  font-family: 'Plus Jakarta Sans', var(--font), sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.15s ease, transform 0.15s ease, visibility 0.15s ease;
+  z-index: 999999;
+}
+
+.cs-mini-rail-item:hover .cs-mini-rail-pill {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Full Options Form: Hides when collapsed */
+.cs-right-sidebar-full {
+  display: block;
+}
+
+.cs-layout-container.sidebar-collapsed .cs-right-sidebar-full,
+.cs-layout-container.sidebar-hidden .cs-right-sidebar-full {
+  display: none !important;
 }
 
 /* ── More Options Button ── */
