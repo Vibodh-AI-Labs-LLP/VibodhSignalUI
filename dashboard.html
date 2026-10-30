@@ -5801,26 +5801,25 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Brand Logo & Core Company Identity Display Box (All in One Box with Edit Option) -->
+          <!-- Brand Logo & Core Company Identity Display Box -->
           <div class="dna-display-box" style="margin-bottom:18px;">
             <div class="dna-display-box-header" style="margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid #F1F5F9;">
               <div class="dna-display-box-label">
                 <span>🏢</span> COMPANY IDENTITY &amp; BRAND LOGO
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-brand-info')" title="Edit Company Information">
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-brand-info')" title="Edit Company Information via Dialog">
                 <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
               </button>
             </div>
 
             <div style="display:flex;align-items:stretch;gap:28px;flex-wrap:wrap;">
-              <!-- LEFT COLUMN: BRAND LOGO (Matches user design) -->
+              <!-- LEFT COLUMN: BRAND LOGO -->
               <div style="flex:0 0 250px;display:flex;flex-direction:column;border-right:1px solid #F1F5F9;padding-right:28px;">
                 <div class="dna-display-box-label" style="margin-bottom:12px;">
                   <span>🎨</span> BRAND LOGO
                 </div>
                 
                 <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:20px;padding:28px 20px;min-height:260px;">
-                  <!-- Dashed Logo Container with Corner Edit Pencil -->
                   <div class="dna-logo-preview-box" id="dna-logo-preview-container" style="position:relative;cursor:pointer;width:130px;height:130px;border:1.5px dashed #CBD5E1;border-radius:18px;background:transparent;display:flex;align-items:center;justify-content:center;padding:12px;" onclick="openDnaEditModal('sec1-logo')" title="Edit Brand Logo">
                     <div id="dna-logo-display-graphic" class="dna-logo-display-graphic" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
                       <svg viewBox="0 0 100 100" style="width:76px;height:76px;" fill="none">
@@ -5831,7 +5830,6 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                         <circle cx="34" cy="42" r="3" fill="#F97316"/>
                       </svg>
                     </div>
-                    <!-- Small Edit Button attached to the Right Corner of the Image -->
                     <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();openDnaEditModal('sec1-logo');" title="Edit Brand Logo" style="width:28px;height:28px;right:-8px;bottom:-8px;box-shadow:0 3px 8px rgba(15,23,42,0.12);">
                       <img src="edit-pencil.png" alt="Edit" style="width:12px;height:12px;object-fit:contain;">
                     </button>
@@ -5839,44 +5837,100 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 </div>
               </div>
 
-              <!-- RIGHT COLUMN: 4 INFORMATION ROWS ALIGNED PROPERLY WITH LABELS NEXT TO VALUES -->
+              <!-- RIGHT COLUMN: 4 INFORMATION ROWS WITH INDIVIDUAL INLINE EDIT OPTIONS -->
               <div style="flex:1;min-width:320px;display:grid;grid-template-columns:max-content 1fr;column-gap:24px;row-gap:18px;align-items:center;align-content:center;">
                 <!-- 1. Company / Brand Name -->
                 <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
                   <span>🏢</span> COMPANY / BRAND NAME
                 </div>
-                <div id="dna-display-brand-name" class="dna-display-box-content" style="font-size:13.5px;font-weight:800;color:#0F172A;font-family:'Plus Jakarta Sans',sans-serif;margin:0;">
-                  Vibodhai
+                <div class="dna-editable-box" id="dna-box-brand-name" data-dna-field="brand-name" data-dna-type="text-single" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:6px 12px;min-height:38px;">
+                  <div id="dna-display-brand-name" class="dna-display-box-content dna-box-display" style="font-size:13.5px;font-weight:800;color:#0F172A;font-family:'Plus Jakarta Sans',sans-serif;margin:0;">
+                    Vibodhai
+                  </div>
+                  <input type="text" id="dna-editor-brand-name" class="dna-inline-editor-input dna-box-editor" style="display:none;font-size:13px;font-weight:700;" oninput="handleDnaBoxInput('dna-box-brand-name')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-brand-name')" value="Vibodhai">
+                  <div class="dna-box-corner-actions" style="margin-left:auto;">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-brand-name')" title="Edit Brand Name">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-brand-name" onclick="saveDnaBoxEdit('dna-box-brand-name')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-brand-name" onclick="cancelDnaBoxEdit('dna-box-brand-name')" title="Cancel">
+                      ✕
+                    </button>
+                  </div>
                 </div>
 
                 <!-- 2. Industry & Sector -->
                 <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
                   <span>⚡</span> INDUSTRY &amp; SECTOR
                 </div>
-                <div id="dna-display-brand-industry" class="dna-display-box-content" style="margin:0;display:inline-flex;">
-                  <span class="dna-info-badge">
-                    Software, SaaS &amp; AI
-                  </span>
+                <div class="dna-editable-box" id="dna-box-industry" data-dna-field="industry" data-dna-type="text-single" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:6px 12px;min-height:38px;">
+                  <div id="dna-display-brand-industry" class="dna-display-box-content dna-box-display" style="margin:0;display:inline-flex;">
+                    <span class="dna-info-badge">
+                      Software, SaaS &amp; AI
+                    </span>
+                  </div>
+                  <input type="text" id="dna-editor-industry" class="dna-inline-editor-input dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-industry')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-industry')" value="Software, SaaS &amp; AI">
+                  <div class="dna-box-corner-actions" style="margin-left:auto;">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-industry')" title="Edit Industry &amp; Sector">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-industry" onclick="saveDnaBoxEdit('dna-box-industry')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-industry" onclick="cancelDnaBoxEdit('dna-box-industry')" title="Cancel">
+                      ✕
+                    </button>
+                  </div>
                 </div>
 
                 <!-- 3. Operating Location / Headquarters -->
                 <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
                   <span>📍</span> OPERATING LOCATION / HQ
                 </div>
-                <div style="margin:0;display:inline-flex;">
-                  <span id="dna-display-location" class="dna-info-badge">
-                    Bengaluru, Karnataka, India
-                  </span>
+                <div class="dna-editable-box" id="dna-box-location" data-dna-field="location" data-dna-type="text-single" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:6px 12px;min-height:38px;">
+                  <div class="dna-box-display" style="margin:0;display:inline-flex;">
+                    <span id="dna-display-location" class="dna-info-badge">
+                      Bengaluru, Karnataka, India
+                    </span>
+                  </div>
+                  <input type="text" id="dna-editor-location" class="dna-inline-editor-input dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-location')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-location')" value="Bengaluru, Karnataka, India">
+                  <div class="dna-box-corner-actions" style="margin-left:auto;">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-location')" title="Edit Location">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-location" onclick="saveDnaBoxEdit('dna-box-location')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-location" onclick="cancelDnaBoxEdit('dna-box-location')" title="Cancel">
+                      ✕
+                    </button>
+                  </div>
                 </div>
 
                 <!-- 4. Website URL -->
                 <div class="dna-display-box-label" style="margin:0;white-space:nowrap;">
                   <span>🌐</span> WEBSITE URL
                 </div>
-                <div style="margin:0;display:inline-flex;">
-                  <a id="dna-display-website" href="https://vibodhai.com" target="_blank" class="dna-info-badge" style="text-decoration:none;">
-                    https://vibodhai.com
-                  </a>
+                <div class="dna-editable-box" id="dna-box-website" data-dna-field="website" data-dna-type="text-single" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:8px;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:6px 12px;min-height:38px;">
+                  <div class="dna-box-display" style="margin:0;display:inline-flex;">
+                    <a id="dna-display-website" href="https://vibodhai.com" target="_blank" class="dna-info-badge" style="text-decoration:none;">
+                      https://vibodhai.com
+                    </a>
+                  </div>
+                  <input type="text" id="dna-editor-website" class="dna-inline-editor-input dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-website')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-website')" value="https://vibodhai.com">
+                  <div class="dna-box-corner-actions" style="margin-left:auto;">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-website')" title="Edit Website URL">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-website" onclick="saveDnaBoxEdit('dna-box-website')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-website" onclick="cancelDnaBoxEdit('dna-box-website')" title="Cancel">
+                      ✕
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -5888,39 +5942,81 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <div class="dna-display-box-label">
                 <span>🎯</span> CORE MISSION, DESCRIPTION &amp; VALUE PROPOSITION
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-mission')" title="Edit Mission, Description &amp; Positioning">
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-mission')" title="Edit Mission, Description &amp; Positioning via Dialog">
                 <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
               </button>
             </div>
 
             <!-- Row 1: Core Mission Statement (Full Width) -->
-            <div style="margin-bottom:20px;">
-              <div style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-                <span>🎯</span> CORE MISSION STATEMENT
+            <div class="dna-editable-box" id="dna-box-mission" data-dna-field="mission" data-dna-type="text-multi" style="position:relative;margin-bottom:20px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;">
+                  <span>🎯</span> CORE MISSION STATEMENT
+                </div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-mission')" title="Edit Core Mission">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-mission" onclick="saveDnaBoxEdit('dna-box-mission')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-mission" onclick="cancelDnaBoxEdit('dna-box-mission')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-display-mission" class="dna-display-box-content dna-display-box-quote" style="margin:0;">
+              <div id="dna-display-mission" class="dna-display-box-content dna-display-box-quote dna-box-display" style="margin:0;">
                 To empower businesses of all sizes to bridge the gap between AI prototypes and production scale through rigorous architectural consulting and resilient end-to-end AI delivery solutions.
               </div>
+              <textarea id="dna-editor-mission" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-mission')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-mission')" placeholder="Enter mission statement..."></textarea>
             </div>
 
             <!-- Row 2: Brand Description (Full Width, Styled as Quote Box) -->
-            <div style="margin-bottom:20px;">
-              <div style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-                <span>📖</span> BRAND DESCRIPTION
+            <div class="dna-editable-box" id="dna-box-desc" data-dna-field="desc" data-dna-type="text-multi" style="position:relative;margin-bottom:20px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;">
+                  <span>📖</span> BRAND DESCRIPTION
+                </div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-desc')" title="Edit Brand Description">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-desc" onclick="saveDnaBoxEdit('dna-box-desc')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-desc" onclick="cancelDnaBoxEdit('dna-box-desc')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-display-desc" class="dna-display-box-content dna-display-box-quote" style="margin:0;">
+              <div id="dna-display-desc" class="dna-display-box-content dna-display-box-quote dna-box-display" style="margin:0;">
                 Vibodh AI delivers enterprise AI engineering, scalable system architecture, and production-grade AI delivery solutions for forward-thinking enterprises and high-growth SaaS companies.
               </div>
+              <textarea id="dna-editor-desc" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-desc')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-desc')" placeholder="Enter brand description..."></textarea>
             </div>
 
             <!-- Row 3: Positioning / Value Proposition (Full Width, Styled as Quote Box) -->
-            <div>
-              <div style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;margin-bottom:8px;">
-                <span>💎</span> POSITIONING / VALUE PROPOSITION
+            <div class="dna-editable-box" id="dna-box-positioning" data-dna-field="positioning" data-dna-type="text-multi" style="position:relative;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                <div style="font-size:9.5px;font-weight:800;letter-spacing:0.06em;text-transform:uppercase;color:#64748B;display:flex;align-items:center;gap:6px;">
+                  <span>💎</span> POSITIONING / VALUE PROPOSITION
+                </div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-positioning')" title="Edit Value Proposition">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-positioning" onclick="saveDnaBoxEdit('dna-box-positioning')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-positioning" onclick="cancelDnaBoxEdit('dna-box-positioning')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-display-positioning" class="dna-display-box-content dna-display-box-quote" style="margin:0;">
+              <div id="dna-display-positioning" class="dna-display-box-content dna-display-box-quote dna-box-display" style="margin:0;">
                 For forward-thinking enterprises and SaaS companies seeking to move beyond fragile prototypes, Vibodh AI is an enterprise AI engineering and architecture partner that delivers production-grade, secure, and elastically scalable AI systems, unlike conventional dev shops or theoretical consulting agencies.
               </div>
+              <textarea id="dna-editor-positioning" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-positioning')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-positioning')" placeholder="Enter positioning / value proposition..."></textarea>
             </div>
           </div>
 
@@ -5931,7 +6027,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 <span>🏆</span> BRAND PROOF &amp; CREDIBILITY FACTORS
                 <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-proof-count">2 factors active</span>
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-proof')" title="Edit Proof & Credibility">
+              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-proof')" title="Edit Proof &amp; Credibility via Dialog">
                 <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
               </button>
             </div>
@@ -5939,9 +6035,27 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <span class="dna-tag-pill tag-mint">✓ Results</span>
               <span class="dna-tag-pill tag-mint">✓ Reviews or ratings</span>
             </div>
-            <div style="font-size:9.5px;font-weight:700;color:#64748B;text-transform:uppercase;margin-bottom:5px;">Supporting Proof Details</div>
-            <div id="dna-display-proof-details" class="dna-display-box-content dna-display-box-quote">
-              Delivered hardened AI blueprints tested and validated in live enterprise environments.; Deep enterprise IT, cloud-native architecture, and generative AI engineering background.
+
+            <!-- Supporting Proof Details (Editable Box) -->
+            <div class="dna-editable-box" id="dna-box-proof-details" data-dna-field="proof-details" data-dna-type="text-multi" style="position:relative;margin-top:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                <div style="font-size:9.5px;font-weight:700;color:#64748B;text-transform:uppercase;">Supporting Proof Details</div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-proof-details')" title="Edit Supporting Proof Details">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-proof-details" onclick="saveDnaBoxEdit('dna-box-proof-details')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-proof-details" onclick="cancelDnaBoxEdit('dna-box-proof-details')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
+              </div>
+              <div id="dna-display-proof-details" class="dna-display-box-content dna-display-box-quote dna-box-display">
+                Delivered hardened AI blueprints tested and validated in live enterprise environments.; Deep enterprise IT, cloud-native architecture, and generative AI engineering background.
+              </div>
+              <textarea id="dna-editor-proof-details" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-proof-details')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-proof-details')" placeholder="Enter supporting proof details..."></textarea>
             </div>
           </div>
 
@@ -5956,8 +6070,10 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
         </div>
 
+
+
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 2: TARGET AUDIENCE (REDESIGNED)
+             SECTION 2: TARGET AUDIENCE
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-2" class="dna-section-card" style="display:none;">
           
@@ -5975,36 +6091,56 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Combined Target Audience Persona & Segments Display Box (Single Edit Button) -->
+          <!-- Combined Target Audience Persona & Segments Display Box -->
           <div class="dna-display-box" style="margin-bottom:20px;">
             
             <!-- Row 1: Primary Target Audience Persona -->
-            <div style="margin-bottom:0;">
+            <div class="dna-editable-box" id="dna-box-persona" data-dna-field="persona" data-dna-type="text-multi" style="position:relative;margin-bottom:0;">
               <div class="dna-display-box-header" style="margin-bottom:10px;">
                 <div class="dna-display-box-label">
                   <span>👤</span> PRIMARY TARGET AUDIENCE PERSONA
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec2-combined')" title="Edit Target Audience Persona &amp; Segments">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-persona')" title="Edit Persona">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-persona" onclick="saveDnaBoxEdit('dna-box-persona')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-persona" onclick="cancelDnaBoxEdit('dna-box-persona')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-display-persona" class="dna-display-box-content dna-display-box-quote">
+              <div id="dna-display-persona" class="dna-display-box-content dna-display-box-quote dna-box-display">
                 Enterprise technology leaders, CTOs, VP of Engineering, and SaaS product founders seeking to deploy and scale production-grade AI systems.
               </div>
+              <textarea id="dna-editor-persona" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-persona')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-persona')" placeholder="Enter target audience persona..."></textarea>
             </div>
 
             <!-- Divider Line -->
             <div class="dna-box-divider" style="height:1px;background:#E2E8F0;margin:18px 0;"></div>
 
             <!-- Row 2: Audience Segments & Core Needs -->
-            <div>
+            <div class="dna-editable-box" id="dna-box-segments" data-dna-field="segments" data-dna-type="tags-list" style="position:relative;">
               <div class="dna-display-box-header" style="margin-bottom:10px;">
                 <div class="dna-display-box-label">
                   <span>👥</span> AUDIENCE SEGMENTS &amp; CORE NEEDS
                   <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-seg-count">2 segments defined</span>
                 </div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-segments')" title="Edit Audience Segments">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-segments" onclick="saveDnaBoxEdit('dna-box-segments')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-segments" onclick="cancelDnaBoxEdit('dna-box-segments')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-segments">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-segments">
                 <span class="dna-tag-pill tag-mint">
                   <span>Chief Technology Officer / VP of Engineering</span>
                 </span>
@@ -6012,6 +6148,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Head of Product / AI Product Lead</span>
                 </span>
               </div>
+              <textarea id="dna-editor-segments" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-segments')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-segments')" placeholder="Enter audience segments (one per line)..."></textarea>
             </div>
 
           </div>
@@ -6020,16 +6157,24 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
           <div class="dna-2col-grid" style="margin-bottom:20px;">
             
             <!-- Left: Pain points Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-pain-points" data-dna-field="pain-points" data-dna-type="tags-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div class="dna-display-box-label">
                   <span>⚠️</span> AUDIENCE PAIN POINTS &amp; FRUSTRATIONS
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec2-pain-points')" title="Edit Pain Points">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-pain-points')" title="Edit Pain Points">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-pain-points" onclick="saveDnaBoxEdit('dna-box-pain-points')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-pain-points" onclick="cancelDnaBoxEdit('dna-box-pain-points')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-pain-points" style="min-height:90px;">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-pain-points" style="min-height:90px;">
                 <span class="dna-tag-pill tag-rose">
                   <span>High failure rate and fragility of generative AI prototypes transitioning into enterprise production workloads</span>
                 </span>
@@ -6043,19 +6188,28 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Architectural technical debt and sluggish feature velocity in legacy SaaS platforms</span>
                 </span>
               </div>
+              <textarea id="dna-editor-pain-points" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:100px;" oninput="handleDnaBoxInput('dna-box-pain-points')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-pain-points')" placeholder="Enter pain points (one per line)..."></textarea>
             </div>
 
             <!-- Right: Desires Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-desires" data-dna-field="desires" data-dna-type="tags-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div class="dna-display-box-label">
                   <span>✨</span> DESIRED OUTCOMES &amp; ASPIRATIONS
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec2-desires')" title="Edit Desires">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-desires')" title="Edit Desires">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-desires" onclick="saveDnaBoxEdit('dna-box-desires')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-desires" onclick="cancelDnaBoxEdit('dna-box-desires')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-desires" style="min-height:90px;">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-desires" style="min-height:90px;">
                 <span class="dna-tag-pill tag-purple">
                   <span>End-to-end engineering covering architecture, implementation, deployment, and governance</span>
                 </span>
@@ -6066,6 +6220,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Pre-engineered architectural accelerators to dramatically reduce time-to-market</span>
                 </span>
               </div>
+              <textarea id="dna-editor-desires" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:100px;" oninput="handleDnaBoxInput('dna-box-desires')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-desires')" placeholder="Enter desired outcomes (one per line)..."></textarea>
             </div>
 
           </div>
@@ -6083,8 +6238,10 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
         </div>
 
+
+
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 3: BRAND VOICE & TONE (REDESIGNED)
+             SECTION 3: BRAND VOICE & TONE
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-3" class="dna-section-card" style="display:none;">
           
@@ -6102,39 +6259,60 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Combined Brand Tone Traits & Personality Style Display Box (Single Edit Button) -->
+          <!-- Combined Brand Tone Traits & Personality Style Display Box -->
           <div class="dna-display-box" style="margin-bottom:20px;">
             
             <!-- Row 1: Brand Tone Traits -->
-            <div style="margin-bottom:0;">
+            <div class="dna-editable-box" id="dna-box-tone-chips" data-dna-field="tone-chips" data-dna-type="chips-list" style="position:relative;margin-bottom:0;">
               <div class="dna-display-box-header" style="margin-bottom:10px;">
                 <div class="dna-display-box-label">
                   <span>🎙️</span> BRAND TONE TRAITS
                   <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-tone-count">2/3 selected</span>
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec3-combined')" title="Edit Brand Tone Traits &amp; Personality">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-tone-chips')" title="Edit Tone Traits">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-tone-chips" onclick="saveDnaBoxEdit('dna-box-tone-chips')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-tone-chips" onclick="cancelDnaBoxEdit('dna-box-tone-chips')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-chips-wrap" id="dna-display-tone-chips">
+              <div class="dna-chips-wrap dna-box-display" id="dna-display-tone-chips">
                 <span class="dna-chip active">✓ Professional</span>
                 <span class="dna-chip active">✓ Innovative</span>
               </div>
+              <textarea id="dna-editor-tone-chips" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-tone-chips')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-tone-chips')" placeholder="Enter tones (e.g. Professional, Innovative)..."></textarea>
             </div>
 
             <!-- Divider Line -->
             <div class="dna-box-divider" style="height:1px;background:#E2E8F0;margin:18px 0;"></div>
 
             <!-- Row 2: Brand Personality & Style Instructions -->
-            <div>
+            <div class="dna-editable-box" id="dna-box-personality" data-dna-field="personality" data-dna-type="text-multi" style="position:relative;">
               <div class="dna-display-box-header" style="margin-bottom:10px;">
                 <div class="dna-display-box-label">
                   <span>🎭</span> BRAND PERSONALITY &amp; STYLE INSTRUCTIONS
                 </div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-personality')" title="Edit Personality &amp; Style">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-personality" onclick="saveDnaBoxEdit('dna-box-personality')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-personality" onclick="cancelDnaBoxEdit('dna-box-personality')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-display-personality" class="dna-display-box-content dna-display-box-quote">
+              <div id="dna-display-personality" class="dna-display-box-content dna-display-box-quote dna-box-display">
                 Direct, technical, and authoritative with an emphasis on production engineering outcomes. Avoid hype, fluff, buzzwords, and vague promises. Ground all messaging in architectural rigor, measurable ROI, security, and enterprise reliability.
               </div>
+              <textarea id="dna-editor-personality" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-personality')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-personality')" placeholder="Enter brand personality &amp; style instructions..."></textarea>
             </div>
 
           </div>
@@ -6143,17 +6321,25 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
           <div class="dna-2col-grid" style="margin-bottom:20px;">
             
             <!-- Left: Preferred Vocabulary Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-pref-words" data-dna-field="pref-words" data-dna-type="words-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div class="dna-display-box-label">
                   <span>📗</span> PREFERRED VOCABULARY &amp; POWER WORDS
                   <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-pref-count">9 words</span>
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec3-pref-words')" title="Edit Preferred Words">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-pref-words')" title="Edit Preferred Words">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-pref-words" onclick="saveDnaBoxEdit('dna-box-pref-words')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-pref-words" onclick="cancelDnaBoxEdit('dna-box-pref-words')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-pref-words" style="min-height:80px;">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-pref-words" style="min-height:80px;">
                 <span class="dna-tag-pill tag-emerald"><span>accelerators</span></span>
                 <span class="dna-tag-pill tag-emerald"><span>architecture</span></span>
                 <span class="dna-tag-pill tag-emerald"><span>blueprints</span></span>
@@ -6164,20 +6350,29 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 <span class="dna-tag-pill tag-emerald"><span>production-grade</span></span>
                 <span class="dna-tag-pill tag-emerald"><span>scale</span></span>
               </div>
+              <textarea id="dna-editor-pref-words" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-pref-words')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-pref-words')" placeholder="Enter preferred words (comma or newline separated)..."></textarea>
             </div>
 
             <!-- Right: Prohibited Words Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-proh-words" data-dna-field="proh-words" data-dna-type="words-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div class="dna-display-box-label">
                   <span>🚫</span> PROHIBITED WORDS &amp; CLAIMS TO AVOID
                   <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-proh-count">6 words</span>
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec3-proh-words')" title="Edit Prohibited Words">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-proh-words')" title="Edit Prohibited Words">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-proh-words" onclick="saveDnaBoxEdit('dna-box-proh-words')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-proh-words" onclick="cancelDnaBoxEdit('dna-box-proh-words')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-proh-words" style="min-height:80px;">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-proh-words" style="min-height:80px;">
                 <span class="dna-tag-pill tag-rose"><span>cheap</span></span>
                 <span class="dna-tag-pill tag-rose"><span>experimental</span></span>
                 <span class="dna-tag-pill tag-rose"><span>hacky</span></span>
@@ -6185,6 +6380,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 <span class="dna-tag-pill tag-rose"><span>quick fix</span></span>
                 <span class="dna-tag-pill tag-rose"><span>silver bullet</span></span>
               </div>
+              <textarea id="dna-editor-proh-words" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-proh-words')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-proh-words')" placeholder="Enter prohibited words (comma or newline separated)..."></textarea>
             </div>
 
           </div>
@@ -6202,8 +6398,10 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
         </div>
 
+
+
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 4: VISUAL IDENTITY (REDESIGNED)
+             SECTION 4: VISUAL IDENTITY
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-4" class="dna-section-card" style="display:none;">
           
@@ -6234,7 +6432,6 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 </div>
                 
                 <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:20px 16px;min-height:224px;">
-                  <!-- Logo Image Container with Small Edit Button on Right Corner -->
                   <div class="dna-logo-preview-box" id="dna-logo-preview-container-sec4" style="position:relative;cursor:pointer;width:104px;height:104px;" onclick="openDnaEditModal('sec1-logo')" title="Edit Brand Logo">
                     <div class="dna-logo-display-graphic" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
                       <svg viewBox="0 0 100 100" style="width:72px;height:72px;" fill="none">
@@ -6245,7 +6442,6 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                         <circle cx="34" cy="42" r="3" fill="#F97316"/>
                       </svg>
                     </div>
-                    <!-- Small Edit Button attached to the Right Corner of the Image -->
                     <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();openDnaEditModal('sec1-logo');" title="Edit Brand Logo">
                       <img src="edit-pencil.png" alt="Edit" style="width:11px;height:11px;object-fit:contain;">
                     </button>
@@ -6268,111 +6464,108 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
                 <!-- Horizontal Circular Bubbles Stage -->
                 <div class="dna-color-palette-stage" id="dna-color-palette-stage" style="margin-bottom:0;">
-              <div class="dna-color-bubbles-row" id="dna-color-bubbles-row" role="radiogroup" aria-label="Brand Color Palette">
-                
-                <!-- Bubble 0: Dominant (60%) (#F6F2F1) - Active by default -->
-                <div class="dna-color-bubble-item active" id="dna-bubble-item-0">
-                  <button type="button" class="dna-color-bubble active" id="dna-bubble-btn-0" data-index="0"
-                    onclick="selectDnaPaletteColor(0)"
-                    style="background:#F6F2F1; --bubble-color:#F6F2F1; --bubble-glow:rgba(203, 213, 225, 0.6); border: 1.5px solid #CBD5E1;"
-                    aria-label="Color 1: Dominant (60%) #F6F2F1 PRIMARY"
-                    title="Dominant (60%) · PRIMARY · #F6F2F1">
-                  </button>
-                  <div class="dna-bubble-info" id="dna-bubble-info-0">
-                    <div class="dna-bubble-role" id="dna-bubble-role-0">Dominant (60%)</div>
-                    <div class="dna-bubble-badge-wrap">
-                      <span class="dna-bubble-badge" id="dna-bubble-badge-0">PRIMARY</span>
+                  <div class="dna-color-bubbles-row" id="dna-color-bubbles-row" role="radiogroup" aria-label="Brand Color Palette">
+                    
+                    <!-- Bubble 0: Dominant (60%) (#F6F2F1) -->
+                    <div class="dna-color-bubble-item active" id="dna-bubble-item-0">
+                      <button type="button" class="dna-color-bubble active" id="dna-bubble-btn-0" data-index="0"
+                        onclick="selectDnaPaletteColor(0)"
+                        style="background:#F6F2F1; --bubble-color:#F6F2F1; --bubble-glow:rgba(203, 213, 225, 0.6); border: 1.5px solid #CBD5E1;"
+                        aria-label="Color 1: Dominant (60%) #F6F2F1 PRIMARY"
+                        title="Dominant (60%) · PRIMARY · #F6F2F1">
+                      </button>
+                      <div class="dna-bubble-info" id="dna-bubble-info-0">
+                        <div class="dna-bubble-role" id="dna-bubble-role-0">Dominant (60%)</div>
+                        <div class="dna-bubble-badge-wrap">
+                          <span class="dna-bubble-badge" id="dna-bubble-badge-0">PRIMARY</span>
+                        </div>
+                        <div class="dna-bubble-hex-wrap">
+                          <span class="dna-bubble-hex" id="dna-bubble-hex-0">#F6F2F1</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="dna-bubble-hex-wrap">
-                      <span class="dna-bubble-hex" id="dna-bubble-hex-0">#F6F2F1</span>
+
+                    <!-- Bubble 1: Secondary (30%) (#CA4B16) -->
+                    <div class="dna-color-bubble-item" id="dna-bubble-item-1">
+                      <button type="button" class="dna-color-bubble" id="dna-bubble-btn-1" data-index="1"
+                        onclick="selectDnaPaletteColor(1)"
+                        style="background:#CA4B16; --bubble-color:#CA4B16; --bubble-glow:rgba(202, 75, 22, 0.45);"
+                        aria-label="Color 2: Secondary (30%) #CA4B16 SUPPORT"
+                        title="Secondary (30%) · SUPPORT · #CA4B16">
+                      </button>
+                      <div class="dna-bubble-info" id="dna-bubble-info-1">
+                        <div class="dna-bubble-role" id="dna-bubble-role-1">Secondary (30%)</div>
+                        <div class="dna-bubble-badge-wrap">
+                          <span class="dna-bubble-badge" id="dna-bubble-badge-1">SUPPORT</span>
+                        </div>
+                        <div class="dna-bubble-hex-wrap">
+                          <span class="dna-bubble-hex" id="dna-bubble-hex-1">#CA4B16</span>
+                        </div>
+                      </div>
                     </div>
+
+                    <!-- Bubble 2: Accent (10%) (#B84514) -->
+                    <div class="dna-color-bubble-item" id="dna-bubble-item-2">
+                      <button type="button" class="dna-color-bubble" id="dna-bubble-btn-2" data-index="2"
+                        onclick="selectDnaPaletteColor(2)"
+                        style="background:#B84514; --bubble-color:#B84514; --bubble-glow:rgba(184, 69, 20, 0.45);"
+                        aria-label="Color 3: Accent (10%) #B84514 HIGHLIGHT"
+                        title="Accent (10%) · HIGHLIGHT · #B84514">
+                      </button>
+                      <div class="dna-bubble-info" id="dna-bubble-info-2">
+                        <div class="dna-bubble-role" id="dna-bubble-role-2">Accent (10%)</div>
+                        <div class="dna-bubble-badge-wrap">
+                          <span class="dna-bubble-badge" id="dna-bubble-badge-2">HIGHLIGHT</span>
+                        </div>
+                        <div class="dna-bubble-hex-wrap">
+                          <span class="dna-bubble-hex" id="dna-bubble-hex-2">#B84514</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Bubble 3: Background (#FFFFFF) -->
+                    <div class="dna-color-bubble-item" id="dna-bubble-item-3">
+                      <button type="button" class="dna-color-bubble" id="dna-bubble-btn-3" data-index="3"
+                        onclick="selectDnaPaletteColor(3)"
+                        style="background:#FFFFFF; --bubble-color:#FFFFFF; --bubble-glow:rgba(148, 163, 184, 0.5); border: 1.5px solid #CBD5E1;"
+                        aria-label="Color 4: Background #FFFFFF CANVAS"
+                        title="Background · CANVAS · #FFFFFF">
+                      </button>
+                      <div class="dna-bubble-info" id="dna-bubble-info-3">
+                        <div class="dna-bubble-role" id="dna-bubble-role-3">Background</div>
+                        <div class="dna-bubble-badge-wrap">
+                          <span class="dna-bubble-badge" id="dna-bubble-badge-3">CANVAS</span>
+                        </div>
+                        <div class="dna-bubble-hex-wrap">
+                          <span class="dna-bubble-hex" id="dna-bubble-hex-3">#FFFFFF</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- Bubble 4: Text / Neutral (#0F172A) -->
+                    <div class="dna-color-bubble-item" id="dna-bubble-item-4">
+                      <button type="button" class="dna-color-bubble" id="dna-bubble-btn-4" data-index="4"
+                        onclick="selectDnaPaletteColor(4)"
+                        style="background:#0F172A; --bubble-color:#0F172A; --bubble-glow:rgba(15, 23, 42, 0.45);"
+                        aria-label="Color 5: Text / Neutral #0F172A TYPO"
+                        title="Text / Neutral · TYPO · #0F172A">
+                      </button>
+                      <div class="dna-bubble-info" id="dna-bubble-info-4">
+                        <div class="dna-bubble-role" id="dna-bubble-role-4">Text / Neutral</div>
+                        <div class="dna-bubble-badge-wrap">
+                          <span class="dna-bubble-badge" id="dna-bubble-badge-4">TYPO</span>
+                        </div>
+                        <div class="dna-bubble-hex-wrap">
+                          <span class="dna-bubble-hex" id="dna-bubble-hex-4">#0F172A</span>
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-
-                <!-- Bubble 1: Secondary (30%) (#CA4B16) -->
-                <div class="dna-color-bubble-item" id="dna-bubble-item-1">
-                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-1" data-index="1"
-                    onclick="selectDnaPaletteColor(1)"
-                    style="background:#CA4B16; --bubble-color:#CA4B16; --bubble-glow:rgba(202, 75, 22, 0.45);"
-                    aria-label="Color 2: Secondary (30%) #CA4B16 SUPPORT"
-                    title="Secondary (30%) · SUPPORT · #CA4B16">
-                  </button>
-                  <div class="dna-bubble-info" id="dna-bubble-info-1">
-                    <div class="dna-bubble-role" id="dna-bubble-role-1">Secondary (30%)</div>
-                    <div class="dna-bubble-badge-wrap">
-                      <span class="dna-bubble-badge" id="dna-bubble-badge-1">SUPPORT</span>
-                    </div>
-                    <div class="dna-bubble-hex-wrap">
-                      <span class="dna-bubble-hex" id="dna-bubble-hex-1">#CA4B16</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Bubble 2: Accent (10%) (#B84514) -->
-                <div class="dna-color-bubble-item" id="dna-bubble-item-2">
-                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-2" data-index="2"
-                    onclick="selectDnaPaletteColor(2)"
-                    style="background:#B84514; --bubble-color:#B84514; --bubble-glow:rgba(184, 69, 20, 0.45);"
-                    aria-label="Color 3: Accent (10%) #B84514 HIGHLIGHT"
-                    title="Accent (10%) · HIGHLIGHT · #B84514">
-                  </button>
-                  <div class="dna-bubble-info" id="dna-bubble-info-2">
-                    <div class="dna-bubble-role" id="dna-bubble-role-2">Accent (10%)</div>
-                    <div class="dna-bubble-badge-wrap">
-                      <span class="dna-bubble-badge" id="dna-bubble-badge-2">HIGHLIGHT</span>
-                    </div>
-                    <div class="dna-bubble-hex-wrap">
-                      <span class="dna-bubble-hex" id="dna-bubble-hex-2">#B84514</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Bubble 3: Background (#FFFFFF) -->
-                <div class="dna-color-bubble-item" id="dna-bubble-item-3">
-                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-3" data-index="3"
-                    onclick="selectDnaPaletteColor(3)"
-                    style="background:#FFFFFF; --bubble-color:#FFFFFF; --bubble-glow:rgba(148, 163, 184, 0.5); border: 1.5px solid #CBD5E1;"
-                    aria-label="Color 4: Background #FFFFFF CANVAS"
-                    title="Background · CANVAS · #FFFFFF">
-                  </button>
-                  <div class="dna-bubble-info" id="dna-bubble-info-3">
-                    <div class="dna-bubble-role" id="dna-bubble-role-3">Background</div>
-                    <div class="dna-bubble-badge-wrap">
-                      <span class="dna-bubble-badge" id="dna-bubble-badge-3">CANVAS</span>
-                    </div>
-                    <div class="dna-bubble-hex-wrap">
-                      <span class="dna-bubble-hex" id="dna-bubble-hex-3">#FFFFFF</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Bubble 4: Text / Neutral (#0F172A) -->
-                <div class="dna-color-bubble-item" id="dna-bubble-item-4">
-                  <button type="button" class="dna-color-bubble" id="dna-bubble-btn-4" data-index="4"
-                    onclick="selectDnaPaletteColor(4)"
-                    style="background:#0F172A; --bubble-color:#0F172A; --bubble-glow:rgba(15, 23, 42, 0.45);"
-                    aria-label="Color 5: Text / Neutral #0F172A TYPO"
-                    title="Text / Neutral · TYPO · #0F172A">
-                  </button>
-                  <div class="dna-bubble-info" id="dna-bubble-info-4">
-                    <div class="dna-bubble-role" id="dna-bubble-role-4">Text / Neutral</div>
-                    <div class="dna-bubble-badge-wrap">
-                      <span class="dna-bubble-badge" id="dna-bubble-badge-4">TYPO</span>
-                    </div>
-                    <div class="dna-bubble-hex-wrap">
-                      <span class="dna-bubble-hex" id="dna-bubble-hex-4">#0F172A</span>
-                    </div>
-                  </div>
-                </div>
-
               </div>
-            </div>
-            <!-- /dna-color-palette-stage -->
-          </div>
-          <!-- /RIGHT COLUMN -->
 
-        </div>
-        <!-- /Combined Grid -->
+            </div>
 
             <!-- Hidden compatibility elements for existing modal read/save logic -->
             <div style="display:none;" aria-hidden="true">
@@ -6391,36 +6584,56 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
           </div>
 
           <!-- Combined Typography & Image Directives Display Box -->
-          <!-- Combined Typography & Image Directives Display Box (Single Edit Button) -->
           <div class="dna-display-box" style="margin-bottom:20px;">
             
             <!-- Row 1: Typography (2-Col Grid) -->
             <div class="dna-2col-grid" style="margin-bottom:0;align-items:start;">
               <!-- Primary Heading Typography -->
-              <div>
-                <div class="dna-display-box-header" style="height:32px;min-height:32px;display:flex;align-items:center;margin-bottom:8px;">
+              <div class="dna-editable-box" id="dna-box-typo-primary" data-dna-field="typo-primary" data-dna-type="text-single" style="position:relative;">
+                <div class="dna-display-box-header" style="height:32px;min-height:32px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                   <div class="dna-display-box-label" style="margin:0;">
                     <span>🔤</span> PRIMARY HEADING TYPOGRAPHY
                   </div>
+                  <div class="dna-box-corner-actions">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-typo-primary')" title="Edit Primary Typography">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-typo-primary" onclick="saveDnaBoxEdit('dna-box-typo-primary')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-typo-primary" onclick="cancelDnaBoxEdit('dna-box-typo-primary')" title="Cancel">
+                      ✕
+                    </button>
+                  </div>
                 </div>
-                <div id="dna-display-typo-primary" class="dna-display-box-content" style="font-size:13.5px;font-weight:700;color:#0F172A;font-family:'Inter',system-ui,sans-serif;line-height:1.4;margin:0;">
+                <div id="dna-display-typo-primary" class="dna-display-box-content dna-box-display" style="font-size:13.5px;font-weight:700;color:#0F172A;font-family:'Inter',system-ui,sans-serif;line-height:1.4;margin:0;">
                   Inter, system-ui, sans-serif
                 </div>
+                <input type="text" id="dna-editor-typo-primary" class="dna-inline-editor-input dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-typo-primary')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-typo-primary')" value="Inter, system-ui, sans-serif">
               </div>
 
               <!-- Secondary Body Typography -->
-              <div>
+              <div class="dna-editable-box" id="dna-box-typo-secondary" data-dna-field="typo-secondary" data-dna-type="text-single" style="position:relative;">
                 <div class="dna-display-box-header" style="height:32px;min-height:32px;display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
                   <div class="dna-display-box-label" style="margin:0;">
                     <span>🔠</span> SECONDARY / BODY TYPOGRAPHY
                   </div>
-                  <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec4-combined')" title="Edit Typography &amp; Image Directives">
-                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                  </button>
+                  <div class="dna-box-corner-actions">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-typo-secondary')" title="Edit Secondary Typography">
+                      <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-typo-secondary" onclick="saveDnaBoxEdit('dna-box-typo-secondary')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-typo-secondary" onclick="cancelDnaBoxEdit('dna-box-typo-secondary')" title="Cancel">
+                      ✕
+                    </button>
+                  </div>
                 </div>
-                <div id="dna-display-typo-secondary" class="dna-display-box-content" style="font-size:12.5px;color:#0F172A;font-family:'Merriweather',serif;line-height:1.4;margin:0;">
+                <div id="dna-display-typo-secondary" class="dna-display-box-content dna-box-display" style="font-size:12.5px;color:#0F172A;font-family:'Merriweather',serif;line-height:1.4;margin:0;">
                   Merriweather, serif
                 </div>
+                <input type="text" id="dna-editor-typo-secondary" class="dna-inline-editor-input dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-typo-secondary')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-typo-secondary')" value="Merriweather, serif">
               </div>
             </div>
 
@@ -6428,15 +6641,27 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             <div class="dna-box-divider" style="height:1px;background:#E2E8F0;margin:18px 0;"></div>
 
             <!-- Row 2: Image & Photography Style Directives (Full Width) -->
-            <div>
+            <div class="dna-editable-box" id="dna-box-image-style" data-dna-field="image-style" data-dna-type="text-multi" style="position:relative;">
               <div class="dna-display-box-header" style="margin-bottom:10px;">
                 <div class="dna-display-box-label">
                   <span>📸</span> IMAGE &amp; PHOTOGRAPHY STYLE DIRECTIVES
                 </div>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-image-style')" title="Edit Image Directives">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-image-style" onclick="saveDnaBoxEdit('dna-box-image-style')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-image-style" onclick="cancelDnaBoxEdit('dna-box-image-style')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-display-image-style" class="dna-display-box-content dna-display-box-quote">
+              <div id="dna-display-image-style" class="dna-display-box-content dna-display-box-quote dna-box-display">
                 Modern, clean, enterprise engineering aesthetic. High-contrast diagrams, precise architectural blueprints, subtle dark-mode accents, uncluttered layouts with premium typography and authentic technical visuals.
               </div>
+              <textarea id="dna-editor-image-style" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-image-style')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-image-style')" placeholder="Enter image &amp; photography style directives..."></textarea>
             </div>
 
           </div>
@@ -6454,8 +6679,10 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
         </div>
 
+
+
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 5: PRODUCTS & OFFERINGS (REDESIGNED)
+             SECTION 5: PRODUCTS & OFFERINGS
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-5" class="dna-section-card" style="display:none;">
           
@@ -6486,49 +6713,94 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Product Cards List inside Display Box (View-Only Mode) -->
+          <!-- Product Cards List inside Display Box -->
           <div class="dna-display-box" style="padding:16px;">
             <div class="dna-display-box-header">
               <div class="dna-display-box-label">
                 <span>📦</span> REGISTERED OFFERINGS CATALOG
               </div>
               <button type="button" class="dna-header-edit-btn" onclick="openDnaEditModal('sec5-manage-offerings')" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:10.5px;font-weight:700;">
-                <span>✏️</span> Edit or Add Offering
+                <span>✏️</span> Edit or Add Offering via Dialog
               </button>
             </div>
 
             <div class="dna-products-list" id="dna-products-list">
               
               <!-- Card 1 -->
-              <div class="dna-product-item-card" data-id="1">
+              <div class="dna-product-item-card dna-editable-box" id="dna-box-offering-1" data-dna-field="offering-1" data-dna-type="product-card" data-id="1" style="position:relative;">
+                <div class="dna-box-corner-actions" style="position:absolute;top:12px;right:12px;z-index:5;">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-offering-1')" title="Edit Offering 1">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-offering-1" onclick="saveDnaBoxEdit('dna-box-offering-1')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-offering-1" onclick="cancelDnaBoxEdit('dna-box-offering-1')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
                 <div class="dna-prod-num-box">1</div>
-                <div class="dna-prod-info">
+                <div class="dna-prod-info dna-box-display" style="padding-right:36px;">
                   <h4 class="dna-prod-name">Architecture &amp; Design</h4>
                   <p class="dna-prod-desc">
                     Step 01 / 03 Architecture &amp; Design: Deep technical blueprinting and multi-layer structural optimization ensuring high-scale, distributed applications maintain elite performance, security compliance, and long-term elasticity. Discuss this service...
                   </p>
                 </div>
+                <div class="dna-box-editor" style="display:none;width:100%;padding:4px 0 0 0;">
+                  <input type="text" class="dna-inline-editor-input dna-editor-prod-title" style="margin-bottom:8px;font-weight:700;" value="Architecture &amp; Design" oninput="handleDnaBoxInput('dna-box-offering-1')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-offering-1')" placeholder="Product/Offering Title">
+                  <textarea class="dna-inline-editor-textarea dna-editor-prod-desc" style="min-height:75px;" oninput="handleDnaBoxInput('dna-box-offering-1')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-offering-1')" placeholder="Product/Offering Description">Step 01 / 03 Architecture &amp; Design: Deep technical blueprinting and multi-layer structural optimization ensuring high-scale, distributed applications maintain elite performance, security compliance, and long-term elasticity. Discuss this service...</textarea>
+                </div>
               </div>
 
               <!-- Card 2 -->
-              <div class="dna-product-item-card" data-id="2">
+              <div class="dna-product-item-card dna-editable-box" id="dna-box-offering-2" data-dna-field="offering-2" data-dna-type="product-card" data-id="2" style="position:relative;">
+                <div class="dna-box-corner-actions" style="position:absolute;top:12px;right:12px;z-index:5;">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-offering-2')" title="Edit Offering 2">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-offering-2" onclick="saveDnaBoxEdit('dna-box-offering-2')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-offering-2" onclick="cancelDnaBoxEdit('dna-box-offering-2')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
                 <div class="dna-prod-num-box">2</div>
-                <div class="dna-prod-info">
+                <div class="dna-prod-info dna-box-display" style="padding-right:36px;">
                   <h4 class="dna-prod-name">AI Delivery Solutions</h4>
                   <p class="dna-prod-desc">
                     Step 02 / 03 AI Delivery Solutions: End-to-end engineering from vector search ecosystems to multi-agent intelligence and production model deployment with enterprise governance.
                   </p>
                 </div>
+                <div class="dna-box-editor" style="display:none;width:100%;padding:4px 0 0 0;">
+                  <input type="text" class="dna-inline-editor-input dna-editor-prod-title" style="margin-bottom:8px;font-weight:700;" value="AI Delivery Solutions" oninput="handleDnaBoxInput('dna-box-offering-2')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-offering-2')" placeholder="Product/Offering Title">
+                  <textarea class="dna-inline-editor-textarea dna-editor-prod-desc" style="min-height:75px;" oninput="handleDnaBoxInput('dna-box-offering-2')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-offering-2')" placeholder="Product/Offering Description">Step 02 / 03 AI Delivery Solutions: End-to-end engineering from vector search ecosystems to multi-agent intelligence and production model deployment with enterprise governance.</textarea>
+                </div>
               </div>
 
               <!-- Card 3 -->
-              <div class="dna-product-item-card" data-id="3">
+              <div class="dna-product-item-card dna-editable-box" id="dna-box-offering-3" data-dna-field="offering-3" data-dna-type="product-card" data-id="3" style="position:relative;">
+                <div class="dna-box-corner-actions" style="position:absolute;top:12px;right:12px;z-index:5;">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-offering-3')" title="Edit Offering 3">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-offering-3" onclick="saveDnaBoxEdit('dna-box-offering-3')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-offering-3" onclick="cancelDnaBoxEdit('dna-box-offering-3')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
                 <div class="dna-prod-num-box">3</div>
-                <div class="dna-prod-info">
+                <div class="dna-prod-info dna-box-display" style="padding-right:36px;">
                   <h4 class="dna-prod-name">Product Engineering Accelerators</h4>
                   <p class="dna-prod-desc">
                     Step 03 / 03 Product Engineering Accelerators: Pre-engineered scalability architectures and domain-specific processing hubs built to drastically shrink time-to-market and optimize resource efficiency. Discuss this service...
                   </p>
+                </div>
+                <div class="dna-box-editor" style="display:none;width:100%;padding:4px 0 0 0;">
+                  <input type="text" class="dna-inline-editor-input dna-editor-prod-title" style="margin-bottom:8px;font-weight:700;" value="Product Engineering Accelerators" oninput="handleDnaBoxInput('dna-box-offering-3')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-offering-3')" placeholder="Product/Offering Title">
+                  <textarea class="dna-inline-editor-textarea dna-editor-prod-desc" style="min-height:75px;" oninput="handleDnaBoxInput('dna-box-offering-3')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-offering-3')" placeholder="Product/Offering Description">Step 03 / 03 Product Engineering Accelerators: Pre-engineered scalability architectures and domain-specific processing hubs built to drastically shrink time-to-market and optimize resource efficiency. Discuss this service...</textarea>
                 </div>
               </div>
 
@@ -6548,8 +6820,10 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
         </div>
 
+
+
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 6: CONTENT STRATEGY (REDESIGNED)
+             SECTION 6: CONTENT STRATEGY
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-6" class="dna-section-card" style="display:none;">
           
@@ -6568,18 +6842,26 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
           </div>
 
           <!-- Content Pillars & Topic Allocation Display Box -->
-          <div class="dna-display-box" style="padding:20px;">
+          <div class="dna-display-box dna-editable-box" id="dna-box-pillars" data-dna-field="pillars" data-dna-type="pillars-list" style="padding:20px;position:relative;">
             <div class="dna-display-box-header">
               <div class="dna-display-box-label">
                 <span>🎯</span> CONTENT PILLARS &amp; TOPIC ALLOCATION
                 <span style="font-size:10px;font-weight:700;color:#0F9D8A;margin-left:8px;" id="dna-display-pillars-ratio">Total Ratio: 100% ✓</span>
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec6-pillars')" title="Edit Content Pillars">
-                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-              </button>
+              <div class="dna-box-corner-actions">
+                <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-pillars')" title="Edit Content Pillars">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+                <button type="button" class="dna-inline-save-btn" id="dna-save-pillars" onclick="saveDnaBoxEdit('dna-box-pillars')" title="Save changes" disabled>
+                  ✓
+                </button>
+                <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-pillars" onclick="cancelDnaBoxEdit('dna-box-pillars')" title="Cancel">
+                  ✕
+                </button>
+              </div>
             </div>
 
-            <div style="display:grid;grid-template-columns:1.45fr 1fr;gap:28px;">
+            <div class="dna-box-display" style="display:grid;grid-template-columns:1.45fr 1fr;gap:28px;">
               
               <!-- Left: Pillars List Display Cards -->
               <div id="dna-display-pillars-list" style="display:flex;flex-direction:column;gap:10px;">
@@ -6676,23 +6958,32 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               </div>
 
             </div>
+            <textarea id="dna-editor-pillars" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:140px;margin-top:12px;" oninput="handleDnaBoxInput('dna-box-pillars')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-pillars')" placeholder="Enter one pillar per line (Name: Percentage%)..."></textarea>
           </div>
 
           <!-- 2-Col Grid: Objectives vs CTAs -->
           <div class="dna-2col-grid" style="margin-bottom:20px;">
             
             <!-- Left: Objectives Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-objectives" data-dna-field="objectives" data-dna-type="tags-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div class="dna-display-box-label">
                   <span>🎯</span> PRIMARY CONTENT OBJECTIVES
                   <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-objectives-count">3 objectives</span>
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec6-objectives')" title="Edit Objectives">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-objectives')" title="Edit Objectives">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-objectives" onclick="saveDnaBoxEdit('dna-box-objectives')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-objectives" onclick="cancelDnaBoxEdit('dna-box-objectives')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-objectives" style="min-height:80px;">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-objectives" style="min-height:80px;">
                 <span class="dna-tag-pill tag-mint">
                   <span>Articulate unique differentiation over existing solutions</span>
                 </span>
@@ -6703,20 +6994,29 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Generate high-intent qualified customer opportunities</span>
                 </span>
               </div>
+              <textarea id="dna-editor-objectives" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-objectives')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-objectives')" placeholder="Enter objectives (one per line)..."></textarea>
             </div>
 
             <!-- Right: Preferred CTAs Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-ctas" data-dna-field="ctas" data-dna-type="tags-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div class="dna-display-box-label">
                   <span>📣</span> PREFERRED CALLS TO ACTION (CTAS)
                   <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-ctas-count">3 CTAs</span>
                 </div>
-                <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec6-ctas')" title="Edit CTAs">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-ctas')" title="Edit CTAs">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-ctas" onclick="saveDnaBoxEdit('dna-box-ctas')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-ctas" onclick="cancelDnaBoxEdit('dna-box-ctas')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div class="dna-tags-wrap" id="dna-display-ctas" style="min-height:80px;">
+              <div class="dna-tags-wrap dna-box-display" id="dna-display-ctas" style="min-height:80px;">
                 <span class="dna-tag-pill tag-purple">
                   <span>Explore Core Solutions</span>
                 </span>
@@ -6727,6 +7027,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Schedule a Strategic Consultation</span>
                 </span>
               </div>
+              <textarea id="dna-editor-ctas" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-ctas')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-ctas')" placeholder="Enter CTAs (one per line)..."></textarea>
             </div>
 
           </div>
@@ -6744,11 +7045,10 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
         </div>
 
+
+
         <!-- ═════════════════════════════════════════════════════════════════
-             SECTION 7: REGIONAL VOICE (REDESIGNED)
-        ══════════════════════════════════════════════════════════════════ -->
-        <!-- ══════════════════════════════════════════════════════════════════
-        SECTION 7: REGIONAL VOICE
+             SECTION 7: REGIONAL VOICE
         ══════════════════════════════════════════════════════════════════ -->
         <div id="dna-section-7" class="dna-section-card" style="display:none;">
           
@@ -6766,7 +7066,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Enable Regional Language & Dialect Grounding Banner (Image 1) -->
+          <!-- Enable Regional Language & Dialect Grounding Banner -->
           <div class="dna-regional-enable-card" style="background:#FFF9F5;border:1px solid #FFEDD5;border-radius:12px;padding:16px 20px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:16px;">
             <div>
               <div style="font-size:12px;font-weight:800;color:#9A3412;display:flex;align-items:center;gap:8px;margin-bottom:4px;">
@@ -6785,7 +7085,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Warning Message (Image 2) Shown when enabled and approved vocabulary is empty -->
+          <!-- Warning Message Shown when enabled and approved vocabulary is empty -->
           <div id="dna-regional-warning-banner" style="background:#FEF9C3;border:1px solid #FDE047;border-radius:10px;padding:12px 18px;margin-bottom:18px;display:none;align-items:flex-start;gap:12px;">
             <span style="font-size:13.5px;line-height:1.2;flex-shrink:0;">⚠️</span>
             <div style="font-size:11px;line-height:1.5;color:#854D0E;">
@@ -6832,46 +7132,76 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
             </div>
           </div>
 
-          <!-- Sample Regional Tagline / Hook (Display Only) -->
-          <div style="margin-bottom:18px;">
-            <label class="dna-regional-label">Sample Regional Tagline / Hook</label>
-            <div id="dna-reg-tagline" class="dna-regional-tagline-display">Smart solutions jo aapki growth ko boost karein ✨</div>
+          <!-- Sample Regional Tagline / Hook (Editable Box) -->
+          <div class="dna-editable-box" id="dna-box-reg-tagline" data-dna-field="reg-tagline" data-dna-type="text-single" style="position:relative;margin-bottom:18px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+              <label class="dna-regional-label" style="margin:0;">Sample Regional Tagline / Hook</label>
+              <div class="dna-box-corner-actions">
+                <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-reg-tagline')" title="Edit Regional Tagline">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+                <button type="button" class="dna-inline-save-btn" id="dna-save-reg-tagline" onclick="saveDnaBoxEdit('dna-box-reg-tagline')" title="Save changes" disabled>
+                  ✓
+                </button>
+                <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-reg-tagline" onclick="cancelDnaBoxEdit('dna-box-reg-tagline')" title="Cancel">
+                  ✕
+                </button>
+              </div>
+            </div>
+            <div id="dna-reg-tagline" class="dna-regional-tagline-display dna-box-display">Smart solutions jo aapki growth ko boost karein ✨</div>
+            <input type="text" id="dna-editor-reg-tagline" class="dna-inline-editor-input dna-box-editor" style="display:none;font-size:12px;padding:9px 14px;" oninput="handleDnaBoxInput('dna-box-reg-tagline')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-reg-tagline')" value="Smart solutions jo aapki growth ko boost karein ✨">
           </div>
 
-          <!-- 2-Col Grid: Approved Vocabulary vs Prohibited Regional Claims (Display Only with Edit Buttons) -->
+          <!-- 2-Col Grid: Approved Vocabulary vs Prohibited Regional Claims -->
           <div class="dna-regional-grid-2col" style="margin-bottom:24px;">
             <!-- Left: Approved Vocabulary Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-approved-slang" data-dna-field="approved-slang" data-dna-type="words-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div style="display:flex;align-items:center;gap:8px;">
                   <label class="dna-regional-label" style="margin:0;">Approved Vocabulary &amp; Colloquial Slang</label>
                   <span id="dna-approved-slang-count" class="dna-regional-counter">0 approved</span>
                 </div>
-                <button type="button" class="dna-box-edit-btn" onclick="openDnaEditModal('sec7-slang')" title="Edit Approved Vocabulary">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                  <span>Edit Words</span>
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-approved-slang')" title="Edit Approved Vocabulary">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-approved-slang" onclick="saveDnaBoxEdit('dna-box-approved-slang')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-approved-slang" onclick="cancelDnaBoxEdit('dna-box-approved-slang')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-approved-chips" class="dna-regional-chips-container" style="min-height:50px;align-items:center;">
-                <span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit Words&quot; to add regional slang and cultural phrasing.</span>
+              <div id="dna-approved-chips" class="dna-regional-chips-container dna-box-display" style="min-height:50px;align-items:center;">
+                <span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit&quot; to add regional slang and cultural phrasing.</span>
               </div>
+              <textarea id="dna-editor-approved-slang" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:75px;" oninput="handleDnaBoxInput('dna-box-approved-slang')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-approved-slang')" placeholder="Enter approved slang (comma or newline separated)..."></textarea>
             </div>
 
             <!-- Right: Prohibited Regional Claims Display Box -->
-            <div class="dna-display-box" style="margin-bottom:0;">
+            <div class="dna-display-box dna-editable-box" id="dna-box-prohib-slang" data-dna-field="prohib-slang" data-dna-type="words-list" style="margin-bottom:0;position:relative;">
               <div class="dna-display-box-header">
                 <div style="display:flex;align-items:center;gap:8px;">
                   <label class="dna-regional-label" style="margin:0;">Prohibited Regional Claims &amp; Avoid Words</label>
                   <span id="dna-prohib-slang-count" class="dna-regional-counter">0 prohibited</span>
                 </div>
-                <button type="button" class="dna-box-edit-btn" onclick="openDnaEditModal('sec7-prohib-slang')" title="Edit Prohibited Regional Claims">
-                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-                  <span>Edit Words</span>
-                </button>
+                <div class="dna-box-corner-actions">
+                  <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-prohib-slang')" title="Edit Prohibited Regional Claims">
+                    <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                  </button>
+                  <button type="button" class="dna-inline-save-btn" id="dna-save-prohib-slang" onclick="saveDnaBoxEdit('dna-box-prohib-slang')" title="Save changes" disabled>
+                    ✓
+                  </button>
+                  <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-prohib-slang" onclick="cancelDnaBoxEdit('dna-box-prohib-slang')" title="Cancel">
+                    ✕
+                  </button>
+                </div>
               </div>
-              <div id="dna-prohib-chips" class="dna-regional-chips-container" style="min-height:50px;align-items:center;">
-                <span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit Words&quot; to add guardrails.</span>
+              <div id="dna-prohib-chips" class="dna-regional-chips-container dna-box-display" style="min-height:50px;align-items:center;">
+                <span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit&quot; to add guardrails.</span>
               </div>
+              <textarea id="dna-editor-prohib-slang" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:75px;" oninput="handleDnaBoxInput('dna-box-prohib-slang')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-prohib-slang')" placeholder="Enter prohibited regional phrases (comma or newline separated)..."></textarea>
             </div>
           </div>
 

@@ -8010,6 +8010,442 @@ function renderDnaDonutChart(pillars, total) {
 window.renderDnaDonutChart = renderDnaDonutChart;
 
 
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   BRAND DNA: INLINE TEXTBOX EDITING ENGINE (ALL 7 TABS)
+═══════════════════════════════════════════════════════════════════════════ */
+
+function getDnaBoxCurrentText(box, type) {
+  const displayEl = box.querySelector('.dna-box-display');
+  if (!displayEl) return '';
+
+  if (type === 'product-card') {
+    const title = displayEl.querySelector('.dna-prod-name')?.innerText.trim() || '';
+    const desc = displayEl.querySelector('.dna-prod-desc')?.innerText.trim() || '';
+    return JSON.stringify({ title, desc });
+  }
+
+  if (type === 'pillars-list') {
+    const cards = Array.from(displayEl.querySelectorAll('.dna-display-pillar-card'));
+    return cards.map(c => {
+      const name = c.querySelector('.dna-display-pillar-name')?.innerText.trim() || '';
+      const pct = c.querySelector('.dna-display-pillar-pct')?.innerText.trim().replace('%', '') || '0';
+      return name + ': ' + pct + '%';
+    }).join('\n');
+  }
+
+  if (type === 'tags-list' || type === 'words-list' || type === 'chips-list') {
+    const tags = Array.from(displayEl.querySelectorAll('.dna-tag-pill span, .dna-chip, .dna-regional-chip span'))
+      .map(s => s.innerText.replace(/^[✓+s]+/, '').replace(/×$/, '').trim())
+      .filter(s => s && !s.includes('No approved') && !s.includes('No prohibited') && !s.includes('No items'));
+    
+    if (type === 'words-list') {
+      return tags.join(', ');
+    }
+    return tags.join('\n');
+  }
+
+  return displayEl.innerText.trim();
+}
+
+function toggleDnaBoxEdit(boxId) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const type = box.getAttribute('data-dna-type') || 'text-multi';
+  const saveBtn = box.querySelector('.dna-inline-save-btn');
+
+  // If already editing, close/cancel
+  if (box.classList.contains('is-editing')) {
+    cancelDnaBoxEdit(boxId);
+    return;
+  }
+
+  // Get current text and store as original value
+  const originalVal = getDnaBoxCurrentText(box, type);
+  box.setAttribute('data-original-val', originalVal);
+
+  // Populate editor with current value
+  if (type === 'product-card') {
+    let parsed = { title: '', desc: '' };
+    try { parsed = JSON.parse(originalVal); } catch (e) {}
+    const titleInp = box.querySelector('.dna-editor-prod-title');
+    const descTa = box.querySelector('.dna-editor-prod-desc');
+    if (titleInp) titleInp.value = parsed.title;
+    if (descTa) descTa.value = parsed.desc;
+  } else {
+    const editor = box.querySelector('.dna-box-editor');
+    if (editor) {
+      editor.value = originalVal;
+    }
+  }
+
+  // Enter edit mode
+  box.classList.add('is-editing');
+
+  // Save button starts strictly disabled!
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.classList.remove('can-save');
+  }
+
+  // Focus the first editor element
+  setTimeout(() => {
+    const firstInp = box.querySelector('.dna-box-editor input, .dna-box-editor textarea, input.dna-box-editor, textarea.dna-box-editor');
+    if (firstInp) {
+      firstInp.focus();
+      if (typeof firstInp.select === 'function' && type === 'text-single') {
+        firstInp.select();
+      }
+    }
+  }, 40);
+}
+window.toggleDnaBoxEdit = toggleDnaBoxEdit;
+
+function handleDnaBoxInput(boxId) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const type = box.getAttribute('data-dna-type') || 'text-multi';
+  const originalVal = (box.getAttribute('data-original-val') || '').trim();
+  const saveBtn = box.querySelector('.dna-inline-save-btn');
+
+  let currentVal = '';
+  if (type === 'product-card') {
+    const title = (box.querySelector('.dna-editor-prod-title')?.value || '').trim();
+    const desc = (box.querySelector('.dna-editor-prod-desc')?.value || '').trim();
+    currentVal = JSON.stringify({ title, desc });
+  } else {
+    const editor = box.querySelector('.dna-box-editor');
+    currentVal = (editor?.value || '').trim();
+  }
+
+  if (saveBtn) {
+    if (currentVal !== originalVal && currentVal !== '') {
+      saveBtn.disabled = false;
+      saveBtn.classList.add('can-save');
+    } else {
+      saveBtn.disabled = true;
+      saveBtn.classList.remove('can-save');
+    }
+  }
+}
+window.handleDnaBoxInput = handleDnaBoxInput;
+
+function handleDnaBoxKeydown(event, boxId) {
+  if (event.key === 'Escape') {
+    event.preventDefault();
+    cancelDnaBoxEdit(boxId);
+  } else if (event.key === 'Enter') {
+    const box = document.getElementById(boxId);
+    const type = box?.getAttribute('data-dna-type');
+    if (type === 'text-single' || event.ctrlKey || event.metaKey) {
+      event.preventDefault();
+      saveDnaBoxEdit(boxId);
+    }
+  }
+}
+window.handleDnaBoxKeydown = handleDnaBoxKeydown;
+
+function cancelDnaBoxEdit(boxId) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  box.classList.remove('is-editing');
+  const saveBtn = box.querySelector('.dna-inline-save-btn');
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.classList.remove('can-save');
+  }
+}
+window.cancelDnaBoxEdit = cancelDnaBoxEdit;
+
+function saveDnaBoxEdit(boxId) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const saveBtn = box.querySelector('.dna-inline-save-btn');
+  if (saveBtn && saveBtn.disabled) return;
+
+  const field = box.getAttribute('data-dna-field');
+  const type = box.getAttribute('data-dna-type') || 'text-multi';
+  const displayEl = box.querySelector('.dna-box-display');
+
+  let savedValue = '';
+
+  if (type === 'product-card') {
+    const title = (box.querySelector('.dna-editor-prod-title')?.value || '').trim();
+    const desc = (box.querySelector('.dna-editor-prod-desc')?.value || '').trim();
+    if (displayEl) {
+      const nameEl = displayEl.querySelector('.dna-prod-name');
+      const descEl = displayEl.querySelector('.dna-prod-desc');
+      if (nameEl) nameEl.innerText = title;
+      if (descEl) descEl.innerText = desc;
+    }
+    savedValue = { title, desc };
+  } else if (type === 'pillars-list') {
+    const raw = (box.querySelector('.dna-box-editor')?.value || '').trim();
+    const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+    const colors = ['#1E293B', '#0F9D8A', '#7C3AED', '#EA580C', '#2563EB', '#D97706'];
+    let totalPct = 0;
+    const pillars = lines.map((l, i) => {
+      const parts = l.split(':');
+      const name = parts[0]?.trim() || ('Pillar ' + (i+1));
+      const pct = parseInt(parts[1]?.replace('%', '')?.trim(), 10) || 25;
+      totalPct += pct;
+      return { name, pct, color: colors[i % colors.length] };
+    });
+
+    if (displayEl) {
+      displayEl.innerHTML = pillars.map((p, idx) => `
+        <div class="dna-display-pillar-card" data-pillar-idx="${idx}">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span class="dna-pillar-swatch-dot" style="background:${p.color};"></span>
+            <span style="font-size:11.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name}</span>
+          </div>
+          <span style="font-size:10.5px;font-weight:800;color:${p.color};padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">${p.pct}%</span>
+        </div>
+      `).join('');
+    }
+
+    const ratioBadge = document.getElementById('dna-display-pillars-ratio');
+    if (ratioBadge) {
+      ratioBadge.innerText = 'Total Ratio: ' + totalPct + '% ' + (totalPct === 100 ? '✓' : '');
+      ratioBadge.style.color = totalPct === 100 ? '#0F9D8A' : '#EF4444';
+    }
+
+    if (typeof renderDnaDonutChart === 'function') {
+      renderDnaDonutChart(pillars, totalPct);
+    }
+    savedValue = pillars;
+  } else if (type === 'tags-list') {
+    const raw = (box.querySelector('.dna-box-editor')?.value || '').trim();
+    const items = raw.split('\n').map(s => s.trim()).filter(Boolean);
+    const tagClass = field === 'pain-points' ? 'tag-rose' : (field === 'desires' ? 'tag-purple' : (field === 'ctas' ? 'tag-purple' : 'tag-mint'));
+    
+    if (displayEl) {
+      displayEl.innerHTML = items.map(t => `<span class="dna-tag-pill ${tagClass}"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No items defined</span>';
+    }
+
+    // Update counters
+    if (field === 'segments') {
+      const c = document.getElementById('dna-display-seg-count');
+      if (c) c.innerText = items.length + ' segments defined';
+    } else if (field === 'objectives') {
+      const c = document.getElementById('dna-display-objectives-count');
+      if (c) c.innerText = items.length + ' objectives';
+    } else if (field === 'ctas') {
+      const c = document.getElementById('dna-display-ctas-count');
+      if (c) c.innerText = items.length + ' CTAs';
+    }
+    savedValue = items;
+  } else if (type === 'words-list') {
+    const raw = (box.querySelector('.dna-box-editor')?.value || '').trim();
+    const items = raw.split(/[\n,]/).map(s => s.trim()).filter(Boolean);
+    const tagClass = field === 'proh-words' ? 'tag-rose' : (field === 'pref-words' ? 'tag-emerald' : (field === 'prohib-slang' ? 'prohibited' : 'approved'));
+    
+    if (displayEl) {
+      if (field === 'approved-slang' || field === 'prohib-slang') {
+        displayEl.innerHTML = items.length > 0 
+          ? items.map(t => `<span class="dna-regional-chip ${tagClass}"><span>${t}</span></span>`).join('')
+          : '<span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No items registered. Click edit to add words.</span>';
+      } else {
+        displayEl.innerHTML = items.map(t => `<span class="dna-tag-pill ${tagClass}"><span>${t}</span></span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No words defined</span>';
+      }
+    }
+
+    if (field === 'pref-words') {
+      const c = document.getElementById('dna-display-pref-count');
+      if (c) c.innerText = items.length + ' words';
+    } else if (field === 'proh-words') {
+      const c = document.getElementById('dna-display-proh-count');
+      if (c) c.innerText = items.length + ' words';
+    } else if (field === 'approved-slang') {
+      const c = document.getElementById('dna-approved-slang-count');
+      if (c) c.innerText = items.length + ' approved';
+    } else if (field === 'prohib-slang') {
+      const c = document.getElementById('dna-prohib-slang-count');
+      if (c) c.innerText = items.length + ' prohibited';
+    }
+    savedValue = items;
+  } else if (type === 'chips-list') {
+    const raw = (box.querySelector('.dna-box-editor')?.value || '').trim();
+    const items = raw.split(/[\n,]/).map(s => s.trim()).filter(Boolean);
+    if (displayEl) {
+      displayEl.innerHTML = items.map(t => `<span class="dna-chip active">✓ ${t}</span>`).join('') || '<span style="color:#94A3B8;font-style:italic;">No traits selected</span>';
+    }
+    const c = document.getElementById('dna-display-tone-count');
+    if (c) c.innerText = items.length + '/3 selected';
+    savedValue = items;
+  } else {
+    // Single or multi-line text
+    const editor = box.querySelector('.dna-box-editor');
+    const val = (editor?.value || '').trim();
+    if (displayEl) {
+      if (field === 'brand-industry') {
+        displayEl.innerHTML = `<span class="dna-info-badge">${val}</span>`;
+      } else if (field === 'location') {
+        const span = displayEl.querySelector('#dna-display-location') || displayEl;
+        span.innerText = val;
+      } else if (field === 'website') {
+        const a = displayEl.querySelector('#dna-display-website') || displayEl;
+        a.innerText = val;
+        if (a.tagName === 'A') {
+          a.href = val.startsWith('http') ? val : 'https://' + val;
+        }
+      } else {
+        displayEl.innerText = val;
+      }
+    }
+    savedValue = val;
+  }
+
+  // Persist to localStorage
+  try {
+    let dnaStore = {};
+    const existing = localStorage.getItem('vibodh_brand_dna_data');
+    if (existing) dnaStore = JSON.parse(existing);
+    dnaStore[field] = savedValue;
+    localStorage.setItem('vibodh_brand_dna_data', JSON.stringify(dnaStore));
+  } catch (e) {
+    console.warn('Could not save Brand DNA to localStorage:', e);
+  }
+
+  // Exit editing mode
+  box.classList.remove('is-editing');
+  if (saveBtn) {
+    saveBtn.disabled = true;
+    saveBtn.classList.remove('can-save');
+  }
+
+  // Visual success feedback
+  showToast('Saved changes!', '✓');
+}
+window.saveDnaBoxEdit = saveDnaBoxEdit;
+
+function loadSavedBrandDna() {
+  try {
+    const raw = localStorage.getItem('vibodh_brand_dna_data');
+    if (!raw) return;
+    const data = JSON.parse(raw);
+
+    Object.keys(data).forEach(field => {
+      const box = document.querySelector(`.dna-editable-box[data-dna-field="${field}"]`);
+      if (!box) return;
+      const type = box.getAttribute('data-dna-type') || 'text-multi';
+      const displayEl = box.querySelector('.dna-box-display');
+      const val = data[field];
+
+      if (type === 'product-card' && typeof val === 'object') {
+        if (displayEl) {
+          if (val.title) {
+            const h = displayEl.querySelector('.dna-prod-name');
+            if (h) h.innerText = val.title;
+          }
+          if (val.desc) {
+            const p = displayEl.querySelector('.dna-prod-desc');
+            if (p) p.innerText = val.desc;
+          }
+        }
+      } else if (type === 'pillars-list' && Array.isArray(val)) {
+        if (displayEl) {
+          displayEl.innerHTML = val.map((p, idx) => `
+            <div class="dna-display-pillar-card" data-pillar-idx="${idx}">
+              <div style="display:flex;align-items:center;gap:10px;">
+                <span class="dna-pillar-swatch-dot" style="background:${p.color};"></span>
+                <span style="font-size:11.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name}</span>
+              </div>
+              <span style="font-size:10.5px;font-weight:800;color:${p.color};padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">${p.pct}%</span>
+            </div>
+          `).join('');
+        }
+        let totalPct = val.reduce((acc, p) => acc + (p.pct || 0), 0);
+        const ratioBadge = document.getElementById('dna-display-pillars-ratio');
+        if (ratioBadge) {
+          ratioBadge.innerText = 'Total Ratio: ' + totalPct + '% ' + (totalPct === 100 ? '✓' : '');
+          ratioBadge.style.color = totalPct === 100 ? '#0F9D8A' : '#EF4444';
+        }
+        if (typeof renderDnaDonutChart === 'function') {
+          renderDnaDonutChart(val, totalPct);
+        }
+      } else if (type === 'tags-list' && Array.isArray(val)) {
+        const tagClass = field === 'pain-points' ? 'tag-rose' : (field === 'desires' ? 'tag-purple' : (field === 'ctas' ? 'tag-purple' : 'tag-mint'));
+        if (displayEl) {
+          displayEl.innerHTML = val.map(t => `<span class="dna-tag-pill ${tagClass}"><span>${t}</span></span>`).join('');
+        }
+        if (field === 'segments') {
+          const c = document.getElementById('dna-display-seg-count');
+          if (c) c.innerText = val.length + ' segments defined';
+        } else if (field === 'objectives') {
+          const c = document.getElementById('dna-display-objectives-count');
+          if (c) c.innerText = val.length + ' objectives';
+        } else if (field === 'ctas') {
+          const c = document.getElementById('dna-display-ctas-count');
+          if (c) c.innerText = val.length + ' CTAs';
+        }
+      } else if (type === 'words-list' && Array.isArray(val)) {
+        const tagClass = field === 'proh-words' ? 'tag-rose' : (field === 'pref-words' ? 'tag-emerald' : (field === 'prohib-slang' ? 'prohibited' : 'approved'));
+        if (displayEl) {
+          if (field === 'approved-slang' || field === 'prohib-slang') {
+            displayEl.innerHTML = val.length > 0 
+              ? val.map(t => `<span class="dna-regional-chip ${tagClass}"><span>${t}</span></span>`).join('')
+              : '<span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No items registered. Click edit to add words.</span>';
+          } else {
+            displayEl.innerHTML = val.map(t => `<span class="dna-tag-pill ${tagClass}"><span>${t}</span></span>`).join('');
+          }
+        }
+        if (field === 'pref-words') {
+          const c = document.getElementById('dna-display-pref-count');
+          if (c) c.innerText = val.length + ' words';
+        } else if (field === 'proh-words') {
+          const c = document.getElementById('dna-display-proh-count');
+          if (c) c.innerText = val.length + ' words';
+        } else if (field === 'approved-slang') {
+          const c = document.getElementById('dna-approved-slang-count');
+          if (c) c.innerText = val.length + ' approved';
+        } else if (field === 'prohib-slang') {
+          const c = document.getElementById('dna-prohib-slang-count');
+          if (c) c.innerText = val.length + ' prohibited';
+        }
+      } else if (type === 'chips-list' && Array.isArray(val)) {
+        if (displayEl) {
+          displayEl.innerHTML = val.map(t => `<span class="dna-chip active">✓ ${t}</span>`).join('');
+        }
+        const c = document.getElementById('dna-display-tone-count');
+        if (c) c.innerText = val.length + '/3 selected';
+      } else if (typeof val === 'string') {
+        if (displayEl) {
+          if (field === 'brand-industry') {
+            displayEl.innerHTML = `<span class="dna-info-badge">${val}</span>`;
+          } else if (field === 'location') {
+            const span = displayEl.querySelector('#dna-display-location') || displayEl;
+            span.innerText = val;
+          } else if (field === 'website') {
+            const a = displayEl.querySelector('#dna-display-website') || displayEl;
+            a.innerText = val;
+            if (a.tagName === 'A') a.href = val.startsWith('http') ? val : 'https://' + val;
+          } else {
+            displayEl.innerText = val;
+          }
+        }
+        if (field === 'brand-name') {
+          const curH = document.getElementById('dna-current-brand-name');
+          if (curH) curH.innerText = val;
+        }
+      }
+    });
+  } catch (e) {
+    console.warn('Could not load Brand DNA from localStorage:', e);
+  }
+}
+window.loadSavedBrandDna = loadSavedBrandDna;
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadSavedBrandDna);
+} else {
+  loadSavedBrandDna();
+}
+
 /* ═══════════════════════════════════════════════════════════════════
    BRAND DNA: VERSION HISTORY & SNAPSHOT TRACEABILITY
    ═══════════════════════════════════════════════════════════════════ */
