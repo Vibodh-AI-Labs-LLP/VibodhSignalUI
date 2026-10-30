@@ -1,3 +1,32 @@
+
+// ── Textarea innerText compatibility bridge for unified post textbox ────
+try {
+  if (!Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'innerText')?.set) {
+    Object.defineProperty(HTMLTextAreaElement.prototype, 'innerText', {
+      get() { return this.value; },
+      set(val) {
+        this.value = val;
+        this.dispatchEvent(new Event('input', { bubbles: true }));
+      },
+      configurable: true
+    });
+  }
+} catch(e) {}
+
+function handleTextStudioCaptionInput(textarea) {
+  if (!textarea) return;
+  const text = textarea.value || '';
+  const lines = text.split('\n').filter(l => l.trim().length > 0);
+  const firstLine = lines.length > 0 ? lines[0] : '';
+  const leadEl = document.getElementById('mockup-headline-lead');
+  if (leadEl) leadEl.innerText = firstLine;
+
+  if (typeof updateSidePreviewLive === 'function') {
+    updateSidePreviewLive();
+  }
+}
+window.handleTextStudioCaptionInput = handleTextStudioCaptionInput;
+
 /**
  * Vibodh Signal — Pricing Page Interactions
  *  • Tab switching (Plans / Features / Add-Ons / FAQ)
@@ -1351,6 +1380,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const match = n.getAttribute('data-view') === viewName;
       n.classList.toggle('active', match);
     });
+    // Update active state on topbar quick nav buttons
+    document.querySelectorAll('.topbar-nav-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-view') === viewName);
+    });
 
     // Update document title and URL hash without reload
     if (VIEW_TITLES[viewName]) {
@@ -1362,9 +1395,16 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.hash = viewName;
     }
 
-    // Reset scroll to top
+    // Reset scroll to top & manage no-scroll constraint for Content Studio
     const pageContent = document.querySelector('.page-content');
-    if (pageContent) pageContent.scrollTo({ top: 0, behavior: 'smooth' });
+    if (pageContent) {
+      pageContent.scrollTo({ top: 0, behavior: 'smooth' });
+      if (viewName === 'content-studio') {
+        pageContent.classList.add('cs-no-scroll');
+      } else {
+        pageContent.classList.remove('cs-no-scroll');
+      }
+    }
 
     if (window.innerWidth <= 900) closeSidebar();
   }
@@ -1959,189 +1999,314 @@ const AVAILABLE_PLATFORMS = [
   {
     id: 'li',
     name: 'LinkedIn',
+    handle: 'Company Page & Personal Profile',
+    desc: 'B2B audience, thought leadership, carousel pdfs, and rich business articles.',
+    formats: ['Feed Post', 'Carousel Slides', 'Article', 'Poll'],
     color: '#0A66C2',
     bg: '#F0F7FD',
-    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>`
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#0A66C2"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74v-8.37H5.06v8.37h2.8z"/></svg>`
   },
   {
     id: 'ig',
     name: 'Instagram',
+    handle: '@brand_instagram (Business Account)',
+    desc: 'High-engagement visuals, aesthetic lifestyle photography, Reels & Story highlights.',
+    formats: ['Feed Post', 'Story', 'Reel Video', 'Multi-slide Carousel'],
     color: '#E1306C',
     bg: '#FDF2F7',
-    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#E1306C"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`
   },
   {
     id: 'tw',
     name: 'Twitter / X',
+    handle: '@brand_x_handle (Verified Pro)',
+    desc: 'Real-time discussions, fast-paced thread storytelling, and industry commentary.',
+    formats: ['Standard Post', 'Thread Storm', 'Poll', 'Video Clip'],
     color: '#0F172A',
     bg: '#F8FAFC',
-    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#0F172A"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#0F172A"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>`
   },
   {
     id: 'fb',
     name: 'Facebook',
+    handle: 'Brand Official Page & VIP Group',
+    desc: 'Diverse demographics, community groups, long-form posts, link previews & Reels.',
+    formats: ['Page Feed', 'Group Post', 'Facebook Reel', 'Story'],
     color: '#1877F2',
     bg: '#F0F6FF',
-    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#1877F2"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>`
   },
   {
     id: 'yt',
     name: 'YouTube',
+    handle: 'Brand Channel & Shorts Hub',
+    desc: 'World largest video engine. Great for vertical Shorts, trailers & Community posts.',
+    formats: ['YouTube Short', 'Community Post', 'Video Premiere'],
     color: '#FF0000',
     bg: '#FEF2F2',
-    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#FF0000"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>`
+  },
+  {
+    id: 'tt',
+    name: 'TikTok',
+    handle: '@brand_creators (Official)',
+    desc: 'High viral potential, dynamic trending sounds, snappy short videos & photo mode carousels.',
+    formats: ['Video Feed', 'Photo Slides', 'Story'],
+    color: '#000000',
+    bg: '#F8FAFC',
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#000000"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>`
+  },
+  {
+    id: 'pin',
+    name: 'Pinterest',
+    handle: 'Brand Visual Board',
+    desc: 'High buyer intent, eternal shelf life pins, infographic cards and DIY guides.',
+    formats: ['Standard Pin', 'Idea Pin', 'Product Board'],
+    color: '#E60023',
+    bg: '#FFF1F2',
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#E60023"><path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345-.09.375-.291 1.199-.334 1.357-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>`
   },
   {
     id: 'th',
     name: 'Threads',
+    handle: '@brand_threads (Meta)',
+    desc: 'Bite-sized conversational text, behind the scenes, and spontaneous community interactions.',
+    formats: ['Text Thread', 'Photo Snippet', 'Link Share'],
     color: '#0F172A',
     bg: '#F8FAFC',
-    iconSvg: `<svg viewBox="0 0 24 24" width="14" height="14" fill="#0F172A"><path d="M12.186 24C5.467 24 0 18.533 0 11.814 0 5.095 5.467 0 12.186 0c6.643 0 11.968 5.253 12.181 11.888h-3.033c-.206-4.992-4.296-8.99-9.148-8.99-5.068 0-9.186 4.118-9.186 9.186 0 5.068 4.118 9.186 9.186 9.186 3.535 0 6.61-2.007 8.118-4.945l2.673 1.458C20.916 21.657 16.892 24 12.186 24zm1.536-7.854c-1.393 0-2.483-.873-2.483-2.28 0-1.423 1.107-2.31 2.483-2.31 1.408 0 2.513.887 2.513 2.31 0 1.407-1.105 2.28-2.513 2.28z"/></svg>`
+    iconSvg: `<svg viewBox="0 0 24 24" width="16" height="16" fill="#0F172A"><path d="M12.186 24C5.467 24 0 18.533 0 11.814 0 5.095 5.467 0 12.186 0c6.643 0 11.968 5.253 12.181 11.888h-3.033c-.206-4.992-4.296-8.99-9.148-8.99-5.068 0-9.186 4.118-9.186 9.186 0 5.068 4.118 9.186 9.186 9.186 3.535 0 6.61-2.007 8.118-4.945l2.673 1.458C20.916 21.657 16.892 24 12.186 24zm1.536-7.854c-1.393 0-2.483-.873-2.483-2.28 0-1.423 1.107-2.31 2.483-2.31 1.408 0 2.513.887 2.513 2.31 0 1.407-1.105 2.28-2.513 2.28z"/></svg>`
   }
 ];
 
 let selectedPlatformIds = ['li', 'ig', 'tw', 'fb'];
-const activePlatformFilter = { text: '', image: '', video: '' };
-
-function renderPlatformMultiselect(mode) {
-  const chipsBox = document.getElementById(`cs-chips-box-${mode}`);
-  const listEl = document.getElementById(`cs-options-list-${mode}`);
-  if (!chipsBox || !listEl) return;
-
-  // 1. Render Selected Chips
-  if (selectedPlatformIds.length === 0) {
-    chipsBox.innerHTML = `<span class="cs-multiselect-placeholder">Select target platforms...</span>`;
-  } else {
-    chipsBox.innerHTML = selectedPlatformIds.map(id => {
-      const p = AVAILABLE_PLATFORMS.find(item => item.id === id);
-      if (!p) return '';
-      return `
-        <span class="cs-plat-chip" style="background:${p.bg}; border-color:${p.color}40;" title="${p.name}">
-          <span class="cs-chip-icon">${p.iconSvg}</span>
-          <span class="cs-chip-label">${p.name}</span>
-          <span class="cs-chip-remove" onclick="removePlatformChip('${p.id}', '${mode}', event)" title="Remove ${p.name}">&times;</span>
-        </span>
-      `;
-    }).join('');
-  }
-
-  // 2. Render Options inside Dropdown
-  const query = (activePlatformFilter[mode] || '').toLowerCase().trim();
-  const filtered = AVAILABLE_PLATFORMS.filter(p => p.name.toLowerCase().includes(query));
-
-  if (filtered.length === 0) {
-    listEl.innerHTML = `<div class="cs-dropdown-no-results">No platforms matching "${query}"</div>`;
-  } else {
-    listEl.innerHTML = filtered.map(p => {
-      const isSelected = selectedPlatformIds.includes(p.id);
-      return `
-        <div class="cs-dropdown-option-item ${isSelected ? 'selected' : ''}" onclick="togglePlatformSelection('${p.id}', '${mode}', event)">
-          <div class="cs-option-left">
-            <span class="cs-option-logo" style="border-color:${isSelected ? p.color : '#E2E8F0'}">
-              ${p.iconSvg}
-            </span>
-            <span class="cs-option-name" style="${isSelected ? 'color:' + p.color + '; font-weight:700;' : ''}">${p.name}</span>
-          </div>
-          <span class="cs-option-check">✓</span>
-        </div>
-      `;
-    }).join('');
-  }
-}
-window.renderPlatformMultiselect = renderPlatformMultiselect;
-
-function renderAllPlatformMultiselects() {
-  ['text', 'image', 'video'].forEach(m => renderPlatformMultiselect(m));
-}
-window.renderAllPlatformMultiselects = renderAllPlatformMultiselects;
-
-function togglePlatformDropdown(mode, event) {
-  if (event) event.stopPropagation();
-  const dropdown = document.getElementById(`cs-dropdown-${mode}`);
-  const parent = document.getElementById(`cs-plat-multiselect-${mode}`);
-  if (!dropdown || !parent) return;
-
-  const isOpen = parent.classList.contains('open');
-
-  // Close other open platform dropdowns
-  closeAllPlatformDropdowns();
-
-  if (!isOpen) {
-    parent.classList.add('open');
-    dropdown.style.display = 'block';
-    renderPlatformMultiselect(mode);
-    const searchInput = document.getElementById(`cs-search-${mode}`);
-    if (searchInput) {
-      setTimeout(() => searchInput.focus(), 60);
+try {
+  const saved = localStorage.getItem('vibodh_selected_platforms');
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (Array.isArray(parsed) && parsed.length > 0) {
+      selectedPlatformIds = parsed;
     }
   }
-}
-window.togglePlatformDropdown = togglePlatformDropdown;
+} catch(e) {}
+let channelsSearchFilter = '';
 
-function closeAllPlatformDropdowns() {
-  if (typeof closeCreateTypeDropdown === 'function') closeCreateTypeDropdown();
-  ['text', 'image', 'video', 'image-formats'].forEach(m => {
-    const d = document.getElementById(`cs-dropdown-${m}`);
-    const p = document.getElementById(`cs-plat-multiselect-${m}`);
-    if (d) d.style.display = 'none';
-    if (p) p.classList.remove('open');
+/* Renders the Target Channels options cards inside the right side panel */
+function renderAllChannelCards() {
+  const modes = ['text', 'image', 'video'];
+  modes.forEach(mode => renderChannelSelectionCards(mode));
+}
+window.renderAllChannelCards = renderAllChannelCards;
+
+function renderChannelSelectionCards(mode) {
+  const container = document.getElementById(`cs-channels-options-container-${mode}`);
+  const countBadge = document.getElementById(`cs-channels-count-${mode}`);
+
+  if (countBadge) {
+    countBadge.innerText = `${selectedPlatformIds.length} Active Channel${selectedPlatformIds.length === 1 ? '' : 's'}`;
+  }
+
+  if (!container) return;
+
+  const query = (channelsSearchFilter || '').toLowerCase().trim();
+  const filtered = AVAILABLE_PLATFORMS.filter(p =>
+    p.name.toLowerCase().includes(query) ||
+    (p.desc && p.desc.toLowerCase().includes(query)) ||
+    (p.handle && p.handle.toLowerCase().includes(query))
+  );
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div style="text-align:center; padding: 30px 10px; color:#64748B; font-size:12px;">No channels matching "${query}"</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(p => {
+    const isSelected = selectedPlatformIds.includes(p.id);
+    return `
+      <div class="cs-channel-card ${isSelected ? 'selected' : ''}" onclick="toggleChannelCard('${p.id}', event)">
+        <div class="cs-channel-card-top">
+          <div class="cs-channel-card-left">
+            <div class="cs-channel-icon-squircle" style="background:${p.bg}; border: 1.5px solid ${p.color}35;">
+              ${p.iconSvg}
+            </div>
+            <div class="cs-channel-info">
+              <div class="cs-channel-name-row">
+                <span class="cs-channel-name">${p.name}</span>
+                <span class="cs-channel-badge ${isSelected ? 'connected' : 'idle'}">
+                  ${isSelected ? '● Active' : 'Connected'}
+                </span>
+              </div>
+              <div class="cs-channel-handle">${p.handle || 'Connected Channel'}</div>
+            </div>
+          </div>
+          <div class="cs-channel-toggle-wrap">
+            <label class="cs-channel-switch" onclick="event.stopPropagation()">
+              <input type="checkbox" ${isSelected ? 'checked' : ''} onchange="toggleChannelCard('${p.id}', event)">
+              <span class="cs-channel-slider"></span>
+            </label>
+          </div>
+        </div>
+        <div class="cs-channel-formats-row">
+          ${(p.formats || []).map(f => `<span class="cs-channel-format-chip">${f}</span>`).join('')}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+window.renderChannelSelectionCards = renderChannelSelectionCards;
+
+function toggleChannelCard(platId, event) {
+  if (event) event.stopPropagation();
+  const idx = selectedPlatformIds.indexOf(platId);
+  const p = AVAILABLE_PLATFORMS.find(item => item.id === platId);
+  const name = p ? p.name : platId;
+
+  if (idx > -1) {
+    selectedPlatformIds.splice(idx, 1);
+    if (window.showToast) showToast(`${name} removed from target channels`, '⚪');
+  } else {
+    selectedPlatformIds.push(platId);
+    if (window.showToast) showToast(`${name} added to target channels!`, '✅');
+  }
+
+  try {
+    localStorage.setItem('vibodh_selected_platforms', JSON.stringify(selectedPlatformIds));
+  } catch(e) {}
+
+  renderAllChannelCards();
+  if (typeof renderAllPlatformMultiselects === 'function') {
+    renderAllPlatformMultiselects();
+  }
+  if (typeof syncPreviewTargetChannels === 'function') {
+    syncPreviewTargetChannels();
+  }
+  if (typeof renderAllSidePreviews === 'function') {
+    renderAllSidePreviews();
+  }
+}
+window.toggleChannelCard = toggleChannelCard;
+
+function bulkSetChannels(selectAll, mode) {
+  if (selectAll) {
+    selectedPlatformIds = AVAILABLE_PLATFORMS.map(p => p.id);
+    if (window.showToast) showToast('All 8 target channels selected!', '🎯');
+  } else {
+    selectedPlatformIds = [];
+    if (window.showToast) showToast('All channels deselected', '⚪');
+  }
+
+  try {
+    localStorage.setItem('vibodh_selected_platforms', JSON.stringify(selectedPlatformIds));
+  } catch(e) {}
+
+  renderAllChannelCards();
+  if (typeof renderAllPlatformMultiselects === 'function') {
+    renderAllPlatformMultiselects();
+  }
+  if (typeof syncPreviewTargetChannels === 'function') {
+    syncPreviewTargetChannels();
+  }
+  if (typeof renderAllSidePreviews === 'function') {
+    renderAllSidePreviews();
+  }
+}
+window.bulkSetChannels = bulkSetChannels;
+
+function filterChannelsList(input, mode) {
+  channelsSearchFilter = input ? input.value : '';
+  renderAllChannelCards();
+}
+window.filterChannelsList = filterChannelsList;
+
+function clearChannelsSearch(mode) {
+  channelsSearchFilter = '';
+  const searchInput = document.getElementById(`cs-channels-search-${mode}`);
+  if (searchInput) searchInput.value = '';
+  renderAllChannelCards();
+}
+window.clearChannelsSearch = clearChannelsSearch;
+
+function updateCsRailButtons(state) {
+  const modes = ['text', 'image', 'video'];
+  modes.forEach(mode => {
+    const genBtn = document.getElementById(`cs-rail-btn-${mode}`);
+    const chanBtn = document.getElementById(`cs-rail-btn-channels-${mode}`);
+    const draftBtn = document.getElementById(`cs-rail-btn-drafts-${mode}`);
+    const schedBtn = document.getElementById(`cs-rail-btn-schedule-${mode}`);
+    const guardBtn = document.getElementById(`cs-rail-btn-guardrail-${mode}`);
+    const prevBtn = document.getElementById(`cs-rail-btn-preview-${mode}`);
+
+    [genBtn, chanBtn, draftBtn, schedBtn, guardBtn, prevBtn].forEach(b => {
+      if (b) b.classList.remove('cs-active-tool-btn');
+    });
+
+    if (state === 'options' && genBtn) genBtn.classList.add('cs-active-tool-btn');
+    if (state === 'channels' && chanBtn) chanBtn.classList.add('cs-active-tool-btn');
+    if (state === 'drafts' && draftBtn) draftBtn.classList.add('cs-active-tool-btn');
+    if (state === 'schedule' && schedBtn) schedBtn.classList.add('cs-active-tool-btn');
+    if (state === 'guardrail' && guardBtn) guardBtn.classList.add('cs-active-tool-btn');
+    if (state === 'preview' && prevBtn) prevBtn.classList.add('cs-active-tool-btn');
+  });
+}
+window.updateCsRailButtons = updateCsRailButtons;
+
+// Fallback compatibility with previous dropdown functions
+function renderPlatformMultiselect(mode) {
+  // Gracefully no-op if legacy elements not in DOM
+}
+window.renderPlatformMultiselect = renderPlatformMultiselect;
+function renderAllPlatformMultiselects() {
+  renderAllChannelCards();
+}
+window.renderAllPlatformMultiselects = renderAllPlatformMultiselects;
+function togglePlatformDropdown() {}
+window.togglePlatformDropdown = togglePlatformDropdown;
+function closeAllPlatformDropdowns(event) {
+  if (event && typeof event.stopPropagation === 'function') {
+    event.stopPropagation();
+  }
+
+  // 1. Close specific image format dropdown
+  const imgDropdown = document.getElementById('cs-dropdown-image-formats');
+  const imgParent = document.getElementById('cs-plat-multiselect-image-formats');
+  if (imgDropdown) {
+    imgDropdown.style.display = 'none';
+  }
+  if (imgParent) {
+    imgParent.classList.remove('open');
+    const trigger = imgParent.querySelector('.cs-multiselect-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
+  }
+
+  // 2. Close any generic multiselect dropdown windows across the DOM
+  document.querySelectorAll('.cs-multiselect-dropdown').forEach(dropdown => {
+    dropdown.style.display = 'none';
+  });
+  document.querySelectorAll('.cs-platform-multiselect').forEach(parent => {
+    parent.classList.remove('open');
+    const trigger = parent.querySelector('.cs-multiselect-trigger');
+    if (trigger) trigger.setAttribute('aria-expanded', 'false');
   });
 }
 window.closeAllPlatformDropdowns = closeAllPlatformDropdowns;
-
+window.closeImageFormatDropdown = closeAllPlatformDropdowns;
 function togglePlatformSelection(platId, mode, event) {
-  if (event) event.stopPropagation();
-  const idx = selectedPlatformIds.indexOf(platId);
-  const plat = AVAILABLE_PLATFORMS.find(p => p.id === platId);
-  const name = plat ? plat.name : platId;
-
-  if (idx > -1) {
-    selectedPlatformIds.splice(idx, 1);
-    showToast(`${name} removed from target channels`, '⚪');
-  } else {
-    selectedPlatformIds.push(platId);
-    showToast(`${name} added to target channels!`, '✅');
-  }
-
-  renderAllPlatformMultiselects();
+  toggleChannelCard(platId, event);
 }
 window.togglePlatformSelection = togglePlatformSelection;
-
 function removePlatformChip(platId, mode, event) {
-  if (event) event.stopPropagation();
-  const idx = selectedPlatformIds.indexOf(platId);
-  if (idx > -1) {
-    selectedPlatformIds.splice(idx, 1);
-    const plat = AVAILABLE_PLATFORMS.find(p => p.id === platId);
-    showToast(`${plat ? plat.name : platId} removed`, '⚪');
-    renderAllPlatformMultiselects();
-  }
+  toggleChannelCard(platId, event);
 }
 window.removePlatformChip = removePlatformChip;
-
 function filterPlatformOptions(input, mode) {
-  activePlatformFilter[mode] = input.value;
-  renderPlatformMultiselect(mode);
+  filterChannelsList(input, mode);
 }
 window.filterPlatformOptions = filterPlatformOptions;
-
 function clearPlatformSearch(mode) {
-  const searchInput = document.getElementById(`cs-search-${mode}`);
-  if (searchInput) searchInput.value = '';
-  activePlatformFilter[mode] = '';
-  renderPlatformMultiselect(mode);
+  clearChannelsSearch(mode);
 }
-window.clearPlatformSearch = clearPlatformSearch;
-
+window.clearPlatformSearch = clearChannelsSearch;
 function toggleAllPlatforms(mode) {
-  if (selectedPlatformIds.length === AVAILABLE_PLATFORMS.length) {
-    selectedPlatformIds = [];
-    showToast('All channels deselected', '⚪');
-  } else {
-    selectedPlatformIds = AVAILABLE_PLATFORMS.map(p => p.id);
-    showToast('All connected channels selected!', '🎯');
-  }
-  renderAllPlatformMultiselects();
+  bulkSetChannels(selectedPlatformIds.length !== AVAILABLE_PLATFORMS.length, mode);
 }
 window.toggleAllPlatforms = toggleAllPlatforms;
 
@@ -2151,12 +2316,34 @@ function toggleTargetPlatform(btn, platKey) {
 }
 window.toggleTargetPlatform = toggleTargetPlatform;
 
-// Close dropdown on outside click
+// Close dropdown on outside click or when clicking Done
 document.addEventListener('click', function(e) {
-  if (!e.target.closest('.cs-platform-multiselect')) {
-    closeAllPlatformDropdowns();
+  const isDoneBtn = e.target.closest('.cs-dropdown-done-btn');
+  const isDropdown = e.target.closest('.cs-multiselect-dropdown');
+  const isTrigger = e.target.closest('.cs-multiselect-trigger');
+
+  // If clicking on Done button, close immediately!
+  if (isDoneBtn) {
+    closeAllPlatformDropdowns(e);
+    return;
   }
+
+  // If clicking anywhere outside the dropdown and outside the trigger, close immediately!
+  if (!isDropdown && !isTrigger) {
+    closeAllPlatformDropdowns(e);
+  }
+
   if (!e.target.closest('.cs-goal-dropdown-wrap')) {
+    if (typeof closeCreateTypeDropdown === 'function') {
+      closeCreateTypeDropdown();
+    }
+  }
+});
+
+// Close dropdown on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeAllPlatformDropdowns(e);
     if (typeof closeCreateTypeDropdown === 'function') {
       closeCreateTypeDropdown();
     }
@@ -2211,10 +2398,15 @@ function generateContentStudioPackage() {
 window.generateContentStudioPackage = generateContentStudioPackage;
 
 function copyMockupCaption() {
-  const text = document.getElementById('mockup-caption-text')?.innerText || '';
-  navigator.clipboard?.writeText(text).then(() => {
-    showToast('Caption copied to clipboard!', '📋');
-  }).catch(() => showToast('Caption copied!', '📋'));
+  const el = document.getElementById('mockup-caption-text');
+  const text = el?.value || el?.innerText || '';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Post copied to clipboard!', '📋');
+    }).catch(() => showToast('Post copied!', '📋'));
+  } else {
+    showToast('Post copied!', '📋');
+  }
 }
 window.copyMockupCaption = copyMockupCaption;
 
@@ -2222,6 +2414,8 @@ window.copyMockupCaption = copyMockupCaption;
 // CONTENT STUDIO: 3 TABS (TEXT, IMAGE, VIDEO) CONTROLLERS
 // ══════════════════════════════════════════════════════════════════════════
 function switchCsMainTab(tabKey) {
+  currentActiveStudioMode = tabKey;
+
   // Update Tab Buttons
   document.querySelectorAll('.cs-main-tab-btn').forEach(btn => btn.classList.remove('active'));
   const activeBtn = document.getElementById(`cs-main-tab-${tabKey}`);
@@ -2233,6 +2427,12 @@ function switchCsMainTab(tabKey) {
     const el = document.getElementById(`cs-view-panel-${p}`);
     if (el) el.style.display = (p === tabKey) ? 'block' : 'none';
   });
+
+  // Re-sync current right sidebar state for active tab
+  if (typeof getCurrentCsRightSidebarState === 'function' && typeof setCsRightSidebarState === 'function') {
+    const currState = getCurrentCsRightSidebarState();
+    setCsRightSidebarState(currState);
+  }
 
   const tabLabels = {
     'text': 'Text Generation & AI Editor',
@@ -5132,11 +5332,17 @@ function filterImageFormatOptions(input) {
 }
 window.filterImageFormatOptions = filterImageFormatOptions;
 
-function clearImageFormatSearch() {
+function clearImageFormatSearch(event) {
+  if (event && event.stopPropagation) event.stopPropagation();
   const searchInput = document.getElementById('cs-search-image-formats');
-  if (searchInput) searchInput.value = '';
-  activeImageFormatFilter = '';
-  renderImageFormatMultiselect();
+  if (searchInput && searchInput.value) {
+    searchInput.value = '';
+    activeImageFormatFilter = '';
+    renderImageFormatMultiselect();
+  } else {
+    // If search is already empty, clicking × closes the dropdown
+    closeAllPlatformDropdowns(event);
+  }
 }
 window.clearImageFormatSearch = clearImageFormatSearch;
 
@@ -5158,8 +5364,8 @@ function updateImagePreviewAspectRatio() {
   const previewCard = document.querySelector('.cs-media-preview-card.featured');
   
   if (!selectedImageFormatIds || selectedImageFormatIds.length === 0) {
-    if (previewCard) previewCard.style.aspectRatio = '4/5';
-    if (badge) badge.innerText = '4:5 (Instagram)';
+    if (previewCard) previewCard.style.aspectRatio = '16/9';
+    if (badge) badge.innerText = '16:9 HD';
     return;
   }
   const primaryId = selectedImageFormatIds[0];
@@ -8190,38 +8396,1489 @@ window.updateModalSegCounter = function() {
   }
 };
 
-/* ── Content Studio Right Sidebar Toggle ───────────────── */
-function toggleCsRightSidebar(forceExpand) {
+/* ── Content Studio Right Sidebar State Machine ───────────────────────── */
+/* States: 'collapsed' (68px) | 'menu' (shows tool names) | 'options' (full form) */
+function setCsRightSidebarState(state) {
   const containers = document.querySelectorAll('.cs-layout-container');
-  let isCollapsed;
-  if (typeof forceExpand === 'boolean') {
-    isCollapsed = !forceExpand;
-    containers.forEach(c => {
-      c.classList.toggle('sidebar-collapsed', isCollapsed);
-      c.classList.remove('sidebar-hidden');
-    });
-  } else {
-    containers.forEach(c => {
-      isCollapsed = c.classList.toggle('sidebar-collapsed');
-      c.classList.remove('sidebar-hidden');
-    });
-  }
+  const viewCs = document.getElementById('view-content-studio');
 
-  const moreBtns = document.querySelectorAll('.btn-more-options, .cs-preview-options-toggle');
-  moreBtns.forEach(b => {
-    if (isCollapsed) {
-      b.classList.remove('active');
-    } else {
-      b.classList.add('active');
+  const allStates = [
+    'sidebar-collapsed',
+    'sidebar-menu-open',
+    'sidebar-options-open',
+    'sidebar-channels-open',
+    'sidebar-drafts-open',
+    'sidebar-schedule-open',
+    'sidebar-guardrail-open',
+    'sidebar-preview-open',
+    'sidebar-hidden'
+  ];
+
+  containers.forEach(c => {
+    allStates.forEach(s => c.classList.remove(s));
+    if (state === 'collapsed') {
+      c.classList.add('sidebar-collapsed');
+    } else if (state === 'menu') {
+      c.classList.add('sidebar-menu-open');
+    } else if (state === 'options') {
+      c.classList.add('sidebar-options-open');
+    } else if (state === 'channels') {
+      c.classList.add('sidebar-channels-open');
+    } else if (state === 'drafts') {
+      c.classList.add('sidebar-drafts-open');
+    } else if (state === 'schedule') {
+      c.classList.add('sidebar-schedule-open');
+    } else if (state === 'guardrail') {
+      c.classList.add('sidebar-guardrail-open');
+    } else if (state === 'preview') {
+      c.classList.add('sidebar-preview-open');
     }
   });
 
+  if (viewCs) {
+    const csStates = [
+      'cs-sidebar-collapsed',
+      'cs-sidebar-menu-open',
+      'cs-sidebar-options-open',
+      'cs-sidebar-channels-open',
+      'cs-sidebar-drafts-open',
+      'cs-sidebar-schedule-open',
+      'cs-sidebar-guardrail-open',
+      'cs-sidebar-preview-open',
+      'cs-sidebar-expanded'
+    ];
+    csStates.forEach(s => viewCs.classList.remove(s));
+    if (state === 'collapsed') {
+      viewCs.classList.add('cs-sidebar-collapsed');
+    } else if (state === 'menu') {
+      viewCs.classList.add('cs-sidebar-menu-open');
+    } else if (state === 'options') {
+      viewCs.classList.add('cs-sidebar-expanded', 'cs-sidebar-options-open');
+    } else if (state === 'channels') {
+      viewCs.classList.add('cs-sidebar-expanded', 'cs-sidebar-channels-open');
+    } else if (state === 'drafts') {
+      viewCs.classList.add('cs-sidebar-expanded', 'cs-sidebar-drafts-open');
+    } else if (state === 'schedule') {
+      viewCs.classList.add('cs-sidebar-expanded', 'cs-sidebar-schedule-open');
+    } else if (state === 'guardrail') {
+      viewCs.classList.add('cs-sidebar-expanded', 'cs-sidebar-guardrail-open');
+    } else if (state === 'preview') {
+      viewCs.classList.add('cs-sidebar-expanded', 'cs-sidebar-preview-open');
+    }
+  }
+
+  /* CRITICAL GUARANTEE: Open ONLY ONE window at a time.
+     All other windows are immediately set to display: none !important.
+  */
+  const panelMap = [
+    { key: 'menu', selector: '.cs-right-sidebar-menu', display: 'flex' },
+    { key: 'options', selector: '.cs-right-sidebar-full', display: 'block' },
+    { key: 'channels', selector: '.cs-right-sidebar-channels', display: 'flex' },
+    { key: 'drafts', selector: '.cs-right-sidebar-drafts', display: 'flex' },
+    { key: 'schedule', selector: '.cs-right-sidebar-schedule', display: 'flex' },
+    { key: 'guardrail', selector: '.cs-right-sidebar-guardrail', display: 'flex' },
+    { key: 'preview', selector: '.cs-right-sidebar-preview', display: 'flex' }
+  ];
+
+  document.querySelectorAll('.cs-workspace-col.cs-right-sidebar').forEach(sidebar => {
+    panelMap.forEach(p => {
+      const el = sidebar.querySelector(p.selector);
+      if (el) {
+        if (state === p.key) {
+          el.style.setProperty('display', p.display, 'important');
+        } else {
+          el.style.setProperty('display', 'none', 'important');
+        }
+      }
+    });
+  });
+
+  if (typeof updateCsRailButtons === 'function') {
+    updateCsRailButtons(state);
+  }
+
+  if (state === 'channels' && typeof renderAllChannelCards === 'function') {
+    renderAllChannelCards();
+  }
+  if (state === 'drafts' && typeof renderAllDraftsCards === 'function') {
+    renderAllDraftsCards();
+  }
+  if (state === 'schedule' && typeof populateSchedulePanel === 'function') {
+    populateSchedulePanel();
+  }
+  if (state === 'guardrail' && typeof renderAllGuardrailChecks === 'function') {
+    renderAllGuardrailChecks();
+  }
+  if (state === 'preview' && typeof renderAllSidePreviews === 'function') {
+    renderAllSidePreviews();
+  }
+
   try {
-    localStorage.setItem('vibodh_cs_right_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+    localStorage.setItem('vibodh_cs_right_sidebar_state', state);
   } catch(e) {}
+}
+window.setCsRightSidebarState = setCsRightSidebarState;
+
+/* Toggle Button (2nd image button):
+   - When collapsed -> opens menu showing the tool names
+   - When open -> collapses to 68px rail
+*/
+function toggleCsRightSidebar(forceExpand) {
+  const containers = document.querySelectorAll('.cs-layout-container');
+  if (!containers.length) return;
+  const first = containers[0];
+  const isCurrentlyCollapsed = first.classList.contains('sidebar-collapsed');
+
+  if (typeof forceExpand === 'boolean') {
+    setCsRightSidebarState(forceExpand ? 'menu' : 'collapsed');
+  } else {
+    setCsRightSidebarState(isCurrentlyCollapsed ? 'menu' : 'collapsed');
+  }
 
   if (window.showToast) {
-    showToast(isCollapsed ? 'Options sidebar collapsed to icons' : 'Options sidebar expanded', '🎛️');
+    showToast(isCurrentlyCollapsed ? 'AI Tools menu opened' : 'Sidebar collapsed', '🎛️');
   }
 }
 window.toggleCsRightSidebar = toggleCsRightSidebar;
+
+/* When user clicks on a tool button in right panel:
+   - 'text', 'image', 'video' -> displays generator form options in right panel
+   - 'channels' -> displays target channels selection options in right panel
+   - 'drafts' -> displays saved drafts in right panel
+   - 'schedule' -> displays scheduling options in right panel
+   - 'guardrail' -> displays AI guardrail policy checks in right panel
+*/
+/* Helper to get actual current right sidebar state */
+function getCurrentCsRightSidebarState() {
+  const container = document.querySelector('.cs-layout-container');
+  if (!container) return 'collapsed';
+  if (container.classList.contains('sidebar-options-open')) return 'options';
+  if (container.classList.contains('sidebar-channels-open')) return 'channels';
+  if (container.classList.contains('sidebar-drafts-open')) return 'drafts';
+  if (container.classList.contains('sidebar-schedule-open')) return 'schedule';
+  if (container.classList.contains('sidebar-guardrail-open')) return 'guardrail';
+  if (container.classList.contains('sidebar-preview-open')) return 'preview';
+  if (container.classList.contains('sidebar-menu-open')) return 'menu';
+  if (container.classList.contains('sidebar-collapsed')) return 'collapsed';
+  return 'collapsed';
+}
+
+/* When user clicks on a tool button in right panel / rail:
+   - If that tool panel is already OPEN -> TOGGLE CLOSE IT (collapse panel)
+   - If closed or different tool open -> OPEN ONLY that tool window
+*/
+function openCsRightSidebarTool(tabType) {
+  // Map tabType to its corresponding panel state
+  let targetState = 'options';
+  if (tabType === 'channels') targetState = 'channels';
+  else if (tabType === 'drafts') targetState = 'drafts';
+  else if (tabType === 'schedule') targetState = 'schedule';
+  else if (tabType === 'guardrail') targetState = 'guardrail';
+  else if (tabType === 'preview') targetState = 'preview';
+  else if (['text', 'image', 'video'].includes(tabType)) targetState = 'options';
+
+  const currentState = getCurrentCsRightSidebarState();
+
+  // TASK 1: If the panel is already open for this same button, clicking it again CLOSES the panel!
+  if (currentState === targetState) {
+    setCsRightSidebarState('collapsed');
+    if (window.showToast) {
+      showToast('Panel closed', '✖️');
+    }
+    return;
+  }
+
+  // Otherwise, open this specific tool window
+  setCsRightSidebarState(targetState);
+
+  const titles = {
+    'text': 'AI Text Generator Options',
+    'image': 'AI Image Generator Options',
+    'video': 'AI Video Generator Options',
+    'channels': 'Target Channels options opened',
+    'drafts': 'Saved Drafts opened',
+    'schedule': 'Schedule Post options opened',
+    'guardrail': 'AI Guardrail checks opened',
+    'preview': 'Social Post Preview opened'
+  };
+
+  const icons = {
+    'text': '🎛️',
+    'image': '🎛️',
+    'video': '🎛️',
+    'channels': '🎯',
+    'drafts': '📁',
+    'schedule': '📅',
+    'guardrail': '🛡️',
+    'preview': '👁️'
+  };
+
+  if (window.showToast) {
+    showToast(titles[tabType] || 'Options opened', icons[tabType] || '🎛️');
+  }
+}
+window.openCsRightSidebarTool = openCsRightSidebarTool;
+
+/* Back button in options header: returns to the Menu List View */
+function showCsRightSidebarMenu() {
+  setCsRightSidebarState('menu');
+  if (window.showToast) {
+    showToast('Returned to AI Tools menu', '📋');
+  }
+}
+window.showCsRightSidebarMenu = showCsRightSidebarMenu;
+
+// Global shortcut Ctrl+\ to toggle Content Studio right sidebar
+document.addEventListener('keydown', function(e) {
+  if (e.ctrlKey && e.key === '\\') {
+    e.preventDefault();
+    if (typeof window.toggleCsRightSidebar === 'function') {
+      window.toggleCsRightSidebar();
+    }
+  }
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Content Studio Right Sidebar Drag-to-Resize Handler (Double-Sided Arrow)
+// Allows expanding throughout the section (up to window.innerWidth - 90px)
+// Resizer is hidden when panel is closed, displayed ONLY when opened
+// ─────────────────────────────────────────────────────────────────────────────
+function initCsSidebarResizers() {
+  const containers = document.querySelectorAll('.cs-layout-container');
+  const resizers = document.querySelectorAll('.cs-sidebar-resizer');
+  
+  if (!resizers.length) return;
+
+  // Restore saved width from localStorage if present (allowing full section expansion)
+  try {
+    const savedWidth = localStorage.getItem('vibodh_cs_right_sidebar_width');
+    if (savedWidth) {
+      const parsed = parseInt(savedWidth, 10);
+      const maxPossible = Math.max(700, window.innerWidth - 90);
+      if (parsed >= 280 && parsed <= maxPossible) {
+        document.documentElement.style.setProperty('--cs-right-sidebar-width', parsed + 'px');
+      }
+    }
+  } catch(e) {}
+
+  resizers.forEach(resizer => {
+    let container = null;
+    let sidebar = null;
+
+    function onPointerMove(e) {
+      if (!container) return;
+      
+      const clientX = e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+      if (!clientX) return;
+
+      // Because the panel is docked at right: 0, the width is window.innerWidth - clientX
+      let newWidth = window.innerWidth - clientX;
+      
+      // Auto-collapse if dragged very small (< 180px)
+      if (newWidth < 180) {
+        if (!container.classList.contains('sidebar-collapsed')) {
+          if (typeof window.toggleCsRightSidebar === 'function') {
+            window.toggleCsRightSidebar(false);
+          }
+        }
+        return;
+      }
+
+      // If collapsed and user drags wider than 220px, uncollapse
+      if (container.classList.contains('sidebar-collapsed') && newWidth >= 220) {
+        if (typeof window.toggleCsRightSidebar === 'function') {
+          window.toggleCsRightSidebar(true);
+        }
+      }
+
+      // Allow expanding throughout the section (up to window.innerWidth - 90px)
+      const maxAllowed = Math.max(650, Math.floor(window.innerWidth - 90));
+      newWidth = Math.max(280, Math.min(newWidth, maxAllowed));
+
+      document.documentElement.style.setProperty('--cs-right-sidebar-width', newWidth + 'px');
+      try {
+        localStorage.setItem('vibodh_cs_right_sidebar_width', newWidth);
+      } catch(err) {}
+    }
+
+    function onPointerUp() {
+      document.body.classList.remove('cs-resizing-active');
+      containers.forEach(c => c.classList.remove('is-resizing'));
+      window.removeEventListener('mousemove', onPointerMove);
+      window.removeEventListener('mouseup', onPointerUp);
+      window.removeEventListener('touchmove', onPointerMove);
+      window.removeEventListener('touchend', onPointerUp);
+    }
+
+    resizer.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      container = resizer.closest('.cs-layout-container');
+      sidebar = container ? container.querySelector('.cs-workspace-col') : null;
+      if (!container || !sidebar) return;
+
+      document.body.classList.add('cs-resizing-active');
+      container.classList.add('is-resizing');
+
+      window.addEventListener('mousemove', onPointerMove);
+      window.addEventListener('mouseup', onPointerUp);
+    });
+
+    resizer.addEventListener('touchstart', function(e) {
+      container = resizer.closest('.cs-layout-container');
+      sidebar = container ? container.querySelector('.cs-workspace-col') : null;
+      if (!container || !sidebar) return;
+
+      document.body.classList.add('cs-resizing-active');
+      container.classList.add('is-resizing');
+
+      window.addEventListener('touchmove', onPointerMove, { passive: true });
+      window.addEventListener('touchend', onPointerUp);
+    }, { passive: true });
+
+    // Double-click to toggle between expanded throughout section (~82% of screen) and default 420px
+    resizer.addEventListener('dblclick', function() {
+      const currentVal = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--cs-right-sidebar-width') || '420', 10);
+      const wideWidth = Math.max(650, Math.floor(window.innerWidth * 0.82));
+      const targetWidth = (currentVal >= 650) ? '420px' : (wideWidth + 'px');
+      
+      document.documentElement.style.setProperty('--cs-right-sidebar-width', targetWidth);
+      try {
+        localStorage.setItem('vibodh_cs_right_sidebar_width', targetWidth);
+      } catch(e) {}
+      if (window.showToast) {
+        showToast(targetWidth === '420px' ? 'Options panel reset to default (420px)' : 'Options panel expanded throughout section', '↔️');
+      }
+    });
+  });
+
+  // Ensure initial state matches saved preference (default to collapsed/closed)
+  try {
+    const savedState = localStorage.getItem('vibodh_cs_right_sidebar_state');
+    if (savedState && ['collapsed', 'menu', 'options', 'channels', 'drafts', 'schedule', 'guardrail'].includes(savedState)) {
+      setCsRightSidebarState(savedState);
+    } else {
+      setCsRightSidebarState('collapsed');
+    }
+  } catch(e) {}
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initCsSidebarResizers);
+} else {
+  initCsSidebarResizers();
+}
+window.initCsSidebarResizers = initCsSidebarResizers;
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof renderAllChannelCards === 'function') renderAllChannelCards();
+  if (typeof syncPreviewTargetChannels === 'function') syncPreviewTargetChannels();
+  if (typeof renderAllSidePreviews === 'function') renderAllSidePreviews();
+  if (typeof switchPreviewDevice === 'function') switchPreviewDevice(currentPreviewDevice);
+});
+
+/* ══════════════════════════════════════════════════════════════════════
+   SAVED DRAFTS, SCHEDULE & GUARDRAILS IN RIGHT SIDEBAR PANEL
+   ══════════════════════════════════════════════════════════════════════ */
+
+const DRAFTS_DATA = [
+  {
+    id: 'd1',
+    title: 'Enterprise Operations Launch Draft',
+    time: 'Saved Today',
+    badgeClass: 'teal',
+    mode: 'image',
+    format: '4:5 Feed • Photorealistic Commercial',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80',
+    headline: 'Enterprise AI Operations Bottlenecks',
+    copy: 'Harness the power of AI-orchestrated digital workflows. While competitors struggle with disconnected tools, forward-thinking teams are unifying their brand operations into high-velocity engines that compound ROI.\n\n#VibodhSignal #MarketingAutomation #EnterpriseAI',
+    prompt: 'Modern tech studio with holographic AI interface and brand analytics dashboard'
+  },
+  {
+    id: 'd2',
+    title: 'Cyber Neon Wave Campaign',
+    time: 'Saved Yesterday',
+    badgeClass: 'indigo',
+    mode: 'image',
+    format: '1:1 Square • Cyberpunk Glow',
+    image: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
+    headline: 'Next-Gen Agency Automation Systems',
+    copy: 'Neon wave aesthetics for next-gen agency operators. Stop settling for generic templates.\n\n#CyberTech #VibodhAI #HighImpact',
+    prompt: 'Neon teal and purple fluid wave cyberpunk render 8k octane'
+  },
+  {
+    id: 'd3',
+    title: 'Agency Bottleneck Viral Reel (15s)',
+    time: 'Video Draft',
+    badgeClass: 'teal',
+    mode: 'video',
+    format: 'Duration: 15s • AI Reels • Voice: Alex Tech',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=600&q=80',
+    headline: 'Stop Letting Delivery Bottlenecks Eat Margins',
+    copy: 'Stop letting operational bottlenecks eat away at your client margins! 📉 In this quick breakdown, see how digital agencies are switching to unified AI workflows.\n\n#AIOperations #Reels #Shorts',
+    prompt: '15s dynamic agency breakdown motion video with fast cuts'
+  },
+  {
+    id: 'd4',
+    title: '5 Costly Bottlenecks Eating Agency Margins',
+    time: 'Text Draft',
+    badgeClass: 'gray',
+    mode: 'text',
+    format: 'LinkedIn & X • Thought Leadership • 5 Points',
+    icon: '📝',
+    headline: '5 Costly Bottlenecks Eating Agency Margins',
+    copy: 'When you rely on fragmented, non-scalable delivery methods, you aren\'t just losing time—you\'re losing your competitive edge. Here are 5 costly mistakes that kill your billable margins, from manual bottlenecks to ignoring compliance.\n\n1. Lack of Prompt Guardrails causing rework\n2. Treating AI as a standalone tool instead of pipeline\n3. Unmonitored token & inference spend\n4. Zero brand identity synchronization\n5. Manual distribution without automated queues\n\n👉 Schedule a Strategic Consultation to align your AI operations with enterprise standards.\n\n#EnterpriseAI #DigitalAgency #AIEngineering #ScalableSaaS #VibodhSignal',
+    prompt: 'Agency profit margins and AI orchestration strategy breakdown'
+  }
+];
+
+let selectedDraftId = 'd1';
+let activeDraftFilter = 'all';
+let draftsSearchQuery = '';
+
+function renderAllDraftsCards() {
+  ['text', 'image', 'video'].forEach(m => renderDraftsCards(m));
+}
+window.renderAllDraftsCards = renderAllDraftsCards;
+
+function renderDraftsCards(mode) {
+  const container = document.getElementById(`cs-drafts-list-${mode}`);
+  const badge = document.getElementById(`cs-drafts-badge-${mode}`);
+  if (!container) return;
+
+  const query = (draftsSearchQuery || '').toLowerCase().trim();
+  const filtered = DRAFTS_DATA.filter(d => {
+    const matchesFilter = activeDraftFilter === 'all' || d.mode === activeDraftFilter;
+    const matchesQuery = !query || d.title.toLowerCase().includes(query) || d.copy.toLowerCase().includes(query);
+    return matchesFilter && matchesQuery;
+  });
+
+  if (badge) {
+    badge.innerText = `${filtered.length} Saved Draft${filtered.length === 1 ? '' : 's'}`;
+  }
+
+  if (filtered.length === 0) {
+    container.innerHTML = `<div style="text-align:center; padding: 30px 10px; color:#64748B; font-size:12px;">No drafts found matching "${query}"</div>`;
+    return;
+  }
+
+  container.innerHTML = filtered.map(d => {
+    const isSelected = selectedDraftId === d.id;
+    return `
+      <div class="cs-draft-card ${isSelected ? 'selected' : ''}" onclick="selectDraftInPanel('${d.id}', '${mode}', event)">
+        ${d.image ? `
+          <img src="${d.image}" class="cs-draft-thumb" alt="${d.title}">
+        ` : `
+          <div class="cs-draft-icon-box">${d.icon || '📝'}</div>
+        `}
+        <div class="cs-draft-body">
+          <div class="cs-draft-header-row">
+            <span class="cs-draft-title">${d.title}</span>
+            <span class="cs-draft-badge ${d.badgeClass || 'teal'}">${d.time}</span>
+          </div>
+          <p class="cs-draft-snippet">${d.copy}</p>
+          <div class="cs-draft-meta">${d.format}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+window.renderDraftsCards = renderDraftsCards;
+
+function selectDraftInPanel(draftId, mode, event) {
+  if (event) event.stopPropagation();
+  selectedDraftId = draftId;
+  renderAllDraftsCards();
+}
+window.selectDraftInPanel = selectDraftInPanel;
+
+function confirmDraftSelection(mode) {
+  const d = DRAFTS_DATA.find(item => item.id === selectedDraftId) || DRAFTS_DATA[0];
+  if (!d) return;
+
+  const headlineEl = document.getElementById('mockup-headline-lead');
+  const captionEl = document.getElementById('mockup-caption-text');
+  if (headlineEl) headlineEl.innerText = d.headline || d.title;
+  if (captionEl) captionEl.innerText = d.copy || '';
+
+  const imgDisplay = document.getElementById('cs-img-display-main');
+  if (imgDisplay && d.image) {
+    imgDisplay.src = d.image;
+  }
+
+  if (window.showToast) {
+    showToast(`Draft "${d.title}" restored into active canvas!`, '✨');
+  }
+
+  openCsRightSidebarTool(mode);
+}
+window.confirmDraftSelection = confirmDraftSelection;
+
+function filterDraftsPanel(input, mode) {
+  draftsSearchQuery = input ? input.value : '';
+  renderAllDraftsCards();
+}
+window.filterDraftsPanel = filterDraftsPanel;
+
+function clearDraftsSearch(mode) {
+  draftsSearchQuery = '';
+  const searchInput = document.getElementById(`cs-drafts-search-${mode}`);
+  if (searchInput) searchInput.value = '';
+  renderAllDraftsCards();
+}
+window.clearDraftsSearch = clearDraftsSearch;
+
+function setDraftFilter(filterType, mode, btn) {
+  activeDraftFilter = filterType;
+  document.querySelectorAll(`#cs-drafts-panel-${mode} .cs-draft-filter-pill`).forEach(p => p.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  renderAllDraftsCards();
+}
+window.setDraftFilter = setDraftFilter;
+
+/* ── Scheduling Functions ──────────────────────────────────────────────── */
+function populateSchedulePanel() {
+  const modes = ['text', 'image', 'video'];
+  modes.forEach(mode => {
+    const pillsWrap = document.getElementById(`cs-sched-platform-pills-${mode}`);
+    if (pillsWrap && typeof AVAILABLE_PLATFORMS !== 'undefined') {
+      const activePlats = AVAILABLE_PLATFORMS.filter(p => selectedPlatformIds.includes(p.id));
+      if (activePlats.length > 0) {
+        pillsWrap.innerHTML = activePlats.map(p => `
+          <span style="display:inline-flex; align-items:center; gap:5px; padding:3px 9px; border-radius:6px; background:${p.bg}; border:1px solid ${p.color}40; color:${p.color}; font-size:10.5px; font-weight:700;">
+            ${p.iconSvg}
+            <span>${p.name}</span>
+          </span>
+        `).join('');
+      } else {
+        pillsWrap.innerHTML = `<span style="font-size:11px; color:#94A3B8;">No channels selected. <a href="javascript:void(0)" onclick="openCsRightSidebarTool('channels')" style="color:#0F9D8A; font-weight:700;">Select Channels ›</a></span>`;
+      }
+    }
+
+    const dateInput = document.getElementById(`cs-sched-date-${mode}`);
+    if (dateInput && !dateInput.value) {
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      dateInput.value = tomorrow.toISOString().split('T')[0];
+    }
+  });
+}
+window.populateSchedulePanel = populateSchedulePanel;
+
+function setPanelQuickSlot(day, time, mode, btn) {
+  const dateInput = document.getElementById(`cs-sched-date-${mode}`);
+  const timeInput = document.getElementById(`cs-sched-time-${mode}`);
+
+  if (day === 'tomorrow' && dateInput) {
+    const t = new Date();
+    t.setDate(t.getDate() + 1);
+    dateInput.value = t.toISOString().split('T')[0];
+  }
+  if (time && timeInput) {
+    timeInput.value = time;
+  }
+
+  document.querySelectorAll(`#cs-schedule-panel-${mode} .cs-sched-quick-slot`).forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+}
+window.setPanelQuickSlot = setPanelQuickSlot;
+
+function confirmScheduleSocialPost(mode) {
+  const currentMode = mode || 'text';
+  const dateInput = document.getElementById(`cs-sched-date-${currentMode}`);
+  const timeInput = document.getElementById(`cs-sched-time-${currentMode}`);
+
+  const dateVal = dateInput?.value || 'Tomorrow';
+  const timeVal = timeInput?.value || '10:30';
+
+  const count = selectedPlatformIds.length;
+  if (count === 0) {
+    if (window.showToast) showToast('Please select at least 1 target channel before scheduling!', '⚠️');
+    openCsRightSidebarTool('channels');
+    return;
+  }
+
+  if (window.showToast) {
+    showToast(`Post scheduled for ${dateVal} at ${timeVal} across ${count} channels!`, '📅');
+  }
+
+  openCsRightSidebarTool(currentMode);
+}
+window.confirmScheduleSocialPost = confirmScheduleSocialPost;
+
+/* ── Guardrails Functions ──────────────────────────────────────────────── */
+const GUARDRAIL_POLICIES = [
+  { name: 'Brand Voice & Style Guide', status: 'Passed (99%)', desc: 'Aligned with authoritative, enterprise-grade tone defined in Brand DNA Vault.' },
+  { name: 'Toxicity & Bias Filtering', status: 'Clean (100%)', desc: 'Zero offensive, hostile, or discriminatory expressions identified.' },
+  { name: 'Factual Grounding & Hallucination', status: 'Verified (97%)', desc: 'Statements cross-referenced with internal product specs and verified claims.' },
+  { name: 'PII & Confidentiality Shield', status: 'Protected (100%)', desc: 'No client PII, confidential API credentials, or internal URLs detected.' },
+  { name: 'Competitor & Trademark Safety', status: 'Compliant (100%)', desc: 'Zero trademark violations or unauthorized third-party brand infringement.' },
+  { name: 'Platform Constraints Compliance', status: 'Valid (100%)', desc: 'Length, hashtag density, and media aspect ratios meet channel limits.' },
+  { name: 'Sentiment & Emotional Alignment', status: 'Optimal (98%)', desc: 'Inspiring, credible, and action-oriented emotional velocity score.' },
+  { name: 'Copyright & Source Authenticity', status: 'Clear (100%)', desc: 'No flagged copyrighted verbatim text strings found.' }
+];
+
+function renderAllGuardrailChecks() {
+  ['text', 'image', 'video'].forEach(m => renderGuardrailChecks(m));
+}
+window.renderAllGuardrailChecks = renderAllGuardrailChecks;
+
+function renderGuardrailChecks(mode) {
+  const container = document.getElementById(`cs-guardrail-checks-${mode}`);
+  if (!container) return;
+
+  container.innerHTML = GUARDRAIL_POLICIES.map((p, i) => `
+    <div class="cs-guardrail-check-card">
+      <div class="cs-guardrail-check-header">
+        <span class="cs-guardrail-check-name">
+          <span class="cs-guardrail-check-icon">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#0F9D8A" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <span>${p.name}</span>
+        </span>
+        <span class="cs-guardrail-check-status">${p.status}</span>
+      </div>
+      <div class="cs-guardrail-check-desc">${p.desc}</div>
+    </div>
+  `).join('');
+}
+window.renderGuardrailChecks = renderGuardrailChecks;
+
+function runGuardrailScanInPanel(mode) {
+  const currentMode = mode || 'text';
+  const statusText = document.getElementById(`cs-guardrail-status-text-${currentMode}`);
+  const progressBar = document.getElementById(`cs-guardrail-progress-bar-${currentMode}`);
+
+  if (statusText) statusText.innerHTML = `<span class="guardrail-scan-pulse"></span><span>Re-scanning against 8 enterprise safety policies...</span>`;
+  if (progressBar) progressBar.style.width = '20%';
+
+  setTimeout(() => {
+    if (progressBar) progressBar.style.width = '65%';
+  }, 250);
+
+  setTimeout(() => {
+    if (progressBar) progressBar.style.width = '100%';
+    if (statusText) statusText.innerHTML = `<span class="guardrail-scan-pulse"></span><span>All 8 safety policies verified &amp; passing</span>`;
+    if (window.showToast) showToast('AI Guardrail scan completed • 100% Passing', '🛡️');
+  }, 500);
+}
+window.runGuardrailScanInPanel = runGuardrailScanInPanel;
+
+function approveGuardrailInPanel(mode) {
+  if (window.showToast) showToast('Guardrail clearance approved for distribution!', '✅');
+  openCsRightSidebarTool(mode || 'text');
+}
+window.approveGuardrailInPanel = approveGuardrailInPanel;
+
+/* Direct Aliases so existing triggers open the right sidebar panel */
+window.openDraftsPickerModal = function(mode) { openCsRightSidebarTool('drafts'); };
+window.openScheduleModal = function(mode) { openCsRightSidebarTool('schedule'); };
+window.openGuardrailModal = function(mode) { openCsRightSidebarTool('guardrail'); };
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   EDIT WITH AI BOX & THINK BUTTON
+   ══════════════════════════════════════════════════════════════════════ */
+let thinkModeActive = false;
+
+function toggleThinkMode(mode) {
+  thinkModeActive = !thinkModeActive;
+  ['text', 'image', 'video'].forEach(m => {
+    const btn = document.getElementById(`cs-think-btn-${m}`);
+    if (btn) {
+      if (thinkModeActive) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    }
+  });
+
+  if (window.showToast) {
+    showToast(thinkModeActive ? 'Thinking model active: Get a Smarter Answer' : 'Standard model active', '🧠');
+  }
+}
+window.toggleThinkMode = toggleThinkMode;
+
+function submitEditWithAi(mode) {
+  const currentMode = mode || (typeof currentActiveStudioMode !== 'undefined' ? currentActiveStudioMode : 'text');
+  const input = document.getElementById(`cs-edit-ai-input-${currentMode}`);
+  if (!input) return;
+  const prompt = input.value.trim();
+  if (!prompt) {
+    if (window.showToast) {
+      showToast('Type an edit prompt to apply with AI', '✍️');
+    }
+    input.focus();
+    return;
+  }
+
+  // Micro animation on tick mark button
+  const tickBtn = document.getElementById(`cs-edit-ai-tick-btn-${currentMode}`);
+  if (tickBtn) {
+    tickBtn.style.transform = 'scale(0.88)';
+    setTimeout(() => { tickBtn.style.transform = ''; }, 160);
+  }
+
+  if (window.showToast) {
+    showToast(`Refining with AI: "${prompt}"`, '✨');
+  }
+
+  if (currentMode === 'text') {
+    const captionEl = document.getElementById('mockup-caption-text');
+    if (captionEl) {
+      captionEl.style.opacity = '0.5';
+      setTimeout(() => {
+        captionEl.style.opacity = '1';
+        captionEl.innerText = captionEl.innerText + `\n\n✨ [AI Refinement (${thinkModeActive ? 'Smart Reasoner' : 'Fast'}): ${prompt}]`;
+        if (window.showToast) showToast('AI Edit applied to canvas copy!', '✅');
+      }, 450);
+    }
+  } else if (currentMode === 'image') {
+    const imgCaption = document.getElementById('cs-image-caption-input');
+    if (imgCaption) {
+      imgCaption.style.opacity = '0.5';
+      setTimeout(() => {
+        imgCaption.style.opacity = '1';
+        imgCaption.value = imgCaption.value + `\n\n✨ [AI Refinement (${thinkModeActive ? 'Smart Reasoner' : 'Fast'}): ${prompt}]`;
+        if (window.showToast) showToast('AI Edit applied to image caption!', '✅');
+      }, 450);
+    }
+    if (typeof regenerateImageMediaOnly === 'function') {
+      regenerateImageMediaOnly();
+    }
+  } else if (currentMode === 'video') {
+    const vidCaption = document.getElementById('cs-video-caption-input');
+    if (vidCaption) {
+      vidCaption.style.opacity = '0.5';
+      setTimeout(() => {
+        vidCaption.style.opacity = '1';
+        vidCaption.value = vidCaption.value + `\n\n✨ [AI Refinement (${thinkModeActive ? 'Smart Reasoner' : 'Fast'}): ${prompt}]`;
+        if (window.showToast) showToast('AI Edit applied to video description!', '✅');
+      }, 450);
+    }
+    if (typeof regenerateVideoMediaOnly === 'function') {
+      regenerateVideoMediaOnly();
+    }
+  }
+
+  input.value = '';
+}
+window.submitEditWithAi = submitEditWithAi;
+
+function handleEditWithAiKeyDown(event, mode) {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+    submitEditWithAi(mode);
+  }
+}
+window.handleEditWithAiKeyDown = handleEditWithAiKeyDown;
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   LIVE SOCIAL POST PREVIEW IN RIGHT SIDEBAR
+   ══════════════════════════════════════════════════════════════════════ */
+let activeSidePreviewPlatform = 'li';
+currentPreviewDevice = 'mobile';
+try {
+  const savedDev = localStorage.getItem('vibodh_preview_device');
+  if (savedDev === 'desktop' || savedDev === 'mobile') {
+    currentPreviewDevice = savedDev;
+  }
+} catch(e) {}
+
+function toggleSnappyDevice(mode) {
+  const next = currentPreviewDevice === 'mobile' ? 'desktop' : 'mobile';
+  switchPreviewDevice(next, mode);
+}
+window.toggleSnappyDevice = toggleSnappyDevice;
+
+function switchPreviewDevice(device, mode) {
+  currentPreviewDevice = device || 'mobile';
+  try {
+    localStorage.setItem('vibodh_preview_device', currentPreviewDevice);
+  } catch(e) {}
+
+  const modes = ['text', 'image', 'video'];
+  modes.forEach(m => {
+    // 1. Snappy Track state
+    const track = document.getElementById(`cs-snappy-track-${m}`);
+    if (track) {
+      track.classList.toggle('device-mobile', currentPreviewDevice === 'mobile');
+      track.classList.toggle('device-desktop', currentPreviewDevice === 'desktop');
+      track.setAttribute('aria-checked', currentPreviewDevice === 'desktop' ? 'true' : 'false');
+    }
+
+    // 2. Snappy buttons state
+    const mobBtn = document.getElementById(`cs-device-btn-mobile-${m}`);
+    const dskBtn = document.getElementById(`cs-device-btn-desktop-${m}`);
+    if (mobBtn) mobBtn.classList.toggle('active', currentPreviewDevice === 'mobile');
+    if (dskBtn) dskBtn.classList.toggle('active', currentPreviewDevice === 'desktop');
+
+    // 3. Header title label
+    const label = document.getElementById(`cs-device-label-${m}`);
+    if (label) {
+      label.innerText = currentPreviewDevice === 'mobile' ? 'Mobile View' : 'Desktop View';
+    }
+
+    // 4. Preview stage transformation
+    const stage = document.getElementById(`cs-side-preview-stage-${m}`);
+    if (stage) {
+      stage.classList.toggle('device-mobile', currentPreviewDevice === 'mobile');
+      stage.classList.toggle('device-desktop', currentPreviewDevice === 'desktop');
+    }
+  });
+
+  if (window.showToast) {
+    showToast(`Switched to ${currentPreviewDevice === 'mobile' ? 'Mobile Phone' : 'Desktop'} view`, currentPreviewDevice === 'mobile' ? '📱' : '🖥️');
+  }
+}
+window.switchPreviewDevice = switchPreviewDevice;
+
+function syncPreviewTargetChannels() {
+  const modes = ['text', 'image', 'video'];
+  const activeIds = (typeof selectedPlatformIds !== 'undefined')
+    ? selectedPlatformIds
+    : ['li', 'tw', 'ig', 'fb'];
+
+  // Match with AVAILABLE_PLATFORMS
+  const selectedPlatforms = AVAILABLE_PLATFORMS.filter(p => activeIds.includes(p.id));
+
+  // If active platform is no longer in selected, auto-select first available or empty
+  if (selectedPlatforms.length > 0) {
+    if (!selectedPlatforms.some(p => p.id === activeSidePreviewPlatform)) {
+      activeSidePreviewPlatform = selectedPlatforms[0].id;
+    }
+  } else {
+    activeSidePreviewPlatform = '';
+  }
+
+  modes.forEach(m => {
+    const subtext = document.getElementById(`cs-prev-channels-count-${m}`);
+    if (subtext) {
+      if (selectedPlatforms.length === 0) {
+        subtext.innerText = '0 Channels Selected';
+      } else {
+        subtext.innerText = `${selectedPlatforms.length} Channel${selectedPlatforms.length === 1 ? '' : 's'} Selected`;
+      }
+    }
+
+    const bar = document.getElementById(`cs-preview-platform-bar-${m}`);
+    if (bar) {
+      if (selectedPlatforms.length === 0) {
+        bar.innerHTML = `
+          <div style="font-size:11.5px; color:#64748B; padding:6px 0; display:flex; align-items:center; gap:6px;">
+            <span>No channels active.</span>
+            <button type="button" onclick="openCsRightSidebarTool('channels')" style="color:#0F9D8A; font-weight:700; background:none; border:none; cursor:pointer; text-decoration:underline; font-size:11.5px; padding:0;">
+              Select Channels ›
+            </button>
+          </div>
+        `;
+      } else {
+        bar.innerHTML = selectedPlatforms.map(p => {
+          const isActive = p.id === activeSidePreviewPlatform;
+          const svg = (p.iconSvg || '').replace(/width="16" height="16"/g, 'width="15" height="15"');
+          return `
+            <button type="button" class="cs-preview-plat-chip ${isActive ? 'active' : ''}" id="cs-prev-tab-${p.id}-${m}" onclick="switchSidePreviewPlatform('${p.id}', '${m}')" title="Preview on ${p.name}" aria-label="${p.name}">
+              ${svg}
+            </button>
+          `;
+        }).join('');
+      }
+    }
+  });
+}
+window.syncPreviewTargetChannels = syncPreviewTargetChannels;
+
+function switchSidePreviewPlatform(platform, mode) {
+  activeSidePreviewPlatform = platform || 'li';
+  const modes = ['text', 'image', 'video'];
+  modes.forEach(m => {
+    ['li', 'tw', 'ig', 'fb', 'yt', 'tt', 'pin', 'th'].forEach(p => {
+      const chip = document.getElementById(`cs-prev-tab-${p}-${m}`);
+      if (chip) {
+        chip.classList.toggle('active', p === activeSidePreviewPlatform);
+      }
+    });
+    renderSidePanelPreview(m);
+  });
+}
+window.switchSidePreviewPlatform = switchSidePreviewPlatform;
+
+function renderAllSidePreviews() {
+  syncPreviewTargetChannels();
+  ['text', 'image', 'video'].forEach(m => renderSidePanelPreview(m));
+}
+window.renderAllSidePreviews = renderAllSidePreviews;
+
+function renderSidePanelPreview(mode) {
+  const currentMode = mode || 'text';
+  const stage = document.getElementById(`cs-side-preview-stage-${currentMode}`);
+  if (!stage) return;
+
+  // Sync device view styling
+  stage.classList.toggle('device-mobile', currentPreviewDevice === 'mobile');
+  stage.classList.toggle('device-desktop', currentPreviewDevice === 'desktop');
+
+  // Check if any platform is selected
+  const activeIds = (typeof selectedPlatformIds !== 'undefined') ? selectedPlatformIds : ['li', 'tw', 'ig', 'fb'];
+  if (activeIds.length === 0) {
+    stage.innerHTML = `
+      <div style="text-align:center; padding:36px 16px; background:#F8FAFC; border:1.5px dashed #CBD5E1; border-radius:14px; color:#64748B;">
+        <div style="font-size:28px; margin-bottom:8px;">🎯</div>
+        <div style="font-weight:700; font-size:13.5px; color:#0F172A; margin-bottom:4px;">No Target Channels Selected</div>
+        <div style="font-size:12px; line-height:1.45; margin-bottom:14px; color:#64748B;">Select one or more destination channels in Target Channels to preview your post across platforms.</div>
+        <button type="button" class="btn-primary-teal" onclick="openCsRightSidebarTool('channels')" style="font-size:11.5px; padding:7px 18px; border-radius:8px;">Choose Channels</button>
+      </div>
+    `;
+    return;
+  }
+
+  // Ensure activeSidePreviewPlatform is valid
+  if (!activeSidePreviewPlatform || !activeIds.includes(activeSidePreviewPlatform)) {
+    activeSidePreviewPlatform = activeIds[0];
+  }
+
+  // 1. Extract dynamic canvas content
+  let headline = '';
+  let copy = '';
+  let mediaUrl = '';
+  let isVideo = currentMode === 'video';
+
+  if (currentMode === 'text') {
+    const rawVal = (document.getElementById('mockup-caption-text')?.value ?? document.getElementById('mockup-caption-text')?.innerText ?? '').trim();
+    const paras = rawVal.split(/\n\s*\n/);
+    if (paras.length > 1) {
+      headline = paras[0].trim();
+      copy = paras.slice(1).join('\n\n').trim();
+    } else {
+      headline = '';
+      copy = rawVal;
+    }
+    const leadEl = document.getElementById('mockup-headline-lead');
+    if (leadEl && headline) leadEl.innerText = headline;
+  } else if (currentMode === 'image') {
+    headline = document.getElementById('cs-img-display-title')?.innerText.trim() || 'Visual Campaign Creative';
+    copy = document.getElementById('cs-image-caption-input')?.value.trim() || document.getElementById('mockup-caption-text')?.innerText.trim() || '';
+    mediaUrl = document.getElementById('cs-img-display-main')?.src || 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80';
+  } else if (currentMode === 'video') {
+    headline = document.getElementById('mockup-headline-lead')?.innerText.trim() || 'Short-form Motion Showcase';
+    copy = document.getElementById('cs-video-caption-input')?.value.trim() || document.getElementById('mockup-caption-text')?.innerText.trim() || '';
+    const videoEl = document.getElementById('cs-main-video-player');
+    mediaUrl = videoEl?.poster || 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80';
+  }
+
+  // Highlight hashtags with Vibodh Signal teal
+  const formatHashtags = (str) => {
+    if (!str) return '';
+    return str.replace(/#([\w\d_]+)/g, '<span class="cs-social-hashtag">#$1</span>');
+  };
+
+  const formattedCopy = formatHashtags(copy);
+
+  // Platform specific rendering
+  if (activeSidePreviewPlatform === 'tw') {
+    // Twitter / X View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card">
+        <div class="cs-social-card-author">
+          <div class="cs-social-card-avatar" style="background:#0F172A; color:#FFFFFF;">VS</div>
+          <div class="cs-social-card-author-info">
+            <div class="cs-social-card-name-row">
+              <span class="cs-social-card-name">Vibodh Signal</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0F9D8A"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="cs-social-card-meta">@vibodhsignal • Just now</div>
+          </div>
+        </div>
+        <div class="cs-social-card-body">${formattedCopy}</div>
+        ${mediaUrl ? `
+          <div class="cs-social-card-media">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:240px;"></video>` : `<img src="${mediaUrl}" alt="Tweet visual">`}
+          </div>
+        ` : ''}
+        <div class="cs-social-card-actions">
+          <button type="button" class="cs-social-action-btn">💬 <span>24</span></button>
+          <button type="button" class="cs-social-action-btn">🔁 <span>16</span></button>
+          <button type="button" class="cs-social-action-btn">❤️ <span>189</span></button>
+          <button type="button" class="cs-social-action-btn">📊 <span>4.2k</span></button>
+        </div>
+      </div>
+    `;
+  } else if (activeSidePreviewPlatform === 'ig') {
+    // Instagram View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card" style="padding:0; overflow:hidden;">
+        <div style="padding:12px 14px;" class="cs-social-card-author">
+          <div class="cs-social-card-avatar" style="background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#FFFFFF;">VS</div>
+          <div class="cs-social-card-author-info">
+            <span class="cs-social-card-name">vibodhsignal</span>
+            <span class="cs-social-card-meta">Original Audio • Sponsored</span>
+          </div>
+        </div>
+        ${mediaUrl ? `
+          <div class="cs-social-card-media" style="border-radius:0; border-left:none; border-right:none;">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:260px; object-fit:cover;"></video>` : `<img src="${mediaUrl}" alt="Post visual" style="width:100%; display:block; max-height:260px; object-fit:cover;">`}
+          </div>
+        ` : `
+          <div style="background:linear-gradient(135deg, #0F9D8A, #0B1320); padding:30px 20px; color:#fff; text-align:center;">
+            <div style="font-size:16px; font-weight:800; margin-bottom:8px;">${headline}</div>
+            <div style="font-size:12px; opacity:0.85;">Vibodh Signal Studio Quote Slide</div>
+          </div>
+        `}
+        <div style="padding:10px 14px 14px 14px; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; gap:12px; font-size:16px;">
+              <span>❤️</span> <span>💬</span> <span>📤</span>
+            </div>
+            <span style="font-size:16px;">🔖</span>
+          </div>
+          <div style="font-size:11.5px; font-weight:700; color:#0F172A;">342 likes</div>
+          <div class="cs-social-card-body" style="font-size:11.5px;">
+            <strong>vibodhsignal</strong> ${formattedCopy}
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (activeSidePreviewPlatform === 'fb') {
+    // Facebook View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card">
+        <div class="cs-social-card-author">
+          <div class="cs-social-card-avatar" style="background:#1877F2; color:#FFFFFF; font-weight:700;">VS</div>
+          <div class="cs-social-card-author-info">
+            <div class="cs-social-card-name-row">
+              <span class="cs-social-card-name">Vibodh Signal</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#1877F2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="cs-social-card-meta">Sponsored • Paid Partnership • 🌐</div>
+          </div>
+          <div style="margin-left:auto; color:#64748B; font-size:16px; cursor:pointer;">•••</div>
+        </div>
+        ${headline ? `<div class="cs-social-card-headline" style="font-size:13.5px; font-weight:700; color:#0F172A; margin:4px 0;">${headline}</div>` : ''}
+        <div class="cs-social-card-body" style="font-size:13px; line-height:1.5; color:#1E293B;">${formattedCopy}</div>
+        ${mediaUrl ? `
+          <div class="cs-social-card-media" style="margin-top:8px; border-radius:10px; overflow:hidden; border:1px solid #E2E8F0;">
+            ${isVideo ? `
+              <video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:260px; object-fit:cover;"></video>
+            ` : `
+              <img src="${mediaUrl}" alt="Facebook visual" style="width:100%; display:block; max-height:260px; object-fit:cover;">
+            `}
+          </div>
+        ` : ''}
+        <div class="cs-social-card-reactions-bar" style="display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid #F1F5F9; font-size:11.5px; color:#64748B;">
+          <span style="display:inline-flex; align-items:center; gap:4px;">
+            <span style="display:inline-flex; width:18px; height:18px; background:#1877F2; border-radius:50%; align-items:center; justify-content:center; color:#fff; font-size:10px;">👍</span>
+            <span style="display:inline-flex; width:18px; height:18px; background:#FA3E3E; border-radius:50%; align-items:center; justify-content:center; color:#fff; font-size:10px; margin-left:-6px;">❤️</span>
+            <span style="margin-left:4px; font-weight:600; color:#334155;">284</span>
+          </span>
+          <span>48 comments • 16 shares</span>
+        </div>
+        <div class="cs-social-card-actions" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:6px; padding-top:4px;">
+          <button type="button" class="cs-social-action-btn" style="width:100%; justify-content:center; padding:7px 0; font-size:12px; font-weight:600; color:#475569; background:transparent; border:none; border-radius:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" style="margin-right:5px;"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+            Like
+          </button>
+          <button type="button" class="cs-social-action-btn" style="width:100%; justify-content:center; padding:7px 0; font-size:12px; font-weight:600; color:#475569; background:transparent; border:none; border-radius:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="margin-right:5px;"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            Comment
+          </button>
+          <button type="button" class="cs-social-action-btn" style="width:100%; justify-content:center; padding:7px 0; font-size:12px; font-weight:600; color:#475569; background:transparent; border:none; border-radius:6px;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="margin-right:5px;"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+            Share
+          </button>
+        </div>
+      </div>
+    `;
+  } else if (activeSidePreviewPlatform === 'yt') {
+    // YouTube View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card" style="padding:0; overflow:hidden;">
+        ${mediaUrl ? `
+          <div class="cs-social-card-media" style="border-radius:0; border-left:none; border-right:none;">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:260px;"></video>` : `<img src="${mediaUrl}" alt="Video thumbnail" style="width:100%; display:block; max-height:260px;">`}
+          </div>
+        ` : ''}
+        <div style="padding:12px 14px;">
+          <div style="font-size:13.5px; font-weight:700; color:#0F172A; margin-bottom:6px;">${headline || 'Enterprise AI Marketing Showcase'}</div>
+          <div class="cs-social-card-author" style="margin-bottom:8px;">
+            <div class="cs-social-card-avatar" style="background:#FF0000; color:#fff;">VS</div>
+            <div class="cs-social-card-author-info">
+              <span class="cs-social-card-name">Vibodh Signal</span>
+              <span class="cs-social-card-meta">24.5K subscribers • Just now</span>
+            </div>
+            <button type="button" style="margin-left:auto; background:#0F172A; color:#fff; border:none; padding:6px 14px; border-radius:9999px; font-size:11px; font-weight:600;">Subscribe</button>
+          </div>
+          <div class="cs-social-card-body" style="font-size:12px;">${formattedCopy}</div>
+        </div>
+      </div>
+    `;
+  } else if (activeSidePreviewPlatform === 'tt') {
+    // TikTok View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card" style="padding:0; overflow:hidden; background:#0B0F17; color:#FFFFFF; border:1px solid #1E293B;">
+        <div style="padding:12px 14px; display:flex; align-items:center; justify-content:space-between;">
+          <div style="display:flex; align-items:center; gap:8px;">
+            <div class="cs-social-card-avatar" style="background:#000000; color:#00F2FE; border:1.5px solid #FE2C55;">VS</div>
+            <div>
+              <div style="font-size:13px; font-weight:700; color:#FFFFFF; display:flex; align-items:center; gap:4px;">
+                @vibodhsignal
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="#00F2FE"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <div style="font-size:11px; color:#94A3B8;">Vibodh Signal • TikTok Feed</div>
+            </div>
+          </div>
+          <button type="button" style="background:#FE2C55; color:#fff; border:none; padding:5px 12px; border-radius:4px; font-size:11px; font-weight:700;">Follow</button>
+        </div>
+        ${mediaUrl ? `
+          <div class="cs-social-card-media" style="position:relative; border-radius:0; border:none; margin:0;">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:280px; object-fit:cover;"></video>` : `<img src="${mediaUrl}" alt="TikTok visual" style="width:100%; display:block; max-height:280px; object-fit:cover;">`}
+            <div style="position:absolute; right:10px; bottom:20px; display:flex; flex-direction:column; gap:12px; align-items:center; z-index:2; text-shadow:0 1px 4px rgba(0,0,0,0.8);">
+              <div style="display:flex; flex-direction:column; align-items:center; font-size:10px; font-weight:700; color:#fff;">
+                <span style="font-size:20px;">❤️</span>
+                <span>2.4K</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; font-size:10px; font-weight:700; color:#fff;">
+                <span style="font-size:20px;">💬</span>
+                <span>184</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; font-size:10px; font-weight:700; color:#fff;">
+                <span style="font-size:20px;">🔖</span>
+                <span>92</span>
+              </div>
+              <div style="display:flex; flex-direction:column; align-items:center; font-size:10px; font-weight:700; color:#fff;">
+                <span style="font-size:20px;">↗️</span>
+                <span>56</span>
+              </div>
+            </div>
+          </div>
+        ` : ''}
+        <div style="padding:12px 14px;">
+          <div class="cs-social-card-body" style="color:#F1F5F9; font-size:12.5px; line-height:1.45;">${formattedCopy}</div>
+          <div style="display:flex; align-items:center; gap:6px; margin-top:8px; font-size:11px; color:#94A3B8;">
+            <span>🎵</span>
+            <span>vibodhsignal • Original Sound - Automation Wave</span>
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (activeSidePreviewPlatform === 'pin') {
+    // Pinterest View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card" style="padding:0; overflow:hidden; border-radius:16px;">
+        ${mediaUrl ? `
+          <div class="cs-social-card-media" style="position:relative; border-radius:0; border:none; margin:0;">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:280px; object-fit:cover;"></video>` : `<img src="${mediaUrl}" alt="Pinterest pin" style="width:100%; display:block; max-height:280px; object-fit:cover;">`}
+            <button type="button" style="position:absolute; top:12px; right:12px; background:#E60023; color:#fff; border:none; padding:7px 16px; border-radius:9999px; font-size:12px; font-weight:700; cursor:pointer; box-shadow:0 2px 8px rgba(230,0,35,0.4);">
+              Save
+            </button>
+          </div>
+        ` : ''}
+        <div style="padding:14px 16px;">
+          <div style="font-size:14px; font-weight:800; color:#0F172A; margin-bottom:4px;">${headline || 'Design & Automation Pin'}</div>
+          <div class="cs-social-card-body" style="font-size:12.5px; color:#334155;">${formattedCopy}</div>
+          <div class="cs-social-card-author" style="margin-top:12px; padding-top:10px; border-top:1px solid #F1F5F9;">
+            <div class="cs-social-card-avatar" style="background:#E60023; color:#fff; width:32px; height:32px; font-size:11px;">VS</div>
+            <div class="cs-social-card-author-info">
+              <span class="cs-social-card-name" style="font-size:12px;">Vibodh Signal</span>
+              <span class="cs-social-card-meta" style="font-size:10.5px;">14.2K followers</span>
+            </div>
+            <button type="button" style="margin-left:auto; background:#F1F5F9; color:#0F172A; border:none; padding:5px 12px; border-radius:9999px; font-size:11px; font-weight:600;">Follow</button>
+          </div>
+        </div>
+      </div>
+    `;
+  } else if (activeSidePreviewPlatform === 'th') {
+    // Threads View
+    stage.innerHTML = `
+      <div class="cs-social-preview-card">
+        <div class="cs-social-card-author">
+          <div class="cs-social-card-avatar" style="background:#000000; color:#FFFFFF; font-weight:700;">VS</div>
+          <div class="cs-social-card-author-info">
+            <div class="cs-social-card-name-row">
+              <span class="cs-social-card-name">vibodhsignal</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="#0A66C2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+            </div>
+            <div class="cs-social-card-meta">threads.net • Just now</div>
+          </div>
+          <div style="margin-left:auto; color:#94A3B8; font-size:16px;">•••</div>
+        </div>
+        <div class="cs-social-card-body" style="font-size:13px; line-height:1.5;">${formattedCopy}</div>
+        ${mediaUrl ? `
+          <div class="cs-social-card-media" style="margin-top:8px; border-radius:10px; overflow:hidden; border:1px solid #E2E8F0;">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:240px;"></video>` : `<img src="${mediaUrl}" alt="Threads media">`}
+          </div>
+        ` : ''}
+        <div style="display:flex; gap:16px; margin-top:12px; font-size:16px; color:#475569;">
+          <span>🤍</span> <span>💬</span> <span>🔁</span> <span>✈️</span>
+        </div>
+        <div style="font-size:11.5px; color:#94A3B8; margin-top:8px;">89 replies • 312 likes</div>
+      </div>
+    `;
+  } else {
+    // LinkedIn View (Default)
+    stage.innerHTML = `
+      <div class="cs-social-preview-card">
+        <div class="cs-social-card-author">
+          <div class="cs-social-card-avatar">VS</div>
+          <div class="cs-social-card-author-info">
+            <div class="cs-social-card-name-row">
+              <span class="cs-social-card-name">Vibodh Signal</span>
+              <span style="font-size:10px; color:#64748B; background:#F1F5F9; padding:1px 5px; border-radius:4px;">1st</span>
+            </div>
+            <div class="cs-social-card-meta">Enterprise Marketing Automation • Just now • 🌐</div>
+          </div>
+        </div>
+        ${headline ? `<div class="cs-social-card-headline">${headline}</div>` : ''}
+        <div class="cs-social-card-body">${formattedCopy}</div>
+        ${mediaUrl ? `
+          <div class="cs-social-card-media">
+            ${isVideo ? `<video src="${mediaUrl}" poster="${mediaUrl}" controls style="width:100%; display:block; max-height:240px;"></video>` : `<img src="${mediaUrl}" alt="Post visual">`}
+          </div>
+        ` : ''}
+        <div class="cs-social-card-reactions-bar">
+          <span>👍❤️💡 148 reactions</span>
+          <span>24 comments • 9 reposts</span>
+        </div>
+        <div class="cs-social-card-actions">
+          <button type="button" class="cs-social-action-btn">👍 <span>Like</span></button>
+          <button type="button" class="cs-social-action-btn">💬 <span>Comment</span></button>
+          <button type="button" class="cs-social-action-btn">🔁 <span>Repost</span></button>
+          <button type="button" class="cs-social-action-btn">📤 <span>Send</span></button>
+        </div>
+      </div>
+    `;
+  }
+}
+window.renderSidePanelPreview = renderSidePanelPreview;
+
+
+// Direct alias for openPostPreviewModal so any calls open the right side panel
+window.openPostPreviewModal = function(mode) {
+  openCsRightSidebarTool('preview');
+};
+
+// Save Current Post handler (Floppy disk button in between Edit with AI & Post)
+function saveCurrentPost(mode) {
+  const m = mode || (typeof currentCsStepNum !== 'undefined' ? (currentCsStepNum === 2 ? 'image' : currentCsStepNum === 3 ? 'video' : 'text') : 'text');
+  
+  const saveBtn = document.getElementById(`cs-unified-save-btn-${m}`) || document.querySelector('.cs-unified-save-btn');
+  if (saveBtn) {
+    saveBtn.classList.add('saved');
+    setTimeout(() => {
+      saveBtn.classList.remove('saved');
+    }, 1200);
+  }
+
+  if (m === 'text' && typeof saveCurrentDraft === 'function') {
+    saveCurrentDraft();
+  } else if (m === 'image' && typeof savePostToLibrary === 'function') {
+    savePostToLibrary();
+  } else if (m === 'video' && typeof saveVideoToLibrary === 'function') {
+    saveVideoToLibrary();
+  } else {
+    showToast('Post successfully saved to your workspace library!', '💾');
+  }
+}
+window.saveCurrentPost = saveCurrentPost;
+
+
+// ══════════════════════════════════════════════════════════════════════
+// Unicode Font Styler, Hashtags & Emojis Suite
+// ══════════════════════════════════════════════════════════════════════
+
+function toUnicodeStyle(text, style) {
+  let result = '';
+  for (let ch of text) {
+    let code = ch.codePointAt(0);
+    if (style === 'bold') {
+      if (code >= 65 && code <= 90) result += String.fromCodePoint(0x1D5D4 + (code - 65));
+      else if (code >= 97 && code <= 122) result += String.fromCodePoint(0x1D5EE + (code - 97));
+      else if (code >= 48 && code <= 57) result += String.fromCodePoint(0x1D7EC + (code - 48));
+      else result += ch;
+    } else if (style === 'italic') {
+      if (code >= 65 && code <= 90) result += String.fromCodePoint(0x1D608 + (code - 65));
+      else if (code >= 97 && code <= 122) result += String.fromCodePoint(0x1D622 + (code - 97));
+      else result += ch;
+    } else if (style === 'script') {
+      if (code >= 65 && code <= 90) result += String.fromCodePoint(0x1D4D0 + (code - 65));
+      else if (code >= 97 && code <= 122) result += String.fromCodePoint(0x1D4EA + (code - 97));
+      else result += ch;
+    } else if (style === 'typewriter') {
+      if (code >= 65 && code <= 90) result += String.fromCodePoint(0x1D670 + (code - 65));
+      else if (code >= 97 && code <= 122) result += String.fromCodePoint(0x1D68A + (code - 97));
+      else if (code >= 48 && code <= 57) result += String.fromCodePoint(0x1D7F6 + (code - 48));
+      else result += ch;
+    } else {
+      result += ch;
+    }
+  }
+  return result;
+}
+
+function normalizeUnicode(text) {
+  let result = '';
+  for (let ch of text) {
+    let cp = ch.codePointAt(0);
+    // Bold Sans A-Z (0x1D5D4 - 0x1D5ED)
+    if (cp >= 0x1D5D4 && cp <= 0x1D5ED) result += String.fromCharCode(65 + (cp - 0x1D5D4));
+    // Bold Sans a-z (0x1D5EE - 0x1D607)
+    else if (cp >= 0x1D5EE && cp <= 0x1D607) result += String.fromCharCode(97 + (cp - 0x1D5EE));
+    // Bold Sans 0-9 (0x1D7EC - 0x1D7F5)
+    else if (cp >= 0x1D7EC && cp <= 0x1D7F5) result += String.fromCharCode(48 + (cp - 0x1D7EC));
+    // Italic Sans A-Z (0x1D608 - 0x1D621)
+    else if (cp >= 0x1D608 && cp <= 0x1D621) result += String.fromCharCode(65 + (cp - 0x1D608));
+    // Italic Sans a-z (0x1D622 - 0x1D63B)
+    else if (cp >= 0x1D622 && cp <= 0x1D63B) result += String.fromCharCode(97 + (cp - 0x1D622));
+    // Script Bold A-Z (0x1D4D0 - 0x1D4E9)
+    else if (cp >= 0x1D4D0 && cp <= 0x1D4E9) result += String.fromCharCode(65 + (cp - 0x1D4D0));
+    // Script Bold a-z (0x1D4EA - 0x1D503)
+    else if (cp >= 0x1D4EA && cp <= 0x1D503) result += String.fromCharCode(97 + (cp - 0x1D4EA));
+    // Typewriter A-Z (0x1D670 - 0x1D689)
+    else if (cp >= 0x1D670 && cp <= 0x1D689) result += String.fromCharCode(65 + (cp - 0x1D670));
+    // Typewriter a-z (0x1D68A - 0x1D6A3)
+    else if (cp >= 0x1D68A && cp <= 0x1D6A3) result += String.fromCharCode(97 + (cp - 0x1D68A));
+    // Typewriter 0-9 (0x1D7F6 - 0x1D7FF)
+    else if (cp >= 0x1D7F6 && cp <= 0x1D7FF) result += String.fromCharCode(48 + (cp - 0x1D7F6));
+    else result += ch;
+  }
+  return result;
+}
+
+function applyUnicodeFontToTarget(targetId, style) {
+  const textarea = document.getElementById(targetId);
+  if (!textarea) return;
+
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const val = textarea.value || '';
+
+  if (start !== end && end > start) {
+    // Transform selected text
+    const selected = val.substring(start, end);
+    const converted = style === 'clear' ? normalizeUnicode(selected) : toUnicodeStyle(normalizeUnicode(selected), style);
+    
+    if (typeof textarea.setRangeText === 'function') {
+      textarea.setRangeText(converted, start, end, 'select');
+    } else {
+      textarea.value = val.substring(0, start) + converted + val.substring(end);
+      textarea.selectionStart = start;
+      textarea.selectionEnd = start + converted.length;
+    }
+    textarea.dispatchEvent(new Event('input', { bubbles: true }));
+    showToast(`Converted selection to ${style.toUpperCase()} font!`, '✨');
+  } else {
+    // If no text selected, highlight the opening hook (first line)
+    const lines = val.split('\n');
+    if (lines.length > 0 && lines[0].trim().length > 0) {
+      const convertedHook = style === 'clear' ? normalizeUnicode(lines[0]) : toUnicodeStyle(normalizeUnicode(lines[0]), style);
+      lines[0] = convertedHook;
+      textarea.value = lines.join('\n');
+      textarea.dispatchEvent(new Event('input', { bubbles: true }));
+      showToast(`Formatted opening hook with ${style.toUpperCase()} font!`, '✨');
+    } else {
+      showToast('Select text to apply font formatting, or type a hook first!', 'ℹ️');
+    }
+  }
+  textarea.focus();
+}
+window.applyUnicodeFontToTarget = applyUnicodeFontToTarget;
+
+function insertTagToTarget(targetId, tag) {
+  const textarea = document.getElementById(targetId);
+  if (!textarea) return;
+
+  const val = textarea.value || '';
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  if (document.activeElement === textarea && start !== undefined) {
+    const prefix = (start > 0 && val[start - 1] !== ' ' && val[start - 1] !== '\n') ? ' ' : '';
+    const insertion = prefix + tag + ' ';
+    if (typeof textarea.setRangeText === 'function') {
+      textarea.setRangeText(insertion, start, end, 'end');
+    } else {
+      textarea.value = val.substring(0, start) + insertion + val.substring(end);
+      textarea.selectionStart = textarea.selectionEnd = start + insertion.length;
+    }
+  } else {
+    // Append to end
+    const separator = val.length === 0 ? '' : (val.endsWith('\n') ? '' : '\n\n');
+    textarea.value = val + separator + tag;
+  }
+
+  textarea.dispatchEvent(new Event('input', { bubbles: true }));
+  closeAllToolbarPopovers();
+  showToast(`Added ${tag}`, '🏷️');
+  textarea.focus();
+}
+window.insertTagToTarget = insertTagToTarget;
+
+function insertEmojiToTarget(targetId, emoji) {
+  const textarea = document.getElementById(targetId);
+  if (!textarea) return;
+
+  const val = textarea.value || '';
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+
+  if (document.activeElement === textarea && start !== undefined) {
+    const insertion = emoji + ' ';
+    if (typeof textarea.setRangeText === 'function') {
+      textarea.setRangeText(insertion, start, end, 'end');
+    } else {
+      textarea.value = val.substring(0, start) + insertion + val.substring(end);
+      textarea.selectionStart = textarea.selectionEnd = start + insertion.length;
+    }
+  } else {
+    // Insert at beginning of active line or append
+    const separator = val.length === 0 ? '' : (val.endsWith(' ') ? '' : ' ');
+    textarea.value = val + separator + emoji + ' ';
+  }
+
+  textarea.dispatchEvent(new Event('input', { bubbles: true }));
+  closeAllToolbarPopovers();
+  showToast(`Inserted ${emoji}`, emoji);
+  textarea.focus();
+}
+window.insertEmojiToTarget = insertEmojiToTarget;
+
+function toggleToolbarPopover(event, type, mode) {
+  if (event) event.stopPropagation();
+  const targetId = `cs-popover-${type}-${mode}`;
+  const popover = document.getElementById(targetId);
+  const isOpen = popover && popover.classList.contains('active');
+
+  closeAllToolbarPopovers();
+
+  if (popover && !isOpen) {
+    popover.classList.add('active');
+  }
+}
+window.toggleToolbarPopover = toggleToolbarPopover;
+
+function closeAllToolbarPopovers() {
+  document.querySelectorAll('.cs-toolbar-popover').forEach(p => p.classList.remove('active'));
+}
+window.closeAllToolbarPopovers = closeAllToolbarPopovers;
+
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.cs-toolbar-popover') && !e.target.closest('.cs-toolbar-tool-btn')) {
+    closeAllToolbarPopovers();
+  }
+});
+
+function copyStudioCaption(mode) {
+  const inputId = mode === 'image' ? 'cs-image-caption-input' : mode === 'video' ? 'cs-video-caption-input' : 'mockup-caption-text';
+  const el = document.getElementById(inputId);
+  const text = el?.value || el?.innerText || '';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Caption copied to clipboard!', '📋');
+    }).catch(() => showToast('Caption copied!', '📋'));
+  } else {
+    showToast('Caption copied!', '📋');
+  }
+}
+window.copyStudioCaption = copyStudioCaption;
