@@ -5807,9 +5807,6 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <div class="dna-display-box-label">
                 <span>🏢</span> COMPANY IDENTITY &amp; BRAND LOGO
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-brand-info')" title="Edit Company Information via Dialog">
-                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-              </button>
             </div>
 
             <div style="display:flex;align-items:stretch;gap:28px;flex-wrap:wrap;">
@@ -5819,8 +5816,9 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>🎨</span> BRAND LOGO
                 </div>
                 
+                <input type="file" id="dna-inline-logo-file" accept="image/*" style="display:none;" onchange="handleDnaInlineLogoUpload(this)">
                 <div style="flex:1;display:flex;align-items:center;justify-content:center;background:#F8FAFC;border:1.5px solid #E2E8F0;border-radius:20px;padding:28px 20px;min-height:260px;">
-                  <div class="dna-logo-preview-box" id="dna-logo-preview-container" style="position:relative;cursor:pointer;width:130px;height:130px;border:1.5px dashed #CBD5E1;border-radius:18px;background:transparent;display:flex;align-items:center;justify-content:center;padding:12px;" onclick="openDnaEditModal('sec1-logo')" title="Edit Brand Logo">
+                  <div class="dna-logo-preview-box" id="dna-logo-preview-container" style="position:relative;cursor:pointer;width:130px;height:130px;border:1.5px dashed #CBD5E1;border-radius:18px;background:transparent;display:flex;align-items:center;justify-content:center;padding:12px;" onclick="triggerDnaInlineLogoUpload()" title="Upload Brand Logo">
                     <div id="dna-logo-display-graphic" class="dna-logo-display-graphic" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
                       <svg viewBox="0 0 100 100" style="width:76px;height:76px;" fill="none">
                         <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
@@ -5830,7 +5828,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                         <circle cx="34" cy="42" r="3" fill="#F97316"/>
                       </svg>
                     </div>
-                    <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();openDnaEditModal('sec1-logo');" title="Edit Brand Logo" style="width:28px;height:28px;right:-8px;bottom:-8px;box-shadow:0 3px 8px rgba(15,23,42,0.12);">
+                    <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();triggerDnaInlineLogoUpload();" title="Upload Brand Logo" style="width:28px;height:28px;right:-8px;bottom:-8px;box-shadow:0 3px 8px rgba(15,23,42,0.12);">
                       <img src="edit-pencil.png" alt="Edit" style="width:12px;height:12px;object-fit:contain;">
                     </button>
                   </div>
@@ -5942,9 +5940,6 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <div class="dna-display-box-label">
                 <span>🎯</span> CORE MISSION, DESCRIPTION &amp; VALUE PROPOSITION
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-mission')" title="Edit Mission, Description &amp; Positioning via Dialog">
-                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-              </button>
             </div>
 
             <!-- Row 1: Core Mission Statement (Full Width) -->
@@ -6021,20 +6016,29 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
           </div>
 
           <!-- Brand Proof & Credibility Factors Display Box -->
-          <div class="dna-display-box">
+          <div class="dna-display-box dna-editable-box" id="dna-box-proof-chips" data-dna-field="proof-chips" data-dna-type="proof-chips" style="position:relative;">
             <div class="dna-display-box-header">
               <div class="dna-display-box-label">
                 <span>🏆</span> BRAND PROOF &amp; CREDIBILITY FACTORS
                 <span style="font-size:9.5px;color:#64748B;font-weight:600;margin-left:8px;" id="dna-display-proof-count">2 factors active</span>
               </div>
-              <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec1-proof')" title="Edit Proof &amp; Credibility via Dialog">
-                <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-              </button>
+              <div class="dna-box-corner-actions">
+                <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-proof-chips')" title="Edit Proof Factors">
+                  <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                </button>
+                <button type="button" class="dna-inline-save-btn" id="dna-save-proof-chips" onclick="saveDnaBoxEdit('dna-box-proof-chips')" title="Save changes" disabled>
+                  ✓
+                </button>
+                <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-proof-chips" onclick="cancelDnaBoxEdit('dna-box-proof-chips')" title="Cancel">
+                  ✕
+                </button>
+              </div>
             </div>
-            <div class="dna-chips-wrap" id="dna-display-proof-chips" style="margin-bottom:12px;">
+            <div class="dna-chips-wrap dna-box-display" id="dna-display-proof-chips" style="margin-bottom:12px;">
               <span class="dna-tag-pill tag-mint">✓ Results</span>
               <span class="dna-tag-pill tag-mint">✓ Reviews or ratings</span>
             </div>
+            <div class="dna-inline-chips-editor dna-box-editor" id="dna-editor-proof-chips" style="display:none;margin-bottom:12px;"></div>
 
             <!-- Supporting Proof Details (Editable Box) -->
             <div class="dna-editable-box" id="dna-box-proof-details" data-dna-field="proof-details" data-dna-type="text-multi" style="position:relative;margin-top:10px;">
@@ -6148,7 +6152,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Head of Product / AI Product Lead</span>
                 </span>
               </div>
-              <textarea id="dna-editor-segments" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-segments')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-segments')" placeholder="Enter audience segments (one per line)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-segments" style="display:none;"></div>
             </div>
 
           </div>
@@ -6188,7 +6192,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Architectural technical debt and sluggish feature velocity in legacy SaaS platforms</span>
                 </span>
               </div>
-              <textarea id="dna-editor-pain-points" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:100px;" oninput="handleDnaBoxInput('dna-box-pain-points')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-pain-points')" placeholder="Enter pain points (one per line)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-pain-points" style="display:none;"></div>
             </div>
 
             <!-- Right: Desires Display Box -->
@@ -6220,7 +6224,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Pre-engineered architectural accelerators to dramatically reduce time-to-market</span>
                 </span>
               </div>
-              <textarea id="dna-editor-desires" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:100px;" oninput="handleDnaBoxInput('dna-box-desires')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-desires')" placeholder="Enter desired outcomes (one per line)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-desires" style="display:none;"></div>
             </div>
 
           </div>
@@ -6263,7 +6267,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
           <div class="dna-display-box" style="margin-bottom:20px;">
             
             <!-- Row 1: Brand Tone Traits -->
-            <div class="dna-editable-box" id="dna-box-tone-chips" data-dna-field="tone-chips" data-dna-type="chips-list" style="position:relative;margin-bottom:0;">
+            <div class="dna-editable-box" id="dna-box-tone-chips" data-dna-field="tone-chips" data-dna-type="tone-chips" style="position:relative;margin-bottom:0;">
               <div class="dna-display-box-header" style="margin-bottom:10px;">
                 <div class="dna-display-box-label">
                   <span>🎙️</span> BRAND TONE TRAITS
@@ -6285,7 +6289,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 <span class="dna-chip active">✓ Professional</span>
                 <span class="dna-chip active">✓ Innovative</span>
               </div>
-              <textarea id="dna-editor-tone-chips" class="dna-inline-editor-textarea dna-box-editor" style="display:none;" oninput="handleDnaBoxInput('dna-box-tone-chips')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-tone-chips')" placeholder="Enter tones (e.g. Professional, Innovative)..."></textarea>
+              <div class="dna-inline-chips-editor dna-box-editor" id="dna-editor-tone-chips" style="display:none;"></div>
             </div>
 
             <!-- Divider Line -->
@@ -6350,7 +6354,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 <span class="dna-tag-pill tag-emerald"><span>production-grade</span></span>
                 <span class="dna-tag-pill tag-emerald"><span>scale</span></span>
               </div>
-              <textarea id="dna-editor-pref-words" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-pref-words')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-pref-words')" placeholder="Enter preferred words (comma or newline separated)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-pref-words" style="display:none;"></div>
             </div>
 
             <!-- Right: Prohibited Words Display Box -->
@@ -6380,7 +6384,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 <span class="dna-tag-pill tag-rose"><span>quick fix</span></span>
                 <span class="dna-tag-pill tag-rose"><span>silver bullet</span></span>
               </div>
-              <textarea id="dna-editor-proh-words" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-proh-words')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-proh-words')" placeholder="Enter prohibited words (comma or newline separated)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-proh-words" style="display:none;"></div>
             </div>
 
           </div>
@@ -6432,7 +6436,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                 </div>
                 
                 <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#F8FAFC;border:1px solid #E2E8F0;border-radius:14px;padding:20px 16px;min-height:224px;">
-                  <div class="dna-logo-preview-box" id="dna-logo-preview-container-sec4" style="position:relative;cursor:pointer;width:104px;height:104px;" onclick="openDnaEditModal('sec1-logo')" title="Edit Brand Logo">
+                  <div class="dna-logo-preview-box" id="dna-logo-preview-container-sec4" style="position:relative;cursor:pointer;width:104px;height:104px;" onclick="triggerDnaInlineLogoUpload()" title="Upload Brand Logo">
                     <div class="dna-logo-display-graphic" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;">
                       <svg viewBox="0 0 100 100" style="width:72px;height:72px;" fill="none">
                         <path d="M18 20L44 80C46 84 52 84 54 80L82 20C84 15 78 12 74 16L50 64L26 16C22 12 16 15 18 20Z" fill="#F0512D"/>
@@ -6442,7 +6446,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                         <circle cx="34" cy="42" r="3" fill="#F97316"/>
                       </svg>
                     </div>
-                    <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();openDnaEditModal('sec1-logo');" title="Edit Brand Logo">
+                    <button type="button" class="dna-logo-corner-edit-btn" onclick="event.stopPropagation();triggerDnaInlineLogoUpload();" title="Upload Brand Logo">
                       <img src="edit-pencil.png" alt="Edit" style="width:11px;height:11px;object-fit:contain;">
                     </button>
                   </div>
@@ -6450,20 +6454,26 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               </div>
 
               <!-- RIGHT COLUMN: 5-SWATCH COLOR PALETTE -->
-              <div style="display:flex;flex-direction:column;min-width:0;">
+              <div class="dna-editable-box" id="dna-box-palette" data-dna-field="palette" data-dna-type="palette" style="display:flex;flex-direction:column;min-width:0;position:relative;">
                 <div class="dna-display-box-header" style="margin-bottom:12px;">
                   <div class="dna-display-box-label">
                     <span>🎨</span> 5-SWATCH COLOR PALETTE (60-30-10 DESIGN RULE)
                   </div>
-                  <div style="display:flex;align-items:center;gap:12px;">
-                    <button type="button" class="dna-edit-pencil-btn" onclick="openDnaEditModal('sec4-palette')" title="Edit Color Palette">
+                  <div class="dna-box-corner-actions">
+                    <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('dna-box-palette')" title="Edit Color Palette">
                       <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
+                    </button>
+                    <button type="button" class="dna-inline-save-btn" id="dna-save-palette" onclick="saveDnaBoxEdit('dna-box-palette')" title="Save changes" disabled>
+                      ✓
+                    </button>
+                    <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-palette" onclick="cancelDnaBoxEdit('dna-box-palette')" title="Cancel">
+                      ✕
                     </button>
                   </div>
                 </div>
 
                 <!-- Horizontal Circular Bubbles Stage -->
-                <div class="dna-color-palette-stage" id="dna-color-palette-stage" style="margin-bottom:0;">
+                <div class="dna-color-palette-stage dna-box-display" id="dna-color-palette-stage" style="margin-bottom:0;">
                   <div class="dna-color-bubbles-row" id="dna-color-bubbles-row" role="radiogroup" aria-label="Brand Color Palette">
                     
                     <!-- Bubble 0: Dominant (60%) (#F6F2F1) -->
@@ -6563,6 +6573,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
                   </div>
                 </div>
+                <div class="dna-inline-palette-editor dna-box-editor" id="dna-editor-palette" style="display:none;margin-top:14px;"></div>
               </div>
 
             </div>
@@ -6719,8 +6730,8 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <div class="dna-display-box-label">
                 <span>📦</span> REGISTERED OFFERINGS CATALOG
               </div>
-              <button type="button" class="dna-header-edit-btn" onclick="openDnaEditModal('sec5-manage-offerings')" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:10.5px;font-weight:700;">
-                <span>✏️</span> Edit or Add Offering via Dialog
+              <button type="button" class="dna-header-edit-btn" onclick="addNewDnaOfferingCard()" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;font-size:10.5px;font-weight:700;">
+                <span>+</span> Add New Offering
               </button>
             </div>
 
@@ -6994,7 +7005,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Generate high-intent qualified customer opportunities</span>
                 </span>
               </div>
-              <textarea id="dna-editor-objectives" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-objectives')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-objectives')" placeholder="Enter objectives (one per line)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-objectives" style="display:none;"></div>
             </div>
 
             <!-- Right: Preferred CTAs Display Box -->
@@ -7027,7 +7038,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
                   <span>Schedule a Strategic Consultation</span>
                 </span>
               </div>
-              <textarea id="dna-editor-ctas" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:90px;" oninput="handleDnaBoxInput('dna-box-ctas')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-ctas')" placeholder="Enter CTAs (one per line)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-ctas" style="display:none;"></div>
             </div>
 
           </div>
@@ -7176,7 +7187,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <div id="dna-approved-chips" class="dna-regional-chips-container dna-box-display" style="min-height:50px;align-items:center;">
                 <span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No approved vocabulary added yet. Click &quot;Edit&quot; to add regional slang and cultural phrasing.</span>
               </div>
-              <textarea id="dna-editor-approved-slang" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:75px;" oninput="handleDnaBoxInput('dna-box-approved-slang')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-approved-slang')" placeholder="Enter approved slang (comma or newline separated)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-approved-slang" style="display:none;"></div>
             </div>
 
             <!-- Right: Prohibited Regional Claims Display Box -->
@@ -7201,7 +7212,7 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
               <div id="dna-prohib-chips" class="dna-regional-chips-container dna-box-display" style="min-height:50px;align-items:center;">
                 <span class="dna-vocab-empty-text" style="font-size:11px;color:#94A3B8;font-style:italic;">No prohibited regional claims registered. Click &quot;Edit&quot; to add guardrails.</span>
               </div>
-              <textarea id="dna-editor-prohib-slang" class="dna-inline-editor-textarea dna-box-editor" style="display:none;min-height:75px;" oninput="handleDnaBoxInput('dna-box-prohib-slang')" onkeydown="handleDnaBoxKeydown(event, 'dna-box-prohib-slang')" placeholder="Enter prohibited regional phrases (comma or newline separated)..."></textarea>
+              <div class="dna-inline-tag-editor dna-box-editor" id="dna-editor-prohib-slang" style="display:none;"></div>
             </div>
           </div>
 

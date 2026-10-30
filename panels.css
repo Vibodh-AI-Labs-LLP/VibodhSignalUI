@@ -15728,3 +15728,171 @@ body:has(#view-content-studio.active) .page-content,
 .dna-editable-box.is-editing .dna-box-editor {
   display: block !important;
 }
+
+/* In-place Multi-Selection & Tag Editor Styles */
+.dna-inline-tag-editor {
+  width: 100%;
+  padding: 10px 12px;
+  background: #F8FAFC;
+  border: 1.5px solid #0F9D8A;
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  box-sizing: border-box;
+}
+
+.dna-inline-tag-items-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 32px;
+  margin-bottom: 10px;
+}
+
+.dna-tag-editable {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding-right: 6px !important;
+  user-select: none;
+}
+
+.dna-tag-del-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  background: rgba(0, 0, 0, 0.06);
+  border: none;
+  border-radius: 50%;
+  color: inherit;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+  opacity: 0.75;
+}
+.dna-tag-del-btn:hover {
+  background: #EF4444;
+  color: #FFFFFF;
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.dna-input-inline-add-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 6px;
+}
+
+.dna-input-inline-tag {
+  flex: 1;
+  min-width: 160px;
+  padding: 6px 12px;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #0F172A;
+  background: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.18s ease;
+  box-sizing: border-box;
+}
+.dna-input-inline-tag:focus {
+  border-color: #0F9D8A;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.18);
+}
+
+.btn-dna-add-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px;
+  background: #0F9D8A;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  box-shadow: 0 1px 3px rgba(15, 157, 138, 0.25);
+}
+.btn-dna-add-sm:hover {
+  background: #0b8a79;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(15, 157, 138, 0.35);
+}
+
+/* In-place Chips Editor (Proof Factors & Tone Traits) */
+.dna-inline-chips-editor {
+  width: 100%;
+  padding: 12px;
+  background: #F8FAFC;
+  border: 1.5px solid #0F9D8A;
+  border-radius: 10px;
+  box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.12);
+  box-sizing: border-box;
+}
+.dna-editable-box.is-editing .dna-inline-chips-editor {
+  display: block !important;
+}
+
+.dna-proof-choice-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 600;
+  border-radius: 20px;
+  border: 1px solid #E2E8F0;
+  background: #FFFFFF;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+.dna-proof-choice-chip:hover {
+  border-color: #0F9D8A;
+  color: #0F9D8A;
+  background: #F0FDF4;
+  transform: translateY(-1px);
+}
+.dna-proof-choice-chip.active {
+  background: #ECFDF5;
+  border-color: #10B981;
+  color: #065F46;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(16, 185, 129, 0.2);
+}
+
+/* Tone Traits chips inside editor */
+.dna-tone-chips-options-grid button.dna-chip {
+  cursor: pointer !important;
+  font-family: inherit;
+  transition: all 0.16s ease;
+}
+.dna-tone-chips-options-grid button.dna-chip:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.1);
+}
+
+/* In-place Palette Editor */
+.dna-inline-palette-editor {
+  width: 100%;
+  box-sizing: border-box;
+}
+.dna-editable-box.is-editing .dna-inline-palette-editor {
+  display: block !important;
+}
