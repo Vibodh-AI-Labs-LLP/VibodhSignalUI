@@ -764,111 +764,351 @@
 
     /* ═══════════════════════════════════════════════════════════
        5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us)
+       Modern High-Contrast Comparison (The Old Way vs Vibodh Signal)
     ═══════════════════════════════════════════════════════════ */
     .section-why {
-      padding: 88px 0;
-      background: var(--bg-page);
-    }
-
-    /* Comparison Box (Old vs New) */
-    .compare-container {
-      display: grid;
-      grid-template-columns: 1fr 1.08fr;
-      gap: 24px;
-      margin-top: 0;
-    }
-
-    .compare-card {
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 32px 28px;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .compare-card.card-featured {
-      border: 2px solid var(--teal);
-      box-shadow: 0 10px 30px rgba(15, 157, 138, 0.12);
+      padding: 96px 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(15, 157, 138, 0.05) 0%, transparent 70%), var(--bg-page);
       position: relative;
     }
 
-    .compare-featured-badge {
-      position: absolute;
-      top: -12px;
-      right: 24px;
-      background: var(--teal);
-      color: #FFFFFF;
-      font-size: 0.6875rem;
+    .compare-container {
+      display: grid;
+      grid-template-columns: 1fr 1.14fr;
+      gap: 32px;
+      align-items: stretch;
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* Common Card Styling */
+    .compare-card {
+      border-radius: 24px;
+      padding: 38px 34px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+    }
+
+    /* ─── Left Card: The Old Way (Light Card) ─── */
+    .compare-card-old {
+      background: #FFFFFF;
+      border: 1px solid rgba(226, 232, 240, 0.9);
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.02);
+    }
+
+    .compare-card-old:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.1);
+    }
+
+    /* Stat Header Row */
+    .compare-stat-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .compare-stat-num {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .compare-stat-num.old-num {
+      color: #94A3B8;
+    }
+
+    .compare-stat-num.new-num {
+      color: #10B981;
+      text-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
+    }
+
+    .compare-stat-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .compare-stat-label {
+      font-size: 0.75rem;
       font-weight: 800;
       text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: var(--radius-full);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
+      color: #64748B;
+      line-height: 1.25;
+    }
+
+    .compare-card-new .compare-stat-label {
+      color: #94A3B8;
+    }
+
+    .compare-stat-cost {
+      font-size: 0.8125rem;
+      color: #EF4444;
+      font-weight: 600;
+    }
+
+    .compare-stat-tag {
+      font-size: 0.8125rem;
+      color: #34D399;
+      font-weight: 600;
     }
 
     .compare-head-title {
       font-family: var(--font-display);
-      font-size: 1.375rem;
+      font-size: 1.5rem;
       font-weight: 800;
-      color: var(--indigo-dark);
-      margin-bottom: 8px;
+      color: var(--dark-navy);
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      line-height: 1.25;
+    }
+
+    .compare-head-title.new-title {
+      color: #FFFFFF;
     }
 
     .compare-head-sub {
-      font-size: 0.875rem;
+      font-size: 0.9125rem;
       color: var(--text-muted);
-      margin-bottom: 20px;
+      line-height: 1.5;
+      margin-bottom: 24px;
     }
 
-    .compare-list {
+    .compare-head-sub.new-sub {
+      color: #94A3B8;
+    }
+
+    .compare-divider {
+      height: 1px;
+      background: #F1F5F9;
+      margin-bottom: 24px;
+    }
+
+    /* List items in Old Card */
+    .compare-list-old {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 16px;
+      flex: 1;
     }
 
     .compare-item {
       display: flex;
       align-items: flex-start;
-      gap: 12px;
-      font-size: 0.9375rem;
+      gap: 14px;
+      font-size: 0.875rem;
       line-height: 1.5;
     }
 
-    .icon-cross {
-      color: #DC2626;
-      font-weight: 800;
+    .icon-cross-pill {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
       background: #FEE2E2;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+      color: #DC2626;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 9.5px;
       flex-shrink: 0;
       margin-top: 2px;
     }
 
-    .icon-check {
-      color: #059669;
+    .compare-item-content {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .compare-item-content strong {
+      color: #1E293B;
+      font-weight: 700;
+      font-size: 0.9125rem;
+    }
+
+    .compare-item-content span {
+      color: #64748B;
+      font-size: 0.84375rem;
+      line-height: 1.45;
+    }
+
+    /* ─── Right Card: With Vibodh Signal (Dark Navy Container) ─── */
+    .compare-card-new {
+      background: linear-gradient(155deg, #0b1325 0%, #111d35 55%, #0d162a 100%);
+      border: 1.5px solid rgba(15, 157, 138, 0.4);
+      box-shadow: 0 24px 50px -12px rgba(15, 157, 138, 0.22), 0 0 0 1px rgba(15, 157, 138, 0.15);
+    }
+
+    .compare-card-new:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 28px 60px -12px rgba(15, 157, 138, 0.32), 0 0 0 1.5px rgba(16, 185, 129, 0.4);
+    }
+
+    /* Floating Top Badge */
+    .compare-new-badge {
+      position: absolute;
+      top: -14px;
+      right: 28px;
+      background: linear-gradient(135deg, #0F9D8A 0%, #10B981 100%);
+      color: #FFFFFF;
+      font-size: 0.725rem;
       font-weight: 800;
-      background: #D1FAE5;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      padding: 6px 16px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.15);
+    }
+
+    /* 2x2 Bento Grid */
+    .compare-bento-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+
+    .compare-bento-tile {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .compare-bento-tile:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(16, 185, 129, 0.35);
+      transform: translateY(-2px);
+    }
+
+    .bento-tile-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 9.5px;
+      margin-bottom: 12px;
       flex-shrink: 0;
-      margin-top: 2px;
     }
 
-    /* ═══════════════════════════════════════════════════════════
-       6. SECTION 3: 🚀 KEY FEATURES (#key-features)
-       Master-Detail Interactive Rectangle Box
-    ═══════════════════════════════════════════════════════════ */
+    .bento-tile-icon.icon-teal {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.25);
+    }
+
+    .bento-tile-icon.icon-cyan {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+
+    .bento-tile-icon.icon-indigo {
+      background: rgba(129, 140, 248, 0.15);
+      color: #A5B4FC;
+      border: 1px solid rgba(129, 140, 248, 0.25);
+    }
+
+    .bento-tile-title {
+      font-family: var(--font-display);
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+
+    .bento-tile-desc {
+      font-size: 0.8125rem;
+      color: #94A3B8;
+      line-height: 1.45;
+    }
+
+    /* Hero Tile (Save 15+ hours) */
+    .compare-bento-tile.bento-tile-hero {
+      background: linear-gradient(135deg, #10B981 0%, #0F9D8A 100%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 24px rgba(16, 185, 129, 0.35);
+    }
+
+    .compare-bento-tile.bento-tile-hero:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.45);
+    }
+
+    .bento-tile-icon.icon-hero {
+      background: rgba(4, 47, 46, 0.2);
+      color: #042F2E;
+      border: 1px solid rgba(4, 47, 46, 0.25);
+    }
+
+    .hero-text-title {
+      color: #042F2E !important;
+      font-weight: 800;
+      font-size: 1.025rem;
+    }
+
+    .hero-text-desc {
+      color: #064E3B !important;
+      font-weight: 600;
+    }
+
+    /* Footer link inside New Card */
+    .compare-new-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 18px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .compare-explore-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #34D399;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: gap 0.2s ease, color 0.2s ease;
+    }
+
+    .compare-explore-cta:hover {
+      color: #6EE7B7;
+      gap: 9px;
+    }
+
+    @media (max-width: 960px) {
+      .compare-container {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .compare-card {
+        padding: 28px 20px;
+      }
+      .compare-bento-grid {
+        grid-template-columns: 1fr;
+      }
+      .compare-stat-num {
+        font-size: 2.75rem;
+      }
+    }
+
     .section-features {
       padding: 88px 0 0 0;
       background: #FFFFFF;
@@ -2704,58 +2944,163 @@
     <section class="section-why" id="why-choose-us">
       <div class="container">
         <div class="section-header">
-          <span class="section-pill-badge">⚡ Why Choose Us</span>
+          <span class="section-pill-badge">✨ Why Vibodh Signal</span>
           <h2 class="section-title">Marketing Without the Marketing Overhead</h2>
           <p class="section-desc">Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.</p>
         </div>
 
         <!-- The Frustrating Old Way vs. The Simple Way Comparison -->
         <div class="compare-container">
-          <div class="compare-card">
+          <!-- Left Card: The Frustrating Old Way -->
+          <div class="compare-card compare-card-old">
+            <div class="compare-stat-row">
+              <span class="compare-stat-num old-num">8</span>
+              <div class="compare-stat-meta">
+                <span class="compare-stat-label">Apps, Tabs &amp; Subscriptions</span>
+                <span class="compare-stat-cost">~$350+/mo in scattered tools</span>
+              </div>
+            </div>
+
             <h3 class="compare-head-title">The Frustrating Old Way</h3>
             <p class="compare-head-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
-            <ul class="compare-list">
+
+            <div class="compare-divider"></div>
+
+            <ul class="compare-list compare-list-old">
               <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Constantly switching between 8 open tabs and separate subscriptions.</span>
+                <span class="icon-cross-pill" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </span>
+                <div class="compare-item-content">
+                  <strong>Constantly switching between 8 open tabs</strong>
+                  <span>Juggling separate subscriptions, logins, and disconnected workflows.</span>
+                </div>
               </li>
               <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Inconsistent colors and tone when different team members post.</span>
+                <span class="icon-cross-pill" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </span>
+                <div class="compare-item-content">
+                  <strong>Inconsistent brand colors &amp; tone</strong>
+                  <span>Mismatched hex codes, fonts, and drifting style when different team members post.</span>
+                </div>
               </li>
               <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Hours wasted manually resizing images for square, story, and banner formats.</span>
+                <span class="icon-cross-pill" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </span>
+                <div class="compare-item-content">
+                  <strong>Hours wasted manually resizing assets</strong>
+                  <span>Re-exporting and cropping square posts, vertical reels, and banners by hand.</span>
+                </div>
               </li>
               <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Paying multiple expensive software bills that add up fast each month.</span>
+                <span class="icon-cross-pill" aria-hidden="true">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </span>
+                <div class="compare-item-content">
+                  <strong>Paying multiple expensive software bills</strong>
+                  <span>Separate fees for copywriters, design tools, schedulers, and analytics add up fast.</span>
+                </div>
               </li>
             </ul>
           </div>
 
-          <div class="compare-card card-featured">
-            <span class="compare-featured-badge">The Simple Way</span>
-            <h3 class="compare-head-title">With Vibodh Signal</h3>
-            <p class="compare-head-sub">One unified app that handles writing, designing, scheduling, and results.</p>
-            <ul class="compare-list">
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>One easy login:</strong> Create posts, plan your calendar, and manage ads together.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>Brand colors locked in:</strong> Every post automatically uses your exact logo and colors.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>1 click, all formats:</strong> Instantly get square posts, vertical reels, and banners.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>Save 15&rarr; hours weekly:</strong> Plan an entire month of marketing in one afternoon.</span>
-              </li>
-            </ul>
+          <!-- Right Card: With Vibodh Signal -->
+          <div class="compare-card compare-card-new">
+            <!-- Floating Top Badge -->
+            <div class="compare-new-badge">
+              <span>✨ The Simple Way</span>
+            </div>
+
+            <div class="compare-stat-row">
+              <span class="compare-stat-num new-num">1</span>
+              <div class="compare-stat-meta">
+                <span class="compare-stat-label">Unified App For Everything</span>
+                <span class="compare-stat-tag">Zero Context Switching</span>
+              </div>
+            </div>
+
+            <h3 class="compare-head-title new-title">With Vibodh Signal</h3>
+            <p class="compare-head-sub new-sub">One unified app that handles writing, designing, scheduling, and results.</p>
+
+            <!-- 2x2 Bento Micro-Cards Grid -->
+            <div class="compare-bento-grid">
+              <!-- Tile 1 -->
+              <div class="compare-bento-tile">
+                <div class="bento-tile-icon icon-teal">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </div>
+                <h4 class="bento-tile-title">One easy login</h4>
+                <p class="bento-tile-desc">Create posts, plan your calendar, and manage ads together in one unified hub.</p>
+              </div>
+
+              <!-- Tile 2 -->
+              <div class="compare-bento-tile">
+                <div class="bento-tile-icon icon-cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path>
+                  </svg>
+                </div>
+                <h4 class="bento-tile-title">Brand colors locked in</h4>
+                <p class="bento-tile-desc">Every post automatically uses your exact brand logo, colors, and tone guidelines.</p>
+              </div>
+
+              <!-- Tile 3 -->
+              <div class="compare-bento-tile">
+                <div class="bento-tile-icon icon-indigo">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                    <line x1="8" y1="21" x2="16" y2="21"></line>
+                    <line x1="12" y1="17" x2="12" y2="21"></line>
+                  </svg>
+                </div>
+                <h4 class="bento-tile-title">1 click, all formats</h4>
+                <p class="bento-tile-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.</p>
+              </div>
+
+              <!-- Tile 4: Hero Highlight -->
+              <div class="compare-bento-tile bento-tile-hero">
+                <div class="bento-tile-icon icon-hero">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                </div>
+                <h4 class="bento-tile-title hero-text-title">Save 15+ hours weekly</h4>
+                <p class="bento-tile-desc hero-text-desc">Plan, create, and schedule an entire month of marketing in one afternoon.</p>
+              </div>
+            </div>
+
+            <!-- Footer Action inside New Card -->
+            <div class="compare-new-footer">
+              <a href="#key-features" onclick="switchLandingTab('key-features');" class="compare-explore-cta">
+                <span>Explore all Studio Features</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
       </div>
