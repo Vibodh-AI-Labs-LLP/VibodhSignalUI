@@ -763,19 +763,11 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us)
+       5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us) - MATCHING EXACT DESIGN
     ═══════════════════════════════════════════════════════════ */
     .section-why {
       padding: 88px 0;
-      background: var(--bg-page);
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us) - REDESIGNED
-    ═══════════════════════════════════════════════════════════ */
-    .section-why {
-      padding: 88px 0;
-      background: radial-gradient(circle at 50% 15%, rgba(238, 242, 255, 0.95) 0%, rgba(248, 250, 252, 0.4) 60%, var(--bg-page) 100%);
+      background: radial-gradient(circle at 50% 12%, rgba(238, 242, 255, 0.95) 0%, rgba(248, 250, 252, 0.4) 60%, var(--bg-page) 100%);
       position: relative;
       overflow: hidden;
     }
@@ -797,7 +789,7 @@
       background: #FFFFFF;
       border: 1px solid rgba(139, 92, 246, 0.22);
       border-radius: var(--radius-full);
-      padding: 6px 16px;
+      padding: 7px 18px;
       font-size: 0.8125rem;
       font-weight: 700;
       color: #4F46E5;
@@ -869,7 +861,7 @@
     /* Comparison Container Grid */
     .why-compare-container {
       display: grid;
-      grid-template-columns: 1fr 1.15fr;
+      grid-template-columns: 1fr 1.14fr;
       gap: 28px;
       align-items: stretch;
       position: relative;
@@ -878,7 +870,7 @@
     /* Center floating circle right arrow */
     .why-center-connector {
       position: absolute;
-      left: calc(46.5% - 22px);
+      left: calc(46.7% - 22px);
       top: 50%;
       transform: translateY(-50%);
       width: 44px;
@@ -892,26 +884,24 @@
       justify-content: center;
       z-index: 10;
       color: #6366F1;
-      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease;
     }
 
     .why-center-connector:hover {
-      transform: translateY(-50%) scale(1.1);
-      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.25);
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.28);
     }
 
     /* Base Card */
     .why-card {
       border-radius: 28px;
       position: relative;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     /* ═══════════════════════════════════════════════════════════
        LEFT CARD: THE FRUSTRATING OLD WAY
     ═══════════════════════════════════════════════════════════ */
     .why-card-old {
-      background: #FFFFFF;
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 86%, #FFF5F6 100%);
       border: 1px solid var(--border);
       box-shadow: 0 16px 40px -12px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
       padding: 34px 30px;
@@ -922,8 +912,8 @@
     .why-old-top-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 22px;
+      align-items: center;
+      margin-bottom: 20px;
       position: relative;
     }
 
@@ -931,11 +921,15 @@
       display: flex;
       align-items: center;
       gap: 12px;
+      background: linear-gradient(135deg, rgba(255, 241, 242, 0.85) 0%, rgba(254, 226, 226, 0.45) 100%);
+      border: 1px solid rgba(254, 205, 211, 0.55);
+      border-radius: 20px;
+      padding: 10px 16px;
     }
 
     .why-old-stat-number {
       font-family: var(--font-display);
-      font-size: 3.5rem;
+      font-size: 3.25rem;
       line-height: 1;
       font-weight: 900;
       color: #6366F1;
@@ -962,12 +956,24 @@
       color: #E11D48;
     }
 
+    /* Girl Photo Container */
     .why-old-illustration-wrap {
-      width: 140px;
-      height: 110px;
-      margin-top: -8px;
-      margin-right: -4px;
+      width: 195px;
+      height: 160px;
+      margin-top: -10px;
+      margin-right: -8px;
       flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .why-girl-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.08));
     }
 
     .why-old-head {
@@ -1040,7 +1046,7 @@
     .why-card-signal {
       background: linear-gradient(155deg, #0A0F2E 0%, #06091A 100%);
       border: 1px solid rgba(99, 102, 241, 0.25);
-      border-radius: 28px;
+      border-radius: 28px 44px 28px 28px;
       box-shadow: 0 24px 60px -12px rgba(10, 15, 46, 0.45), 0 0 40px rgba(99, 102, 241, 0.1);
       padding: 34px 30px;
       color: #FFFFFF;
@@ -1136,8 +1142,8 @@
     }
 
     .why-sol-card {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #141B3E;
+      border: 1px solid rgba(99, 102, 241, 0.25);
       border-radius: 18px;
       padding: 18px 16px;
       display: flex;
@@ -1146,15 +1152,15 @@
     }
 
     .why-sol-card:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(255, 255, 255, 0.16);
+      background: #1A2350;
+      border-color: rgba(99, 102, 241, 0.45);
       transform: translateY(-2px);
     }
 
     .why-sol-icon-wrap {
       width: 32px;
       height: 32px;
-      border-radius: 10px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1162,24 +1168,24 @@
     }
 
     .why-icon-user {
-      background: rgba(45, 212, 191, 0.16);
+      background: rgba(45, 212, 191, 0.2);
       color: #2DD4BF;
     }
 
     .why-icon-palette {
-      background: rgba(167, 139, 250, 0.16);
-      color: #A78BFA;
+      background: rgba(167, 139, 250, 0.2);
+      color: #C084FC;
     }
 
     .why-icon-screen {
-      background: rgba(56, 189, 248, 0.16);
+      background: rgba(56, 189, 248, 0.2);
       color: #38BDF8;
     }
 
     .why-sol-title {
       font-size: 0.9375rem;
       font-weight: 700;
-      color: #F8FAFC;
+      color: #FFFFFF;
       margin-bottom: 5px;
       line-height: 1.3;
     }
@@ -1255,78 +1261,145 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       SCROLL & LOAD ENTRANCE ANIMATIONS
+       HARDWARE-ACCELERATED ENTRANCE KEYFRAMES
     ═══════════════════════════════════════════════════════════ */
-    .section-why.animate-ready .why-card-old {
-      opacity: 0;
-      transform: translateX(-35px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    @keyframes whySlideLeftIn {
+      0% {
+        opacity: 0;
+        transform: translate3d(-50px, 0, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
     }
 
-    .section-why.animate-ready .why-card-signal {
-      opacity: 0;
-      transform: translateX(35px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+    @keyframes whySlideRightIn {
+      0% {
+        opacity: 0;
+        transform: translate3d(50px, 0, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
     }
 
-    .section-why.animate-ready .why-center-connector {
-      opacity: 0;
-      transform: translateY(-50%) scale(0.5);
-      transition: opacity 0.5s ease 0.3s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+    @keyframes whyPopCenterArrow {
+      0% {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.2);
+      }
+      70% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1.15);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+      }
     }
 
-    .section-why.animate-ready .why-pain-item {
-      opacity: 0;
-      transform: translateY(12px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+    @keyframes whyItemStaggerUp {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 16px, 0);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+      }
     }
-    .section-why.animate-ready .why-pain-item:nth-child(1) { transition-delay: 0.25s; }
-    .section-why.animate-ready .why-pain-item:nth-child(2) { transition-delay: 0.35s; }
-    .section-why.animate-ready .why-pain-item:nth-child(3) { transition-delay: 0.45s; }
-    .section-why.animate-ready .why-pain-item:nth-child(4) { transition-delay: 0.55s; }
 
-    .section-why.animate-ready .why-sol-card {
-      opacity: 0;
-      transform: translateY(14px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+    @keyframes whyHighlightPop {
+      0% {
+        opacity: 0;
+        transform: translate3d(0, 16px, 0) scale(0.95);
+        box-shadow: 0 0 0 rgba(52, 211, 153, 0);
+      }
+      70% {
+        transform: translate3d(0, 0, 0) scale(1.03);
+        box-shadow: 0 16px 36px rgba(52, 211, 153, 0.45);
+      }
+      100% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+        box-shadow: 0 12px 30px -6px rgba(52, 211, 153, 0.35);
+      }
     }
-    .section-why.animate-ready .why-sol-card:nth-child(1) { transition-delay: 0.35s; }
-    .section-why.animate-ready .why-sol-card:nth-child(2) { transition-delay: 0.45s; }
-    .section-why.animate-ready .why-sol-card:nth-child(3) { transition-delay: 0.55s; }
-    .section-why.animate-ready .why-sol-card:nth-child(4) { transition-delay: 0.65s; }
 
-    /* When triggered */
-    .section-why.animate-in .why-card-old,
+    @keyframes whyGirlEntrance {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(12px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Initial hidden state only when ready to animate AND not yet in view */
+    .section-why.animate-ready:not(.animate-in) .why-header-wrapper {
+      opacity: 0;
+      transform: translate3d(0, 24px, 0);
+    }
+
+    .section-why.animate-ready:not(.animate-in) .why-card-old {
+      opacity: 0;
+      transform: translate3d(-50px, 0, 0);
+    }
+
+    .section-why.animate-ready:not(.animate-in) .why-card-signal {
+      opacity: 0;
+      transform: translate3d(50px, 0, 0);
+    }
+
+    .section-why.animate-ready:not(.animate-in) .why-center-connector {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.2);
+    }
+
+    .section-why.animate-ready:not(.animate-in) .why-pain-item {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+
+    .section-why.animate-ready:not(.animate-in) .why-sol-card {
+      opacity: 0;
+      transform: translate3d(0, 16px, 0);
+    }
+
+    /* Triggered state */
+    .section-why.animate-in .why-header-wrapper {
+      animation: whyItemStaggerUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .section-why.animate-in .why-card-old {
+      animation: whySlideLeftIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.06s forwards;
+    }
+
     .section-why.animate-in .why-card-signal {
-      opacity: 1;
-      transform: translateX(0);
+      animation: whySlideRightIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    .section-why.animate-in .why-girl-img {
+      animation: whyGirlEntrance 0.65s cubic-bezier(0.34, 1.25, 0.64, 1) 0.18s backwards;
     }
 
     .section-why.animate-in .why-center-connector {
-      opacity: 1;
-      transform: translateY(-50%) scale(1);
+      animation: whyPopCenterArrow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.22s forwards;
     }
 
-    .section-why.animate-in .why-pain-item,
-    .section-why.animate-in .why-sol-card {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .section-why.animate-in .why-pain-item:nth-child(1) { animation: whyItemStaggerUp 0.4s ease 0.16s forwards; }
+    .section-why.animate-in .why-pain-item:nth-child(2) { animation: whyItemStaggerUp 0.4s ease 0.22s forwards; }
+    .section-why.animate-in .why-pain-item:nth-child(3) { animation: whyItemStaggerUp 0.4s ease 0.28s forwards; }
+    .section-why.animate-in .why-pain-item:nth-child(4) { animation: whyItemStaggerUp 0.4s ease 0.34s forwards; }
 
-    /* Floating illustration subtle animation */
-    .float-badge {
-      animation: floatBadgeItem 4s ease-in-out infinite alternate;
-    }
-    .float-badge-1 { animation-delay: 0s; }
-    .float-badge-2 { animation-delay: 0.8s; }
-    .float-badge-3 { animation-delay: 1.5s; }
-    .float-badge-4 { animation-delay: 2.2s; }
-    .float-badge-5 { animation-delay: 1.1s; }
-
-    @keyframes floatBadgeItem {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-3px); }
-    }
+    .section-why.animate-in .why-sol-card:nth-child(1) { animation: whyItemStaggerUp 0.4s ease 0.18s forwards; }
+    .section-why.animate-in .why-sol-card:nth-child(2) { animation: whyItemStaggerUp 0.4s ease 0.24s forwards; }
+    .section-why.animate-in .why-sol-card:nth-child(3) { animation: whyItemStaggerUp 0.4s ease 0.30s forwards; }
+    .section-why.animate-in .why-sol-card:nth-child(4) { animation: whyHighlightPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.36s forwards; }
 
     /* Responsive adjustments */
     @media (max-width: 991px) {
@@ -1353,8 +1426,12 @@
         margin: -16px auto;
         transform: rotate(90deg) !important;
       }
+      @keyframes whyPopCenterArrowMobile {
+        0% { opacity: 0; transform: rotate(90deg) scale(0.2); }
+        100% { opacity: 1; transform: rotate(90deg) scale(1); }
+      }
       .section-why.animate-in .why-center-connector {
-        transform: rotate(90deg) scale(1) !important;
+        animation: whyPopCenterArrowMobile 0.45s ease 0.15s forwards;
       }
     }
 
@@ -1376,11 +1453,7 @@
         font-size: 0.78rem;
       }
       .why-old-illustration-wrap {
-        width: 100px;
-        height: auto;
-      }
-      .why-old-illustration-wrap svg {
-        width: 100%;
+        width: 110px;
         height: auto;
       }
       .why-solution-grid {
@@ -1392,6 +1465,7 @@
       }
     }
 
+    
     .section-features {
       padding: 88px 0 0 0;
       background: #FFFFFF;
@@ -3664,98 +3738,9 @@
                 </div>
               </div>
               
-              <!-- Character SVG Illustration -->
+              <!-- Real Girl Photo from reference design -->
               <div class="why-old-illustration-wrap">
-                <svg width="156" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <!-- Desk Surface -->
-                  <path d="M10 112H150" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
-                  
-                  <!-- Floating App 1: Google G -->
-                  <g class="float-badge float-badge-1">
-                    <circle cx="26" cy="38" r="12" fill="#FFFFFF" filter="url(#drop-shadow-why)"/>
-                    <path d="M26 33C28.4 33 30.2 33.9 31.2 34.8L32.9 33.1C31.2 31.5 28.8 30.5 26 30.5C22 30.5 18.6 32.8 17.1 36.3L19.7 38.3C20.4 35.2 23 33 26 33Z" fill="#EA4335"/>
-                    <path d="M33.2 38.2C33.2 37.6 33.1 37 33 36.5H26V39.7H30.1C29.9 40.8 29.2 41.8 28.2 42.4L30.8 44.4C32.4 43 33.2 40.8 33.2 38.2Z" fill="#4285F4"/>
-                    <path d="M19.7 38.3C19.5 38.9 19.3 39.6 19.3 40.3C19.3 41 19.5 41.7 19.7 42.3L17.1 44.3C16.3 43.1 15.9 41.7 15.9 40.3C15.9 38.9 16.3 37.5 17.1 36.3L19.7 38.3Z" fill="#FBBC05"/>
-                    <path d="M26 46C28.8 46 31.1 45.1 32.8 43.6L30.2 41.6C29.2 42.3 27.9 42.8 26 42.8C23 42.8 20.4 40.6 19.7 37.5L17.1 39.5C18.6 43 22 46 26 46Z" fill="#34A853"/>
-                  </g>
-
-                  <!-- Floating App 2: Gmail Envelope -->
-                  <g class="float-badge float-badge-2">
-                    <rect x="114" y="20" width="22" height="17" rx="4" fill="#FFFFFF" filter="url(#drop-shadow-why)"/>
-                    <path d="M117 24L125 30L133 24M117 24V33H133V24M117 24H133" stroke="#EA4335" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
-                  </g>
-
-                  <!-- Floating App 3: Google Sheets -->
-                  <g class="float-badge float-badge-3">
-                    <rect x="128" y="45" width="20" height="22" rx="3.5" fill="#10B981" filter="url(#drop-shadow-why)"/>
-                    <rect x="132" y="50" width="12" height="12" rx="1.5" fill="#FFFFFF" fill-opacity="0.95"/>
-                    <line x1="132" y1="56" x2="144" y2="56" stroke="#10B981" stroke-width="1.3"/>
-                    <line x1="138" y1="50" x2="138" y2="62" stroke="#10B981" stroke-width="1.3"/>
-                  </g>
-
-                  <!-- Floating App 4: Calendar 31 -->
-                  <g class="float-badge float-badge-4">
-                    <rect x="116" y="74" width="21" height="20" rx="4" fill="#FFFFFF" filter="url(#drop-shadow-why)"/>
-                    <path d="M116 78C116 75.8 117.8 74 120 74H133C135.2 74 137 75.8 137 78V80H116V78Z" fill="#3B82F6"/>
-                    <text x="126.5" y="90" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" fill="#1E293B" text-anchor="middle">31</text>
-                  </g>
-
-                  <!-- Floating App 5: Chat Dots -->
-                  <g class="float-badge float-badge-5">
-                    <rect x="132" y="96" width="18" height="14" rx="5" fill="#E2E8F0" filter="url(#drop-shadow-why)"/>
-                    <circle cx="136.5" cy="103" r="1.3" fill="#64748B"/>
-                    <circle cx="141" cy="103" r="1.3" fill="#64748B"/>
-                    <circle cx="145.5" cy="103" r="1.3" fill="#64748B"/>
-                  </g>
-
-                  <!-- Stress Scribble Cloud above head -->
-                  <path class="stress-scribble" d="M50 28C46 23 52 17 61 20C64 14 76 13 81 19C88 15 96 21 92 27C98 31 95 39 87 38C84 43 73 44 68 40C61 43 51 38 54 32C48 30 48 26 50 28ZM59 23C64 28 77 22 83 28M61 34C68 27 79 33 85 27M57 29C64 32 73 25 80 34" stroke="#1E293B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
-
-                  <!-- Character: Purple Sweater Body -->
-                  <path d="M46 110C46 94 55 87 68 85L72 96L76 85C89 87 98 94 98 110H46Z" fill="#6B46C1"/>
-                  <path d="M68 85C68 85 70 91 72 91C74 91 76 85 76 85" stroke="#553C9A" stroke-width="1.6"/>
-
-                  <!-- Arms lifted to cheeks in distress -->
-                  <path d="M50 106C50 93 54 82 61 75" stroke="#6B46C1" stroke-width="9.5" stroke-linecap="round"/>
-                  <path d="M94 106C94 93 90 82 83 75" stroke="#6B46C1" stroke-width="9.5" stroke-linecap="round"/>
-
-                  <!-- Hands on cheeks -->
-                  <circle cx="60.5" cy="73.5" r="5.8" fill="#FBD38D"/>
-                  <circle cx="83.5" cy="73.5" r="5.8" fill="#FBD38D"/>
-
-                  <!-- Neck -->
-                  <rect x="67.5" y="77" width="9" height="11" fill="#FBD38D" rx="2.5"/>
-
-                  <!-- Head / Face -->
-                  <ellipse cx="72" cy="67" rx="14.5" ry="16.5" fill="#FBD38D"/>
-
-                  <!-- Hair Bun on top -->
-                  <ellipse cx="72" cy="38" rx="10" ry="9" fill="#3D2314"/>
-                  <!-- Hair Base & Sides framing face -->
-                  <path d="M56 64C55 48 62 42 72 42C82 42 89 48 88 64C88 54 84 49 72 49C60 49 56 54 56 64Z" fill="#3D2314"/>
-                  <path d="M56 56C58 60 59 69 59 73C57 69 56 64 56 56Z" fill="#3D2314"/>
-                  <path d="M88 56C86 60 85 69 85 73C87 69 88 64 88 56Z" fill="#3D2314"/>
-
-                  <!-- Worried Facial Features -->
-                  <path d="M63 58.5L69 61" stroke="#27160C" stroke-width="1.7" stroke-linecap="round"/>
-                  <path d="M81 58.5L75 61" stroke="#27160C" stroke-width="1.7" stroke-linecap="round"/>
-                  <ellipse cx="66" cy="65.5" rx="1.8" ry="2" fill="#27160C"/>
-                  <ellipse cx="78" cy="65.5" rx="1.8" ry="2" fill="#27160C"/>
-                  <path d="M67.5 73.5C69 72 70.5 74.5 72 73C73.5 71.5 75 74 76.5 72.5" stroke="#27160C" stroke-width="1.5" stroke-linecap="round"/>
-                  <path d="M85 60C85 60 87 62 87 63.8C87 65 86 66 84.8 66C83.6 66 82.6 65 82.6 63.8C82.6 62 85 60 85 60Z" fill="#60A5FA"/>
-
-                  <!-- Silver Laptop on Desk -->
-                  <path d="M38 98L49 84H95L106 98H38Z" fill="#CBD5E1"/>
-                  <rect x="51" y="85" width="42" height="12" rx="1.5" fill="#F8FAFC"/>
-                  <circle cx="72" cy="91" r="2.2" fill="#94A3B8"/>
-                  <path d="M32 98H112C114 98 115 99 114 100L110 102H34L30 100C29 99 30 98 32 98Z" fill="#94A3B8"/>
-
-                  <defs>
-                    <filter id="drop-shadow-why" x="0" y="0" width="160" height="140" filterUnits="userSpaceOnUse">
-                      <feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.1"/>
-                    </filter>
-                  </defs>
-                </svg>
+                <img src="why-girl-frustrated.png" alt="Stressed marketer handling 8 different apps" class="why-girl-img" />
               </div>
             </div>
 
@@ -4907,7 +4892,7 @@
         homeView.style.display = (tabKey === 'home') ? 'block' : 'none';
         if (tabKey === 'home') {
           const ws = document.getElementById('why-choose-us');
-          if (ws && !ws.classList.contains('animate-in')) ws.classList.add('animate-in');
+          if (ws) { const r = ws.getBoundingClientRect(); if (r.top <= (window.innerHeight || 800) * 0.82 && r.bottom >= 0) ws.classList.add('animate-in'); }
         }
       }
       if (featuresView) featuresView.style.display = (tabKey === 'key-features') ? 'block' : 'none';
@@ -5003,7 +4988,15 @@
         switchLandingTab('home', false, false);
         setTimeout(() => {
           const el = document.getElementById(targetId);
-          if (el) el.scrollIntoView({ behavior: 'smooth' });
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+            if (targetId === 'why-choose-us') {
+              setTimeout(() => {
+                const sec = document.getElementById('why-choose-us');
+                if (sec) sec.classList.add('animate-in');
+              }, 250);
+            }
+          }
         }, 80);
       });
     });
@@ -5413,29 +5406,58 @@
       initSignalMate();
     }
 
-    // 6. Why Vibodh Signal Entrance Animation (Observer & Load Trigger)
+    // 6. Why Vibodh Signal Entrance Animation (Scroll & View Trigger)
     function initWhyChooseAnimation() {
-      const whySection = document.getElementById('why-choose-us');
-      if (!whySection) return;
+      const section = document.getElementById('why-choose-us');
+      if (!section) return;
 
-      whySection.classList.add('animate-ready');
+      section.classList.add('animate-ready');
 
+      function evaluateScroll() {
+        const rect = section.getBoundingClientRect();
+        const vh = window.innerHeight || document.documentElement.clientHeight || 800;
+
+        // Trigger immediately once the top of the section enters anywhere in the viewport,
+        // and while the section remains partially on screen
+        const inView = (rect.top <= vh && rect.bottom >= 60);
+
+        if (inView) {
+          if (!section.classList.contains('animate-in')) {
+            section.classList.add('animate-in');
+          }
+        } else {
+          // Reset when scrolled well away so user can re-trigger the smooth entrance
+          if (rect.top > vh * 1.15 || rect.bottom < -120) {
+            section.classList.remove('animate-in');
+          }
+        }
+      }
+
+      // Hybrid trigger: IntersectionObserver + Scroll Listener for 100% responsiveness
       if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries, obs) => {
+        const observer = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              whySection.classList.add('animate-in');
-              obs.unobserve(entry.target);
+              section.classList.add('animate-in');
+            } else if (entry.boundingClientRect.top > (window.innerHeight || 800) * 1.15) {
+              section.classList.remove('animate-in');
             }
           });
         }, {
-          threshold: 0.15,
-          rootMargin: '0px 0px -40px 0px'
+          threshold: [0, 0.05, 0.15],
+          rootMargin: '30px 0px 0px 0px'
         });
-        observer.observe(whySection);
-      } else {
-        whySection.classList.add('animate-in');
+        observer.observe(section);
       }
+
+      window.addEventListener('scroll', evaluateScroll, { passive: true });
+      window.addEventListener('resize', evaluateScroll, { passive: true });
+
+      // Run on startup and subsequent frames for dynamic loads
+      evaluateScroll();
+      setTimeout(evaluateScroll, 60);
+      setTimeout(evaluateScroll, 200);
+      setTimeout(evaluateScroll, 500);
     }
 
     if (document.readyState === 'loading') {
@@ -5443,7 +5465,6 @@
     } else {
       initWhyChooseAnimation();
     }
-
   </script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
