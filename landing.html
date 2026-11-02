@@ -310,6 +310,16 @@
     }
 
     /* Active Section Indicator */
+    /* Landing Tab Views */
+    .landing-tab-view {
+      width: 100%;
+      animation: fadeInLandingTab 0.22s ease-in-out;
+    }
+    @keyframes fadeInLandingTab {
+      from { opacity: 0.2; transform: translateY(3px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .nav-anchor-link.is-active {
       background: var(--teal);
       color: #FFFFFF;
@@ -1912,36 +1922,26 @@
     <div class="container">
       <nav class="navbar" aria-label="Main Navigation">
         <!-- Logo -->
-        <a href="landing.html" class="brand-logo" aria-label="Vibodh Signal Home">
+        <a href="landing.html#home" class="brand-logo" aria-label="Vibodh Signal Home" onclick="switchLandingTab('home'); return false;">
           <img src="assets/vibodh-signal-logo-header.png" alt="Vibodh Signal" class="brand-logo-img">
           <div class="brand-by-vibodhai">By <span>VibodhAI</span></div>
         </a>
 
-        <!-- 5 Sticky Section Anchor Links (Center) -->
+        <!-- Tabs (Center): Key features, Resources, Plans and pricing -->
         <ul class="nav-section-links" id="desktop-nav">
           <li>
-            <a href="#studio-preview" class="nav-anchor-link" data-target="studio-preview">
-              <span>🎨 Studio Preview</span>
+            <a href="#key-features" class="nav-anchor-link" data-tab="key-features">
+              <span>Key features</span>
             </a>
           </li>
           <li>
-            <a href="#why-choose-us" class="nav-anchor-link" data-target="why-choose-us">
-              <span>⚡ Why Choose Us</span>
+            <a href="#resources" class="nav-anchor-link" data-tab="resources">
+              <span>Resources</span>
             </a>
           </li>
           <li>
-            <a href="#key-features" class="nav-anchor-link" data-target="key-features">
-              <span>🚀 Key Features</span>
-            </a>
-          </li>
-          <li>
-            <a href="#how-it-works" class="nav-anchor-link" data-target="how-it-works">
-              <span>🛠️ How It Works</span>
-            </a>
-          </li>
-          <li>
-            <a href="#plans-pricing" class="nav-anchor-link" data-target="plans-pricing">
-              <span>💳 Plans &amp; Pricing</span>
+            <a href="#plans-pricing" class="nav-anchor-link" data-tab="plans-pricing">
+              <span>Plans and pricing</span>
             </a>
           </li>
         </ul>
@@ -1961,20 +1961,14 @@
 
     <!-- Mobile Drawer -->
     <div class="mobile-nav-drawer" id="mobile-nav-drawer">
-      <a href="#studio-preview" class="mobile-nav-link" data-target="studio-preview">
-        <span>🎨 Studio Preview</span>
+      <a href="#key-features" class="mobile-nav-link" data-tab="key-features">
+        <span>Key features</span>
       </a>
-      <a href="#why-choose-us" class="mobile-nav-link" data-target="why-choose-us">
-        <span>⚡ Why Choose Us</span>
+      <a href="#resources" class="mobile-nav-link" data-tab="resources">
+        <span>Resources</span>
       </a>
-      <a href="#key-features" class="mobile-nav-link" data-target="key-features">
-        <span>🚀 Key Features</span>
-      </a>
-      <a href="#how-it-works" class="mobile-nav-link" data-target="how-it-works">
-        <span>🛠️ How It Works</span>
-      </a>
-      <a href="#plans-pricing" class="mobile-nav-link" data-target="plans-pricing">
-        <span>💳 Plans &amp; Pricing</span>
+      <a href="#plans-pricing" class="mobile-nav-link" data-tab="plans-pricing">
+        <span>Plans and pricing</span>
       </a>
       <div style="padding-top:10px;">
         <a href="dashboard.html" class="btn btn-teal" style="width:100%;">
@@ -1985,6 +1979,11 @@
   </header>
 
   <main>
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB VIEW 1: MAIN LANDING PAGE (HOME)
+         (Hero, Studio Preview, Why Choose Us, How It Works, Final CTA)
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="tab-home" class="landing-tab-view">
     <!-- ═══════════════════════════════════════════════════════════
          STEP 1: HERO SECTION
     ═══════════════════════════════════════════════════════════ -->
@@ -2214,9 +2213,153 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════
+         STEP 6: 🛠️ HOW IT WORKS (#how-it-works)
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-steps" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-pill-badge">🛠️ How It Works</span>
+          <h2 class="section-title">From Idea to Published Campaign</h2>
+          <p class="section-desc">A connected four-step workflow that takes your business from raw idea to published multi-channel marketing in minutes.</p>
+        </div>
+
+        <div class="steps-container">
+          <!-- Step 1: Tell Us Your Idea -->
+          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="1">
+            <div class="flip-step-inner">
+              <!-- Front Face: Image with Heading directly underneath -->
+              <div class="flip-step-front">
+                <div class="flip-step-img-wrap">
+                  <img src="assets/how-it-works-step-1.png" alt="Tell Us Your Idea visual">
+                </div>
+                <div class="flip-step-front-overlay">
+                  <span class="flip-front-badge">Step 01</span>
+                  <h3 class="flip-front-title">Tell Us Your Idea</h3>
+                  <span class="flip-prompt-hint">Click to view details &curarr;</span>
+                </div>
+              </div>
+              <!-- Back Face: Flipped Details -->
+              <div class="flip-step-back">
+                <div class="flip-back-step-num">01</div>
+                <h3 class="flip-back-title">Tell Us Your Idea</h3>
+                <p class="flip-back-desc">Provide your business, campaign goal, product name or marketing idea in simple words. Our AI understands your objectives without complicated prompts.</p>
+                <span class="flip-back-pill">💡 Share Your Idea</span>
+                <span class="flip-back-return-hint">&cularr; Click to flip back</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Create Your Content -->
+          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="2">
+            <div class="flip-step-inner">
+              <!-- Front Face -->
+              <div class="flip-step-front">
+                <div class="flip-step-img-wrap">
+                  <img src="assets/how-it-works-step-2.png" alt="Create Your Content visual">
+                </div>
+                <div class="flip-step-front-overlay">
+                  <span class="flip-front-badge" style="background:var(--purple-light); color:var(--purple);">Step 02</span>
+                  <h3 class="flip-front-title">Create Your Content</h3>
+                  <span class="flip-prompt-hint" style="color:var(--purple);">Click to view details &curarr;</span>
+                </div>
+              </div>
+              <!-- Back Face -->
+              <div class="flip-step-back" style="background:radial-gradient(circle at 50% 0%, #FAF5FF 0%, #FFFFFF 70%);">
+                <div class="flip-back-step-num" style="background:var(--purple-light); color:var(--purple);">02</div>
+                <h3 class="flip-back-title">Create Your Content</h3>
+                <p class="flip-back-desc">Our intelligent assistant generates multiple formats &mdash; square posts, video reels, captions, and targeted hashtags tailored to your audience.</p>
+                <span class="flip-back-pill" style="color:var(--purple);">✨ Generate with AI</span>
+                <span class="flip-back-return-hint" style="color:var(--purple);">&cularr; Click to flip back</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Review & Customize -->
+          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="3">
+            <div class="flip-step-inner">
+              <!-- Front Face -->
+              <div class="flip-step-front">
+                <div class="flip-step-img-wrap">
+                  <img src="assets/how-it-works-step-3.png" alt="Review and Customize visual">
+                </div>
+                <div class="flip-step-front-overlay">
+                  <span class="flip-front-badge" style="background:#E6F7F5; color:#0F9D8A;">Step 03</span>
+                  <h3 class="flip-front-title">Review &amp; Customize</h3>
+                  <span class="flip-prompt-hint">Click to view details &curarr;</span>
+                </div>
+              </div>
+              <!-- Back Face -->
+              <div class="flip-step-back">
+                <div class="flip-back-step-num">03</div>
+                <h3 class="flip-back-title">Review &amp; Customize</h3>
+                <p class="flip-back-desc">Adjust tone, visuals and branding in seconds so every piece of content matches your brand colors, fonts, and style guidelines perfectly.</p>
+                <span class="flip-back-pill" style="color:#0F9D8A;">🎨 Edit &amp; Perfect</span>
+                <span class="flip-back-return-hint">&cularr; Click to flip back</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 4: Publish & Measure -->
+          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="4">
+            <div class="flip-step-inner">
+              <!-- Front Face -->
+              <div class="flip-step-front">
+                <div class="flip-step-img-wrap">
+                  <img src="assets/how-it-works-step-4.png" alt="Publish and Measure visual">
+                </div>
+                <div class="flip-step-front-overlay">
+                  <span class="flip-front-badge" style="background:var(--orange-light); color:var(--orange);">Step 04</span>
+                  <h3 class="flip-front-title">Publish &amp; Measure</h3>
+                  <span class="flip-prompt-hint" style="color:var(--orange);">Click to view details &curarr;</span>
+                </div>
+              </div>
+              <!-- Back Face -->
+              <div class="flip-step-back" style="background:radial-gradient(circle at 50% 0%, #FFF7ED 0%, #FFFFFF 70%);">
+                <div class="flip-back-step-num" style="background:var(--orange-light); color:var(--orange);">04</div>
+                <h3 class="flip-back-title">Publish &amp; Measure</h3>
+                <p class="flip-back-desc">Schedule your content, track engagement performance and get actionable insights to reach more people and grow your business faster.</p>
+                <span class="flip-back-pill" style="color:var(--orange);">📈 Track Your Growth</span>
+                <span class="flip-back-return-hint" style="color:var(--orange);">&cularr; Click to flip back</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         STEP 8: FINAL CTA SECTION
+    ═══════════════════════════════════════════════════════════ -->
+    <section class="section-final-cta">
+      <div class="container">
+        <div class="final-cta-container">
+          <h2 class="final-cta-title">Ready to Make Marketing Simpler?</h2>
+          <p class="final-cta-desc">
+            Bring your next marketing idea to Vibodh Signal and turn it into content your audience can see, engage with and remember.
+          </p>
+
+          <div class="final-cta-btn-group">
+            <a href="dashboard.html" class="btn btn-teal" style="font-size:1.0625rem; padding:15px 34px;">
+              <span>Get Started</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <a href="#plans-pricing" class="btn btn-outline" style="background:rgba(255,255,255,0.1); color:#ffffff; border-color:rgba(255,255,255,0.3); font-size:1.0625rem; padding:15px 30px;">
+              <span>View Plans</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB VIEW 2: KEY FEATURES TAB
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="tab-key-features" class="landing-tab-view" style="display: none;">
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 4: 🚀 KEY FEATURES (#key-features)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-features" id="key-features">
+    <section class="section-features" id="key-features" style="padding-top: 110px; padding-bottom: 88px;">
       <div class="container">
         <div class="section-header">
           <span class="section-pill-badge">🚀 Key Features</span>
@@ -2628,126 +2771,27 @@
       </div>
     </div>
   </section>
+    </div>
 
     <!-- ═══════════════════════════════════════════════════════════
-         STEP 6: 🛠️ HOW IT WORKS (#how-it-works)
+         TAB VIEW 3: RESOURCES TAB (Blank as requested)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-steps" id="how-it-works">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge">🛠️ How It Works</span>
-          <h2 class="section-title">From Idea to Published Campaign</h2>
-          <p class="section-desc">A connected four-step workflow that takes your business from raw idea to published multi-channel marketing in minutes.</p>
+    <div id="tab-resources" class="landing-tab-view" style="display: none;">
+      <section class="section-resources" style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
+        <div class="container">
+          <!-- Resources content intentionally blank as requested -->
         </div>
-
-        <div class="steps-container">
-          <!-- Step 1: Tell Us Your Idea -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="1">
-            <div class="flip-step-inner">
-              <!-- Front Face: Image with Heading directly underneath -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-1.png" alt="Tell Us Your Idea visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge">Step 01</span>
-                  <h3 class="flip-front-title">Tell Us Your Idea</h3>
-                  <span class="flip-prompt-hint">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face: Flipped Details -->
-              <div class="flip-step-back">
-                <div class="flip-back-step-num">01</div>
-                <h3 class="flip-back-title">Tell Us Your Idea</h3>
-                <p class="flip-back-desc">Provide your business, campaign goal, product name or marketing idea in simple words. Our AI understands your objectives without complicated prompts.</p>
-                <span class="flip-back-pill">💡 Share Your Idea</span>
-                <span class="flip-back-return-hint">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 2: Create Your Content -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="2">
-            <div class="flip-step-inner">
-              <!-- Front Face -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-2.png" alt="Create Your Content visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge" style="background:var(--purple-light); color:var(--purple);">Step 02</span>
-                  <h3 class="flip-front-title">Create Your Content</h3>
-                  <span class="flip-prompt-hint" style="color:var(--purple);">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face -->
-              <div class="flip-step-back" style="background:radial-gradient(circle at 50% 0%, #FAF5FF 0%, #FFFFFF 70%);">
-                <div class="flip-back-step-num" style="background:var(--purple-light); color:var(--purple);">02</div>
-                <h3 class="flip-back-title">Create Your Content</h3>
-                <p class="flip-back-desc">Our intelligent assistant generates multiple formats &mdash; square posts, video reels, captions, and targeted hashtags tailored to your audience.</p>
-                <span class="flip-back-pill" style="color:var(--purple);">✨ Generate with AI</span>
-                <span class="flip-back-return-hint" style="color:var(--purple);">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3: Review & Customize -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="3">
-            <div class="flip-step-inner">
-              <!-- Front Face -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-3.png" alt="Review and Customize visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge" style="background:#E6F7F5; color:#0F9D8A;">Step 03</span>
-                  <h3 class="flip-front-title">Review &amp; Customize</h3>
-                  <span class="flip-prompt-hint">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face -->
-              <div class="flip-step-back">
-                <div class="flip-back-step-num">03</div>
-                <h3 class="flip-back-title">Review &amp; Customize</h3>
-                <p class="flip-back-desc">Adjust tone, visuals and branding in seconds so every piece of content matches your brand colors, fonts, and style guidelines perfectly.</p>
-                <span class="flip-back-pill" style="color:#0F9D8A;">🎨 Edit &amp; Perfect</span>
-                <span class="flip-back-return-hint">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 4: Publish & Measure -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="4">
-            <div class="flip-step-inner">
-              <!-- Front Face -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-4.png" alt="Publish and Measure visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge" style="background:var(--orange-light); color:var(--orange);">Step 04</span>
-                  <h3 class="flip-front-title">Publish &amp; Measure</h3>
-                  <span class="flip-prompt-hint" style="color:var(--orange);">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face -->
-              <div class="flip-step-back" style="background:radial-gradient(circle at 50% 0%, #FFF7ED 0%, #FFFFFF 70%);">
-                <div class="flip-back-step-num" style="background:var(--orange-light); color:var(--orange);">04</div>
-                <h3 class="flip-back-title">Publish &amp; Measure</h3>
-                <p class="flip-back-desc">Schedule your content, track engagement performance and get actionable insights to reach more people and grow your business faster.</p>
-                <span class="flip-back-pill" style="color:var(--orange);">📈 Track Your Growth</span>
-                <span class="flip-back-return-hint" style="color:var(--orange);">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- ═══════════════════════════════════════════════════════════
+         TAB VIEW 4: PLANS AND PRICING TAB
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="tab-plans-pricing" class="landing-tab-view" style="display: none;">
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 7: 💳 PLANS & PRICING (#plans-pricing)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-pricing" id="plans-pricing">
+    <section class="section-pricing" id="plans-pricing" style="padding-top: 110px; padding-bottom: 88px;">
       <div class="container">
         <div class="section-header">
           <span class="section-pill-badge">💳 Plans &amp; Pricing</span>
@@ -2874,30 +2918,7 @@
         </div>
       </div>
     </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
-         STEP 8: FINAL CTA SECTION
-    ═══════════════════════════════════════════════════════════ -->
-    <section class="section-final-cta">
-      <div class="container">
-        <div class="final-cta-container">
-          <h2 class="final-cta-title">Ready to Make Marketing Simpler?</h2>
-          <p class="final-cta-desc">
-            Bring your next marketing idea to Vibodh Signal and turn it into content your audience can see, engage with and remember.
-          </p>
-
-          <div class="final-cta-btn-group">
-            <a href="dashboard.html" class="btn btn-teal" style="font-size:1.0625rem; padding:15px 34px;">
-              <span>Get Started</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-            <a href="#plans-pricing" class="btn btn-outline" style="background:rgba(255,255,255,0.1); color:#ffffff; border-color:rgba(255,255,255,0.3); font-size:1.0625rem; padding:15px 30px;">
-              <span>View Plans</span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -2979,48 +3000,111 @@
       });
     }
 
-    // 3. ScrollSpy: Automatically highlight visible section in sticky navigation
-    const sections = [
-      document.getElementById('studio-preview'),
-      document.getElementById('why-choose-us'),
-      document.getElementById('key-features'),
-      document.getElementById('how-it-works'),
-      document.getElementById('plans-pricing')
-    ].filter(Boolean);
+    // 3. Landing Page Tabs Manager (Key features, Resources, Plans and pricing, Home)
+    function switchLandingTab(tabKey, updateHash = true, shouldScroll = true) {
+      const validTabs = ['home', 'key-features', 'resources', 'plans-pricing'];
+      if (!validTabs.includes(tabKey)) tabKey = 'home';
 
-    const navLinks = document.querySelectorAll('.nav-anchor-link, .mobile-nav-link');
+      const homeView = document.getElementById('tab-home');
+      const featuresView = document.getElementById('tab-key-features');
+      const resourcesView = document.getElementById('tab-resources');
+      const pricingView = document.getElementById('tab-plans-pricing');
 
-    function updateActiveNav() {
-      const scrollPos = window.scrollY + 120;
-      let currentSectionId = '';
+      if (homeView) homeView.style.display = (tabKey === 'home') ? 'block' : 'none';
+      if (featuresView) featuresView.style.display = (tabKey === 'key-features') ? 'block' : 'none';
+      if (resourcesView) resourcesView.style.display = (tabKey === 'resources') ? 'block' : 'none';
+      if (pricingView) pricingView.style.display = (tabKey === 'plans-pricing') ? 'block' : 'none';
 
-      sections.forEach(section => {
-        const top = section.offsetTop;
-        const height = section.offsetHeight;
-        if (scrollPos >= top && scrollPos < top + height) {
-          currentSectionId = section.id;
-        }
-      });
-
-      // If inside signature-workflow or key-features, ensure key-features is active
-      if (currentSectionId === 'signature-workflow') {
-        currentSectionId = 'key-features';
-      }
-
-      // If at bottom of page, activate last item
-      if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
-        currentSectionId = 'plans-pricing';
-      }
-
+      // Update active state on navigation tabs
+      const navLinks = document.querySelectorAll('.nav-anchor-link, .mobile-nav-link');
       navLinks.forEach(link => {
-        const target = link.getAttribute('data-target');
-        const isActive = target === currentSectionId;
+        const target = link.getAttribute('data-tab') || (link.getAttribute('href') || '').replace('#', '');
+        const isActive = (target === tabKey);
         link.classList.toggle('is-active', isActive);
       });
+
+      // Close mobile drawer if open
+      const mobileDrawer = document.getElementById('mobile-nav-drawer');
+      if (mobileDrawer) mobileDrawer.classList.remove('is-open');
+
+      if (shouldScroll) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      if (updateHash) {
+        if (tabKey === 'home') {
+          if (window.location.hash && window.location.hash !== '') {
+            history.pushState(null, '', window.location.pathname + window.location.search);
+          }
+        } else {
+          if (window.location.hash !== '#' + tabKey) {
+            history.pushState(null, '', '#' + tabKey);
+          }
+        }
+      }
+
+      // Re-trigger particle canvas resize when returning to home view
+      if (tabKey === 'home') {
+        window.dispatchEvent(new Event('resize'));
+      }
+    }
+    window.switchLandingTab = switchLandingTab;
+
+    function handleLandingHash() {
+      const hash = (window.location.hash || '').replace('#', '').toLowerCase();
+      if (hash === 'key-features' || hash === 'features') {
+        switchLandingTab('key-features', false, true);
+      } else if (hash === 'resources') {
+        switchLandingTab('resources', false, true);
+      } else if (hash === 'plans-pricing' || hash === 'pricing' || hash === 'plans') {
+        switchLandingTab('plans-pricing', false, true);
+      } else if (hash === 'studio-preview' || hash === 'why-choose-us' || hash === 'how-it-works') {
+        switchLandingTab('home', false, false);
+        setTimeout(() => {
+          const el = document.getElementById(hash);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      } else {
+        switchLandingTab('home', false, false);
+      }
     }
 
-    window.addEventListener('scroll', updateActiveNav, { passive: true });
-    window.addEventListener('load', updateActiveNav);
+    window.addEventListener('hashchange', handleLandingHash);
+    document.addEventListener('DOMContentLoaded', handleLandingHash);
+
+    // Click handler for tab links in navigation
+    document.querySelectorAll('.nav-anchor-link, .mobile-nav-link').forEach(link => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const tabKey = href.replace('#', '');
+          switchLandingTab(tabKey, true, true);
+        }
+      });
+    });
+
+    // Also support any internal links pointing to #plans-pricing or #key-features (e.g. CTA buttons and footer links)
+    document.querySelectorAll('a[href="#plans-pricing"], a[href="#key-features"], a[href="#resources"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tabKey = link.getAttribute('href').replace('#', '');
+        switchLandingTab(tabKey, true, true);
+      });
+    });
+
+    // Support footer links back to home sections
+    document.querySelectorAll('a[href="#studio-preview"], a[href="#why-choose-us"], a[href="#how-it-works"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').replace('#', '');
+        switchLandingTab('home', false, false);
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
+      });
+    });
 
     // 4. Billing Cycle Switcher (Monthly, Quarterly, Annual)
     const PRICING_DATA = {
