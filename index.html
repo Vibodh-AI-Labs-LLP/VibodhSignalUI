@@ -2878,6 +2878,11 @@
               <span>Plans and pricing</span>
             </a>
           </li>
+          <li>
+            <a href="#faqs" class="nav-anchor-link" data-tab="faqs">
+              <span>FAQs</span>
+            </a>
+          </li>
         </ul>
 
         <!-- Right Action Button & Mobile Toggle -->
@@ -2903,6 +2908,9 @@
       </a>
       <a href="#plans-pricing" class="mobile-nav-link" data-tab="plans-pricing">
         <span>Plans and pricing</span>
+      </a>
+      <a href="#faqs" class="mobile-nav-link" data-tab="faqs">
+        <span>FAQs</span>
       </a>
       <div style="padding-top:10px;">
         <a href="dashboard.html" class="btn btn-teal" style="width:100%;">
@@ -3985,8 +3993,8 @@
               <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5&rarr;</strong> brands (Custom)</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20&rarr;</strong> social profiles</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>100&rarr; posts / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800&rarr;</strong> AI credits / month (Custom)</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5&rarr; team members &rarr; Advanced workflows</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800+</strong> AI credits / month (Custom)</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5+ team members + Advanced workflows</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Multi-client ad management</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Dedicated account manager</span></li>
             </ul>
@@ -3994,6 +4002,17 @@
         </div>
       </div>
     </section>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         TAB VIEW 5: FAQS TAB (Blank as requested)
+    ═══════════════════════════════════════════════════════════ -->
+    <div id="tab-faqs" class="landing-tab-view" style="display: none;">
+      <section class="section-faqs" style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
+        <div class="container">
+          <!-- FAQs content intentionally blank as requested -->
+        </div>
+      </section>
     </div>
   </main>
 
@@ -4078,18 +4097,20 @@
 
     // 3. Landing Page Tabs Manager (Key features, Resources, Plans and pricing, Home)
     function switchLandingTab(tabKey, updateHash = true, shouldScroll = true) {
-      const validTabs = ['home', 'key-features', 'resources', 'plans-pricing'];
+      const validTabs = ['home', 'key-features', 'resources', 'plans-pricing', 'faqs'];
       if (!validTabs.includes(tabKey)) tabKey = 'home';
 
       const homeView = document.getElementById('tab-home');
       const featuresView = document.getElementById('tab-key-features');
       const resourcesView = document.getElementById('tab-resources');
       const pricingView = document.getElementById('tab-plans-pricing');
+      const faqsView = document.getElementById('tab-faqs');
 
       if (homeView) homeView.style.display = (tabKey === 'home') ? 'block' : 'none';
       if (featuresView) featuresView.style.display = (tabKey === 'key-features') ? 'block' : 'none';
       if (resourcesView) resourcesView.style.display = (tabKey === 'resources') ? 'block' : 'none';
       if (pricingView) pricingView.style.display = (tabKey === 'plans-pricing') ? 'block' : 'none';
+      if (faqsView) faqsView.style.display = (tabKey === 'faqs') ? 'block' : 'none';
 
       // Update active state on navigation tabs
       const navLinks = document.querySelectorAll('.nav-anchor-link, .mobile-nav-link');
@@ -4134,6 +4155,8 @@
         switchLandingTab('resources', false, true);
       } else if (hash === 'plans-pricing' || hash === 'pricing' || hash === 'plans') {
         switchLandingTab('plans-pricing', false, true);
+      } else if (hash === 'faqs' || hash === 'faq') {
+        switchLandingTab('faqs', false, true);
       } else if (hash === 'studio-preview' || hash === 'why-choose-us' || hash === 'how-it-works') {
         switchLandingTab('home', false, false);
         setTimeout(() => {
@@ -4161,7 +4184,7 @@
     });
 
     // Also support any internal links pointing to #plans-pricing or #key-features (e.g. CTA buttons and footer links)
-    document.querySelectorAll('a[href="#plans-pricing"], a[href="#key-features"], a[href="#resources"]').forEach(link => {
+    document.querySelectorAll('a[href="#plans-pricing"], a[href="#key-features"], a[href="#resources"], a[href="#faqs"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const tabKey = link.getAttribute('href').replace('#', '');
