@@ -770,99 +770,626 @@
       background: var(--bg-page);
     }
 
-    /* Comparison Box (Old vs New) */
-    .compare-container {
-      display: grid;
-      grid-template-columns: 1fr 1.08fr;
-      gap: 24px;
-      margin-top: 0;
+    /* ═══════════════════════════════════════════════════════════
+       5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us) - REDESIGNED
+    ═══════════════════════════════════════════════════════════ */
+    .section-why {
+      padding: 88px 0;
+      background: radial-gradient(circle at 50% 15%, rgba(238, 242, 255, 0.95) 0%, rgba(248, 250, 252, 0.4) 60%, var(--bg-page) 100%);
+      position: relative;
+      overflow: hidden;
     }
 
-    .compare-card {
+    .why-header-wrapper {
+      position: relative;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    /* Floating top-right badge: "✦ The Simple Way" */
+    .why-simple-way-badge {
+      position: absolute;
+      top: 0;
+      right: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       background: #FFFFFF;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 32px 28px;
-      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(139, 92, 246, 0.22);
+      border-radius: var(--radius-full);
+      padding: 6px 16px;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #4F46E5;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.08);
+      animation: floatBadge 4s ease-in-out infinite alternate;
+      z-index: 2;
     }
 
-    .compare-card.card-featured {
-      border: 2px solid var(--teal);
-      box-shadow: 0 10px 30px rgba(15, 157, 138, 0.12);
+    .why-simple-way-badge .sparkle-icon {
+      color: #F59E0B;
+      font-size: 0.875rem;
+    }
+
+    @keyframes floatBadge {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+
+    /* Slanted accent dashes left of title */
+    .why-title-container {
+      display: inline-block;
       position: relative;
     }
 
-    .compare-featured-badge {
+    .why-accent-dashes {
       position: absolute;
-      top: -12px;
-      right: 24px;
-      background: var(--teal);
-      color: #FFFFFF;
-      font-size: 0.6875rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: var(--radius-full);
-      letter-spacing: 0.05em;
-    }
-
-    .compare-head-title {
-      font-family: var(--font-display);
-      font-size: 1.375rem;
-      font-weight: 800;
-      color: var(--indigo-dark);
-      margin-bottom: 8px;
-    }
-
-    .compare-head-sub {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 20px;
-    }
-
-    .compare-list {
-      list-style: none;
+      top: -14px;
+      left: -28px;
       display: flex;
       flex-direction: column;
+      gap: 4px;
+      transform: rotate(-15deg);
+    }
+
+    .why-accent-dashes span {
+      display: block;
+      height: 3.5px;
+      border-radius: var(--radius-full);
+      background: #6366F1;
+    }
+    .why-accent-dashes span:nth-child(1) { width: 14px; }
+    .why-accent-dashes span:nth-child(2) { width: 22px; transform: translateX(4px); }
+
+    .why-section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: #1E1B4B;
+      margin-bottom: 14px;
+    }
+
+    .why-title-gradient {
+      background: linear-gradient(135deg, #3730A3 0%, #4F46E5 50%, #7C3AED 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .why-section-desc {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto;
+      line-height: 1.55;
+    }
+
+    /* Comparison Container Grid */
+    .why-compare-container {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 28px;
+      align-items: stretch;
+      position: relative;
+    }
+
+    /* Center floating circle right arrow */
+    .why-center-connector {
+      position: absolute;
+      left: calc(46.5% - 22px);
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.16), 0 2px 6px rgba(0, 0, 0, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      color: #6366F1;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+    }
+
+    .why-center-connector:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Base Card */
+    .why-card {
+      border-radius: 28px;
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       LEFT CARD: THE FRUSTRATING OLD WAY
+    ═══════════════════════════════════════════════════════════ */
+    .why-card-old {
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      box-shadow: 0 16px 40px -12px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+      padding: 34px 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .why-old-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .why-old-stat-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .why-old-stat-number {
+      font-family: var(--font-display);
+      font-size: 3.5rem;
+      line-height: 1;
+      font-weight: 900;
+      color: #6366F1;
+      letter-spacing: -0.04em;
+    }
+
+    .why-old-stat-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .why-old-stat-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #475569;
+    }
+
+    .why-old-stat-cost {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #E11D48;
+    }
+
+    .why-old-illustration-wrap {
+      width: 140px;
+      height: 110px;
+      margin-top: -8px;
+      margin-right: -4px;
+      flex-shrink: 0;
+    }
+
+    .why-old-head {
+      margin-bottom: 22px;
+    }
+
+    .why-old-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--dark-navy);
+      letter-spacing: -0.015em;
+      margin-bottom: 5px;
+    }
+
+    .why-old-sub {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      line-height: 1.45;
+    }
+
+    .why-old-pain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: auto;
+    }
+
+    .why-pain-item {
+      display: flex;
+      align-items: flex-start;
       gap: 14px;
     }
 
-    .compare-item {
+    .why-pain-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #FFE4E6;
+      color: #E11D48;
       display: flex;
-      align-items: flex-start;
-      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .why-pain-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .why-pain-heading {
       font-size: 0.9375rem;
-      line-height: 1.5;
+      font-weight: 700;
+      color: var(--dark-navy);
+      line-height: 1.35;
     }
 
-    .icon-cross {
-      color: #DC2626;
-      font-weight: 800;
-      background: #FEE2E2;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 9.5px;
-      flex-shrink: 0;
+    .why-pain-detail {
+      font-size: 0.8125rem;
+      color: var(--text-muted);
+      line-height: 1.45;
       margin-top: 2px;
     }
 
-    .icon-check {
-      color: #059669;
-      font-weight: 800;
-      background: #D1FAE5;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+    /* ═══════════════════════════════════════════════════════════
+       RIGHT CARD: WITH VIBODH SIGNAL
+    ═══════════════════════════════════════════════════════════ */
+    .why-card-signal {
+      background: linear-gradient(155deg, #0A0F2E 0%, #06091A 100%);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px -12px rgba(10, 15, 46, 0.45), 0 0 40px rgba(99, 102, 241, 0.1);
+      padding: 34px 30px;
+      color: #FFFFFF;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .why-signal-dot-matrix {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .why-signal-top-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .why-signal-badge-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 9.5px;
+      color: #FFFFFF;
       flex-shrink: 0;
-      margin-top: 2px;
+    }
+
+    .why-signal-badge-labels {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .why-signal-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #CBD5E1;
+    }
+
+    .why-signal-context {
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: #38BDF8;
+    }
+
+    .why-signal-head {
+      margin-bottom: 22px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .why-signal-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      letter-spacing: -0.015em;
+      margin-bottom: 5px;
+    }
+
+    .why-signal-brand-gradient {
+      background: linear-gradient(90deg, #2DD4BF 0%, #38BDF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .why-signal-sub {
+      font-size: 0.875rem;
+      color: #94A3B8;
+      line-height: 1.45;
+    }
+
+    .why-solution-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .why-sol-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 18px;
+      padding: 18px 16px;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .why-sol-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.16);
+      transform: translateY(-2px);
+    }
+
+    .why-sol-icon-wrap {
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .why-icon-user {
+      background: rgba(45, 212, 191, 0.16);
+      color: #2DD4BF;
+    }
+
+    .why-icon-palette {
+      background: rgba(167, 139, 250, 0.16);
+      color: #A78BFA;
+    }
+
+    .why-icon-screen {
+      background: rgba(56, 189, 248, 0.16);
+      color: #38BDF8;
+    }
+
+    .why-sol-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #F8FAFC;
+      margin-bottom: 5px;
+      line-height: 1.3;
+    }
+
+    .why-sol-desc {
+      font-size: 0.8125rem;
+      color: #94A3B8;
+      line-height: 1.45;
+    }
+
+    /* HIGHLIGHTED HERO CARD (bottom right) */
+    .why-sol-card.is-highlighted {
+      background: linear-gradient(135deg, #A7F3D0 0%, #6EE7B7 60%, #34D399 100%);
+      border: 1px solid #6EE7B7;
+      color: #064E3B;
+      position: relative;
+      box-shadow: 0 12px 30px -6px rgba(52, 211, 153, 0.35);
+    }
+
+    .why-sol-card.is-highlighted:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 16px 36px -6px rgba(52, 211, 153, 0.45);
+    }
+
+    .why-sol-card.is-highlighted .why-sol-title {
+      color: #064E3B;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .why-sol-card.is-highlighted .why-sol-desc {
+      color: #065F46;
+      font-weight: 500;
+    }
+
+    .why-sol-hero-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+
+    .why-hero-clock {
+      color: #064E3B;
+      display: flex;
+      align-items: center;
+    }
+
+    .why-hero-sparkle {
+      color: #F59E0B;
+      font-size: 0.875rem;
+      animation: sparkleGlow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes sparkleGlow {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      100% { transform: scale(1.2); opacity: 1; }
+    }
+
+    .why-doodle-arrow {
+      position: absolute;
+      top: -32px;
+      right: 2px;
+      width: 44px;
+      height: 44px;
+      pointer-events: none;
+      animation: doodleFloat 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes doodleFloat {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(2px, -4px) rotate(3deg); }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       SCROLL & LOAD ENTRANCE ANIMATIONS
+    ═══════════════════════════════════════════════════════════ */
+    .section-why.animate-ready .why-card-old {
+      opacity: 0;
+      transform: translateX(-35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .section-why.animate-ready .why-card-signal {
+      opacity: 0;
+      transform: translateX(35px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+    }
+
+    .section-why.animate-ready .why-center-connector {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.5);
+      transition: opacity 0.5s ease 0.3s, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s;
+    }
+
+    .section-why.animate-ready .why-pain-item {
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section-why.animate-ready .why-pain-item:nth-child(1) { transition-delay: 0.25s; }
+    .section-why.animate-ready .why-pain-item:nth-child(2) { transition-delay: 0.35s; }
+    .section-why.animate-ready .why-pain-item:nth-child(3) { transition-delay: 0.45s; }
+    .section-why.animate-ready .why-pain-item:nth-child(4) { transition-delay: 0.55s; }
+
+    .section-why.animate-ready .why-sol-card {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .section-why.animate-ready .why-sol-card:nth-child(1) { transition-delay: 0.35s; }
+    .section-why.animate-ready .why-sol-card:nth-child(2) { transition-delay: 0.45s; }
+    .section-why.animate-ready .why-sol-card:nth-child(3) { transition-delay: 0.55s; }
+    .section-why.animate-ready .why-sol-card:nth-child(4) { transition-delay: 0.65s; }
+
+    /* When triggered */
+    .section-why.animate-in .why-card-old,
+    .section-why.animate-in .why-card-signal {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .section-why.animate-in .why-center-connector {
+      opacity: 1;
+      transform: translateY(-50%) scale(1);
+    }
+
+    .section-why.animate-in .why-pain-item,
+    .section-why.animate-in .why-sol-card {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Floating illustration subtle animation */
+    .float-badge {
+      animation: floatBadgeItem 4s ease-in-out infinite alternate;
+    }
+    .float-badge-1 { animation-delay: 0s; }
+    .float-badge-2 { animation-delay: 0.8s; }
+    .float-badge-3 { animation-delay: 1.5s; }
+    .float-badge-4 { animation-delay: 2.2s; }
+    .float-badge-5 { animation-delay: 1.1s; }
+
+    @keyframes floatBadgeItem {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-3px); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 991px) {
+      .why-header-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .why-simple-way-badge {
+        position: static;
+        margin-bottom: 20px;
+        align-self: center;
+      }
+      .why-accent-dashes {
+        left: -18px;
+        top: -10px;
+      }
+      .why-compare-container {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .why-center-connector {
+        position: static;
+        margin: -16px auto;
+        transform: rotate(90deg) !important;
+      }
+      .section-why.animate-in .why-center-connector {
+        transform: rotate(90deg) scale(1) !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .why-card-old, .why-card-signal {
+        padding: 24px 18px;
+      }
+      .why-old-top-row {
+        gap: 10px;
+        align-items: center;
+      }
+      .why-old-stat-number {
+        font-size: 2.75rem;
+      }
+      .why-old-stat-title {
+        font-size: 0.65rem;
+      }
+      .why-old-stat-cost {
+        font-size: 0.78rem;
+      }
+      .why-old-illustration-wrap {
+        width: 100px;
+        height: auto;
+      }
+      .why-old-illustration-wrap svg {
+        width: 100%;
+        height: auto;
+      }
+      .why-solution-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+      .why-section-title {
+        font-size: 1.85rem;
+      }
     }
 
     .section-features {
@@ -3099,60 +3626,330 @@
     ═══════════════════════════════════════════════════════════ -->
     <section class="section-why" id="why-choose-us">
       <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge">⚡ Why Choose Us</span>
-          <h2 class="section-title">Marketing Without the Marketing Overhead</h2>
-          <p class="section-desc">Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.</p>
+        
+        <!-- Top Section Header -->
+        <div class="why-header-wrapper">
+          <div class="why-simple-way-badge">
+            <span class="sparkle-icon">✦</span>
+            <span>The Simple Way</span>
+          </div>
+
+          <div class="why-title-container">
+            <div class="why-accent-dashes" aria-hidden="true">
+              <span></span>
+              <span></span>
+            </div>
+            <h2 class="why-section-title">
+              Marketing Without the<br>
+              <span class="why-title-gradient">Marketing Overhead</span>
+            </h2>
+          </div>
+          <p class="why-section-desc">
+            Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.
+          </p>
         </div>
 
-        <!-- The Frustrating Old Way vs. The Simple Way Comparison -->
-        <div class="compare-container">
-          <div class="compare-card">
-            <h3 class="compare-head-title">The Frustrating Old Way</h3>
-            <p class="compare-head-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
-            <ul class="compare-list">
-              <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Constantly switching between 8 open tabs and separate subscriptions.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Inconsistent colors and tone when different team members post.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Hours wasted manually resizing images for square, story, and banner formats.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-cross">✕</span>
-                <span>Paying multiple expensive software bills that add up fast each month.</span>
-              </li>
-            </ul>
+        <!-- Two Cards Comparison -->
+        <div class="why-compare-container">
+          
+          <!-- LEFT CARD: The Frustrating Old Way -->
+          <div class="why-card why-card-old">
+            <!-- Top Row: Stat Number + Labels + Illustration -->
+            <div class="why-old-top-row">
+              <div class="why-old-stat-group">
+                <span class="why-old-stat-number">8</span>
+                <div class="why-old-stat-labels">
+                  <span class="why-old-stat-title">APPS, TABS &amp; SUBSCRIPTIONS</span>
+                  <span class="why-old-stat-cost">~$350+/mo in scattered tools</span>
+                </div>
+              </div>
+              
+              <!-- Character SVG Illustration -->
+              <div class="why-old-illustration-wrap">
+                <svg width="156" height="120" viewBox="0 0 160 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Desk Surface -->
+                  <path d="M10 112H150" stroke="#CBD5E1" stroke-width="2.5" stroke-linecap="round"/>
+                  
+                  <!-- Floating App 1: Google G -->
+                  <g class="float-badge float-badge-1">
+                    <circle cx="26" cy="38" r="12" fill="#FFFFFF" filter="url(#drop-shadow-why)"/>
+                    <path d="M26 33C28.4 33 30.2 33.9 31.2 34.8L32.9 33.1C31.2 31.5 28.8 30.5 26 30.5C22 30.5 18.6 32.8 17.1 36.3L19.7 38.3C20.4 35.2 23 33 26 33Z" fill="#EA4335"/>
+                    <path d="M33.2 38.2C33.2 37.6 33.1 37 33 36.5H26V39.7H30.1C29.9 40.8 29.2 41.8 28.2 42.4L30.8 44.4C32.4 43 33.2 40.8 33.2 38.2Z" fill="#4285F4"/>
+                    <path d="M19.7 38.3C19.5 38.9 19.3 39.6 19.3 40.3C19.3 41 19.5 41.7 19.7 42.3L17.1 44.3C16.3 43.1 15.9 41.7 15.9 40.3C15.9 38.9 16.3 37.5 17.1 36.3L19.7 38.3Z" fill="#FBBC05"/>
+                    <path d="M26 46C28.8 46 31.1 45.1 32.8 43.6L30.2 41.6C29.2 42.3 27.9 42.8 26 42.8C23 42.8 20.4 40.6 19.7 37.5L17.1 39.5C18.6 43 22 46 26 46Z" fill="#34A853"/>
+                  </g>
+
+                  <!-- Floating App 2: Gmail Envelope -->
+                  <g class="float-badge float-badge-2">
+                    <rect x="114" y="20" width="22" height="17" rx="4" fill="#FFFFFF" filter="url(#drop-shadow-why)"/>
+                    <path d="M117 24L125 30L133 24M117 24V33H133V24M117 24H133" stroke="#EA4335" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                  </g>
+
+                  <!-- Floating App 3: Google Sheets -->
+                  <g class="float-badge float-badge-3">
+                    <rect x="128" y="45" width="20" height="22" rx="3.5" fill="#10B981" filter="url(#drop-shadow-why)"/>
+                    <rect x="132" y="50" width="12" height="12" rx="1.5" fill="#FFFFFF" fill-opacity="0.95"/>
+                    <line x1="132" y1="56" x2="144" y2="56" stroke="#10B981" stroke-width="1.3"/>
+                    <line x1="138" y1="50" x2="138" y2="62" stroke="#10B981" stroke-width="1.3"/>
+                  </g>
+
+                  <!-- Floating App 4: Calendar 31 -->
+                  <g class="float-badge float-badge-4">
+                    <rect x="116" y="74" width="21" height="20" rx="4" fill="#FFFFFF" filter="url(#drop-shadow-why)"/>
+                    <path d="M116 78C116 75.8 117.8 74 120 74H133C135.2 74 137 75.8 137 78V80H116V78Z" fill="#3B82F6"/>
+                    <text x="126.5" y="90" font-family="-apple-system, sans-serif" font-size="8.5" font-weight="800" fill="#1E293B" text-anchor="middle">31</text>
+                  </g>
+
+                  <!-- Floating App 5: Chat Dots -->
+                  <g class="float-badge float-badge-5">
+                    <rect x="132" y="96" width="18" height="14" rx="5" fill="#E2E8F0" filter="url(#drop-shadow-why)"/>
+                    <circle cx="136.5" cy="103" r="1.3" fill="#64748B"/>
+                    <circle cx="141" cy="103" r="1.3" fill="#64748B"/>
+                    <circle cx="145.5" cy="103" r="1.3" fill="#64748B"/>
+                  </g>
+
+                  <!-- Stress Scribble Cloud above head -->
+                  <path class="stress-scribble" d="M50 28C46 23 52 17 61 20C64 14 76 13 81 19C88 15 96 21 92 27C98 31 95 39 87 38C84 43 73 44 68 40C61 43 51 38 54 32C48 30 48 26 50 28ZM59 23C64 28 77 22 83 28M61 34C68 27 79 33 85 27M57 29C64 32 73 25 80 34" stroke="#1E293B" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+                  <!-- Character: Purple Sweater Body -->
+                  <path d="M46 110C46 94 55 87 68 85L72 96L76 85C89 87 98 94 98 110H46Z" fill="#6B46C1"/>
+                  <path d="M68 85C68 85 70 91 72 91C74 91 76 85 76 85" stroke="#553C9A" stroke-width="1.6"/>
+
+                  <!-- Arms lifted to cheeks in distress -->
+                  <path d="M50 106C50 93 54 82 61 75" stroke="#6B46C1" stroke-width="9.5" stroke-linecap="round"/>
+                  <path d="M94 106C94 93 90 82 83 75" stroke="#6B46C1" stroke-width="9.5" stroke-linecap="round"/>
+
+                  <!-- Hands on cheeks -->
+                  <circle cx="60.5" cy="73.5" r="5.8" fill="#FBD38D"/>
+                  <circle cx="83.5" cy="73.5" r="5.8" fill="#FBD38D"/>
+
+                  <!-- Neck -->
+                  <rect x="67.5" y="77" width="9" height="11" fill="#FBD38D" rx="2.5"/>
+
+                  <!-- Head / Face -->
+                  <ellipse cx="72" cy="67" rx="14.5" ry="16.5" fill="#FBD38D"/>
+
+                  <!-- Hair Bun on top -->
+                  <ellipse cx="72" cy="38" rx="10" ry="9" fill="#3D2314"/>
+                  <!-- Hair Base & Sides framing face -->
+                  <path d="M56 64C55 48 62 42 72 42C82 42 89 48 88 64C88 54 84 49 72 49C60 49 56 54 56 64Z" fill="#3D2314"/>
+                  <path d="M56 56C58 60 59 69 59 73C57 69 56 64 56 56Z" fill="#3D2314"/>
+                  <path d="M88 56C86 60 85 69 85 73C87 69 88 64 88 56Z" fill="#3D2314"/>
+
+                  <!-- Worried Facial Features -->
+                  <path d="M63 58.5L69 61" stroke="#27160C" stroke-width="1.7" stroke-linecap="round"/>
+                  <path d="M81 58.5L75 61" stroke="#27160C" stroke-width="1.7" stroke-linecap="round"/>
+                  <ellipse cx="66" cy="65.5" rx="1.8" ry="2" fill="#27160C"/>
+                  <ellipse cx="78" cy="65.5" rx="1.8" ry="2" fill="#27160C"/>
+                  <path d="M67.5 73.5C69 72 70.5 74.5 72 73C73.5 71.5 75 74 76.5 72.5" stroke="#27160C" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M85 60C85 60 87 62 87 63.8C87 65 86 66 84.8 66C83.6 66 82.6 65 82.6 63.8C82.6 62 85 60 85 60Z" fill="#60A5FA"/>
+
+                  <!-- Silver Laptop on Desk -->
+                  <path d="M38 98L49 84H95L106 98H38Z" fill="#CBD5E1"/>
+                  <rect x="51" y="85" width="42" height="12" rx="1.5" fill="#F8FAFC"/>
+                  <circle cx="72" cy="91" r="2.2" fill="#94A3B8"/>
+                  <path d="M32 98H112C114 98 115 99 114 100L110 102H34L30 100C29 99 30 98 32 98Z" fill="#94A3B8"/>
+
+                  <defs>
+                    <filter id="drop-shadow-why" x="0" y="0" width="160" height="140" filterUnits="userSpaceOnUse">
+                      <feDropShadow dx="0" dy="2" stdDeviation="3.5" flood-color="#000000" flood-opacity="0.1"/>
+                    </filter>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Old Head -->
+            <div class="why-old-head">
+              <h3 class="why-old-title">The Frustrating Old Way</h3>
+              <p class="why-old-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
+            </div>
+
+            <!-- 4 Pain Points -->
+            <div class="why-old-pain-list">
+              <div class="why-pain-item">
+                <div class="why-pain-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 3l4 4-4 4"/>
+                    <path d="M20 7H4"/>
+                    <path d="M8 21l-4-4 4-4"/>
+                    <path d="M4 17h16"/>
+                  </svg>
+                </div>
+                <div class="why-pain-content">
+                  <span class="why-pain-heading">Constantly switching between 8 open tabs</span>
+                  <span class="why-pain-detail">Juggling separate subscriptions, logins, and disconnected workflows.</span>
+                </div>
+              </div>
+
+              <div class="why-pain-item">
+                <div class="why-pain-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+                  </svg>
+                </div>
+                <div class="why-pain-content">
+                  <span class="why-pain-heading">Inconsistent brand colors &amp; tone</span>
+                  <span class="why-pain-detail">Mismatched hex codes, fonts, and editing style when different team members post.</span>
+                </div>
+              </div>
+
+              <div class="why-pain-item">
+                <div class="why-pain-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"/>
+                    <polyline points="12 7 12 12 15 15"/>
+                  </svg>
+                </div>
+                <div class="why-pain-content">
+                  <span class="why-pain-heading">Hours wasted manually resizing assets</span>
+                  <span class="why-pain-detail">Re-exporting and cropping square posts, vertical reels, and banners by hand.</span>
+                </div>
+              </div>
+
+              <div class="why-pain-item">
+                <div class="why-pain-icon">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="1" x2="12" y2="23"/>
+                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                  </svg>
+                </div>
+                <div class="why-pain-content">
+                  <span class="why-pain-heading">Paying multiple expensive software bills</span>
+                  <span class="why-pain-detail">Separate fees for copywriters, design tools, schedulers, and analytics add up fast.</span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="compare-card card-featured">
-            <span class="compare-featured-badge">The Simple Way</span>
-            <h3 class="compare-head-title">With Vibodh Signal</h3>
-            <p class="compare-head-sub">One unified app that handles writing, designing, scheduling, and results.</p>
-            <ul class="compare-list">
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>One easy login:</strong> Create posts, plan your calendar, and manage ads together.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>Brand colors locked in:</strong> Every post automatically uses your exact logo and colors.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>1 click, all formats:</strong> Instantly get square posts, vertical reels, and banners.</span>
-              </li>
-              <li class="compare-item">
-                <span class="icon-check">✓</span>
-                <span><strong>Save 15+ hours weekly:</strong> Plan an entire month of marketing in one afternoon.</span>
-              </li>
-            </ul>
+          <!-- CENTER FLOATING CONNECTOR ARROW -->
+          <div class="why-center-connector" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/>
+              <polyline points="12 5 19 12 12 19"/>
+            </svg>
           </div>
+
+          <!-- RIGHT CARD: With Vibodh Signal -->
+          <div class="why-card why-card-signal">
+            <!-- Decorative Dot Matrix in top right -->
+            <div class="why-signal-dot-matrix" aria-hidden="true">
+              <svg width="84" height="60" viewBox="0 0 84 60" fill="none">
+                <circle cx="6" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="24" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="42" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="60" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="78" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="6" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="24" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="42" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="60" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="78" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="6" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="24" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="42" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="60" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="78" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="6" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="24" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="42" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="60" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+                <circle cx="78" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
+              </svg>
+            </div>
+
+            <!-- Top Row: Badge Icon + Labels -->
+            <div class="why-signal-top-row">
+              <div class="why-signal-badge-icon">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 3v18h18"/>
+                  <path d="M18 9l-5 5-4-4-3 3"/>
+                  <polyline points="14 9 18 9 18 13"/>
+                </svg>
+              </div>
+              <div class="why-signal-badge-labels">
+                <span class="why-signal-tag">UNIFIED APP FOR EVERYTHING</span>
+                <span class="why-signal-context">Zero Context Switching</span>
+              </div>
+            </div>
+
+            <!-- Head -->
+            <div class="why-signal-head">
+              <h3 class="why-signal-title">With <span class="why-signal-brand-gradient">Vibodh Signal</span></h3>
+              <p class="why-signal-sub">One unified app that handles writing, designing, scheduling, and results.</p>
+            </div>
+
+            <!-- 2x2 Solutions Grid -->
+            <div class="why-solution-grid">
+              <!-- Sol 1 -->
+              <div class="why-sol-card">
+                <div class="why-sol-icon-wrap why-icon-user">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                  </svg>
+                </div>
+                <h4 class="why-sol-title">One easy login</h4>
+                <p class="why-sol-desc">Create posts, plan your calendar, and manage ads together in one unified hub.</p>
+              </div>
+
+              <!-- Sol 2 -->
+              <div class="why-sol-card">
+                <div class="why-sol-icon-wrap why-icon-palette">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+                  </svg>
+                </div>
+                <h4 class="why-sol-title">Brand colors locked in</h4>
+                <p class="why-sol-desc">Every post automatically uses your exact brand logo, colors, and tone guidelines.</p>
+              </div>
+
+              <!-- Sol 3 -->
+              <div class="why-sol-card">
+                <div class="why-sol-icon-wrap why-icon-screen">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                </div>
+                <h4 class="why-sol-title">1 click, all formats</h4>
+                <p class="why-sol-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.</p>
+              </div>
+
+              <!-- Sol 4: HIGHLIGHTED HERO CARD -->
+              <div class="why-sol-card is-highlighted">
+                <!-- Cute Doodle Arrow Pointing Down -->
+                <div class="why-doodle-arrow" aria-hidden="true">
+                  <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+                    <path d="M40 4C34 12 26 24 12 36M12 36L14 26M12 36L22 38" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+
+                <div class="why-sol-hero-header">
+                  <div class="why-hero-clock">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="9"/>
+                      <polyline points="12 7 12 12 15 15"/>
+                    </svg>
+                  </div>
+                  <span class="why-hero-sparkle">✦</span>
+                </div>
+                <h4 class="why-sol-title">Save 15+ hours weekly</h4>
+                <p class="why-sol-desc">Plan, create, and schedule an entire month of marketing in one afternoon.</p>
+              </div>
+
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
@@ -4106,7 +4903,13 @@
       const pricingView = document.getElementById('tab-plans-pricing');
       const faqsView = document.getElementById('tab-faqs');
 
-      if (homeView) homeView.style.display = (tabKey === 'home') ? 'block' : 'none';
+      if (homeView) {
+        homeView.style.display = (tabKey === 'home') ? 'block' : 'none';
+        if (tabKey === 'home') {
+          const ws = document.getElementById('why-choose-us');
+          if (ws && !ws.classList.contains('animate-in')) ws.classList.add('animate-in');
+        }
+      }
       if (featuresView) featuresView.style.display = (tabKey === 'key-features') ? 'block' : 'none';
       if (resourcesView) resourcesView.style.display = (tabKey === 'resources') ? 'block' : 'none';
       if (pricingView) pricingView.style.display = (tabKey === 'plans-pricing') ? 'block' : 'none';
@@ -4609,7 +5412,39 @@
     } else {
       initSignalMate();
     }
-</script>
+
+    // 6. Why Vibodh Signal Entrance Animation (Observer & Load Trigger)
+    function initWhyChooseAnimation() {
+      const whySection = document.getElementById('why-choose-us');
+      if (!whySection) return;
+
+      whySection.classList.add('animate-ready');
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              whySection.classList.add('animate-in');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.15,
+          rootMargin: '0px 0px -40px 0px'
+        });
+        observer.observe(whySection);
+      } else {
+        whySection.classList.add('animate-in');
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initWhyChooseAnimation);
+    } else {
+      initWhyChooseAnimation();
+    }
+
+  </script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
   <button type="button" id="back-to-top-btn" class="back-to-top-btn" aria-label="Back to top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTo({top:0,behavior:'smooth'});document.body.scrollTo({top:0,behavior:'smooth'});">
