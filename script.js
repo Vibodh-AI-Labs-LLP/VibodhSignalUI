@@ -10111,7 +10111,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof renderAllChannelCards === 'function') renderAllChannelCards();
   if (typeof syncPreviewTargetChannels === 'function') syncPreviewTargetChannels();
   if (typeof renderAllSidePreviews === 'function') renderAllSidePreviews();
-  if (typeof switchPreviewDevice === 'function') switchPreviewDevice(currentPreviewDevice);
+  if (typeof switchPreviewDevice === 'function') switchPreviewDevice(currentPreviewDevice, null, true);
 });
 
 /* ══════════════════════════════════════════════════════════════════════
@@ -10532,7 +10532,7 @@ function toggleSnappyDevice(mode) {
 }
 window.toggleSnappyDevice = toggleSnappyDevice;
 
-function switchPreviewDevice(device, mode) {
+function switchPreviewDevice(device, mode, silent = false) {
   currentPreviewDevice = device || 'mobile';
   try {
     localStorage.setItem('vibodh_preview_device', currentPreviewDevice);
@@ -10568,7 +10568,7 @@ function switchPreviewDevice(device, mode) {
     }
   });
 
-  if (window.showToast) {
+  if (window.showToast && !silent) {
     showToast(`Switched to ${currentPreviewDevice === 'mobile' ? 'Mobile Phone' : 'Desktop'} view`, currentPreviewDevice === 'mobile' ? '📱' : '🖥️');
   }
 }

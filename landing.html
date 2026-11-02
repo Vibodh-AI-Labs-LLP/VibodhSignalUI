@@ -1911,6 +1911,122 @@
         height: 19px;
       }
     }
+    /* Studio Dashboard Snapshot Showcase */
+    .studio-snapshot-mockup {
+      background: #FFFFFF;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 24px 60px -15px rgba(15, 23, 42, 0.16), 0 4px 16px -4px rgba(15, 23, 42, 0.08);
+      transition: all 0.3s ease;
+    }
+    .studio-snapshot-mockup:hover {
+      box-shadow: 0 32px 70px -18px rgba(15, 157, 138, 0.22), 0 6px 20px -4px rgba(36, 59, 107, 0.12);
+      border-color: #CBD5E1;
+    }
+    .studio-snapshot-topbar {
+      background: #FFFFFF;
+      border-bottom: 1.5px solid var(--border);
+      padding: 12px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .studio-window-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .control-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .control-dot.dot-red { background: #FF5F56; }
+    .control-dot.dot-yellow { background: #FFBD2E; }
+    .control-dot.dot-green { background: #27C93F; }
+
+    .studio-window-url {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #F1F5F9;
+      padding: 5px 18px;
+      border-radius: var(--radius-full);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #64748B;
+      letter-spacing: -0.01em;
+    }
+    .studio-window-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #ECFDF5;
+      color: #059669;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      border: 1px solid #A7F3D0;
+    }
+    .live-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.25);
+    }
+    .studio-snapshot-body {
+      background: #F8FAFC;
+      position: relative;
+      overflow: hidden;
+    }
+    .studio-dashboard-link {
+      display: block;
+      text-decoration: none;
+      position: relative;
+    }
+    .studio-dashboard-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .studio-dashboard-link:hover .studio-dashboard-img {
+      transform: scale(1.008);
+    }
+    .studio-dashboard-hover-badge {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #FFFFFF;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.25s ease;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .studio-dashboard-link:hover .studio-dashboard-hover-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    @media (max-width: 640px) {
+      .studio-window-url { display: none; }
+      .studio-dashboard-hover-badge { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -2034,107 +2150,29 @@
           <p class="section-desc">Create content, manage campaigns and prepare your next post without jumping between multiple tools.</p>
         </div>
 
-        <div class="studio-app-mockup">
-          <!-- Mockup Top Bar -->
-          <div class="studio-app-topbar">
-            <div class="studio-topbar-title-wrap">
-              <span class="studio-live-assistant-pill">
-                <span style="width:6px; height:6px; border-radius:50%; background:#10B981;"></span>
-                Live Marketing Assistant
-              </span>
-              <span class="studio-campaign-name">Campaign: Summer Glow Collection</span>
+        <div class="studio-app-mockup studio-snapshot-mockup">
+          <div class="studio-snapshot-topbar">
+            <div class="studio-window-controls">
+              <span class="control-dot dot-red"></span>
+              <span class="control-dot dot-yellow"></span>
+              <span class="control-dot dot-green"></span>
             </div>
-            <div class="studio-channels-row">
-              <span style="font-size:0.8125rem; color:#64748B; font-weight:600;">Channels:</span>
-              <span class="studio-channel-tag" style="background:#EFF6FF; color:#2563EB;">Instagram</span>
-              <span class="studio-channel-tag" style="background:#F0FDF4; color:#16A34A;">Facebook</span>
-              <span class="studio-channel-tag" style="background:#FDF2F8; color:#DB2777;">LinkedIn</span>
+            <div class="studio-window-url">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>app.vibodhsignal.com/dashboard</span>
+            </div>
+            <div class="studio-window-badge">
+              <span class="live-pulse"></span>
+              <span>Live Dashboard</span>
             </div>
           </div>
-
-          <div class="studio-app-body">
-            <!-- Left Sidebar -->
-            <aside class="studio-sidebar">
-              <div class="sidebar-brand-box">
-                <div class="sidebar-avatar">LP</div>
-                <div>
-                  <div class="sidebar-brand-title">Aurelia Paris</div>
-                  <div class="sidebar-brand-category">Luxury Fragrance</div>
-                </div>
+          <div class="studio-snapshot-body">
+            <a href="dashboard.html" title="Open Interactive Dashboard" class="studio-dashboard-link">
+              <img src="assets/dashboard-preview.png" alt="Vibodh Signal AI Marketing Workspace Dashboard Snapshot" class="studio-dashboard-img" loading="lazy">
+              <div class="studio-dashboard-hover-badge">
+                <span>Open Interactive Dashboard &rarr;</span>
               </div>
-
-              <div class="sidebar-nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-                <span>Dashboard</span>
-              </div>
-              <div class="sidebar-nav-item is-active">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83M16.62 12l-5.74 9.94"></path></svg>
-                <span>Studio</span>
-              </div>
-              <div class="sidebar-nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
-                <span>Content</span>
-              </div>
-              <div class="sidebar-nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-                <span>Social Media</span>
-              </div>
-              <div class="sidebar-nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
-                <span>Campaigns</span>
-              </div>
-              <div class="sidebar-nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
-                <span>Ads</span>
-              </div>
-              <div class="sidebar-nav-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
-                <span>Analytics</span>
-              </div>
-            </aside>
-
-            <!-- Main Canvas -->
-            <div class="studio-main-canvas">
-              <!-- Prompt / Brief bar -->
-              <div class="studio-prompt-bar">
-                <div style="display:flex; align-items:center; gap:12px; flex:1;">
-                  <span style="font-size:1.15rem; color:var(--teal);">✨</span>
-                  <div style="font-size:0.925rem; color:var(--dark-navy); font-weight:600;">
-                    &ldquo;Launch our organic matcha and luxury summer perfume with high-converting hooks.&rdquo;
-                  </div>
-                </div>
-                <button class="btn btn-teal" style="padding:9px 20px; font-size:0.8125rem;">Regenerate</button>
-              </div>
-
-              <!-- Live Creatives Generated -->
-              <div class="studio-cards-grid">
-                <!-- Card 1: Square Post -->
-                <div class="studio-post-preview-card">
-                  <div class="preview-card-head">
-                    <span style="font-size:0.75rem; font-weight:800; background:#F1F5F9; color:#475569; padding:4px 10px; border-radius:6px;">1:1 Feed Post</span>
-                    <span style="font-size:0.75rem; font-weight:800; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:6px;">&bull; Ready to Post</span>
-                  </div>
-                  <div class="preview-media-wrap square">
-                    <img src="assets/hero-perfume.png" alt="Perfume spotlight post">
-                  </div>
-                  <h4 style="font-size:0.975rem; font-weight:900; color:var(--dark-navy); margin-bottom:6px;">Product Spotlight Post</h4>
-                  <p style="font-size:0.8125rem; color:var(--text-muted); line-height:1.5;">Clean luxury visuals with captions written automatically in your brand voice.</p>
-                </div>
-
-                <!-- Card 2: 9:16 Video Reel -->
-                <div class="studio-post-preview-card">
-                  <div class="preview-card-head">
-                    <span style="font-size:0.75rem; font-weight:800; background:#FDF2F8; color:#DB2777; padding:4px 10px; border-radius:6px;">9:16 Story &amp; Reel</span>
-                    <span style="font-size:0.75rem; font-weight:800; color:#0F9D8A; background:#E6F7F5; padding:3px 8px; border-radius:6px;">84% Watch Rate</span>
-                  </div>
-                  <div class="preview-media-wrap reel">
-                    <img src="assets/hero-matcha.png" alt="Matcha video reel">
-                  </div>
-                  <h4 style="font-size:0.975rem; font-weight:900; color:var(--dark-navy); margin-bottom:6px;">Vertical Video &amp; Reel</h4>
-                  <p style="font-size:0.8125rem; color:var(--text-muted); line-height:1.5;">Hook-optimized vertical content tailored to keep viewers watching and engaging.</p>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
 
