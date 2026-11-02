@@ -1,17 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vibodh Signal — AI-Powered Digital Marketing Workspace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus&rarr;Jakarta&rarr;Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus&rarr;Jakarta&rarr;Sans:wght@500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════════════
        1. COLOR SYSTEM & CSS TOKENS
     ═══════════════════════════════════════════════════════════ */
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -315,9 +320,17 @@
       width: 100%;
       animation: fadeInLandingTab 0.22s ease-in-out;
     }
+
     @keyframes fadeInLandingTab {
-      from { opacity: 0.2; transform: translateY(3px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0.2;
+        transform: translateY(3px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .nav-anchor-link.is-active {
@@ -392,7 +405,8 @@
       transition: background 0.15s ease;
     }
 
-    .mobile-nav-link:hover, .mobile-nav-link.is-active {
+    .mobile-nav-link:hover,
+    .mobile-nav-link.is-active {
       background: var(--teal-light);
       color: var(--teal-dark);
       font-weight: 700;
@@ -451,9 +465,11 @@
       0% {
         transform: translate(0px, 0px) scale(1);
       }
+
       50% {
         transform: translate(30px, 40px) scale(1.08);
       }
+
       100% {
         transform: translate(-25px, 20px) scale(0.95);
       }
@@ -804,8 +820,13 @@
     }
 
     @keyframes floatBadge {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-4px); }
+      0% {
+        transform: translateY(0);
+      }
+
+      100% {
+        transform: translateY(-4px);
+      }
     }
 
     /* Slanted accent dashes left of title */
@@ -830,8 +851,15 @@
       border-radius: var(--radius-full);
       background: #6366F1;
     }
-    .why-accent-dashes span:nth-child(1) { width: 14px; }
-    .why-accent-dashes span:nth-child(2) { width: 22px; transform: translateX(4px); }
+
+    .why-accent-dashes span:nth-child(1) {
+      width: 14px;
+    }
+
+    .why-accent-dashes span:nth-child(2) {
+      width: 22px;
+      transform: translateX(4px);
+    }
 
     .why-section-title {
       font-family: var(--font-display);
@@ -1241,8 +1269,15 @@
     }
 
     @keyframes sparkleGlow {
-      0% { transform: scale(0.9); opacity: 0.7; }
-      100% { transform: scale(1.2); opacity: 1; }
+      0% {
+        transform: scale(0.9);
+        opacity: 0.7;
+      }
+
+      100% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
     }
 
     .why-doodle-arrow {
@@ -1256,8 +1291,13 @@
     }
 
     @keyframes doodleFloat {
-      0% { transform: translate(0, 0) rotate(0deg); }
-      100% { transform: translate(2px, -4px) rotate(3deg); }
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      100% {
+        transform: translate(2px, -4px) rotate(3deg);
+      }
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -1268,6 +1308,7 @@
         opacity: 0;
         transform: translate3d(-50px, 0, 0);
       }
+
       100% {
         opacity: 1;
         transform: translate3d(0, 0, 0);
@@ -1279,6 +1320,7 @@
         opacity: 0;
         transform: translate3d(50px, 0, 0);
       }
+
       100% {
         opacity: 1;
         transform: translate3d(0, 0, 0);
@@ -1290,10 +1332,12 @@
         opacity: 0;
         transform: translateY(-50%) scale(0.2);
       }
+
       70% {
         opacity: 1;
         transform: translateY(-50%) scale(1.15);
       }
+
       100% {
         opacity: 1;
         transform: translateY(-50%) scale(1);
@@ -1305,6 +1349,7 @@
         opacity: 0;
         transform: translate3d(0, 16px, 0);
       }
+
       100% {
         opacity: 1;
         transform: translate3d(0, 0, 0);
@@ -1317,10 +1362,12 @@
         transform: translate3d(0, 16px, 0) scale(0.95);
         box-shadow: 0 0 0 rgba(52, 211, 153, 0);
       }
+
       70% {
         transform: translate3d(0, 0, 0) scale(1.03);
         box-shadow: 0 16px 36px rgba(52, 211, 153, 0.45);
       }
+
       100% {
         opacity: 1;
         transform: translate3d(0, 0, 0) scale(1);
@@ -1333,6 +1380,7 @@
         opacity: 0;
         transform: scale(0.9) translateY(12px);
       }
+
       100% {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -1391,15 +1439,37 @@
       animation: whyPopCenterArrow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.22s forwards;
     }
 
-    .section-why.animate-in .why-pain-item:nth-child(1) { animation: whyItemStaggerUp 0.4s ease 0.16s forwards; }
-    .section-why.animate-in .why-pain-item:nth-child(2) { animation: whyItemStaggerUp 0.4s ease 0.22s forwards; }
-    .section-why.animate-in .why-pain-item:nth-child(3) { animation: whyItemStaggerUp 0.4s ease 0.28s forwards; }
-    .section-why.animate-in .why-pain-item:nth-child(4) { animation: whyItemStaggerUp 0.4s ease 0.34s forwards; }
+    .section-why.animate-in .why-pain-item:nth-child(1) {
+      animation: whyItemStaggerUp 0.4s ease 0.16s forwards;
+    }
 
-    .section-why.animate-in .why-sol-card:nth-child(1) { animation: whyItemStaggerUp 0.4s ease 0.18s forwards; }
-    .section-why.animate-in .why-sol-card:nth-child(2) { animation: whyItemStaggerUp 0.4s ease 0.24s forwards; }
-    .section-why.animate-in .why-sol-card:nth-child(3) { animation: whyItemStaggerUp 0.4s ease 0.30s forwards; }
-    .section-why.animate-in .why-sol-card:nth-child(4) { animation: whyHighlightPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.36s forwards; }
+    .section-why.animate-in .why-pain-item:nth-child(2) {
+      animation: whyItemStaggerUp 0.4s ease 0.22s forwards;
+    }
+
+    .section-why.animate-in .why-pain-item:nth-child(3) {
+      animation: whyItemStaggerUp 0.4s ease 0.28s forwards;
+    }
+
+    .section-why.animate-in .why-pain-item:nth-child(4) {
+      animation: whyItemStaggerUp 0.4s ease 0.34s forwards;
+    }
+
+    .section-why.animate-in .why-sol-card:nth-child(1) {
+      animation: whyItemStaggerUp 0.4s ease 0.18s forwards;
+    }
+
+    .section-why.animate-in .why-sol-card:nth-child(2) {
+      animation: whyItemStaggerUp 0.4s ease 0.24s forwards;
+    }
+
+    .section-why.animate-in .why-sol-card:nth-child(3) {
+      animation: whyItemStaggerUp 0.4s ease 0.30s forwards;
+    }
+
+    .section-why.animate-in .why-sol-card:nth-child(4) {
+      animation: whyHighlightPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.36s forwards;
+    }
 
     /* Responsive adjustments */
     @media (max-width: 991px) {
@@ -1408,64 +1478,86 @@
         flex-direction: column;
         align-items: center;
       }
+
       .why-simple-way-badge {
         position: static;
         margin-bottom: 20px;
         align-self: center;
       }
+
       .why-accent-dashes {
         left: -18px;
         top: -10px;
       }
+
       .why-compare-container {
         grid-template-columns: 1fr;
         gap: 36px;
       }
+
       .why-center-connector {
         position: static;
         margin: -16px auto;
         transform: rotate(90deg) !important;
       }
+
       @keyframes whyPopCenterArrowMobile {
-        0% { opacity: 0; transform: rotate(90deg) scale(0.2); }
-        100% { opacity: 1; transform: rotate(90deg) scale(1); }
+        0% {
+          opacity: 0;
+          transform: rotate(90deg) scale(0.2);
+        }
+
+        100% {
+          opacity: 1;
+          transform: rotate(90deg) scale(1);
+        }
       }
+
       .section-why.animate-in .why-center-connector {
         animation: whyPopCenterArrowMobile 0.45s ease 0.15s forwards;
       }
     }
 
     @media (max-width: 640px) {
-      .why-card-old, .why-card-signal {
+
+      .why-card-old,
+      .why-card-signal {
         padding: 24px 18px;
       }
+
       .why-old-top-row {
         gap: 10px;
         align-items: center;
       }
+
       .why-old-stat-number {
         font-size: 2.75rem;
       }
+
       .why-old-stat-title {
         font-size: 0.65rem;
       }
+
       .why-old-stat-cost {
         font-size: 0.78rem;
       }
+
       .why-old-illustration-wrap {
         width: 110px;
         height: auto;
       }
+
       .why-solution-grid {
         grid-template-columns: 1fr;
         gap: 12px;
       }
+
       .why-section-title {
         font-size: 1.85rem;
       }
     }
 
-    
+
     .section-features {
       padding: 88px 0 0 0;
       background: #FFFFFF;
@@ -1608,6 +1700,7 @@
         opacity: 0;
         transform: translateY(6px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -2371,15 +2464,19 @@
       .pricing-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
       .steps-container {
         grid-template-columns: repeat(2, 1fr);
       }
+
       .signature-branches-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
       .features-interactive-box {
         grid-template-columns: 300px 1fr;
       }
+
       .feature-detail-grid {
         grid-template-columns: 1fr;
         gap: 28px;
@@ -2390,24 +2487,31 @@
       .nav-section-links {
         display: none;
       }
+
       .hamburger-btn {
         display: flex;
       }
+
       .studio-app-body {
         grid-template-columns: 1fr;
       }
+
       .studio-sidebar {
         display: none;
       }
+
       .benefits-grid {
         grid-template-columns: 1fr;
       }
+
       .compare-container {
         grid-template-columns: 1fr;
       }
+
       .features-interactive-box {
         grid-template-columns: 1fr;
       }
+
       .features-nav-list {
         border-right: none;
         border-bottom: 1.5px solid var(--border);
@@ -2415,13 +2519,17 @@
         grid-template-columns: repeat(2, 1fr);
         gap: 6px;
       }
+
       .feature-nav-btn.is-active::after {
         display: none;
       }
+
       .features-detail-area {
         padding: 24px;
       }
-      .hero-chip-top-left, .hero-chip-bottom-right {
+
+      .hero-chip-top-left,
+      .hero-chip-bottom-right {
         display: none;
       }
     }
@@ -2430,18 +2538,23 @@
       .hero-main-title {
         font-size: 2.25rem;
       }
+
       .section-title {
         font-size: 1.875rem;
       }
+
       .pricing-grid {
         grid-template-columns: 1fr;
       }
+
       .steps-container {
         grid-template-columns: 1fr;
       }
+
       .studio-cards-grid {
         grid-template-columns: 1fr;
       }
+
       .footer-grid {
         grid-template-columns: 1fr 1fr;
         gap: 32px;
@@ -2478,24 +2591,29 @@
       pointer-events: auto !important;
       transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     }
+
     .back-to-top-btn:hover {
       transform: translateY(-4px) scale(1.08);
       box-shadow: 0 12px 30px rgba(15, 157, 138, 0.55), 0 4px 12px rgba(0, 0, 0, 0.25);
       border-color: #ffffff;
       background: linear-gradient(135deg, #0b8a79 0%, #1a2c52 100%);
     }
+
     .back-to-top-btn:active {
       transform: translateY(0) scale(0.95);
     }
+
     .back-to-top-btn svg {
       width: 22px;
       height: 22px;
       stroke-width: 2.6;
       transition: transform 0.2s ease;
     }
+
     .back-to-top-btn:hover svg {
       transform: translateY(-2px);
     }
+
     @media (max-width: 640px) {
       .kumo-nav-track {
         flex-wrap: nowrap;
@@ -2506,22 +2624,37 @@
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
       }
-      .kumo-nav-track::-webkit-scrollbar { display: none; }
-      .kumo-nav-card { flex-shrink: 0; }
-      .kumo-bottom-bar { justify-content: center; }
-      .kumo-scroll-hint { display: none; }
+
+      .kumo-nav-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .kumo-nav-card {
+        flex-shrink: 0;
+      }
+
+      .kumo-bottom-bar {
+        justify-content: center;
+      }
+
+      .kumo-scroll-hint {
+        display: none;
+      }
+
       .back-to-top-btn {
         bottom: 20px !important;
         right: 20px !important;
         width: 42px;
         height: 42px;
       }
+
       .back-to-top-btn svg {
         width: 19px;
         height: 19px;
       }
     }
-        /* ═══════════════════════════════════════════════════════════
+
+    /* ═══════════════════════════════════════════════════════════
        STUDIO PREVIEW: KUMO-INSPIRED INTERACTIVE MULTI-PAGE SHOWCASE
     ═══════════════════════════════════════════════════════════ */
     .kumo-showcase-wrap {
@@ -2679,9 +2812,18 @@
       border-radius: 50%;
       display: inline-block;
     }
-    .dot-red { background: #FF5F56; }
-    .dot-yellow { background: #FFBD2E; }
-    .dot-green { background: #27C93F; }
+
+    .dot-red {
+      background: #FF5F56;
+    }
+
+    .dot-yellow {
+      background: #FFBD2E;
+    }
+
+    .dot-green {
+      background: #27C93F;
+    }
 
     .kumo-url-pill {
       display: flex;
@@ -2721,10 +2863,19 @@
       box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.3);
       animation: kumoPulse 1.8s infinite;
     }
+
     @keyframes kumoPulse {
-      0% { box-shadow: 0 0 0 0 rgba(15, 157, 138, 0.7); }
-      70% { box-shadow: 0 0 0 6px rgba(15, 157, 138, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(15, 157, 138, 0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(15, 157, 138, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(15, 157, 138, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(15, 157, 138, 0);
+      }
     }
 
     /* Screen Viewport & Slides Track */
@@ -2836,8 +2987,13 @@
       box-shadow: 0 10px 25px rgba(15, 157, 138, 0.35);
     }
 
-    .kumo-arrow-prev { left: 16px; }
-    .kumo-arrow-next { right: 16px; }
+    .kumo-arrow-prev {
+      left: 16px;
+    }
+
+    .kumo-arrow-next {
+      right: 16px;
+    }
 
     /* Bottom Pagination Dots & Scroll Hint */
     .kumo-bottom-bar {
@@ -2889,21 +3045,32 @@
     .kumo-scroll-icon {
       animation: bounceMouse 1.8s infinite;
     }
+
     @keyframes bounceMouse {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(3px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(3px);
+      }
     }
 
     @media (max-width: 900px) {
       .kumo-viewport {
         height: 380px;
       }
+
       .kumo-nav-card {
         padding: 10px 14px;
       }
+
       .kumo-nav-title {
         font-size: 0.84375rem;
       }
+
       .kumo-nav-desc {
         display: none;
       }
@@ -2913,18 +3080,28 @@
       .kumo-viewport {
         height: 270px;
       }
+
       .kumo-url-pill {
         display: none;
       }
+
       .kumo-hover-badge {
         display: none;
       }
+
       .kumo-arrow-btn {
         width: 36px;
         height: 36px;
       }
-      .kumo-arrow-prev { left: 8px; }
-      .kumo-arrow-next { right: 8px; }
+
+      .kumo-arrow-prev {
+        left: 8px;
+      }
+
+      .kumo-arrow-next {
+        right: 8px;
+      }
+
       .kumo-scroll-hint {
         font-size: 0.6875rem;
         padding: 4px 10px;
@@ -2932,93 +3109,86 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       PRICING TEASER CARD & TRUSTED INTEGRATIONS (Post How-It-Works)
+       PRICING TEASER BANNER (Post How-It-Works) - MATCHING EXACT DESIGN
     ═══════════════════════════════════════════════════════════ */
     .section-pricing-teaser {
-      padding: 60px 0 24px 0;
+      padding: 64px 0 28px 0;
       background: #FFFFFF;
+      position: relative;
     }
 
     .pricing-teaser-card {
-      background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
-      border: 1.5px solid var(--border);
-      border-radius: 24px;
-      padding: 48px 60px;
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      align-items: center;
-      gap: 40px;
-      box-shadow: 0 16px 40px -12px rgba(15, 23, 42, 0.08);
       position: relative;
+      width: 100%;
+      border-radius: 28px;
       overflow: hidden;
-      transition: all 0.3s ease;
+      background: #FFFFFF;
+      border: 1px solid rgba(0, 191, 165, 0.22);
+      box-shadow: 0 20px 50px -12px rgba(0, 163, 137, 0.16), 0 4px 16px rgba(15, 23, 42, 0.04);
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
     }
 
     .pricing-teaser-card:hover {
-      border-color: #CBD5E1;
-      box-shadow: 0 24px 50px -12px rgba(15, 157, 138, 0.12), 0 4px 16px -4px rgba(36, 59, 107, 0.06);
+      transform: translateY(-4px);
+      border-color: rgba(0, 191, 165, 0.45);
+      box-shadow: 0 28px 65px -12px rgba(0, 163, 137, 0.24), 0 8px 24px rgba(15, 23, 42, 0.06);
     }
 
-    .pricing-teaser-badge {
-      display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--teal);
-      background: #E6F7F5;
-      padding: 5px 14px;
-      border-radius: var(--radius-full);
-      margin-bottom: 14px;
-      border: 1px solid rgba(15, 157, 138, 0.2);
-    }
-
-    .pricing-teaser-title {
-      font-size: 2.25rem;
-      font-weight: 900;
-      color: var(--dark-navy);
-      line-height: 1.2;
-      letter-spacing: -0.025em;
-      margin-bottom: 12px;
-    }
-
-    .pricing-teaser-desc {
-      font-size: 1.0625rem;
-      color: #64748B;
-      line-height: 1.55;
-      margin-bottom: 28px;
-    }
-
-    .pricing-teaser-btn {
-      padding: 13px 30px;
-      font-size: 0.9375rem;
-      border-radius: var(--radius-full);
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      box-shadow: 0 6px 20px rgba(15, 157, 138, 0.28);
-      transition: all 0.25s ease;
-      text-decoration: none;
-    }
-
-    .pricing-teaser-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 25px rgba(15, 157, 138, 0.38);
-    }
-
-    .pricing-teaser-right {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .growth-chart-svg {
+    .pricing-banner-img {
       width: 100%;
-      max-width: 420px;
       height: auto;
       display: block;
-      filter: drop-shadow(0 10px 20px rgba(15, 23, 42, 0.06));
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    /* Interactive button overlay aligned with the exact button in the image */
+    .pricing-banner-btn-overlay {
+      position: absolute;
+      left: 5.5%;
+      top: 68.5%;
+      width: 19.8%;
+      height: 9.8%;
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      z-index: 5;
+      text-decoration: none;
+      background: transparent;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .pricing-banner-btn-overlay:hover {
+      box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.45), 0 8px 24px rgba(0, 163, 137, 0.5);
+      background: rgba(255, 255, 255, 0.15);
+      transform: scale(1.025);
+    }
+
+    .pricing-banner-btn-overlay:active {
+      transform: scale(0.98);
+    }
+
+    .pricing-banner-btn-overlay:focus-visible {
+      outline: 3px solid #00BFA5;
+      outline-offset: 3px;
+    }
+
+    /* Subtle shimmer sweep on hover */
+    .pricing-btn-shimmer {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 60%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transform: skewX(-20deg);
+      pointer-events: none;
+      transition: left 0.75s ease;
+    }
+
+    .pricing-banner-btn-overlay:hover .pricing-btn-shimmer {
+      left: 140%;
     }
 
     /* Trusted Integrations Bar */
@@ -3083,17 +3253,21 @@
         padding: 36px 28px;
         text-align: center;
       }
+
       .pricing-teaser-left {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
+
       .growth-chart-svg {
         max-width: 320px;
       }
+
       .integrations-row {
         gap: 20px;
       }
+
       .integration-divider {
         display: none;
       }
@@ -3104,7 +3278,8 @@
     ═══════════════════════════════════════════════════════════ */
     .signalmate-floating-btn {
       position: fixed !important;
-      bottom: 86px !important; /* Right above the Back to Top arrow (28px &rarr; 48px &rarr; 10px) */
+      bottom: 86px !important;
+      /* Right above the Back to Top arrow (28px &rarr; 48px &rarr; 10px) */
       right: 28px !important;
       width: 48px;
       height: 48px;
@@ -3147,9 +3322,17 @@
     }
 
     @keyframes pulseGreenSignal {
-      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
-      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+      }
+
+      70% {
+        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
     }
 
     /* SignalMate Window (Right & Down Corner) */
@@ -3175,7 +3358,7 @@
       transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    
+
     body.signalmate-chat-open #back-to-top-btn,
     body.signalmate-chat-open #signalmate-trigger-btn {
       opacity: 0 !important;
@@ -3184,6 +3367,7 @@
       transform: scale(0.8) !important;
       transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
     }
+
     .signalmate-window.is-open {
       opacity: 1;
       transform: translateY(0) scale(1);
@@ -3371,8 +3555,15 @@
     }
 
     @keyframes fadeInMsg {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     /* Footer Input */
@@ -3438,6 +3629,7 @@
         width: 44px;
         height: 44px;
       }
+
       .signalmate-window {
         bottom: 16px !important;
         right: 16px !important;
@@ -3448,6 +3640,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════
@@ -3457,7 +3650,8 @@
     <div class="container">
       <nav class="navbar" aria-label="Main Navigation">
         <!-- Logo -->
-        <a href="landing.html#home" class="brand-logo" aria-label="Vibodh Signal Home" onclick="switchLandingTab('home'); return false;">
+        <a href="landing.html#home" class="brand-logo" aria-label="Vibodh Signal Home"
+          onclick="switchLandingTab('home'); return false;">
           <img src="assets/vibodh-signal-logo-header.png" alt="Vibodh Signal" class="brand-logo-img">
           <div class="brand-by-vibodhai">By <span>VibodhAI</span></div>
         </a>
@@ -3490,10 +3684,16 @@
         <div class="nav-actions">
           <a href="dashboard.html" class="btn btn-teal nav-cta-btn">
             <span>Get Started</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
           </a>
           <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12" />
+              <line x1="3" y1="6" x2="21" y2="6" />
+              <line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
           </button>
         </div>
       </nav>
@@ -3527,695 +3727,707 @@
          (Hero, Studio Preview, Why Choose Us, How It Works, Final CTA)
     ═══════════════════════════════════════════════════════════ -->
     <div id="tab-home" class="landing-tab-view">
-    <!-- ═══════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 1: HERO SECTION
     ═══════════════════════════════════════════════════════════ -->
-    <section class="hero-section">
-      <!-- Ambient Animated Gradient Blobs -->
-      <div class="hero-bg-blob hero-bg-blob-1" aria-hidden="true"></div>
-      <div class="hero-bg-blob hero-bg-blob-2" aria-hidden="true"></div>
+      <section class="hero-section">
+        <!-- Ambient Animated Gradient Blobs -->
+        <div class="hero-bg-blob hero-bg-blob-1" aria-hidden="true"></div>
+        <div class="hero-bg-blob hero-bg-blob-2" aria-hidden="true"></div>
 
-      <!-- Interactive Constellation Network Canvas (responds to mouse pointer) -->
-      <canvas id="hero-particles" class="hero-interactive-canvas" aria-hidden="true"></canvas>
+        <!-- Interactive Constellation Network Canvas (responds to mouse pointer) -->
+        <canvas id="hero-particles" class="hero-interactive-canvas" aria-hidden="true"></canvas>
 
-      <div class="container">
-        <div class="hero-top-center">
-          <div class="hero-badge-pill">
-            <span>✨ AI-Powered Marketing OS</span>
-          </div>
+        <div class="container">
+          <div class="hero-top-center">
+            <div class="hero-badge-pill">
+              <span>✨ AI-Powered Marketing OS</span>
+            </div>
 
-          <h1 class="hero-main-title">
-            Plan &bull; Create &bull; Automate &bull; Grow.<br>
-            <span class="gradient-text">Without Complicated Tools</span>
-          </h1>
+            <h1 class="hero-main-title">
+              Plan &bull; Create &bull; Automate &bull; Grow.<br>
+              <span class="gradient-text">Without Complicated Tools</span>
+            </h1>
 
-          <p class="hero-subcopy">
-            Create, manage, publish and grow your digital marketing from one intelligent platform.
-          </p>
+            <p class="hero-subcopy">
+              Create, manage, publish and grow your digital marketing from one intelligent platform.
+            </p>
 
-          <div class="hero-cta-group">
-            <a href="dashboard.html" class="btn btn-teal" style="padding:14px 32px; font-size:1rem;">
-              <span>Start Free 14-Day Trial</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-            <a href="dashboard.html" class="btn btn-outline" style="padding:14px 30px; font-size:1rem;">
-              <span>Sign In</span>
-            </a>
+            <div class="hero-cta-group">
+              <a href="dashboard.html" class="btn btn-teal" style="padding:14px 32px; font-size:1rem;">
+                <span>Start Free 14-Day Trial</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+              <a href="dashboard.html" class="btn btn-outline" style="padding:14px 30px; font-size:1rem;">
+                <span>Sign In</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-        <!-- ═══════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 2: 🎨 STUDIO PREVIEW (#studio-preview)
          Kumo-Inspired Interactive Scroll/Swipe Multi-Page Showcase
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-studio" id="studio-preview">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge">🎨 Studio Preview</span>
-          <h2 class="section-title">Your Marketing Studio, All in One Place</h2>
-          <p class="section-desc">Create content, manage campaigns and prepare your next post without jumping between multiple tools.</p>
+      <section class="section-studio" id="studio-preview">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-pill-badge">🎨 Studio Preview</span>
+            <h2 class="section-title">Your Marketing Studio, All in One Place</h2>
+            <p class="section-desc">Create content, manage campaigns and prepare your next post without jumping between
+              multiple tools.</p>
+          </div>
+
+          <!-- Kumo-Inspired Interactive Studio Showcase -->
+          <div class="kumo-showcase-wrap" id="kumo-studio-showcase">
+            <!-- 3 Arc/Pill Selector Cards -->
+            <div class="kumo-nav-track" id="kumo-nav-track">
+              <button type="button" class="kumo-nav-card is-active" data-index="0" onclick="kumoGoToSlide(0)">
+                <span class="kumo-active-indicator">Viewing</span>
+                <span class="kumo-nav-icon">📊</span>
+                <div class="kumo-nav-meta">
+                  <span class="kumo-nav-title">Executive Dashboard</span>
+                  <span class="kumo-nav-desc">Telemetry, credits &amp; workspace status</span>
+                </div>
+              </button>
+
+              <button type="button" class="kumo-nav-card" data-index="1" onclick="kumoGoToSlide(1)">
+                <span class="kumo-active-indicator">Viewing</span>
+                <span class="kumo-nav-icon">🎨</span>
+                <div class="kumo-nav-meta">
+                  <span class="kumo-nav-title">AI Content Studio</span>
+                  <span class="kumo-nav-desc">Multi-channel copy, images &amp; reels</span>
+                </div>
+              </button>
+
+              <button type="button" class="kumo-nav-card" data-index="2" onclick="kumoGoToSlide(2)">
+                <span class="kumo-active-indicator">Viewing</span>
+                <span class="kumo-nav-icon">🧬</span>
+                <div class="kumo-nav-meta">
+                  <span class="kumo-nav-title">Brand DNA &amp; Voice</span>
+                  <span class="kumo-nav-desc">7-section guidelines &amp; brand lock</span>
+                </div>
+              </button>
+            </div>
+
+            <!-- Mockup Frame -->
+            <div class="kumo-mockup-frame" id="kumo-mockup-frame">
+              <!-- Floating Nav Arrows -->
+              <button type="button" class="kumo-arrow-btn kumo-arrow-prev" onclick="kumoPrevSlide()"
+                aria-label="Previous Slide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button type="button" class="kumo-arrow-btn kumo-arrow-next" onclick="kumoNextSlide()"
+                aria-label="Next Slide">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+
+              <!-- Chrome Bar -->
+              <div class="kumo-topbar">
+                <div class="kumo-dots">
+                  <span class="kumo-dot dot-red"></span>
+                  <span class="kumo-dot dot-yellow"></span>
+                  <span class="kumo-dot dot-green"></span>
+                </div>
+                <div class="kumo-url-pill" id="kumo-url-pill">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span id="kumo-url-text">app.vibodhsignal.com/dashboard</span>
+                </div>
+                <div class="kumo-badge-status" id="kumo-badge-status">
+                  <span class="kumo-pulse-dot"></span>
+                  <span id="kumo-badge-text">Live Dashboard</span>
+                </div>
+              </div>
+
+              <!-- Viewport with 3 Slides -->
+              <div class="kumo-viewport">
+                <!-- Slide 0: Dashboard -->
+                <div class="kumo-slide-container is-active" id="kumo-slide-0">
+                  <a href="dashboard.html#dashboard" class="kumo-slide-link" title="Open Executive Dashboard">
+                    <img src="assets/dashboard-preview.png" alt="Executive Dashboard" class="kumo-slide-img"
+                      loading="lazy">
+                    <div class="kumo-hover-badge">
+                      <span>Explore Executive Dashboard &rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Slide 1: Content Studio -->
+                <div class="kumo-slide-container" id="kumo-slide-1">
+                  <a href="dashboard.html#content-studio" class="kumo-slide-link" title="Open AI Content Studio">
+                    <img src="assets/studio-preview.png" alt="AI Content Studio" class="kumo-slide-img" loading="lazy">
+                    <div class="kumo-hover-badge">
+                      <span>Launch AI Content Studio &rarr;</span>
+                    </div>
+                  </a>
+                </div>
+
+                <!-- Slide 2: Brand DNA -->
+                <div class="kumo-slide-container" id="kumo-slide-2">
+                  <a href="dashboard.html#brand-dna" class="kumo-slide-link" title="Open Brand DNA & Identity">
+                    <img src="assets/dna-preview.png" alt="Brand DNA & Identity" class="kumo-slide-img" loading="lazy">
+                    <div class="kumo-hover-badge">
+                      <span>Configure Brand DNA &rarr;</span>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom Bar: Dots & Scroll Hint -->
+            <div class="kumo-bottom-bar">
+              <div class="kumo-dots-track" id="kumo-dots-track">
+                <button type="button" class="kumo-page-dot is-active" data-index="0" onclick="kumoGoToSlide(0)"
+                  aria-label="Slide 1"></button>
+                <button type="button" class="kumo-page-dot" data-index="1" onclick="kumoGoToSlide(1)"
+                  aria-label="Slide 2"></button>
+                <button type="button" class="kumo-page-dot" data-index="2" onclick="kumoGoToSlide(2)"
+                  aria-label="Slide 3"></button>
+              </div>
+
+              <div class="kumo-scroll-hint">
+                <svg class="kumo-scroll-icon" width="13" height="13" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2.3">
+                  <rect x="5" y="2" width="14" height="20" rx="7"></rect>
+                  <line x1="12" y1="6" x2="12" y2="10"></line>
+                </svg>
+                <span>Scroll over mockup or use arrows to view pages one by one</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <!-- Kumo-Inspired Interactive Studio Showcase -->
-        <div class="kumo-showcase-wrap" id="kumo-studio-showcase">
-          <!-- 3 Arc/Pill Selector Cards -->
-          <div class="kumo-nav-track" id="kumo-nav-track">
-            <button type="button" class="kumo-nav-card is-active" data-index="0" onclick="kumoGoToSlide(0)">
-              <span class="kumo-active-indicator">Viewing</span>
-              <span class="kumo-nav-icon">📊</span>
-              <div class="kumo-nav-meta">
-                <span class="kumo-nav-title">Executive Dashboard</span>
-                <span class="kumo-nav-desc">Telemetry, credits &amp; workspace status</span>
-              </div>
-            </button>
-
-            <button type="button" class="kumo-nav-card" data-index="1" onclick="kumoGoToSlide(1)">
-              <span class="kumo-active-indicator">Viewing</span>
-              <span class="kumo-nav-icon">🎨</span>
-              <div class="kumo-nav-meta">
-                <span class="kumo-nav-title">AI Content Studio</span>
-                <span class="kumo-nav-desc">Multi-channel copy, images &amp; reels</span>
-              </div>
-            </button>
-
-            <button type="button" class="kumo-nav-card" data-index="2" onclick="kumoGoToSlide(2)">
-              <span class="kumo-active-indicator">Viewing</span>
-              <span class="kumo-nav-icon">🧬</span>
-              <div class="kumo-nav-meta">
-                <span class="kumo-nav-title">Brand DNA &amp; Voice</span>
-                <span class="kumo-nav-desc">7-section guidelines &amp; brand lock</span>
-              </div>
-            </button>
-          </div>
-
-          <!-- Mockup Frame -->
-          <div class="kumo-mockup-frame" id="kumo-mockup-frame">
-            <!-- Floating Nav Arrows -->
-            <button type="button" class="kumo-arrow-btn kumo-arrow-prev" onclick="kumoPrevSlide()" aria-label="Previous Slide">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </button>
-            <button type="button" class="kumo-arrow-btn kumo-arrow-next" onclick="kumoNextSlide()" aria-label="Next Slide">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="9 18 15 12 9 6"></polyline>
-              </svg>
-            </button>
-
-            <!-- Chrome Bar -->
-            <div class="kumo-topbar">
-              <div class="kumo-dots">
-                <span class="kumo-dot dot-red"></span>
-                <span class="kumo-dot dot-yellow"></span>
-                <span class="kumo-dot dot-green"></span>
-              </div>
-              <div class="kumo-url-pill" id="kumo-url-pill">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span id="kumo-url-text">app.vibodhsignal.com/dashboard</span>
-              </div>
-              <div class="kumo-badge-status" id="kumo-badge-status">
-                <span class="kumo-pulse-dot"></span>
-                <span id="kumo-badge-text">Live Dashboard</span>
-              </div>
-            </div>
-
-            <!-- Viewport with 3 Slides -->
-            <div class="kumo-viewport">
-              <!-- Slide 0: Dashboard -->
-              <div class="kumo-slide-container is-active" id="kumo-slide-0">
-                <a href="dashboard.html#dashboard" class="kumo-slide-link" title="Open Executive Dashboard">
-                  <img src="assets/dashboard-preview.png" alt="Executive Dashboard" class="kumo-slide-img" loading="lazy">
-                  <div class="kumo-hover-badge">
-                    <span>Explore Executive Dashboard &rarr;</span>
-                  </div>
-                </a>
-              </div>
-
-              <!-- Slide 1: Content Studio -->
-              <div class="kumo-slide-container" id="kumo-slide-1">
-                <a href="dashboard.html#content-studio" class="kumo-slide-link" title="Open AI Content Studio">
-                  <img src="assets/studio-preview.png" alt="AI Content Studio" class="kumo-slide-img" loading="lazy">
-                  <div class="kumo-hover-badge">
-                    <span>Launch AI Content Studio &rarr;</span>
-                  </div>
-                </a>
-              </div>
-
-              <!-- Slide 2: Brand DNA -->
-              <div class="kumo-slide-container" id="kumo-slide-2">
-                <a href="dashboard.html#brand-dna" class="kumo-slide-link" title="Open Brand DNA & Identity">
-                  <img src="assets/dna-preview.png" alt="Brand DNA & Identity" class="kumo-slide-img" loading="lazy">
-                  <div class="kumo-hover-badge">
-                    <span>Configure Brand DNA &rarr;</span>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Bottom Bar: Dots & Scroll Hint -->
-          <div class="kumo-bottom-bar">
-            <div class="kumo-dots-track" id="kumo-dots-track">
-              <button type="button" class="kumo-page-dot is-active" data-index="0" onclick="kumoGoToSlide(0)" aria-label="Slide 1"></button>
-              <button type="button" class="kumo-page-dot" data-index="1" onclick="kumoGoToSlide(1)" aria-label="Slide 2"></button>
-              <button type="button" class="kumo-page-dot" data-index="2" onclick="kumoGoToSlide(2)" aria-label="Slide 3"></button>
-            </div>
-
-            <div class="kumo-scroll-hint">
-              <svg class="kumo-scroll-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
-                <rect x="5" y="2" width="14" height="20" rx="7"></rect>
-                <line x1="12" y1="6" x2="12" y2="10"></line>
-              </svg>
-              <span>Scroll over mockup or use arrows to view pages one by one</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 3: ⚡ WHY CHOOSE US (#why-choose-us)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-why" id="why-choose-us">
-      <div class="container">
-        
-        <!-- Top Section Header -->
-        <div class="why-header-wrapper">
-          <div class="why-simple-way-badge">
-            <span class="sparkle-icon">✦</span>
-            <span>The Simple Way</span>
+      <section class="section-why" id="why-choose-us">
+        <div class="container">
+
+          <!-- Top Section Header -->
+          <div class="why-header-wrapper">
+            <div class="why-simple-way-badge">
+              <span class="sparkle-icon">✦</span>
+              <span>The Simple Way</span>
+            </div>
+
+            <div class="why-title-container">
+              <div class="why-accent-dashes" aria-hidden="true">
+                <span></span>
+                <span></span>
+              </div>
+              <h2 class="why-section-title">
+                Marketing Without the<br>
+                <span class="why-title-gradient">Marketing Overhead</span>
+              </h2>
+            </div>
+            <p class="why-section-desc">
+              Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.
+            </p>
           </div>
 
-          <div class="why-title-container">
-            <div class="why-accent-dashes" aria-hidden="true">
-              <span></span>
-              <span></span>
-            </div>
-            <h2 class="why-section-title">
-              Marketing Without the<br>
-              <span class="why-title-gradient">Marketing Overhead</span>
-            </h2>
-          </div>
-          <p class="why-section-desc">
-            Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.
-          </p>
-        </div>
+          <!-- Two Cards Comparison -->
+          <div class="why-compare-container">
 
-        <!-- Two Cards Comparison -->
-        <div class="why-compare-container">
-          
-          <!-- LEFT CARD: The Frustrating Old Way -->
-          <div class="why-card why-card-old">
-            <!-- Top Row: Stat Number + Labels + Illustration -->
-            <div class="why-old-top-row">
-              <div class="why-old-stat-group">
-                <span class="why-old-stat-number">8</span>
-                <div class="why-old-stat-labels">
-                  <span class="why-old-stat-title">APPS, TABS &amp; SUBSCRIPTIONS</span>
-                  <span class="why-old-stat-cost">~$350+/mo in scattered tools</span>
+            <!-- LEFT CARD: The Frustrating Old Way -->
+            <div class="why-card why-card-old">
+              <!-- Top Row: Stat Number + Labels + Illustration -->
+              <div class="why-old-top-row">
+                <div class="why-old-stat-group">
+                  <span class="why-old-stat-number">8</span>
+                  <div class="why-old-stat-labels">
+                    <span class="why-old-stat-title">APPS, TABS &amp; SUBSCRIPTIONS</span>
+                    <span class="why-old-stat-cost">~$350+/mo in scattered tools</span>
+                  </div>
                 </div>
-              </div>
-              
-              <!-- Real Girl Photo from reference design -->
-              <div class="why-old-illustration-wrap">
-                <img src="why-girl-frustrated.png" alt="Stressed marketer handling 8 different apps" class="why-girl-img" />
-              </div>
-            </div>
 
-            <!-- Old Head -->
-            <div class="why-old-head">
-              <h3 class="why-old-title">The Frustrating Old Way</h3>
-              <p class="why-old-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
-            </div>
-
-            <!-- 4 Pain Points -->
-            <div class="why-old-pain-list">
-              <div class="why-pain-item">
-                <div class="why-pain-icon">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M16 3l4 4-4 4"/>
-                    <path d="M20 7H4"/>
-                    <path d="M8 21l-4-4 4-4"/>
-                    <path d="M4 17h16"/>
-                  </svg>
-                </div>
-                <div class="why-pain-content">
-                  <span class="why-pain-heading">Constantly switching between 8 open tabs</span>
-                  <span class="why-pain-detail">Juggling separate subscriptions, logins, and disconnected workflows.</span>
+                <!-- Real Girl Photo from reference design -->
+                <div class="why-old-illustration-wrap">
+                  <img src="why-girl-frustrated.png" alt="Stressed marketer handling 8 different apps"
+                    class="why-girl-img" />
                 </div>
               </div>
 
-              <div class="why-pain-item">
-                <div class="why-pain-icon">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
-                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
-                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
-                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
-                  </svg>
-                </div>
-                <div class="why-pain-content">
-                  <span class="why-pain-heading">Inconsistent brand colors &amp; tone</span>
-                  <span class="why-pain-detail">Mismatched hex codes, fonts, and editing style when different team members post.</span>
-                </div>
+              <!-- Old Head -->
+              <div class="why-old-head">
+                <h3 class="why-old-title">The Frustrating Old Way</h3>
+                <p class="why-old-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
               </div>
 
-              <div class="why-pain-item">
-                <div class="why-pain-icon">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="9"/>
-                    <polyline points="12 7 12 12 15 15"/>
-                  </svg>
-                </div>
-                <div class="why-pain-content">
-                  <span class="why-pain-heading">Hours wasted manually resizing assets</span>
-                  <span class="why-pain-detail">Re-exporting and cropping square posts, vertical reels, and banners by hand.</span>
-                </div>
-              </div>
-
-              <div class="why-pain-item">
-                <div class="why-pain-icon">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="1" x2="12" y2="23"/>
-                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                  </svg>
-                </div>
-                <div class="why-pain-content">
-                  <span class="why-pain-heading">Paying multiple expensive software bills</span>
-                  <span class="why-pain-detail">Separate fees for copywriters, design tools, schedulers, and analytics add up fast.</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- CENTER FLOATING CONNECTOR ARROW -->
-          <div class="why-center-connector" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/>
-              <polyline points="12 5 19 12 12 19"/>
-            </svg>
-          </div>
-
-          <!-- RIGHT CARD: With Vibodh Signal -->
-          <div class="why-card why-card-signal">
-            <!-- Decorative Dot Matrix in top right -->
-            <div class="why-signal-dot-matrix" aria-hidden="true">
-              <svg width="84" height="60" viewBox="0 0 84 60" fill="none">
-                <circle cx="6" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="24" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="42" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="60" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="78" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="6" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="24" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="42" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="60" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="78" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="6" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="24" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="42" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="60" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="78" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="6" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="24" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="42" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="60" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-                <circle cx="78" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35"/>
-              </svg>
-            </div>
-
-            <!-- Top Row: Badge Icon + Labels -->
-            <div class="why-signal-top-row">
-              <div class="why-signal-badge-icon">
-                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M3 3v18h18"/>
-                  <path d="M18 9l-5 5-4-4-3 3"/>
-                  <polyline points="14 9 18 9 18 13"/>
-                </svg>
-              </div>
-              <div class="why-signal-badge-labels">
-                <span class="why-signal-tag">UNIFIED APP FOR EVERYTHING</span>
-                <span class="why-signal-context">Zero Context Switching</span>
-              </div>
-            </div>
-
-            <!-- Head -->
-            <div class="why-signal-head">
-              <h3 class="why-signal-title">With <span class="why-signal-brand-gradient">Vibodh Signal</span></h3>
-              <p class="why-signal-sub">One unified app that handles writing, designing, scheduling, and results.</p>
-            </div>
-
-            <!-- 2x2 Solutions Grid -->
-            <div class="why-solution-grid">
-              <!-- Sol 1 -->
-              <div class="why-sol-card">
-                <div class="why-sol-icon-wrap why-icon-user">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                  </svg>
-                </div>
-                <h4 class="why-sol-title">One easy login</h4>
-                <p class="why-sol-desc">Create posts, plan your calendar, and manage ads together in one unified hub.</p>
-              </div>
-
-              <!-- Sol 2 -->
-              <div class="why-sol-card">
-                <div class="why-sol-icon-wrap why-icon-palette">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
-                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
-                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
-                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
-                  </svg>
-                </div>
-                <h4 class="why-sol-title">Brand colors locked in</h4>
-                <p class="why-sol-desc">Every post automatically uses your exact brand logo, colors, and tone guidelines.</p>
-              </div>
-
-              <!-- Sol 3 -->
-              <div class="why-sol-card">
-                <div class="why-sol-icon-wrap why-icon-screen">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
-                    <line x1="8" y1="21" x2="16" y2="21"/>
-                    <line x1="12" y1="17" x2="12" y2="21"/>
-                  </svg>
-                </div>
-                <h4 class="why-sol-title">1 click, all formats</h4>
-                <p class="why-sol-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.</p>
-              </div>
-
-              <!-- Sol 4: HIGHLIGHTED HERO CARD -->
-              <div class="why-sol-card is-highlighted">
-                <!-- Cute Doodle Arrow Pointing Down -->
-                <div class="why-doodle-arrow" aria-hidden="true">
-                  <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-                    <path d="M40 4C34 12 26 24 12 36M12 36L14 26M12 36L22 38" stroke="#10B981" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </div>
-
-                <div class="why-sol-hero-header">
-                  <div class="why-hero-clock">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="9"/>
-                      <polyline points="12 7 12 12 15 15"/>
+              <!-- 4 Pain Points -->
+              <div class="why-old-pain-list">
+                <div class="why-pain-item">
+                  <div class="why-pain-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 3l4 4-4 4" />
+                      <path d="M20 7H4" />
+                      <path d="M8 21l-4-4 4-4" />
+                      <path d="M4 17h16" />
                     </svg>
                   </div>
-                  <span class="why-hero-sparkle">✦</span>
+                  <div class="why-pain-content">
+                    <span class="why-pain-heading">Constantly switching between 8 open tabs</span>
+                    <span class="why-pain-detail">Juggling separate subscriptions, logins, and disconnected
+                      workflows.</span>
+                  </div>
                 </div>
-                <h4 class="why-sol-title">Save 15+ hours weekly</h4>
-                <p class="why-sol-desc">Plan, create, and schedule an entire month of marketing in one afternoon.</p>
+
+                <div class="why-pain-item">
+                  <div class="why-pain-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                      <path
+                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                    </svg>
+                  </div>
+                  <div class="why-pain-content">
+                    <span class="why-pain-heading">Inconsistent brand colors &amp; tone</span>
+                    <span class="why-pain-detail">Mismatched hex codes, fonts, and editing style when different team
+                      members post.</span>
+                  </div>
+                </div>
+
+                <div class="why-pain-item">
+                  <div class="why-pain-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="9" />
+                      <polyline points="12 7 12 12 15 15" />
+                    </svg>
+                  </div>
+                  <div class="why-pain-content">
+                    <span class="why-pain-heading">Hours wasted manually resizing assets</span>
+                    <span class="why-pain-detail">Re-exporting and cropping square posts, vertical reels, and banners by
+                      hand.</span>
+                  </div>
+                </div>
+
+                <div class="why-pain-item">
+                  <div class="why-pain-icon">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="12" y1="1" x2="12" y2="23" />
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg>
+                  </div>
+                  <div class="why-pain-content">
+                    <span class="why-pain-heading">Paying multiple expensive software bills</span>
+                    <span class="why-pain-detail">Separate fees for copywriters, design tools, schedulers, and analytics
+                      add up fast.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- CENTER FLOATING CONNECTOR ARROW -->
+            <div class="why-center-connector" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </div>
+
+            <!-- RIGHT CARD: With Vibodh Signal -->
+            <div class="why-card why-card-signal">
+              <!-- Decorative Dot Matrix in top right -->
+              <div class="why-signal-dot-matrix" aria-hidden="true">
+                <svg width="84" height="60" viewBox="0 0 84 60" fill="none">
+                  <circle cx="6" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="24" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="42" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="60" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="78" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="6" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="24" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="42" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="60" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="78" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="6" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="24" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="42" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="60" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="78" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="6" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="24" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="42" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="60" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                  <circle cx="78" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
+                </svg>
               </div>
 
+              <!-- Top Row: Badge Icon + Labels -->
+              <div class="why-signal-top-row">
+                <div class="why-signal-badge-icon">
+                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 3v18h18" />
+                    <path d="M18 9l-5 5-4-4-3 3" />
+                    <polyline points="14 9 18 9 18 13" />
+                  </svg>
+                </div>
+                <div class="why-signal-badge-labels">
+                  <span class="why-signal-tag">UNIFIED APP FOR EVERYTHING</span>
+                  <span class="why-signal-context">Zero Context Switching</span>
+                </div>
+              </div>
+
+              <!-- Head -->
+              <div class="why-signal-head">
+                <h3 class="why-signal-title">With <span class="why-signal-brand-gradient">Vibodh Signal</span></h3>
+                <p class="why-signal-sub">One unified app that handles writing, designing, scheduling, and results.</p>
+              </div>
+
+              <!-- 2x2 Solutions Grid -->
+              <div class="why-solution-grid">
+                <!-- Sol 1 -->
+                <div class="why-sol-card">
+                  <div class="why-sol-icon-wrap why-icon-user">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                      <circle cx="12" cy="7" r="4" />
+                    </svg>
+                  </div>
+                  <h4 class="why-sol-title">One easy login</h4>
+                  <p class="why-sol-desc">Create posts, plan your calendar, and manage ads together in one unified hub.
+                  </p>
+                </div>
+
+                <!-- Sol 2 -->
+                <div class="why-sol-card">
+                  <div class="why-sol-icon-wrap why-icon-palette">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                      <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                      <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                      <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                      <path
+                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                    </svg>
+                  </div>
+                  <h4 class="why-sol-title">Brand colors locked in</h4>
+                  <p class="why-sol-desc">Every post automatically uses your exact brand logo, colors, and tone
+                    guidelines.</p>
+                </div>
+
+                <!-- Sol 3 -->
+                <div class="why-sol-card">
+                  <div class="why-sol-icon-wrap why-icon-screen">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
+                      <line x1="8" y1="21" x2="16" y2="21" />
+                      <line x1="12" y1="17" x2="12" y2="21" />
+                    </svg>
+                  </div>
+                  <h4 class="why-sol-title">1 click, all formats</h4>
+                  <p class="why-sol-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.
+                  </p>
+                </div>
+
+                <!-- Sol 4: HIGHLIGHTED HERO CARD -->
+                <div class="why-sol-card is-highlighted">
+                  <!-- Cute Doodle Arrow Pointing Down -->
+                  <div class="why-doodle-arrow" aria-hidden="true">
+                    <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
+                      <path d="M40 4C34 12 26 24 12 36M12 36L14 26M12 36L22 38" stroke="#10B981" stroke-width="2.6"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                  </div>
+
+                  <div class="why-sol-hero-header">
+                    <div class="why-hero-clock">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="9" />
+                        <polyline points="12 7 12 12 15 15" />
+                      </svg>
+                    </div>
+                    <span class="why-hero-sparkle">✦</span>
+                  </div>
+                  <h4 class="why-sol-title">Save 15+ hours weekly</h4>
+                  <p class="why-sol-desc">Plan, create, and schedule an entire month of marketing in one afternoon.</p>
+                </div>
+
+              </div>
             </div>
+
           </div>
-
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ═══════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 6: 🛠️ HOW IT WORKS (#how-it-works)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-steps" id="how-it-works">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge">🛠️ How It Works</span>
-          <h2 class="section-title">From Idea to Published Campaign</h2>
-          <p class="section-desc">A connected four-step workflow that takes your business from raw idea to published multi-channel marketing in minutes.</p>
+      <section class="section-steps" id="how-it-works">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-pill-badge">🛠️ How It Works</span>
+            <h2 class="section-title">From Idea to Published Campaign</h2>
+            <p class="section-desc">A connected four-step workflow that takes your business from raw idea to published
+              multi-channel marketing in minutes.</p>
+          </div>
+
+          <div class="steps-container">
+            <!-- Step 1: Tell Us Your Idea -->
+            <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="1">
+              <div class="flip-step-inner">
+                <!-- Front Face: Image with Heading directly underneath -->
+                <div class="flip-step-front">
+                  <div class="flip-step-img-wrap">
+                    <img src="assets/how-it-works-step-1.png" alt="Tell Us Your Idea visual">
+                  </div>
+                  <div class="flip-step-front-overlay">
+                    <span class="flip-front-badge">Step 01</span>
+                    <h3 class="flip-front-title">Tell Us Your Idea</h3>
+                    <span class="flip-prompt-hint">Click to view details &curarr;</span>
+                  </div>
+                </div>
+                <!-- Back Face: Flipped Details -->
+                <div class="flip-step-back">
+                  <div class="flip-back-step-num">01</div>
+                  <h3 class="flip-back-title">Tell Us Your Idea</h3>
+                  <p class="flip-back-desc">Provide your business, campaign goal, product name or marketing idea in
+                    simple words. Our AI understands your objectives without complicated prompts.</p>
+                  <span class="flip-back-pill">💡 Share Your Idea</span>
+                  <span class="flip-back-return-hint">&cularr; Click to flip back</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Create Your Content -->
+            <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="2">
+              <div class="flip-step-inner">
+                <!-- Front Face -->
+                <div class="flip-step-front">
+                  <div class="flip-step-img-wrap">
+                    <img src="assets/how-it-works-step-2.png" alt="Create Your Content visual">
+                  </div>
+                  <div class="flip-step-front-overlay">
+                    <span class="flip-front-badge" style="background:var(--purple-light); color:var(--purple);">Step
+                      02</span>
+                    <h3 class="flip-front-title">Create Your Content</h3>
+                    <span class="flip-prompt-hint" style="color:var(--purple);">Click to view details &curarr;</span>
+                  </div>
+                </div>
+                <!-- Back Face -->
+                <div class="flip-step-back"
+                  style="background:radial-gradient(circle at 50% 0%, #FAF5FF 0%, #FFFFFF 70%);">
+                  <div class="flip-back-step-num" style="background:var(--purple-light); color:var(--purple);">02</div>
+                  <h3 class="flip-back-title">Create Your Content</h3>
+                  <p class="flip-back-desc">Our intelligent assistant generates multiple formats &mdash; square posts,
+                    video reels, captions, and targeted hashtags tailored to your audience.</p>
+                  <span class="flip-back-pill" style="color:var(--purple);">✨ Generate with AI</span>
+                  <span class="flip-back-return-hint" style="color:var(--purple);">&cularr; Click to flip back</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Review & Customize -->
+            <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="3">
+              <div class="flip-step-inner">
+                <!-- Front Face -->
+                <div class="flip-step-front">
+                  <div class="flip-step-img-wrap">
+                    <img src="assets/how-it-works-step-3.png" alt="Review and Customize visual">
+                  </div>
+                  <div class="flip-step-front-overlay">
+                    <span class="flip-front-badge" style="background:#E6F7F5; color:#0F9D8A;">Step 03</span>
+                    <h3 class="flip-front-title">Review &amp; Customize</h3>
+                    <span class="flip-prompt-hint">Click to view details &curarr;</span>
+                  </div>
+                </div>
+                <!-- Back Face -->
+                <div class="flip-step-back">
+                  <div class="flip-back-step-num">03</div>
+                  <h3 class="flip-back-title">Review &amp; Customize</h3>
+                  <p class="flip-back-desc">Adjust tone, visuals and branding in seconds so every piece of content
+                    matches your brand colors, fonts, and style guidelines perfectly.</p>
+                  <span class="flip-back-pill" style="color:#0F9D8A;">🎨 Edit &amp; Perfect</span>
+                  <span class="flip-back-return-hint">&cularr; Click to flip back</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4: Publish & Measure -->
+            <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="4">
+              <div class="flip-step-inner">
+                <!-- Front Face -->
+                <div class="flip-step-front">
+                  <div class="flip-step-img-wrap">
+                    <img src="assets/how-it-works-step-4.png" alt="Publish and Measure visual">
+                  </div>
+                  <div class="flip-step-front-overlay">
+                    <span class="flip-front-badge" style="background:var(--orange-light); color:var(--orange);">Step
+                      04</span>
+                    <h3 class="flip-front-title">Publish &amp; Measure</h3>
+                    <span class="flip-prompt-hint" style="color:var(--orange);">Click to view details &curarr;</span>
+                  </div>
+                </div>
+                <!-- Back Face -->
+                <div class="flip-step-back"
+                  style="background:radial-gradient(circle at 50% 0%, #FFF7ED 0%, #FFFFFF 70%);">
+                  <div class="flip-back-step-num" style="background:var(--orange-light); color:var(--orange);">04</div>
+                  <h3 class="flip-back-title">Publish &amp; Measure</h3>
+                  <p class="flip-back-desc">Schedule your content, track engagement performance and get actionable
+                    insights to reach more people and grow your business faster.</p>
+                  <span class="flip-back-pill" style="color:var(--orange);">📈 Track Your Growth</span>
+                  <span class="flip-back-return-hint" style="color:var(--orange);">&cularr; Click to flip back</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="steps-container">
-          <!-- Step 1: Tell Us Your Idea -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="1">
-            <div class="flip-step-inner">
-              <!-- Front Face: Image with Heading directly underneath -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-1.png" alt="Tell Us Your Idea visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge">Step 01</span>
-                  <h3 class="flip-front-title">Tell Us Your Idea</h3>
-                  <span class="flip-prompt-hint">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face: Flipped Details -->
-              <div class="flip-step-back">
-                <div class="flip-back-step-num">01</div>
-                <h3 class="flip-back-title">Tell Us Your Idea</h3>
-                <p class="flip-back-desc">Provide your business, campaign goal, product name or marketing idea in simple words. Our AI understands your objectives without complicated prompts.</p>
-                <span class="flip-back-pill">💡 Share Your Idea</span>
-                <span class="flip-back-return-hint">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 2: Create Your Content -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="2">
-            <div class="flip-step-inner">
-              <!-- Front Face -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-2.png" alt="Create Your Content visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge" style="background:var(--purple-light); color:var(--purple);">Step 02</span>
-                  <h3 class="flip-front-title">Create Your Content</h3>
-                  <span class="flip-prompt-hint" style="color:var(--purple);">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face -->
-              <div class="flip-step-back" style="background:radial-gradient(circle at 50% 0%, #FAF5FF 0%, #FFFFFF 70%);">
-                <div class="flip-back-step-num" style="background:var(--purple-light); color:var(--purple);">02</div>
-                <h3 class="flip-back-title">Create Your Content</h3>
-                <p class="flip-back-desc">Our intelligent assistant generates multiple formats &mdash; square posts, video reels, captions, and targeted hashtags tailored to your audience.</p>
-                <span class="flip-back-pill" style="color:var(--purple);">✨ Generate with AI</span>
-                <span class="flip-back-return-hint" style="color:var(--purple);">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 3: Review & Customize -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="3">
-            <div class="flip-step-inner">
-              <!-- Front Face -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-3.png" alt="Review and Customize visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge" style="background:#E6F7F5; color:#0F9D8A;">Step 03</span>
-                  <h3 class="flip-front-title">Review &amp; Customize</h3>
-                  <span class="flip-prompt-hint">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face -->
-              <div class="flip-step-back">
-                <div class="flip-back-step-num">03</div>
-                <h3 class="flip-back-title">Review &amp; Customize</h3>
-                <p class="flip-back-desc">Adjust tone, visuals and branding in seconds so every piece of content matches your brand colors, fonts, and style guidelines perfectly.</p>
-                <span class="flip-back-pill" style="color:#0F9D8A;">🎨 Edit &amp; Perfect</span>
-                <span class="flip-back-return-hint">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Step 4: Publish & Measure -->
-          <div class="flip-step-card" tabindex="0" role="button" aria-expanded="false" data-step="4">
-            <div class="flip-step-inner">
-              <!-- Front Face -->
-              <div class="flip-step-front">
-                <div class="flip-step-img-wrap">
-                  <img src="assets/how-it-works-step-4.png" alt="Publish and Measure visual">
-                </div>
-                <div class="flip-step-front-overlay">
-                  <span class="flip-front-badge" style="background:var(--orange-light); color:var(--orange);">Step 04</span>
-                  <h3 class="flip-front-title">Publish &amp; Measure</h3>
-                  <span class="flip-prompt-hint" style="color:var(--orange);">Click to view details &curarr;</span>
-                </div>
-              </div>
-              <!-- Back Face -->
-              <div class="flip-step-back" style="background:radial-gradient(circle at 50% 0%, #FFF7ED 0%, #FFFFFF 70%);">
-                <div class="flip-back-step-num" style="background:var(--orange-light); color:var(--orange);">04</div>
-                <h3 class="flip-back-title">Publish &amp; Measure</h3>
-                <p class="flip-back-desc">Schedule your content, track engagement performance and get actionable insights to reach more people and grow your business faster.</p>
-                <span class="flip-back-pill" style="color:var(--orange);">📈 Track Your Growth</span>
-                <span class="flip-back-return-hint" style="color:var(--orange);">&cularr; Click to flip back</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-        <!-- ═══════════════════════════════════════════════════════════
-         STEP 5: SIMPLE, FLEXIBLE PRICING CALLOUT
-    ═══════════════════════════════════════════════════════════ -->
-    <section class="section-pricing-teaser">
-      <div class="container">
-        <div class="pricing-teaser-card">
-          <div class="pricing-teaser-left">
-            <span class="pricing-teaser-badge">Flexible Plans</span>
-            <h2 class="pricing-teaser-title">Simple, Flexible Pricing</h2>
-            <p class="pricing-teaser-desc">Choose the plan that fits your marketing needs.</p>
-            <a href="#plans-pricing" class="btn btn-teal pricing-teaser-btn" onclick="switchLandingTab('plans-pricing'); return false;">
-              <span>View Pricing</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      <!-- ═══════════════════════════════════════════════════════════
+         STEP 5: SIMPLE, FLEXIBLE PRICING BANNER
+      ═══════════════════════════════════════════════════════════ -->
+      <section class="section-pricing-teaser" id="pricing-teaser">
+        <div class="container">
+          <div class="pricing-teaser-card" id="pricing-teaser-card"
+               onclick="switchLandingTab('plans-pricing', true, true);"
+               role="button"
+               tabindex="0"
+               title="View Simple, Flexible Pricing Plans"
+               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); switchLandingTab('plans-pricing', true, true);}">
+            
+            <!-- Authentic 3D Pricing Banner Image matching exact design -->
+            <img src="pricing-flexible-banner.jpg" 
+                 alt="Simple, Flexible Pricing - Choose the plan that fits your marketing needs. Click to view pricing." 
+                 class="pricing-banner-img" />
+            
+            <!-- Interactive Clickable Button Hotspot with hover effects -->
+            <a href="#plans-pricing" 
+               class="pricing-banner-btn-overlay" 
+               aria-label="View Pricing - Choose the plan that fits your marketing needs" 
+               title="View Pricing"
+               onclick="event.stopPropagation(); switchLandingTab('plans-pricing', true, true); return false;">
+              <span class="pricing-btn-shimmer" aria-hidden="true"></span>
             </a>
           </div>
-          <div class="pricing-teaser-right">
-            <!-- 3D Rising Bar Chart with Growth Arrow matching user image -->
-            <svg class="growth-chart-svg" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <linearGradient id="ptBar1" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#3B82F6"/>
-                  <stop offset="100%" stop-color="#1D4ED8"/>
-                </linearGradient>
-                <linearGradient id="ptBar2" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#8B5CF6"/>
-                  <stop offset="100%" stop-color="#6D28D9"/>
-                </linearGradient>
-                <linearGradient id="ptBar3" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#1E293B"/>
-                  <stop offset="100%" stop-color="#0F172A"/>
-                </linearGradient>
-                <linearGradient id="ptBar4" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stop-color="#10B981"/>
-                  <stop offset="100%" stop-color="#059669"/>
-                </linearGradient>
-                <linearGradient id="ptArrowGrad" x1="0" y1="1" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#8B5CF6"/>
-                  <stop offset="50%" stop-color="#06B6D4"/>
-                  <stop offset="100%" stop-color="#10B981"/>
-                </linearGradient>
-                <filter id="ptShadow" x="-15%" y="-10%" width="130%" height="135%" filterUnits="userSpaceOnUse">
-                  <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0F172A" flood-opacity="0.12"/>
-                </filter>
-                <filter id="ptGlow" x="-20%" y="-20%" width="140%" height="140%">
-                  <feGaussianBlur stdDeviation="28" result="blur"/>
-                </filter>
-              </defs>
-
-              <!-- Ambient backdrop aura -->
-              <ellipse cx="260" cy="130" rx="130" ry="75" fill="#E0E7FF" opacity="0.65" filter="url(#ptGlow)"/>
-
-              <!-- Curved Growth Trendline -->
-              <path d="M 60 175 C 150 160, 220 100, 345 35" stroke="url(#ptArrowGrad)" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.85"/>
-              <path d="M 324 41 L 348 32 L 340 56" stroke="url(#ptArrowGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-
-              <!-- 4 Dimensional Rounded Pillars -->
-              <!-- Bar 1: Shortest (Royal Blue) -->
-              <rect x="85" y="145" width="48" height="75" rx="16" fill="url(#ptBar1)" filter="url(#ptShadow)"/>
-              <rect x="88" y="148" width="42" height="18" rx="9" fill="#93C5FD" opacity="0.4"/>
-
-              <!-- Bar 2: Medium (Vibrant Purple) -->
-              <rect x="150" y="120" width="48" height="100" rx="16" fill="url(#ptBar2)" filter="url(#ptShadow)"/>
-              <rect x="153" y="123" width="42" height="20" rx="10" fill="#C4B5FD" opacity="0.4"/>
-
-              <!-- Bar 3: Tall (Dark Navy/Slate) -->
-              <rect x="215" y="90" width="48" height="130" rx="16" fill="url(#ptBar3)" filter="url(#ptShadow)"/>
-              <rect x="218" y="93" width="42" height="22" rx="11" fill="#64748B" opacity="0.35"/>
-
-              <!-- Bar 4: Tallest (Emerald Teal) -->
-              <rect x="280" y="55" width="50" height="165" rx="18" fill="url(#ptBar4)" filter="url(#ptShadow)"/>
-              <rect x="284" y="59" width="42" height="24" rx="12" fill="#6EE7B7" opacity="0.45"/>
-            </svg>
-          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ═══════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 6: TRUSTED INTEGRATIONS BAR
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-trusted-integrations">
-      <div class="container">
-        <div class="integrations-card">
-          <h3 class="integrations-title">Trusted Integrations</h3>
-          <div class="integrations-row">
-            <!-- 1. Google -->
-            <div class="integration-item" title="Google">
-              <svg class="integration-logo" viewBox="0 0 24 24" width="36" height="36">
-                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
-                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/>
-                <path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/>
-                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/>
-              </svg>
-            </div>
+      <section class="section-trusted-integrations">
+        <div class="container">
+          <div class="integrations-card">
+            <h3 class="integrations-title">Trusted Integrations</h3>
+            <div class="integrations-row">
+              <!-- 1. Google -->
+              <div class="integration-item" title="Google">
+                <svg class="integration-logo" viewBox="0 0 24 24" width="36" height="36">
+                  <path fill="#4285F4"
+                    d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z" />
+                  <path fill="#34A853"
+                    d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z" />
+                  <path fill="#FBBC05"
+                    d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.03 0 12s.45 3.82 1.25 5.42l4.03-3.15z" />
+                  <path fill="#EA4335"
+                    d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z" />
+                </svg>
+              </div>
 
-            <div class="integration-divider"></div>
+              <div class="integration-divider"></div>
 
-            <!-- 2. Meta -->
-            <div class="integration-item" title="Meta">
-              <svg class="integration-logo" viewBox="0 0 24 24" width="38" height="38">
-                <path fill="#0081FB" d="M16.92 5.05c-1.63 0-3.17.76-4.92 2.76-1.75-2-3.29-2.76-4.92-2.76C3.12 5.05 0 8.35 0 13.06c0 4.7 3.42 7.89 7.33 7.89 2.15 0 3.84-.96 5.09-2.3 1.25 1.34 2.94 2.3 5.09 2.3 3.91 0 7.33-3.19 7.33-7.89 0-4.71-3.12-8.01-7.92-8.01zm.5 13.33c-1.89 0-3.37-1.34-4.52-3.42.92-1.35 1.93-2.36 2.96-2.93.58-.32 1.09-.48 1.56-.48 2.05 0 3.62 1.48 3.62 3.42 0 1.93-1.57 3.41-3.62 3.41zm-10.84 0c-2.05 0-3.62-1.48-3.62-3.41 0-1.94 1.57-3.42 3.62-3.42.47 0 .98.16 1.56.48 1.03.57 2.04 1.58 2.96 2.93-1.15 2.08-2.63 3.42-4.52 3.42z"/>
-              </svg>
-            </div>
+              <!-- 2. Meta -->
+              <div class="integration-item" title="Meta">
+                <svg class="integration-logo" viewBox="0 0 24 24" width="38" height="38">
+                  <path fill="#0081FB"
+                    d="M16.92 5.05c-1.63 0-3.17.76-4.92 2.76-1.75-2-3.29-2.76-4.92-2.76C3.12 5.05 0 8.35 0 13.06c0 4.7 3.42 7.89 7.33 7.89 2.15 0 3.84-.96 5.09-2.3 1.25 1.34 2.94 2.3 5.09 2.3 3.91 0 7.33-3.19 7.33-7.89 0-4.71-3.12-8.01-7.92-8.01zm.5 13.33c-1.89 0-3.37-1.34-4.52-3.42.92-1.35 1.93-2.36 2.96-2.93.58-.32 1.09-.48 1.56-.48 2.05 0 3.62 1.48 3.62 3.42 0 1.93-1.57 3.41-3.62 3.41zm-10.84 0c-2.05 0-3.62-1.48-3.62-3.41 0-1.94 1.57-3.42 3.62-3.42.47 0 .98.16 1.56.48 1.03.57 2.04 1.58 2.96 2.93-1.15 2.08-2.63 3.42-4.52 3.42z" />
+                </svg>
+              </div>
 
-            <div class="integration-divider"></div>
+              <div class="integration-divider"></div>
 
-            <!-- 3. YouTube -->
-            <div class="integration-item" title="YouTube">
-              <svg class="integration-logo" viewBox="0 0 24 24" width="38" height="38">
-                <path fill="#FF0000" d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z"/>
-                <polygon fill="#FFFFFF" points="9.545 15.568 15.818 12 9.545 8.432"/>
-              </svg>
-            </div>
+              <!-- 3. YouTube -->
+              <div class="integration-item" title="YouTube">
+                <svg class="integration-logo" viewBox="0 0 24 24" width="38" height="38">
+                  <path fill="#FF0000"
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814z" />
+                  <polygon fill="#FFFFFF" points="9.545 15.568 15.818 12 9.545 8.432" />
+                </svg>
+              </div>
 
-            <div class="integration-divider"></div>
+              <div class="integration-divider"></div>
 
-            <!-- 4. LinkedIn -->
-            <div class="integration-item" title="LinkedIn">
-              <svg class="integration-logo" viewBox="0 0 24 24" width="34" height="34">
-                <path fill="#0A66C2" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
-            </div>
+              <!-- 4. LinkedIn -->
+              <div class="integration-item" title="LinkedIn">
+                <svg class="integration-logo" viewBox="0 0 24 24" width="34" height="34">
+                  <path fill="#0A66C2"
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+                </svg>
+              </div>
 
-            <div class="integration-divider"></div>
+              <div class="integration-divider"></div>
 
-            <!-- 5. Slack -->
-            <div class="integration-item" title="Slack">
-              <svg class="integration-logo" viewBox="0 0 24 24" width="34" height="34">
-                <path fill="#E01E5A" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z"/>
-                <path fill="#36C5F0" d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z"/>
-                <path fill="#2EB67D" d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z"/>
-                <path fill="#ECB22E" d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
-              </svg>
+              <!-- 5. Slack -->
+              <div class="integration-item" title="Slack">
+                <svg class="integration-logo" viewBox="0 0 24 24" width="34" height="34">
+                  <path fill="#E01E5A"
+                    d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313z" />
+                  <path fill="#36C5F0"
+                    d="M8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312z" />
+                  <path fill="#2EB67D"
+                    d="M18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312z" />
+                  <path fill="#ECB22E"
+                    d="M15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ═══════════════════════════════════════════════════════════
+      <!-- ═══════════════════════════════════════════════════════════
          STEP 8: FINAL CTA SECTION
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-final-cta">
-      <div class="container">
-        <div class="final-cta-container">
-          <h2 class="final-cta-title">Ready to Make Marketing Simpler?</h2>
-          <p class="final-cta-desc">
-            Bring your next marketing idea to Vibodh Signal and turn it into content your audience can see, engage with and remember.
-          </p>
+      <section class="section-final-cta">
+        <div class="container">
+          <div class="final-cta-container">
+            <h2 class="final-cta-title">Ready to Make Marketing Simpler?</h2>
+            <p class="final-cta-desc">
+              Bring your next marketing idea to Vibodh Signal and turn it into content your audience can see, engage
+              with and remember.
+            </p>
 
-          <div class="final-cta-btn-group">
-            <a href="dashboard.html" class="btn btn-teal" style="font-size:1.0625rem; padding:15px 34px;">
-              <span>Get Started</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-            </a>
-            <a href="#plans-pricing" class="btn btn-outline" style="background:rgba(255,255,255,0.1); color:#ffffff; border-color:rgba(255,255,255,0.3); font-size:1.0625rem; padding:15px 30px;">
-              <span>View Plans</span>
-            </a>
+            <div class="final-cta-btn-group">
+              <a href="dashboard.html" class="btn btn-teal" style="font-size:1.0625rem; padding:15px 34px;">
+                <span>Get Started</span>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </a>
+              <a href="#plans-pricing" class="btn btn-outline"
+                style="background:rgba(255,255,255,0.1); color:#ffffff; border-color:rgba(255,255,255,0.3); font-size:1.0625rem; padding:15px 30px;">
+                <span>View Plans</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════
@@ -4225,425 +4437,502 @@
       <!-- ═══════════════════════════════════════════════════════════
          STEP 4: 🚀 KEY FEATURES (#key-features)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-features" id="key-features" style="padding-top: 110px; padding-bottom: 88px;">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge">🚀 Key Features</span>
-          <h2 class="section-title">Everything Your Marketing Needs</h2>
-          <p class="section-desc">Six deeply integrated engines that work seamlessly together so your brand can grow without complicated workflows.</p>
-        </div>
-
-        <!-- Unified Interactive Features Rectangle -->
-        <div class="features-interactive-box">
-          <!-- Left side: 6 Feature Headings -->
-          <div class="features-nav-list" role="tablist" aria-label="Key Features Navigation">
-            <button class="feature-nav-btn is-active" role="tab" aria-selected="true" data-feature="1" id="feature-tab-1">
-              <span class="feature-nav-num">01</span>
-              <div class="feature-nav-text">
-                <div class="feature-nav-title">AI Content Creation</div>
-                <div class="feature-nav-sub">Posts, reels, captions &amp; visuals</div>
-              </div>
-              <span class="feature-nav-chevron">&rsaquo;</span>
-            </button>
-
-            <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="2" id="feature-tab-2">
-              <span class="feature-nav-num">02</span>
-              <div class="feature-nav-text">
-                <div class="feature-nav-title">Brand-Aware Content</div>
-                <div class="feature-nav-sub">Voice persona, colors &amp; logos</div>
-              </div>
-              <span class="feature-nav-chevron">&rsaquo;</span>
-            </button>
-
-            <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="3" id="feature-tab-3">
-              <span class="feature-nav-num">03</span>
-              <div class="feature-nav-text">
-                <div class="feature-nav-title">Social Media Management</div>
-                <div class="feature-nav-sub">Auto-scheduling &amp; queue calendar</div>
-              </div>
-              <span class="feature-nav-chevron">&rsaquo;</span>
-            </button>
-
-            <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="4" id="feature-tab-4">
-              <span class="feature-nav-num">04</span>
-              <div class="feature-nav-text">
-                <div class="feature-nav-title">Campaign Management</div>
-                <div class="feature-nav-sub">Multi-week timelines &amp; launches</div>
-              </div>
-              <span class="feature-nav-chevron">&rsaquo;</span>
-            </button>
-
-            <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="5" id="feature-tab-5">
-              <span class="feature-nav-num">05</span>
-              <div class="feature-nav-text">
-                <div class="feature-nav-title">Advertising</div>
-                <div class="feature-nav-sub">Meta &amp; Google ad creatives</div>
-              </div>
-              <span class="feature-nav-chevron">&rsaquo;</span>
-            </button>
-
-            <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="6" id="feature-tab-6">
-              <span class="feature-nav-num">06</span>
-              <div class="feature-nav-text">
-                <div class="feature-nav-title">Analytics &amp; Insights</div>
-                <div class="feature-nav-sub">Retention, growth &amp; winning hooks</div>
-              </div>
-              <span class="feature-nav-chevron">&rsaquo;</span>
-            </button>
+      <section class="section-features" id="key-features" style="padding-top: 110px; padding-bottom: 88px;">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-pill-badge">🚀 Key Features</span>
+            <h2 class="section-title">Everything Your Marketing Needs</h2>
+            <p class="section-desc">Six deeply integrated engines that work seamlessly together so your brand can grow
+              without complicated workflows.</p>
           </div>
 
-          <!-- Right side: Details Card Attached to the Headings (1st shown by default) -->
-          <div class="features-detail-area">
-            <!-- Pane 1: AI Content Creation -->
-            <div class="feature-detail-pane is-active" id="feature-pane-1" role="tabpanel" aria-labelledby="feature-tab-1">
-              <div class="feature-detail-grid">
-                <div>
-                  <span class="feature-tag-pill">01 &bull; AI Content Creation</span>
-                  <h3 class="feature-block-title">Turn ideas into social posts, captions, images and video reels faster.</h3>
-                  <p class="feature-block-desc">Stop designing separately for Instagram, Meta, LinkedIn, and Google. Input your single campaign objective and instantly receive production-ready creatives engineered for each channel&rsquo;s audience.</p>
-                  <ul class="feature-check-list">
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Ready-to-post 9:16 reels, 1:1 feeds, and banners</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Engaging headlines tailored to keep viewers watching</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>One-click caption writing with relevant hashtags</span></li>
-                  </ul>
+          <!-- Unified Interactive Features Rectangle -->
+          <div class="features-interactive-box">
+            <!-- Left side: 6 Feature Headings -->
+            <div class="features-nav-list" role="tablist" aria-label="Key Features Navigation">
+              <button class="feature-nav-btn is-active" role="tab" aria-selected="true" data-feature="1"
+                id="feature-tab-1">
+                <span class="feature-nav-num">01</span>
+                <div class="feature-nav-text">
+                  <div class="feature-nav-title">AI Content Creation</div>
+                  <div class="feature-nav-sub">Posts, reels, captions &amp; visuals</div>
                 </div>
-                <div class="feature-visual-panel">
-                  <img src="assets/tab-content-creation.png" alt="AI Content Creation Visual">
+                <span class="feature-nav-chevron">&rsaquo;</span>
+              </button>
+
+              <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="2" id="feature-tab-2">
+                <span class="feature-nav-num">02</span>
+                <div class="feature-nav-text">
+                  <div class="feature-nav-title">Brand-Aware Content</div>
+                  <div class="feature-nav-sub">Voice persona, colors &amp; logos</div>
                 </div>
-              </div>
+                <span class="feature-nav-chevron">&rsaquo;</span>
+              </button>
+
+              <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="3" id="feature-tab-3">
+                <span class="feature-nav-num">03</span>
+                <div class="feature-nav-text">
+                  <div class="feature-nav-title">Social Media Management</div>
+                  <div class="feature-nav-sub">Auto-scheduling &amp; queue calendar</div>
+                </div>
+                <span class="feature-nav-chevron">&rsaquo;</span>
+              </button>
+
+              <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="4" id="feature-tab-4">
+                <span class="feature-nav-num">04</span>
+                <div class="feature-nav-text">
+                  <div class="feature-nav-title">Campaign Management</div>
+                  <div class="feature-nav-sub">Multi-week timelines &amp; launches</div>
+                </div>
+                <span class="feature-nav-chevron">&rsaquo;</span>
+              </button>
+
+              <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="5" id="feature-tab-5">
+                <span class="feature-nav-num">05</span>
+                <div class="feature-nav-text">
+                  <div class="feature-nav-title">Advertising</div>
+                  <div class="feature-nav-sub">Meta &amp; Google ad creatives</div>
+                </div>
+                <span class="feature-nav-chevron">&rsaquo;</span>
+              </button>
+
+              <button class="feature-nav-btn" role="tab" aria-selected="false" data-feature="6" id="feature-tab-6">
+                <span class="feature-nav-num">06</span>
+                <div class="feature-nav-text">
+                  <div class="feature-nav-title">Analytics &amp; Insights</div>
+                  <div class="feature-nav-sub">Retention, growth &amp; winning hooks</div>
+                </div>
+                <span class="feature-nav-chevron">&rsaquo;</span>
+              </button>
             </div>
 
-            <!-- Pane 2: Brand-Aware Content -->
-            <div class="feature-detail-pane" id="feature-pane-2" role="tabpanel" aria-labelledby="feature-tab-2">
-              <div class="feature-detail-grid">
-                <div>
-                  <span class="feature-tag-pill">02 &bull; Brand-Aware Content</span>
-                  <h3 class="feature-block-title">Keep every piece of content aligned with your brand identity.</h3>
-                  <p class="feature-block-desc">Connect your website link or upload style guides once. Vibodh Signal locks in your voice persona, hex palettes, typography, and guardrails so every generated asset stays 100% compliant.</p>
-                  <ul class="feature-check-list">
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Multi-attribute tone of voice calibration (luxury, poetic, bold)</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automatic logo, font, and hex color injection</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Negative guardrails (e.g. &ldquo;never use discount slang&rdquo;)</span></li>
-                  </ul>
+            <!-- Right side: Details Card Attached to the Headings (1st shown by default) -->
+            <div class="features-detail-area">
+              <!-- Pane 1: AI Content Creation -->
+              <div class="feature-detail-pane is-active" id="feature-pane-1" role="tabpanel"
+                aria-labelledby="feature-tab-1">
+                <div class="feature-detail-grid">
+                  <div>
+                    <span class="feature-tag-pill">01 &bull; AI Content Creation</span>
+                    <h3 class="feature-block-title">Turn ideas into social posts, captions, images and video reels
+                      faster.</h3>
+                    <p class="feature-block-desc">Stop designing separately for Instagram, Meta, LinkedIn, and Google.
+                      Input your single campaign objective and instantly receive production-ready creatives engineered
+                      for each channel&rsquo;s audience.</p>
+                    <ul class="feature-check-list">
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Ready-to-post 9:16
+                          reels, 1:1 feeds, and banners</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Engaging headlines
+                          tailored to keep viewers watching</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>One-click caption
+                          writing with relevant hashtags</span></li>
+                    </ul>
+                  </div>
+                  <div class="feature-visual-panel">
+                    <img src="assets/tab-content-creation.png" alt="AI Content Creation Visual">
+                  </div>
                 </div>
-                <div class="feature-visual-panel">
-                  <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:20px; width:100%;">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                      <div style="display:flex; align-items:center; gap:10px;">
-                        <div style="width:36px; height:36px; border-radius:8px; background:var(--dark-navy); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.875rem;">LP</div>
+              </div>
+
+              <!-- Pane 2: Brand-Aware Content -->
+              <div class="feature-detail-pane" id="feature-pane-2" role="tabpanel" aria-labelledby="feature-tab-2">
+                <div class="feature-detail-grid">
+                  <div>
+                    <span class="feature-tag-pill">02 &bull; Brand-Aware Content</span>
+                    <h3 class="feature-block-title">Keep every piece of content aligned with your brand identity.</h3>
+                    <p class="feature-block-desc">Connect your website link or upload style guides once. Vibodh Signal
+                      locks in your voice persona, hex palettes, typography, and guardrails so every generated asset
+                      stays 100% compliant.</p>
+                    <ul class="feature-check-list">
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Multi-attribute
+                          tone of voice calibration (luxury, poetic, bold)</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automatic logo,
+                          font, and hex color injection</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Negative
+                          guardrails (e.g. &ldquo;never use discount slang&rdquo;)</span></li>
+                    </ul>
+                  </div>
+                  <div class="feature-visual-panel">
+                    <div
+                      style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:20px; width:100%;">
+                      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+                        <div style="display:flex; align-items:center; gap:10px;">
+                          <div
+                            style="width:36px; height:36px; border-radius:8px; background:var(--dark-navy); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.875rem;">
+                            LP</div>
+                          <div>
+                            <div style="font-weight:800; font-size:0.9375rem; color:var(--dark-navy);">Aurelia Paris
+                            </div>
+                            <div style="font-size:0.75rem; color:#64748B;">Luxury Fragrance &amp; Beauty</div>
+                          </div>
+                        </div>
+                        <span
+                          style="font-size:0.75rem; font-weight:800; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:9999px;">&bull;
+                          Style Locked</span>
+                      </div>
+                      <div
+                        style="font-size:0.6875rem; font-weight:800; color:#64748B; text-transform:uppercase; margin-bottom:8px;">
+                        Brand Voice Calibrated</div>
+                      <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;">
+                        <span
+                          style="font-size:0.75rem; font-weight:700; background:#E6F7F5; color:#0F9D8A; padding:4px 10px; border-radius:6px;">Bold
+                          &amp; Poetic</span>
+                        <span
+                          style="font-size:0.75rem; font-weight:700; background:#E6F7F5; color:#0F9D8A; padding:4px 10px; border-radius:6px;">Ultra-Luxury</span>
+                        <span
+                          style="font-size:0.75rem; font-weight:700; background:#F1F5F9; color:#475569; padding:4px 10px; border-radius:6px;">Sensory-Driven</span>
+                      </div>
+                      <div
+                        style="font-size:0.6875rem; font-weight:800; color:#64748B; text-transform:uppercase; margin-bottom:8px;">
+                        Design System Hex Swatches</div>
+                      <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:28px; height:28px; border-radius:6px; background:#1E293B;"></div>
+                        <div style="width:28px; height:28px; border-radius:6px; background:#0F9D8A;"></div>
+                        <div style="width:28px; height:28px; border-radius:6px; background:#7C3AED;"></div>
+                        <div
+                          style="width:28px; height:28px; border-radius:6px; background:#F8FAFC; border:1px solid #CBD5E1;">
+                        </div>
+                        <span style="font-size:0.75rem; color:#64748B; margin-left:6px;">Locked for all creatives</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pane 3: Social Media Management -->
+              <div class="feature-detail-pane" id="feature-pane-3" role="tabpanel" aria-labelledby="feature-tab-3">
+                <div class="feature-detail-grid">
+                  <div>
+                    <span class="feature-tag-pill">03 &bull; Social Media Management</span>
+                    <h3 class="feature-block-title">Create and manage content for multiple social channels from one
+                      place.</h3>
+                    <p class="feature-block-desc">View your multi-channel deployment schedule at a glance. Auto-publish
+                      to Instagram, LinkedIn, TikTok, and Meta Ads with optimal posting cadences determined by audience
+                      activity.</p>
+                    <ul class="feature-check-list">
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Visual
+                          drag-and-drop calendar queue</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automated
+                          optimal-time publishing for peak engagement</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Unified approval
+                          workflows before publishing goes live</span></li>
+                    </ul>
+                  </div>
+                  <div class="feature-visual-panel">
+                    <div
+                      style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:20px; width:100%;">
+                      <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
                         <div>
-                          <div style="font-weight:800; font-size:0.9375rem; color:var(--dark-navy);">Aurelia Paris</div>
-                          <div style="font-size:0.75rem; color:#64748B;">Luxury Fragrance &amp; Beauty</div>
+                          <div style="font-weight:800; font-size:0.9375rem; color:var(--dark-navy);">September Schedule
+                          </div>
+                          <div style="font-size:0.75rem; color:#64748B;">14 Automated Posts Queued</div>
+                        </div>
+                        <span
+                          style="font-size:0.75rem; font-weight:800; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:9999px;">&bull;
+                          Auto-Publish Active</span>
+                      </div>
+                      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
+                        <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:8px;">
+                          <span
+                            style="font-size:0.65rem; font-weight:800; background:#FDF2F8; color:#DB2777; padding:2px 6px; border-radius:4px;">IG
+                            Reel &bull; Mon 14</span>
+                          <div style="font-weight:700; font-size:0.8125rem; margin-top:4px;">Morning Matcha Hook</div>
+                          <div style="font-size:0.6875rem; color:#64748B;">10:00 AM &bull; Ready</div>
+                        </div>
+                        <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:8px;">
+                          <span
+                            style="font-size:0.65rem; font-weight:800; background:#EFF6FF; color:#2563EB; padding:2px 6px; border-radius:4px;">LinkedIn
+                            &bull; Tue 15</span>
+                          <div style="font-weight:700; font-size:0.8125rem; margin-top:4px;">Growth Playbook</div>
+                          <div style="font-size:0.6875rem; color:#64748B;">2:30 PM &bull; Ready</div>
                         </div>
                       </div>
-                      <span style="font-size:0.75rem; font-weight:800; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:9999px;">&bull; Style Locked</span>
-                    </div>
-                    <div style="font-size:0.6875rem; font-weight:800; color:#64748B; text-transform:uppercase; margin-bottom:8px;">Brand Voice Calibrated</div>
-                    <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px;">
-                      <span style="font-size:0.75rem; font-weight:700; background:#E6F7F5; color:#0F9D8A; padding:4px 10px; border-radius:6px;">Bold &amp; Poetic</span>
-                      <span style="font-size:0.75rem; font-weight:700; background:#E6F7F5; color:#0F9D8A; padding:4px 10px; border-radius:6px;">Ultra-Luxury</span>
-                      <span style="font-size:0.75rem; font-weight:700; background:#F1F5F9; color:#475569; padding:4px 10px; border-radius:6px;">Sensory-Driven</span>
-                    </div>
-                    <div style="font-size:0.6875rem; font-weight:800; color:#64748B; text-transform:uppercase; margin-bottom:8px;">Design System Hex Swatches</div>
-                    <div style="display:flex; align-items:center; gap:8px;">
-                      <div style="width:28px; height:28px; border-radius:6px; background:#1E293B;"></div>
-                      <div style="width:28px; height:28px; border-radius:6px; background:#0F9D8A;"></div>
-                      <div style="width:28px; height:28px; border-radius:6px; background:#7C3AED;"></div>
-                      <div style="width:28px; height:28px; border-radius:6px; background:#F8FAFC; border:1px solid #CBD5E1;"></div>
-                      <span style="font-size:0.75rem; color:#64748B; margin-left:6px;">Locked for all creatives</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Pane 3: Social Media Management -->
-            <div class="feature-detail-pane" id="feature-pane-3" role="tabpanel" aria-labelledby="feature-tab-3">
-              <div class="feature-detail-grid">
-                <div>
-                  <span class="feature-tag-pill">03 &bull; Social Media Management</span>
-                  <h3 class="feature-block-title">Create and manage content for multiple social channels from one place.</h3>
-                  <p class="feature-block-desc">View your multi-channel deployment schedule at a glance. Auto-publish to Instagram, LinkedIn, TikTok, and Meta Ads with optimal posting cadences determined by audience activity.</p>
-                  <ul class="feature-check-list">
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Visual drag-and-drop calendar queue</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automated optimal-time publishing for peak engagement</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Unified approval workflows before publishing goes live</span></li>
-                  </ul>
+              <!-- Pane 4: Campaign Management -->
+              <div class="feature-detail-pane" id="feature-pane-4" role="tabpanel" aria-labelledby="feature-tab-4">
+                <div class="feature-detail-grid">
+                  <div>
+                    <span class="feature-tag-pill">04 &bull; Campaign Management</span>
+                    <h3 class="feature-block-title">Plan campaigns, organize content and keep marketing connected.</h3>
+                    <p class="feature-block-desc">Coordinate multi-week promotional campaigns across product releases,
+                      seasonal launches, and holiday promos with automated task assignment and unified timeline
+                      visibility.</p>
+                    <ul class="feature-check-list">
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Campaign timelines
+                          linking teasers, launch, and follow-ups</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Single-click asset
+                          bundling across paid ads and organic posts</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Built-in team
+                          collaboration, comments, and stakeholder approvals</span></li>
+                    </ul>
+                  </div>
+                  <div class="feature-visual-panel">
+                    <img src="assets/tab-command-center.png" alt="Campaign Management Dashboard">
+                  </div>
                 </div>
-                <div class="feature-visual-panel">
-                  <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:20px; width:100%;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
-                      <div>
-                        <div style="font-weight:800; font-size:0.9375rem; color:var(--dark-navy);">September Schedule</div>
-                        <div style="font-size:0.75rem; color:#64748B;">14 Automated Posts Queued</div>
+              </div>
+
+              <!-- Pane 5: Advertising -->
+              <div class="feature-detail-pane" id="feature-pane-5" role="tabpanel" aria-labelledby="feature-tab-5">
+                <div class="feature-detail-grid">
+                  <div>
+                    <span class="feature-tag-pill">05 &bull; Advertising</span>
+                    <h3 class="feature-block-title">Create ad creatives and manage advertising alongside content.</h3>
+                    <p class="feature-block-desc">Generate high-converting Meta and Google ad variants directly from
+                      your organic posts. Optimize headlines, creative hooks, and calls-to-action to maximize sales per
+                      ad rupee spent.</p>
+                    <ul class="feature-check-list">
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automated
+                          multi-variant ad copy generation for split testing</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>1-click export to
+                          Meta Ad Manager and Google Ads formats</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Real-time budget
+                          recommendations based on return-on-ad-spend</span></li>
+                    </ul>
+                  </div>
+                  <div class="feature-visual-panel">
+                    <div
+                      style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:22px; width:100%;">
+                      <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
+                        <span
+                          style="font-size:0.75rem; font-weight:800; background:#F0FDF4; color:#16A34A; padding:3px 8px; border-radius:6px;">Meta
+                          Paid Campaign</span>
+                        <span style="font-size:0.75rem; font-weight:700; color:#059669;">ROAS: 4.82x</span>
                       </div>
-                      <span style="font-size:0.75rem; font-weight:800; color:#059669; background:#ECFDF5; padding:3px 8px; border-radius:9999px;">&bull; Auto-Publish Active</span>
-                    </div>
-                    <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;">
-                      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:8px;">
-                        <span style="font-size:0.65rem; font-weight:800; background:#FDF2F8; color:#DB2777; padding:2px 6px; border-radius:4px;">IG Reel &bull; Mon 14</span>
-                        <div style="font-weight:700; font-size:0.8125rem; margin-top:4px;">Morning Matcha Hook</div>
-                        <div style="font-size:0.6875rem; color:#64748B;">10:00 AM &bull; Ready</div>
-                      </div>
-                      <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px; border-radius:8px;">
-                        <span style="font-size:0.65rem; font-weight:800; background:#EFF6FF; color:#2563EB; padding:2px 6px; border-radius:4px;">LinkedIn &bull; Tue 15</span>
-                        <div style="font-weight:700; font-size:0.8125rem; margin-top:4px;">Growth Playbook</div>
-                        <div style="font-size:0.6875rem; color:#64748B;">2:30 PM &bull; Ready</div>
+                      <div style="font-weight:800; font-size:1rem; color:var(--dark-navy); margin-bottom:4px;">Autumn
+                        Perfume Launch Variant B</div>
+                      <div style="font-size:0.8125rem; color:#64748B; margin-bottom:14px;">Headline: &ldquo;Experience
+                        luxury that lingers all day.&rdquo;</div>
+                      <div
+                        style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px; display:flex; justify-content:space-between; font-size:0.8125rem;">
+                        <span>Audience: Luxury Shoppers</span>
+                        <strong style="color:var(--teal);">CTR: 3.4% (Top 5%)</strong>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <!-- Pane 4: Campaign Management -->
-            <div class="feature-detail-pane" id="feature-pane-4" role="tabpanel" aria-labelledby="feature-tab-4">
-              <div class="feature-detail-grid">
-                <div>
-                  <span class="feature-tag-pill">04 &bull; Campaign Management</span>
-                  <h3 class="feature-block-title">Plan campaigns, organize content and keep marketing connected.</h3>
-                  <p class="feature-block-desc">Coordinate multi-week promotional campaigns across product releases, seasonal launches, and holiday promos with automated task assignment and unified timeline visibility.</p>
-                  <ul class="feature-check-list">
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Campaign timelines linking teasers, launch, and follow-ups</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Single-click asset bundling across paid ads and organic posts</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Built-in team collaboration, comments, and stakeholder approvals</span></li>
-                  </ul>
-                </div>
-                <div class="feature-visual-panel">
-                  <img src="assets/tab-command-center.png" alt="Campaign Management Dashboard">
-                </div>
-              </div>
-            </div>
-
-            <!-- Pane 5: Advertising -->
-            <div class="feature-detail-pane" id="feature-pane-5" role="tabpanel" aria-labelledby="feature-tab-5">
-              <div class="feature-detail-grid">
-                <div>
-                  <span class="feature-tag-pill">05 &bull; Advertising</span>
-                  <h3 class="feature-block-title">Create ad creatives and manage advertising alongside content.</h3>
-                  <p class="feature-block-desc">Generate high-converting Meta and Google ad variants directly from your organic posts. Optimize headlines, creative hooks, and calls-to-action to maximize sales per ad rupee spent.</p>
-                  <ul class="feature-check-list">
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automated multi-variant ad copy generation for split testing</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>1-click export to Meta Ad Manager and Google Ads formats</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Real-time budget recommendations based on return-on-ad-spend</span></li>
-                  </ul>
-                </div>
-                <div class="feature-visual-panel">
-                  <div style="background:#FFFFFF; border:1px solid var(--border); border-radius:14px; padding:22px; width:100%;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:14px;">
-                      <span style="font-size:0.75rem; font-weight:800; background:#F0FDF4; color:#16A34A; padding:3px 8px; border-radius:6px;">Meta Paid Campaign</span>
-                      <span style="font-size:0.75rem; font-weight:700; color:#059669;">ROAS: 4.82x</span>
-                    </div>
-                    <div style="font-weight:800; font-size:1rem; color:var(--dark-navy); margin-bottom:4px;">Autumn Perfume Launch Variant B</div>
-                    <div style="font-size:0.8125rem; color:#64748B; margin-bottom:14px;">Headline: &ldquo;Experience luxury that lingers all day.&rdquo;</div>
-                    <div style="background:#F8FAFC; border:1px solid #E2E8F0; padding:10px 14px; border-radius:8px; display:flex; justify-content:space-between; font-size:0.8125rem;">
-                      <span>Audience: Luxury Shoppers</span>
-                      <strong style="color:var(--teal);">CTR: 3.4% (Top 5%)</strong>
-                    </div>
+              <!-- Pane 6: Analytics & Insights -->
+              <div class="feature-detail-pane" id="feature-pane-6" role="tabpanel" aria-labelledby="feature-tab-6">
+                <div class="feature-detail-grid">
+                  <div>
+                    <span class="feature-tag-pill">06 &bull; Analytics &amp; Insights</span>
+                    <h3 class="feature-block-title">Understand what is working and use insights to improve marketing.
+                    </h3>
+                    <p class="feature-block-desc">No complex or overwhelming analytics dashboards. Vibodh Signal
+                      analyzes creative retention curves, follower growth, and conversion return to automatically help
+                      you iterate your winning posts.</p>
+                    <ul class="feature-check-list">
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>3-second video
+                          hook retention analysis</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automatic
+                          detection of top-performing post variants</span></li>
+                      <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Actionable
+                          suggestions to double down on winning creative ideas</span></li>
+                    </ul>
                   </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Pane 6: Analytics & Insights -->
-            <div class="feature-detail-pane" id="feature-pane-6" role="tabpanel" aria-labelledby="feature-tab-6">
-              <div class="feature-detail-grid">
-                <div>
-                  <span class="feature-tag-pill">06 &bull; Analytics &amp; Insights</span>
-                  <h3 class="feature-block-title">Understand what is working and use insights to improve marketing.</h3>
-                  <p class="feature-block-desc">No complex or overwhelming analytics dashboards. Vibodh Signal analyzes creative retention curves, follower growth, and conversion return to automatically help you iterate your winning posts.</p>
-                  <ul class="feature-check-list">
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>3-second video hook retention analysis</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Automatic detection of top-performing post variants</span></li>
-                    <li class="feature-check-item"><span class="feature-check">&#10003;</span><span>Actionable suggestions to double down on winning creative ideas</span></li>
-                  </ul>
-                </div>
-                <div class="feature-visual-panel">
-                  <img src="assets/tab-analytics-growth.png" alt="Analytics and Telemetry Dashboard">
+                  <div class="feature-visual-panel">
+                    <img src="assets/tab-analytics-growth.png" alt="Analytics and Telemetry Dashboard">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- ═══════════════════════════════════════════════════════════
+        <!-- ═══════════════════════════════════════════════════════════
            SUB-FEATURE: ✨ SIGNATURE WORKFLOW (Under Key Features)
       ═══════════════════════════════════════════════════════════ -->
-      <div class="section-signature" id="signature-workflow">
-        <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge" style="background:#F3E8FF; color:#7C3AED; border-color:#DDD6FE;">✨ Signature Workflow</span>
-          <h2 class="section-title">One Idea. Multiple Marketing Possibilities.</h2>
-          <p class="section-desc">Watch how a single campaign concept branches into every high-impact format your business needs without extra effort.</p>
-        </div>
+        <div class="section-signature" id="signature-workflow">
+          <div class="container">
+            <div class="section-header">
+              <span class="section-pill-badge" style="background:#F3E8FF; color:#7C3AED; border-color:#DDD6FE;">✨
+                Signature Workflow</span>
+              <h2 class="section-title">One Idea. Multiple Marketing Possibilities.</h2>
+              <p class="section-desc">Watch how a single campaign concept branches into every high-impact format your
+                business needs without extra effort.</p>
+            </div>
 
-        <div class="signature-card">
-          <!-- Central Hub -->
-          <div class="signature-center-hub">
-            <div class="signature-hub-label">Central Campaign Idea</div>
-            <div class="signature-hub-title">&ldquo;New Product Launch&rdquo;</div>
+            <div class="signature-card">
+              <!-- Central Hub -->
+              <div class="signature-center-hub">
+                <div class="signature-hub-label">Central Campaign Idea</div>
+                <div class="signature-hub-title">&ldquo;New Product Launch&rdquo;</div>
+              </div>
+
+              <!-- Visually Branching Channels (Click heading to expand details) -->
+              <div class="signature-branches-grid">
+                <!-- 1. Instagram Post -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#FDF2F8; color:#DB2777;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">Instagram Post</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">1:1 Square visual with tailored brand caption &amp; hashtags.</p>
+                  </div>
+                </div>
+
+                <!-- 2. LinkedIn Post -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#EFF6FF; color:#0A66C2;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                      <rect x="2" y="9" width="4" height="12"></rect>
+                      <circle cx="4" cy="4" r="2"></circle>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">LinkedIn Post</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">Thought leadership article &amp; carousel slide decks.</p>
+                  </div>
+                </div>
+
+                <!-- 3. 9:16 Story & Reel -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#E6F7F5; color:#0F9D8A;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <rect x="5" y="2" width="14" height="20" rx="3" ry="3"></rect>
+                      <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                      <polygon points="10 9 15 12 10 15 10 9" fill="currentColor"></polygon>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">9:16 Story &amp; Reel</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">Hook-optimized vertical video script with timed captions.</p>
+                  </div>
+                </div>
+
+                <!-- 4. Meta & Google Ads -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#F0FDF4; color:#16A34A;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                      <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">Meta &amp; Google Ads</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">High-intent headline variants with conversion CTAs.</p>
+                  </div>
+                </div>
+
+                <!-- 5. Brand Voice & Copy -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#FEF3C7; color:#D97706;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <path d="M12 20h9"></path>
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">Brand Voice &amp; Copy</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">Multi-channel voice matching your tone persona.</p>
+                  </div>
+                </div>
+
+                <!-- 6. Targeted Hashtags -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#F3E8FF; color:#7C3AED;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <line x1="4" y1="9" x2="20" y2="9"></line>
+                      <line x1="4" y1="15" x2="20" y2="15"></line>
+                      <line x1="10" y1="3" x2="8" y2="21"></line>
+                      <line x1="16" y1="3" x2="14" y2="21"></line>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">Targeted Hashtags</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">Trending &amp; niche tags curated for maximum discoverability.</p>
+                  </div>
+                </div>
+
+                <!-- 7. Auto Schedule -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#EEF2F9; color:#243B6B;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                      <line x1="16" y1="2" x2="16" y2="6"></line>
+                      <line x1="8" y1="2" x2="8" y2="6"></line>
+                      <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">Auto Schedule</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">Queued on calendar for peak engagement hours.</p>
+                  </div>
+                </div>
+
+                <!-- 8. Live Telemetry -->
+                <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
+                  <div class="branch-icon-pill" style="background:#ECFDF5; color:#059669;">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                      <polyline points="3 8 9 3 15 7 21 2"></polyline>
+                    </svg>
+                  </div>
+                  <div class="branch-header-row">
+                    <h4 class="branch-title">Live Telemetry</h4>
+                    <span class="branch-toggle-icon">&#9662;</span>
+                  </div>
+                  <div class="branch-details">
+                    <p class="branch-desc">Predictive retention scoring before and after publishing.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <!-- Visually Branching Channels (Click heading to expand details) -->
-          <div class="signature-branches-grid">
-            <!-- 1. Instagram Post -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#FDF2F8; color:#DB2777;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">Instagram Post</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">1:1 Square visual with tailored brand caption &amp; hashtags.</p>
-              </div>
-            </div>
-
-            <!-- 2. LinkedIn Post -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#EFF6FF; color:#0A66C2;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                  <rect x="2" y="9" width="4" height="12"></rect>
-                  <circle cx="4" cy="4" r="2"></circle>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">LinkedIn Post</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">Thought leadership article &amp; carousel slide decks.</p>
-              </div>
-            </div>
-
-            <!-- 3. 9:16 Story & Reel -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#E6F7F5; color:#0F9D8A;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="5" y="2" width="14" height="20" rx="3" ry="3"></rect>
-                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                  <polygon points="10 9 15 12 10 15 10 9" fill="currentColor"></polygon>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">9:16 Story &amp; Reel</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">Hook-optimized vertical video script with timed captions.</p>
-              </div>
-            </div>
-
-            <!-- 4. Meta & Google Ads -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#F0FDF4; color:#16A34A;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <circle cx="12" cy="12" r="6"></circle>
-                  <circle cx="12" cy="12" r="2"></circle>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">Meta &amp; Google Ads</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">High-intent headline variants with conversion CTAs.</p>
-              </div>
-            </div>
-
-            <!-- 5. Brand Voice & Copy -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#FEF3C7; color:#D97706;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 20h9"></path>
-                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">Brand Voice &amp; Copy</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">Multi-channel voice matching your tone persona.</p>
-              </div>
-            </div>
-
-            <!-- 6. Targeted Hashtags -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#F3E8FF; color:#7C3AED;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="4" y1="9" x2="20" y2="9"></line>
-                  <line x1="4" y1="15" x2="20" y2="15"></line>
-                  <line x1="10" y1="3" x2="8" y2="21"></line>
-                  <line x1="16" y1="3" x2="14" y2="21"></line>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">Targeted Hashtags</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">Trending &amp; niche tags curated for maximum discoverability.</p>
-              </div>
-            </div>
-
-            <!-- 7. Auto Schedule -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#EEF2F9; color:#243B6B;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                  <line x1="16" y1="2" x2="16" y2="6"></line>
-                  <line x1="8" y1="2" x2="8" y2="6"></line>
-                  <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">Auto Schedule</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">Queued on calendar for peak engagement hours.</p>
-              </div>
-            </div>
-
-            <!-- 8. Live Telemetry -->
-            <div class="branch-card" tabindex="0" role="button" aria-expanded="false">
-              <div class="branch-icon-pill" style="background:#ECFDF5; color:#059669;">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="20" x2="18" y2="10"></line>
-                  <line x1="12" y1="20" x2="12" y2="4"></line>
-                  <line x1="6" y1="20" x2="6" y2="14"></line>
-                  <polyline points="3 8 9 3 15 7 21 2"></polyline>
-                </svg>
-              </div>
-              <div class="branch-header-row">
-                <h4 class="branch-title">Live Telemetry</h4>
-                <span class="branch-toggle-icon">&#9662;</span>
-              </div>
-              <div class="branch-details">
-                <p class="branch-desc">Predictive retention scoring before and after publishing.</p>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════
          TAB VIEW 3: RESOURCES TAB (Blank as requested)
     ═══════════════════════════════════════════════════════════ -->
     <div id="tab-resources" class="landing-tab-view" style="display: none;">
-      <section class="section-resources" style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
+      <section class="section-resources"
+        style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
         <div class="container">
           <!-- Resources content intentionally blank as requested -->
         </div>
@@ -4657,140 +4946,166 @@
       <!-- ═══════════════════════════════════════════════════════════
          STEP 7: 💳 PLANS & PRICING (#plans-pricing)
     ═══════════════════════════════════════════════════════════ -->
-    <section class="section-pricing" id="plans-pricing" style="padding-top: 110px; padding-bottom: 88px;">
-      <div class="container">
-        <div class="section-header">
-          <span class="section-pill-badge">💳 Plans &amp; Pricing</span>
-          <h2 class="section-title">Choose the Plan That Fits Your Growth</h2>
-          <p class="section-desc">Flexible plans built for individuals, growing brands, businesses, and digital agencies.</p>
+      <section class="section-pricing" id="plans-pricing" style="padding-top: 110px; padding-bottom: 88px;">
+        <div class="container">
+          <div class="section-header">
+            <span class="section-pill-badge">💳 Plans &amp; Pricing</span>
+            <h2 class="section-title">Choose the Plan That Fits Your Growth</h2>
+            <p class="section-desc">Flexible plans built for individuals, growing brands, businesses, and digital
+              agencies.</p>
+          </div>
+
+          <!-- 3-Way Billing Cycle Switcher -->
+          <div class="cycle-toggle-row">
+            <div class="cycle-switcher">
+              <button class="cycle-btn is-active" id="btn-monthly" onclick="setPricingCycle('monthly')">Monthly</button>
+              <button class="cycle-btn" id="btn-quarterly" onclick="setPricingCycle('quarterly')">Quarterly</button>
+              <button class="cycle-btn" id="btn-annual" onclick="setPricingCycle('annual')">Annual</button>
+            </div>
+            <span class="cycle-discount-tag" id="discount-badge">Save up to 17% on Annual</span>
+          </div>
+
+          <!-- 4 Tiers Matching Index.html -->
+          <div class="pricing-grid">
+            <!-- 1. Starter -->
+            <div class="plan-card">
+              <h3 class="plan-name">Starter</h3>
+              <p class="plan-desc">For individual creators and early startups launching their marketing.</p>
+
+              <div class="plan-price-block">
+                <div class="plan-price-main">
+                  <span class="plan-price-amount" id="price-starter">₹1,499</span>
+                  <span class="plan-price-period" id="period-starter">/ month</span>
+                </div>
+                <div class="plan-price-caption" id="caption-starter">Billed monthly</div>
+              </div>
+
+              <a href="dashboard.html?plan=starter" class="btn btn-outline plan-btn">Get Started</a>
+
+              <ul class="features-list">
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>1</strong>
+                    brand</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5</strong> social
+                    profiles</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>20 posts / month</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>100</strong> AI
+                    credits / month</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Basic brand kit &amp;
+                    analytics</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Self-service ad
+                    guidance</span></li>
+              </ul>
+            </div>
+
+            <!-- 2. Growth -->
+            <div class="plan-card">
+              <h3 class="plan-name">Growth</h3>
+              <p class="plan-desc">For growing small businesses expanding their social and advertising channels.</p>
+
+              <div class="plan-price-block">
+                <div class="plan-price-main">
+                  <span class="plan-price-amount" id="price-growth">₹3,999</span>
+                  <span class="plan-price-period" id="period-growth">/ month</span>
+                </div>
+                <div class="plan-price-caption" id="caption-growth">Billed monthly</div>
+              </div>
+
+              <a href="dashboard.html?plan=growth" class="btn btn-outline plan-btn">Get Started</a>
+
+              <ul class="features-list">
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>2</strong>
+                    brands</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>10</strong> social
+                    profiles</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>50 posts / month</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>300</strong> AI
+                    credits / month</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>2 team members &rarr;
+                    approvals</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Advanced brand kit &amp;
+                    reporting</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Optional 1-platform ad
+                    setup</span></li>
+              </ul>
+            </div>
+
+            <!-- 3. Business (Featured / Most Popular) -->
+            <div class="plan-card is-popular">
+              <span class="popular-ribbon">Most Popular</span>
+              <h3 class="plan-name">Business</h3>
+              <p class="plan-desc">For growing teams managing multi-brand operations with approvals &amp; campaigns.</p>
+
+              <div class="plan-price-block">
+                <div class="plan-price-main">
+                  <span class="plan-price-amount" id="price-business">₹8,999</span>
+                  <span class="plan-price-period" id="period-business">/ month</span>
+                </div>
+                <div class="plan-price-caption" id="caption-business">Billed monthly</div>
+              </div>
+
+              <a href="dashboard.html?plan=business" class="btn btn-teal plan-btn">Get Started</a>
+
+              <ul class="features-list">
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5</strong>
+                    brands</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20</strong> social
+                    profiles</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>100 posts / month</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800</strong> AI
+                    credits / month</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>5 team members &rarr; Full
+                    approvals</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Advanced analytics &amp;
+                    client reports</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Up to 2 ad platforms</span>
+                </li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Priority support</span></li>
+              </ul>
+            </div>
+
+            <!-- 4. Agency -->
+            <div class="plan-card">
+              <h3 class="plan-name">Agency</h3>
+              <p class="plan-desc">For digital marketing agencies running multi-client operations at scale.</p>
+
+              <div class="plan-price-block">
+                <div class="plan-price-main">
+                  <span class="plan-price-amount">Custom</span>
+                  <span class="plan-price-period"></span>
+                </div>
+                <div class="plan-price-caption">Tailored to your scale</div>
+              </div>
+
+              <a href="dashboard.html?plan=agency" class="btn btn-outline plan-btn">Contact Sales</a>
+
+              <ul class="features-list">
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5&rarr;</strong>
+                    brands (Custom)</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20&rarr;</strong>
+                    social profiles</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>100&rarr; posts / month</span>
+                </li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800+</strong> AI
+                    credits / month (Custom)</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>5+ team members + Advanced
+                    workflows</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Multi-client ad
+                    management</span></li>
+                <li class="feature-item"><span class="feature-check">&#10003;</span><span>Dedicated account
+                    manager</span></li>
+              </ul>
+            </div>
+          </div>
         </div>
-
-        <!-- 3-Way Billing Cycle Switcher -->
-        <div class="cycle-toggle-row">
-          <div class="cycle-switcher">
-            <button class="cycle-btn is-active" id="btn-monthly" onclick="setPricingCycle('monthly')">Monthly</button>
-            <button class="cycle-btn" id="btn-quarterly" onclick="setPricingCycle('quarterly')">Quarterly</button>
-            <button class="cycle-btn" id="btn-annual" onclick="setPricingCycle('annual')">Annual</button>
-          </div>
-          <span class="cycle-discount-tag" id="discount-badge">Save up to 17% on Annual</span>
-        </div>
-
-        <!-- 4 Tiers Matching Index.html -->
-        <div class="pricing-grid">
-          <!-- 1. Starter -->
-          <div class="plan-card">
-            <h3 class="plan-name">Starter</h3>
-            <p class="plan-desc">For individual creators and early startups launching their marketing.</p>
-            
-            <div class="plan-price-block">
-              <div class="plan-price-main">
-                <span class="plan-price-amount" id="price-starter">₹1,499</span>
-                <span class="plan-price-period" id="period-starter">/ month</span>
-              </div>
-              <div class="plan-price-caption" id="caption-starter">Billed monthly</div>
-            </div>
-
-            <a href="dashboard.html?plan=starter" class="btn btn-outline plan-btn">Get Started</a>
-
-            <ul class="features-list">
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>1</strong> brand</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5</strong> social profiles</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>20 posts / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>100</strong> AI credits / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Basic brand kit &amp; analytics</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Self-service ad guidance</span></li>
-            </ul>
-          </div>
-
-          <!-- 2. Growth -->
-          <div class="plan-card">
-            <h3 class="plan-name">Growth</h3>
-            <p class="plan-desc">For growing small businesses expanding their social and advertising channels.</p>
-            
-            <div class="plan-price-block">
-              <div class="plan-price-main">
-                <span class="plan-price-amount" id="price-growth">₹3,999</span>
-                <span class="plan-price-period" id="period-growth">/ month</span>
-              </div>
-              <div class="plan-price-caption" id="caption-growth">Billed monthly</div>
-            </div>
-
-            <a href="dashboard.html?plan=growth" class="btn btn-outline plan-btn">Get Started</a>
-
-            <ul class="features-list">
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>2</strong> brands</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>10</strong> social profiles</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>50 posts / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>300</strong> AI credits / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>2 team members &rarr; approvals</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Advanced brand kit &amp; reporting</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Optional 1-platform ad setup</span></li>
-            </ul>
-          </div>
-
-          <!-- 3. Business (Featured / Most Popular) -->
-          <div class="plan-card is-popular">
-            <span class="popular-ribbon">Most Popular</span>
-            <h3 class="plan-name">Business</h3>
-            <p class="plan-desc">For growing teams managing multi-brand operations with approvals &amp; campaigns.</p>
-            
-            <div class="plan-price-block">
-              <div class="plan-price-main">
-                <span class="plan-price-amount" id="price-business">₹8,999</span>
-                <span class="plan-price-period" id="period-business">/ month</span>
-              </div>
-              <div class="plan-price-caption" id="caption-business">Billed monthly</div>
-            </div>
-
-            <a href="dashboard.html?plan=business" class="btn btn-teal plan-btn">Get Started</a>
-
-            <ul class="features-list">
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5</strong> brands</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20</strong> social profiles</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>100 posts / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800</strong> AI credits / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5 team members &rarr; Full approvals</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Advanced analytics &amp; client reports</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Up to 2 ad platforms</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Priority support</span></li>
-            </ul>
-          </div>
-
-          <!-- 4. Agency -->
-          <div class="plan-card">
-            <h3 class="plan-name">Agency</h3>
-            <p class="plan-desc">For digital marketing agencies running multi-client operations at scale.</p>
-            
-            <div class="plan-price-block">
-              <div class="plan-price-main">
-                <span class="plan-price-amount">Custom</span>
-                <span class="plan-price-period"></span>
-              </div>
-              <div class="plan-price-caption">Tailored to your scale</div>
-            </div>
-
-            <a href="dashboard.html?plan=agency" class="btn btn-outline plan-btn">Contact Sales</a>
-
-            <ul class="features-list">
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5&rarr;</strong> brands (Custom)</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20&rarr;</strong> social profiles</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>100&rarr; posts / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800+</strong> AI credits / month (Custom)</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5+ team members + Advanced workflows</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Multi-client ad management</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>Dedicated account manager</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
     </div>
 
     <!-- ═══════════════════════════════════════════════════════════
          TAB VIEW 5: FAQS TAB (Blank as requested)
     ═══════════════════════════════════════════════════════════ -->
     <div id="tab-faqs" class="landing-tab-view" style="display: none;">
-      <section class="section-faqs" style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
+      <section class="section-faqs"
+        style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
         <div class="container">
           <!-- FAQs content intentionally blank as requested -->
         </div>
@@ -5054,7 +5369,7 @@
     featureBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         const targetId = btn.getAttribute('data-feature');
-        
+
         // Update nav buttons
         featureBtns.forEach(b => {
           const isActive = b === btn;
@@ -5113,7 +5428,7 @@
       const toggleFlip = (e) => {
         e.stopPropagation();
         const wasFlipped = card.classList.contains('is-flipped');
-        
+
         // Flip back all other cards
         flipCards.forEach(c => {
           c.classList.remove('is-flipped');
@@ -5309,7 +5624,7 @@
         setup();
       }
     })();
-  
+
 
     /* ═══════════════════════════════════════════════════════════
        SIGNALMATE FLOATING AI CHATBOT CONTROLLER
@@ -5378,7 +5693,7 @@
         };
       });
 
-      window.handleSignalMateSubmit = function() {
+      window.handleSignalMateSubmit = function () {
         if (!input) return;
         const query = input.value.trim();
         if (!query) return;
@@ -5468,8 +5783,10 @@
   </script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
-  <button type="button" id="back-to-top-btn" class="back-to-top-btn" aria-label="Back to top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTo({top:0,behavior:'smooth'});document.body.scrollTo({top:0,behavior:'smooth'});">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+  <button type="button" id="back-to-top-btn" class="back-to-top-btn" aria-label="Back to top" title="Back to top"
+    onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTo({top:0,behavior:'smooth'});document.body.scrollTo({top:0,behavior:'smooth'});">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"
+      stroke-linecap="round" stroke-linejoin="round">
       <line x1="12" y1="19" x2="12" y2="5"></line>
       <polyline points="5 12 12 5 19 12"></polyline>
     </svg>
@@ -5479,9 +5796,11 @@
        SIGNALMATE FLOATING CHATBOT WIDGET
   ═══════════════════════════════════════════════════════════ -->
   <!-- Floating Trigger Button (Placed directly above the Back to Top arrow) -->
-  <button type="button" id="signalmate-trigger-btn" class="signalmate-floating-btn" onclick="toggleSignalMateChat()" aria-label="Open SignalMate Chatbot" title="Chat with SignalMate">
+  <button type="button" id="signalmate-trigger-btn" class="signalmate-floating-btn" onclick="toggleSignalMateChat()"
+    aria-label="Open SignalMate Chatbot" title="Chat with SignalMate">
     <span class="signalmate-btn-avatar">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="10" width="18" height="11" rx="4"></rect>
         <circle cx="8.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
         <circle cx="15.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
@@ -5499,7 +5818,8 @@
     <div class="signalmate-header">
       <div class="signalmate-header-left">
         <div class="signalmate-header-avatar">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
             <rect x="3" y="10" width="18" height="11" rx="4"></rect>
             <circle cx="8.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
             <circle cx="15.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
@@ -5515,7 +5835,8 @@
       </div>
       <div class="signalmate-header-right">
         <span class="signalmate-online-tag">Online</span>
-        <button type="button" id="signalmate-close-btn" class="signalmate-close-btn" onclick="toggleSignalMateChat(false)" aria-label="Close Chat Window">&times;</button>
+        <button type="button" id="signalmate-close-btn" class="signalmate-close-btn"
+          onclick="toggleSignalMateChat(false)" aria-label="Close Chat Window">&times;</button>
       </div>
     </div>
 
@@ -5547,10 +5868,13 @@
 
     <!-- Footer Input Bar -->
     <div class="signalmate-footer">
-      <form id="signalmate-input-form" class="signalmate-form" onsubmit="event.preventDefault(); handleSignalMateSubmit();">
-        <input type="text" id="signalmate-input" class="signalmate-input" placeholder="Type your message..." autocomplete="off">
+      <form id="signalmate-input-form" class="signalmate-form"
+        onsubmit="event.preventDefault(); handleSignalMateSubmit();">
+        <input type="text" id="signalmate-input" class="signalmate-input" placeholder="Type your message..."
+          autocomplete="off">
         <button type="submit" class="signalmate-send-btn" aria-label="Send message">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+            stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13"></line>
             <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
           </svg>
@@ -5559,7 +5883,7 @@
     </div>
   </div>
 
-<script>
+  <script>
     /* ═══════════════════════════════════════════════════════════
        KUMO-INSPIRED STUDIO PREVIEW CONTROLLER
     ═══════════════════════════════════════════════════════════ */
@@ -5618,17 +5942,17 @@
         if (badgeText) badgeText.textContent = slides[currentIndex].badge;
       }
 
-      window.kumoGoToSlide = function(idx) {
+      window.kumoGoToSlide = function (idx) {
         updateSlide(idx);
         restartAutoPlay();
       };
 
-      window.kumoNextSlide = function() {
+      window.kumoNextSlide = function () {
         updateSlide(currentIndex + 1);
         restartAutoPlay();
       };
 
-      window.kumoPrevSlide = function() {
+      window.kumoPrevSlide = function () {
         updateSlide(currentIndex - 1);
         restartAutoPlay();
       };
@@ -5651,7 +5975,7 @@
         });
 
         // Mousewheel "scroll one by one"
-        showcase.addEventListener('wheel', function(e) {
+        showcase.addEventListener('wheel', function (e) {
           const isDown = e.deltaY > 15 || e.deltaX > 15;
           const isUp = e.deltaY < -15 || e.deltaX < -15;
 
@@ -5704,6 +6028,7 @@
 
       restartAutoPlay();
     })();
-</script>
+  </script>
 </body>
+
 </html>
