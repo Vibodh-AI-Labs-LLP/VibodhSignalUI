@@ -6,7 +6,7 @@
   <title>Vibodh Signal — AI-Powered Digital Marketing Workspace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus&rarr;Jakarta&rarr;Sans:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════════════
        1. COLOR SYSTEM & CSS TOKENS
@@ -116,7 +116,7 @@
 
     /* Scroll Margin for Sticky Nav */
     section[id] {
-      scroll-margin-top: calc(var(--header-height) + 20px);
+      scroll-margin-top: calc(var(--header-height) &rarr; 20px);
     }
 
     /* Buttons */
@@ -212,7 +212,7 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       2. STICKY MAIN NAVIGATION (DESKTOP + MOBILE)
+       2. STICKY MAIN NAVIGATION (DESKTOP &rarr; MOBILE)
     ═══════════════════════════════════════════════════════════ */
     .site-header {
       position: sticky;
@@ -1243,7 +1243,7 @@
     /* Floating overlapping popover for card details */
     .branch-details {
       position: absolute;
-      top: calc(100% + 6px);
+      top: calc(100% &rarr; 6px);
       left: 0;
       right: 0;
       background: #FFFFFF;
@@ -2197,6 +2197,354 @@
         display: none;
       }
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       SIGNALMATE FLOATING CHATBOT (Dark Theme matching Reference)
+    ═══════════════════════════════════════════════════════════ */
+    .signalmate-floating-btn {
+      position: fixed !important;
+      bottom: 86px !important; /* Right above the Back to Top arrow (28px &rarr; 48px &rarr; 10px) */
+      right: 28px !important;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1E3A8A 0%, #243B6B 50%, #0F9D8A 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(36, 59, 107, 0.35), 0 4px 12px rgba(15, 157, 138, 0.25);
+      cursor: pointer;
+      z-index: 9999;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .signalmate-floating-btn:hover {
+      transform: translateY(-3px) scale(1.08);
+      box-shadow: 0 14px 32px rgba(15, 157, 138, 0.45), 0 4px 14px rgba(36, 59, 107, 0.3);
+      border-color: #FFFFFF;
+    }
+
+    .signalmate-btn-avatar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .signalmate-live-pulse {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 12px;
+      height: 12px;
+      background: #10B981;
+      border-radius: 50%;
+      border: 2px solid #FFFFFF;
+      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
+      animation: pulseGreenSignal 2s infinite;
+    }
+
+    @keyframes pulseGreenSignal {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+      70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* SignalMate Window (Right & Down Corner) */
+    .signalmate-window {
+      position: fixed !important;
+      bottom: 28px !important;
+      right: 28px !important;
+      width: 390px;
+      max-width: calc(100vw - 36px);
+      height: 520px;
+      max-height: calc(100vh - 48px);
+      background: #111418;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000005 !important;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(20px) scale(0.96);
+      pointer-events: none;
+      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    
+    body.signalmate-chat-open #back-to-top-btn,
+    body.signalmate-chat-open #signalmate-trigger-btn {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transform: scale(0.8) !important;
+      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
+    }
+    .signalmate-window.is-open {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      pointer-events: auto;
+    }
+
+    /* Header */
+    .signalmate-header {
+      background: #161A22;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .signalmate-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .signalmate-header-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
+    }
+
+    .signalmate-header-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .signalmate-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #FFFFFF;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .signalmate-subtitle {
+      font-size: 0.75rem;
+      color: #94A3B8;
+      line-height: 1.3;
+    }
+
+    .signalmate-header-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .signalmate-online-tag {
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: #10B981;
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.25);
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      line-height: 1.2;
+    }
+
+    .signalmate-close-btn {
+      background: transparent;
+      border: none;
+      color: #94A3B8;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.15s ease, background 0.15s ease;
+    }
+
+    .signalmate-close-btn:hover {
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    /* Body */
+    .signalmate-body {
+      flex: 1;
+      padding: 24px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .signalmate-msg.bot {
+      color: #E2E8F0;
+      font-size: 0.9375rem;
+      line-height: 1.55;
+    }
+
+    .signalmate-greeting {
+      font-size: 1.05rem;
+      color: #FFFFFF;
+      margin-bottom: 8px;
+    }
+
+    .signalmate-text {
+      color: #CBD5E1;
+      margin-bottom: 14px;
+      font-size: 0.9125rem;
+    }
+
+    .signalmate-subprompt {
+      color: #FFFFFF;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      margin-bottom: 12px;
+    }
+
+    /* Option Pills */
+    .signalmate-options {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+
+    .signalmate-option-btn {
+      background: #181D26;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #E2E8F0;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .signalmate-option-btn:hover {
+      background: #202735;
+      border-color: rgba(15, 157, 138, 0.4);
+      color: #FFFFFF;
+      transform: translateX(4px);
+    }
+
+    .signalmate-user-msg {
+      align-self: flex-end;
+      background: var(--teal);
+      color: #FFFFFF;
+      padding: 10px 16px;
+      border-radius: 14px 14px 2px 14px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      max-width: 85%;
+      box-shadow: 0 4px 12px rgba(15, 157, 138, 0.25);
+      animation: fadeInMsg 0.2s ease;
+    }
+
+    .signalmate-bot-reply {
+      align-self: flex-start;
+      background: #1A202C;
+      color: #E2E8F0;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 16px;
+      border-radius: 14px 14px 14px 2px;
+      font-size: 0.875rem;
+      line-height: 1.5;
+      max-width: 90%;
+      animation: fadeInMsg 0.2s ease;
+    }
+
+    .signalmate-inline-link {
+      display: inline-block;
+      margin-top: 8px;
+      color: #10B981;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+
+    @keyframes fadeInMsg {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer Input */
+    .signalmate-footer {
+      background: #161A22;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 14px 16px;
+    }
+
+    .signalmate-form {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #0E1217;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-full);
+      padding: 4px 6px 4px 16px;
+      transition: border-color 0.2s ease;
+    }
+
+    .signalmate-form:focus-within {
+      border-color: var(--teal);
+      box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.2);
+    }
+
+    .signalmate-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #FFFFFF;
+      font-size: 0.875rem;
+    }
+
+    .signalmate-input::placeholder {
+      color: #64748B;
+    }
+
+    .signalmate-send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #0F9D8A;
+      border: none;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .signalmate-send-btn:hover {
+      background: #10B981;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 640px) {
+      .signalmate-floating-btn {
+        bottom: 74px !important;
+        right: 20px !important;
+        width: 44px;
+        height: 44px;
+      }
+      .signalmate-window {
+        bottom: 16px !important;
+        right: 16px !important;
+        left: 16px !important;
+        width: auto !important;
+        height: calc(100vh - 80px) !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2405,7 +2753,7 @@
               </li>
               <li class="compare-item">
                 <span class="icon-check">✓</span>
-                <span><strong>Save 15+ hours weekly:</strong> Plan an entire month of marketing in one afternoon.</span>
+                <span><strong>Save 15&rarr; hours weekly:</strong> Plan an entire month of marketing in one afternoon.</span>
               </li>
             </ul>
           </div>
@@ -3196,7 +3544,7 @@
               <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>10</strong> social profiles</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>50 posts / month</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>300</strong> AI credits / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>2 team members + approvals</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span>2 team members &rarr; approvals</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Advanced brand kit &amp; reporting</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Optional 1-platform ad setup</span></li>
             </ul>
@@ -3223,7 +3571,7 @@
               <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20</strong> social profiles</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>100 posts / month</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800</strong> AI credits / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5 team members + Full approvals</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5 team members &rarr; Full approvals</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Advanced analytics &amp; client reports</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Up to 2 ad platforms</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Priority support</span></li>
@@ -3246,11 +3594,11 @@
             <a href="dashboard.html?plan=agency" class="btn btn-outline plan-btn">Contact Sales</a>
 
             <ul class="features-list">
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5+</strong> brands (Custom)</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20+</strong> social profiles</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>100+ posts / month</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800+</strong> AI credits / month (Custom)</span></li>
-              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5+ team members + Advanced workflows</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>5&rarr;</strong> brands (Custom)</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>20&rarr;</strong> social profiles</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span>100&rarr; posts / month</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span><strong>800&rarr;</strong> AI credits / month (Custom)</span></li>
+              <li class="feature-item"><span class="feature-check">&#10003;</span><span>5&rarr; team members &rarr; Advanced workflows</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Multi-client ad management</span></li>
               <li class="feature-item"><span class="feature-check">&#10003;</span><span>Dedicated account manager</span></li>
             </ul>
@@ -3374,11 +3722,11 @@
       if (updateHash) {
         if (tabKey === 'home') {
           if (window.location.hash && window.location.hash !== '') {
-            history.pushState(null, '', window.location.pathname + window.location.search);
+            history.pushState(null, '', window.location.pathname &rarr; window.location.search);
           }
         } else {
-          if (window.location.hash !== '#' + tabKey) {
-            history.pushState(null, '', '#' + tabKey);
+          if (window.location.hash !== '#' &rarr; tabKey) {
+            history.pushState(null, '', '#' &rarr; tabKey);
           }
         }
       }
@@ -3470,7 +3818,7 @@
 
     function setPricingCycle(cycle) {
       document.querySelectorAll('.cycle-btn').forEach(btn => {
-        btn.classList.toggle('is-active', btn.id === 'btn-' + cycle);
+        btn.classList.toggle('is-active', btn.id === 'btn-' &rarr; cycle);
       });
 
       const data = PRICING_DATA[cycle];
@@ -3631,7 +3979,7 @@
           this.y = Math.random() * height;
           this.vx = (Math.random() - 0.5) * 0.75;
           this.vy = (Math.random() - 0.5) * 0.75;
-          this.radius = Math.random() * 2.2 + 1.2;
+          this.radius = Math.random() * 2.2 &rarr; 1.2;
           // Colors matching Vibodh palette: Teal (#0F9D8A), Indigo (#243B6B), Purple (#7C3AED), Sky (#0284C7)
           const colors = [
             'rgba(15, 157, 138, ',
@@ -3640,12 +3988,12 @@
             'rgba(14, 165, 233, '
           ];
           this.colorBase = colors[Math.floor(Math.random() * colors.length)];
-          this.baseAlpha = Math.random() * 0.4 + 0.35;
+          this.baseAlpha = Math.random() * 0.4 &rarr; 0.35;
         }
 
         update() {
-          this.x += this.vx;
-          this.y += this.vy;
+          this.x &rarr;= this.vx;
+          this.y &rarr;= this.vy;
 
           if (this.x < 0) this.x = width;
           else if (this.x > width) this.x = 0;
@@ -3660,8 +4008,8 @@
             if (dist < mouse.radius) {
               const force = (mouse.radius - dist) / mouse.radius;
               const angle = Math.atan2(dy, dx);
-              this.x += Math.cos(angle) * force * 1.5;
-              this.y += Math.sin(angle) * force * 1.5;
+              this.x &rarr;= Math.cos(angle) * force * 1.5;
+              this.y &rarr;= Math.sin(angle) * force * 1.5;
             }
           }
         }
@@ -3669,12 +4017,12 @@
         draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = this.colorBase + this.baseAlpha + ')';
+          ctx.fillStyle = this.colorBase &rarr; this.baseAlpha &rarr; ')';
           ctx.fill();
         }
       }
 
-      for (let i = 0; i < particleCount; i++) {
+      for (let i = 0; i < particleCount; i&rarr;&rarr;) {
         particles.push(new Particle());
       }
 
@@ -3682,8 +4030,8 @@
         ctx.clearRect(0, 0, width, height);
 
         // Draw connecting lines between particles
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
+        for (let i = 0; i < particles.length; i&rarr;&rarr;) {
+          for (let j = i &rarr; 1; j < particles.length; j&rarr;&rarr;) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const dist = Math.hypot(dx, dy);
@@ -3702,7 +4050,7 @@
 
         // Connect particles to mouse cursor when nearby
         if (mouse.x !== null && mouse.y !== null) {
-          for (let i = 0; i < particles.length; i++) {
+          for (let i = 0; i < particles.length; i&rarr;&rarr;) {
             const dx = mouse.x - particles[i].x;
             const dy = mouse.y - particles[i].y;
             const dist = Math.hypot(dx, dy);
@@ -3754,6 +4102,88 @@
         setup();
       }
     })();
+
+    // 9. SignalMate Chatbot Assistant
+    (function initSignalMate() {
+      const triggerBtn = document.getElementById('signalmate-trigger-btn');
+      const chatWindow = document.getElementById('signalmate-chat-window');
+      const closeBtn = document.getElementById('signalmate-close-btn');
+      const messagesContainer = document.getElementById('signalmate-messages');
+      const input = document.getElementById('signalmate-input');
+      const optionBtns = document.querySelectorAll('.signalmate-option-btn');
+
+      if (!triggerBtn || !chatWindow) return;
+
+      function toggleChat(open) {
+        const isOpen = typeof open === 'boolean' ? open : !chatWindow.classList.contains('is-open');
+        chatWindow.classList.toggle('is-open', isOpen);
+        document.body.classList.toggle('signalmate-chat-open', isOpen);
+        chatWindow.setAttribute('aria-hidden', (!isOpen).toString());
+        if (isOpen && input) {
+          setTimeout(() => input.focus(), 250);
+        }
+      }
+
+      triggerBtn.addEventListener('click', () => toggleChat());
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => toggleChat(false));
+      }
+
+      function appendUserMessage(text) {
+        const msg = document.createElement('div');
+        msg.className = 'signalmate-user-msg';
+        msg.textContent = text;
+        messagesContainer.appendChild(msg);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      function appendBotReply(html) {
+        const reply = document.createElement('div');
+        reply.className = 'signalmate-bot-reply';
+        reply.innerHTML = html;
+        messagesContainer.appendChild(reply);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+      }
+
+      optionBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const action = btn.getAttribute('data-action');
+          const text = btn.innerText.trim();
+          appendUserMessage(text);
+
+          setTimeout(() => {
+            if (action === 'features') {
+              appendBotReply('Vibodh Signal gives you AI content creation across Instagram, Facebook, and LinkedIn, brand voice locking, auto-scheduling, and high-conversion multi-format studio tools.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">→ View Key Features Tab</a>');
+            } else if (action === 'pricing') {
+              appendBotReply('We offer Starter (₹1,499/mo), Growth (₹3,999/mo), Business (₹8,999/mo), and Custom Agency plans with 14-day free trials.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">→ View Plans &amp; Pricing Tab</a>');
+            } else if (action === 'demo') {
+              appendBotReply('You can test the interactive workspace right now without signing up!<br><a class="signalmate-inline-link" href="dashboard.html">→ Open Live Dashboard Demo</a>');
+            }
+          }, 350);
+        });
+      });
+
+      window.handleSignalMateSubmit = function() {
+        if (!input) return;
+        const query = input.value.trim();
+        if (!query) return;
+        input.value = '';
+        appendUserMessage(query);
+
+        setTimeout(() => {
+          const lower = query.toLowerCase();
+          if (lower.includes('price') || lower.includes('cost') || lower.includes('plan')) {
+            appendBotReply('Plans start at ₹1,499/month for individual creators and go up to agency tiers with custom limits.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">→ Open Plans &amp; Pricing</a>');
+          } else if (lower.includes('feature') || lower.includes('content') || lower.includes('studio') || lower.includes('ai')) {
+            appendBotReply('Signal Engine powers text, images, video reels, and brand persona synchronization automatically.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">→ Explore Features</a>');
+          } else if (lower.includes('trial') || lower.includes('demo') || lower.includes('start') || lower.includes('free')) {
+            appendBotReply('You can start your 14-day free trial right away or explore our live dashboard demo.<br><a class="signalmate-inline-link" href="dashboard.html">→ Get Started with Vibodh Signal</a>');
+          } else {
+            appendBotReply('I\'d be glad to help with that! You can explore our <a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">Key Features</a>, view <a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">Plans &amp; Pricing</a>, or jump straight into the <a class="signalmate-inline-link" href="dashboard.html">Live Dashboard</a>.');
+          }
+        }, 400);
+      };
+    })();
   </script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
@@ -3763,5 +4193,90 @@
       <polyline points="5 12 12 5 19 12"></polyline>
     </svg>
   </button>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       SIGNALMATE FLOATING CHATBOT WIDGET
+  ═══════════════════════════════════════════════════════════ -->
+  <!-- Floating Trigger Button (Placed directly above the Back to Top arrow) -->
+  <button type="button" id="signalmate-trigger-btn" class="signalmate-floating-btn" aria-label="Open SignalMate Chatbot" title="Chat with SignalMate">
+    <span class="signalmate-btn-avatar">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="10" width="18" height="11" rx="4"></rect>
+        <circle cx="8.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
+        <circle cx="15.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
+        <path d="M9.5 18.5h5"></path>
+        <path d="M12 6v4"></path>
+        <circle cx="12" cy="4.5" r="1.5" fill="#FFFFFF"></circle>
+      </svg>
+    </span>
+    <span class="signalmate-live-pulse" title="Online"></span>
+  </button>
+
+  <!-- Chat Window (Right & Down Corner) -->
+  <div id="signalmate-chat-window" class="signalmate-window" aria-hidden="true">
+    <!-- Header -->
+    <div class="signalmate-header">
+      <div class="signalmate-header-left">
+        <div class="signalmate-header-avatar">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="10" width="18" height="11" rx="4"></rect>
+            <circle cx="8.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
+            <circle cx="15.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
+            <path d="M9.5 18.5h5"></path>
+            <path d="M12 6v4"></path>
+            <circle cx="12" cy="4.5" r="1.5" fill="#FFFFFF"></circle>
+          </svg>
+        </div>
+        <div class="signalmate-header-meta">
+          <h4 class="signalmate-title">SignalMate</h4>
+          <p class="signalmate-subtitle">Your Vibodh Signal AI assistant</p>
+        </div>
+      </div>
+      <div class="signalmate-header-right">
+        <span class="signalmate-online-tag">Online</span>
+        <button type="button" id="signalmate-close-btn" class="signalmate-close-btn" aria-label="Close Chat Window">&times;</button>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="signalmate-body" id="signalmate-messages">
+      <div class="signalmate-msg bot">
+        <div class="signalmate-greeting">
+          <strong>Hi! 👋 I'm SignalMate.</strong>
+        </div>
+        <p class="signalmate-text">
+          I'm here to help you discover how Vibodh Signal can simplify your marketing.
+        </p>
+        <p class="signalmate-subprompt">What would you like to know?</p>
+      </div>
+
+      <!-- Quick Option Pills -->
+      <div class="signalmate-options" id="signalmate-options">
+        <button type="button" class="signalmate-option-btn" data-action="features">
+          <span>Explore features</span>
+        </button>
+        <button type="button" class="signalmate-option-btn" data-action="pricing">
+          <span>Understand pricing</span>
+        </button>
+        <button type="button" class="signalmate-option-btn" data-action="demo">
+          <span>Book a demo</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Footer Input Bar -->
+    <div class="signalmate-footer">
+      <form id="signalmate-input-form" class="signalmate-form" onsubmit="event.preventDefault(); handleSignalMateSubmit();">
+        <input type="text" id="signalmate-input" class="signalmate-input" placeholder="Type your message..." autocomplete="off">
+        <button type="submit" class="signalmate-send-btn" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"></line>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
 </body>
 </html>
