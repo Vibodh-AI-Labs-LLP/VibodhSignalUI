@@ -8512,48 +8512,341 @@ function updateDnaPaletteSaveState(boxId) {
   }
 }
 
-/* --- Section 5: Add New Offering In-place --- */
-function addNewDnaOfferingCard() {
-  const container = document.getElementById('dna-products-list');
-  if (!container) return;
-  const existingCards = container.querySelectorAll('.dna-product-item-card');
-  const newId = existingCards.length + 1;
-  const boxId = `dna-box-offering-${newId}`;
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION 5: INLINE OFFERINGS CATALOG ENGINE (IMAGE 1 SPEC)
+═══════════════════════════════════════════════════════════════════════════ */
 
-  const cardHtml = `
-    <div class="dna-product-item-card dna-editable-box is-editing" id="${boxId}" data-dna-field="offering-${newId}" data-dna-type="product-card" data-id="${newId}" style="position:relative;">
-      <div class="dna-box-corner-actions" style="position:absolute;top:12px;right:12px;z-index:5;">
-        <button type="button" class="dna-inline-edit-btn" onclick="toggleDnaBoxEdit('${boxId}')" title="Edit Offering ${newId}">
-          <img src="edit-pencil.png" alt="Edit" class="dna-edit-pencil-icon">
-        </button>
-        <button type="button" class="dna-inline-save-btn can-save" id="dna-save-offering-${newId}" onclick="saveDnaBoxEdit('${boxId}')" title="Save changes">✓</button>
-        <button type="button" class="dna-inline-cancel-btn" id="dna-cancel-offering-${newId}" onclick="cancelDnaBoxEdit('${boxId}')" title="Cancel">✕</button>
-      </div>
-      <div class="dna-box-display" style="display:none;">
-        <div class="dna-prod-header">
-          <span class="dna-prod-num">0${newId}</span>
-          <div style="flex:1;">
-            <h3 class="dna-prod-name">New Offering ${newId}</h3>
-            <span class="dna-prod-badge">OFFERING</span>
+function renderDnaInlineOfferingsEditor(boxId) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const cards = Array.from(box.querySelectorAll('#dna-products-list .dna-product-item-card'));
+  const offerings = cards.map(c => {
+    const name = (c.querySelector('.dna-prod-name')?.innerText || '').trim();
+    const desc = (c.querySelector('.dna-prod-desc')?.innerText || '').trim();
+    return { name, desc };
+  });
+
+  box.setAttribute('data-original-val', JSON.stringify(offerings));
+
+  const listEl = box.querySelector('#dna-inline-offerings-items-list');
+  if (listEl) {
+    listEl.innerHTML = offerings.map((item, idx) => `
+      <div class="modal-offering-edit-card" data-idx="${idx}" style="background:#FFFFFF;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px;position:relative;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;margin-right:12px;">
+            <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#EEF2F6;color:#1E293B;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">${idx + 1}</span>
+            <input type="text" class="dna-input-premium modal-offering-name" value="${(item.name || '').replace(/"/g, '&quot;')}" placeholder="Offering Name" style="font-weight:700;font-size:13px;width:100%;" oninput="markOfferingsEditorDirty()">
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <button type="button" class="btn-dna-arrow" onclick="moveDnaInlineOfferingRow(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▲</button>
+            <button type="button" class="btn-dna-arrow" onclick="moveDnaInlineOfferingRow(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▼</button>
+            <button type="button" class="btn-dna-delete-prod" onclick="deleteDnaInlineOfferingRow(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:10.5px;font-weight:700;">✕</button>
           </div>
         </div>
-        <p class="dna-prod-desc">Describe your offering benefits, deliverable details, and core target outcome.</p>
+        <div style="margin-left:36px;">
+          <textarea class="dna-textarea-premium modal-offering-desc" rows="2" placeholder="Describe key deliverables, architecture, value proposition..." style="width:100%;font-size:12px;" oninput="markOfferingsEditorDirty()">${(item.desc || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+        </div>
       </div>
-      <div class="dna-box-editor" style="display:block;padding:4px 0;">
-        <input type="text" class="dna-inline-editor-input dna-editor-prod-title" value="New Offering ${newId}" oninput="handleDnaBoxInput('${boxId}')" placeholder="Offering Name" style="margin-bottom:8px;">
-        <textarea class="dna-inline-editor-textarea dna-editor-prod-desc" oninput="handleDnaBoxInput('${boxId}')" placeholder="Describe offering features and benefits..." style="min-height:70px;">Describe your offering benefits, deliverable details, and core target outcome.</textarea>
-      </div>
-    </div>
-  `;
-  container.insertAdjacentHTML('beforeend', cardHtml);
-  const newBox = document.getElementById(boxId);
-  if (newBox) {
-    newBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    const inp = newBox.querySelector('input');
-    if (inp) { inp.focus(); inp.select(); }
+    `).join('');
+  }
+
+  // Clear new offering form inputs
+  const nInp = box.querySelector('#dna-inp-new-offering-name');
+  const tInp = box.querySelector('#dna-inp-new-offering-tier');
+  const pInp = box.querySelector('#dna-inp-new-offering-pitch');
+  const uInp = box.querySelector('#dna-inp-new-offering-url');
+  if (nInp) nInp.value = '';
+  if (tInp) tInp.value = '';
+  if (pInp) pInp.value = '';
+  if (uInp) uInp.value = '';
+}
+window.renderDnaInlineOfferingsEditor = renderDnaInlineOfferingsEditor;
+
+function markOfferingsEditorDirty() {
+  const saveBtn = document.getElementById('dna-save-offerings');
+  if (saveBtn) {
+    saveBtn.disabled = false;
+    saveBtn.classList.add('can-save');
   }
 }
-window.addNewDnaOfferingCard = addNewDnaOfferingCard;
+window.markOfferingsEditorDirty = markOfferingsEditorDirty;
+
+function handleOfferingsAddFormInput() {
+  const name = (document.getElementById('dna-inp-new-offering-name')?.value || '').trim();
+  if (name) {
+    markOfferingsEditorDirty();
+  }
+}
+window.handleOfferingsAddFormInput = handleOfferingsAddFormInput;
+
+function renumberInlineOfferings() {
+  const cards = document.querySelectorAll('#dna-inline-offerings-items-list .modal-offering-edit-card');
+  cards.forEach((c, i) => {
+    c.setAttribute('data-idx', i);
+    const badge = c.querySelector('.modal-offering-badge');
+    if (badge) badge.innerText = (i + 1);
+  });
+}
+
+function moveDnaInlineOfferingRow(btn, dir) {
+  const card = btn.closest('.modal-offering-edit-card');
+  if (!card) return;
+  if (dir === -1 && card.previousElementSibling) {
+    card.parentNode.insertBefore(card, card.previousElementSibling);
+    renumberInlineOfferings();
+    markOfferingsEditorDirty();
+  } else if (dir === 1 && card.nextElementSibling) {
+    card.parentNode.insertBefore(card.nextElementSibling, card);
+    renumberInlineOfferings();
+    markOfferingsEditorDirty();
+  }
+}
+window.moveDnaInlineOfferingRow = moveDnaInlineOfferingRow;
+
+function deleteDnaInlineOfferingRow(btn) {
+  const card = btn.closest('.modal-offering-edit-card');
+  if (!card) return;
+  card.remove();
+  renumberInlineOfferings();
+  markOfferingsEditorDirty();
+}
+window.deleteDnaInlineOfferingRow = deleteDnaInlineOfferingRow;
+
+function addDnaInlineOfferingFromForm() {
+  const nameInp = document.getElementById('dna-inp-new-offering-name');
+  const tierInp = document.getElementById('dna-inp-new-offering-tier');
+  const pitchInp = document.getElementById('dna-inp-new-offering-pitch');
+  const urlInp = document.getElementById('dna-inp-new-offering-url');
+
+  const name = (nameInp?.value || '').trim();
+  const tier = (tierInp?.value || '').trim();
+  const pitch = (pitchInp?.value || '').trim();
+  const url = (urlInp?.value || '').trim();
+
+  if (!name) {
+    showToast('Please enter a Product/Service Name', '⚠️');
+    if (nameInp) nameInp.focus();
+    return;
+  }
+
+  let desc = pitch || 'Flagship offering deliverable and core service architecture.';
+  if (tier) desc += ' [Tier: ' + tier + ']';
+  if (url) desc += ' (URL: ' + url + ')';
+
+  const listEl = document.getElementById('dna-inline-offerings-items-list');
+  if (listEl) {
+    const idx = listEl.children.length;
+    const cardHtml = `
+      <div class="modal-offering-edit-card" data-idx="${idx}" style="background:#FFFFFF;border:1.5px solid #E2E8F0;border-radius:12px;padding:14px;position:relative;">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+          <div style="display:flex;align-items:center;gap:10px;flex:1;margin-right:12px;">
+            <span class="modal-offering-badge" style="width:26px;height:26px;border-radius:6px;background:#EEF2F6;color:#1E293B;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;flex-shrink:0;">${idx + 1}</span>
+            <input type="text" class="dna-input-premium modal-offering-name" value="${name.replace(/"/g, '&quot;')}" placeholder="Offering Name" style="font-weight:700;font-size:13px;width:100%;" oninput="markOfferingsEditorDirty()">
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex-shrink:0;">
+            <button type="button" class="btn-dna-arrow" onclick="moveDnaInlineOfferingRow(this, -1)" title="Move Up" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▲</button>
+            <button type="button" class="btn-dna-arrow" onclick="moveDnaInlineOfferingRow(this, 1)" title="Move Down" style="width:28px;height:28px;border-radius:6px;background:#FFFFFF;border:1px solid #CBD5E1;cursor:pointer;font-size:9.5px;">▼</button>
+            <button type="button" class="btn-dna-delete-prod" onclick="deleteDnaInlineOfferingRow(this)" title="Delete Offering" style="width:28px;height:28px;border-radius:6px;background:#FEF2F2;border:1px solid #FCA5A5;color:#DC2626;cursor:pointer;font-size:10.5px;font-weight:700;">✕</button>
+          </div>
+        </div>
+        <div style="margin-left:36px;">
+          <textarea class="dna-textarea-premium modal-offering-desc" rows="2" placeholder="Describe key deliverables, architecture, value proposition..." style="width:100%;font-size:12px;" oninput="markOfferingsEditorDirty()">${desc.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</textarea>
+        </div>
+      </div>
+    `;
+    listEl.insertAdjacentHTML('beforeend', cardHtml);
+  }
+
+  // Clear form
+  if (nameInp) nameInp.value = '';
+  if (tierInp) tierInp.value = '';
+  if (pitchInp) pitchInp.value = '';
+  if (urlInp) urlInp.value = '';
+
+  markOfferingsEditorDirty();
+  showToast('Added "' + name + '" to editor list', '✓');
+}
+window.addDnaInlineOfferingFromForm = addDnaInlineOfferingFromForm;
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   SECTION 6: INLINE CONTENT PILLARS ENGINE (IMAGE 2 SPEC)
+═══════════════════════════════════════════════════════════════════════════ */
+
+function renderDnaInlinePillarsEditor(boxId) {
+  const box = document.getElementById(boxId);
+  if (!box) return;
+
+  const cards = Array.from(box.querySelectorAll('#dna-display-pillars-list .dna-display-pillar-card'));
+  const pillars = cards.map(c => {
+    const dot = c.querySelector('.dna-pillar-swatch-dot');
+    const color = dot ? (dot.style.backgroundColor || dot.style.background || '#0F9D8A') : '#0F9D8A';
+    const name = (c.querySelector('.dna-display-pillar-name')?.innerText || '').trim();
+    const pct = parseInt((c.querySelector('.dna-display-pillar-pct')?.innerText || '25').replace('%', ''), 10) || 25;
+    return { color: colorToHex(color), name, pct };
+  });
+
+  box.setAttribute('data-original-val', JSON.stringify(pillars));
+
+  const rowsContainer = box.querySelector('#dna-inline-pillars-rows');
+  if (rowsContainer) {
+    rowsContainer.innerHTML = pillars.map((p, idx) => `
+      <div class="dna-pillar-alloc-row dna-edit-pillar-row" data-idx="${idx}" style="display:flex;align-items:center;gap:10px;">
+        <span class="dna-pillar-swatch-dot" style="background:${p.color};width:10px;height:10px;border-radius:50%;flex-shrink:0;"></span>
+        <input type="text" class="dna-input-premium dna-edit-pillar-name" value="${(p.name || '').replace(/"/g, '&quot;')}" style="flex:1;font-size:12px;font-weight:700;" oninput="updateDnaInlinePillarsLive()">
+        <div class="dna-ratio-input-wrap" style="width:72px;">
+          <input type="number" class="dna-ratio-input dna-edit-pillar-pct" value="${p.pct}" min="0" max="100" oninput="updateDnaInlinePillarsLive()">
+          <span class="dna-ratio-unit">%</span>
+        </div>
+        <input type="color" class="dna-pillar-color-picker dna-edit-pillar-color" value="${p.color}" oninput="updateDnaInlinePillarRowColor(this)" title="Choose pillar color" style="width:28px;height:28px;border-radius:6px;border:1px solid #CBD5E1;cursor:pointer;padding:0;">
+        <button type="button" class="btn-dna-delete-prod" onclick="deleteDnaInlinePillarRow(this)" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:13.5px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
+      </div>
+    `).join('');
+  }
+
+  // Clear new pillar form inputs
+  const npName = box.querySelector('#dna-new-pillar-name');
+  const npPct = box.querySelector('#dna-new-pillar-pct');
+  const npCol = box.querySelector('#dna-new-pillar-color');
+  if (npName) npName.value = '';
+  if (npPct) npPct.value = '25';
+  if (npCol) npCol.value = '#0F9D8A';
+
+  // Initial draw of editor donut
+  let totalPct = pillars.reduce((acc, p) => acc + (p.pct || 0), 0);
+  renderDnaDonutToElements(
+    box.querySelector('#dna-editor-donut-svg'),
+    box.querySelector('#dna-editor-donut-legend'),
+    box.querySelector('#dna-editor-donut-center-pct'),
+    pillars,
+    totalPct
+  );
+}
+window.renderDnaInlinePillarsEditor = renderDnaInlinePillarsEditor;
+
+function renderDnaDonutToElements(svg, legend, centerPct, pillars, total) {
+  if (centerPct) centerPct.innerText = total + '%';
+  if (!svg || !pillars.length) return;
+
+  const circumference = 238.76;
+  let currentOffset = 0;
+  let circlesHtml = `<circle cx="50" cy="50" r="38" fill="none" stroke="#F1F5F9" stroke-width="15"/>`;
+  let legendHtml = '';
+
+  pillars.forEach(p => {
+    const dashLength = (p.pct / 100) * circumference;
+    circlesHtml += `<circle cx="50" cy="50" r="38" fill="none" stroke="${p.color}" stroke-width="15" stroke-dasharray="${dashLength.toFixed(2)} ${circumference}" stroke-dashoffset="${(-currentOffset).toFixed(2)}"/>`;
+    currentOffset += dashLength;
+
+    legendHtml += `
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <span style="display:flex;align-items:center;gap:6px;color:#334155;">
+          <span style="width:8px;height:8px;border-radius:50%;background:${p.color};"></span>
+          <span style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${(p.name || '').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
+        </span>
+        <strong style="color:#0F172A;">${p.pct}%</strong>
+      </div>
+    `;
+  });
+
+  svg.innerHTML = circlesHtml;
+  if (legend) legend.innerHTML = legendHtml;
+}
+window.renderDnaDonutToElements = renderDnaDonutToElements;
+
+function getDnaInlinePillarsFromEditor() {
+  const rows = Array.from(document.querySelectorAll('#dna-inline-pillars-rows .dna-edit-pillar-row'));
+  return rows.map(r => {
+    const name = (r.querySelector('.dna-edit-pillar-name')?.value || '').trim() || 'Untitled Pillar';
+    const pct = parseInt(r.querySelector('.dna-edit-pillar-pct')?.value || '0', 10) || 0;
+    const color = r.querySelector('.dna-edit-pillar-color')?.value || '#0F9D8A';
+    return { name, pct, color };
+  });
+}
+
+function updateDnaInlinePillarsLive() {
+  const pillars = getDnaInlinePillarsFromEditor();
+  const total = pillars.reduce((sum, p) => sum + p.pct, 0);
+
+  const ratioBadge = document.getElementById('dna-editor-pillars-ratio');
+  if (ratioBadge) {
+    ratioBadge.innerText = 'Total Ratio: ' + total + '% ' + (total === 100 ? '✓' : '');
+    ratioBadge.style.color = total === 100 ? '#0F9D8A' : '#EF4444';
+  }
+
+  renderDnaDonutToElements(
+    document.getElementById('dna-editor-donut-svg'),
+    document.getElementById('dna-editor-donut-legend'),
+    document.getElementById('dna-editor-donut-center-pct'),
+    pillars,
+    total
+  );
+
+  const saveBtn = document.getElementById('dna-save-pillars');
+  if (saveBtn) {
+    saveBtn.disabled = false;
+    saveBtn.classList.add('can-save');
+  }
+}
+window.updateDnaInlinePillarsLive = updateDnaInlinePillarsLive;
+
+function updateDnaInlinePillarRowColor(inp) {
+  const row = inp.closest('.dna-edit-pillar-row');
+  if (row) {
+    const dot = row.querySelector('.dna-pillar-swatch-dot');
+    if (dot) dot.style.background = inp.value;
+  }
+  updateDnaInlinePillarsLive();
+}
+window.updateDnaInlinePillarRowColor = updateDnaInlinePillarRowColor;
+
+function deleteDnaInlinePillarRow(btn) {
+  const row = btn.closest('.dna-edit-pillar-row');
+  if (row) row.remove();
+  updateDnaInlinePillarsLive();
+}
+window.deleteDnaInlinePillarRow = deleteDnaInlinePillarRow;
+
+function addDnaInlinePillarItem() {
+  const nameInp = document.getElementById('dna-new-pillar-name');
+  const pctInp = document.getElementById('dna-new-pillar-pct');
+  const colInp = document.getElementById('dna-new-pillar-color');
+
+  const name = (nameInp?.value || '').trim();
+  const pct = parseInt(pctInp?.value || '25', 10) || 25;
+  const color = colInp?.value || '#0F9D8A';
+
+  if (!name) {
+    showToast('Please enter a pillar name', '⚠️');
+    if (nameInp) nameInp.focus();
+    return;
+  }
+
+  const container = document.getElementById('dna-inline-pillars-rows');
+  if (container) {
+    const idx = container.children.length;
+    const rowHtml = `
+      <div class="dna-pillar-alloc-row dna-edit-pillar-row" data-idx="${idx}" style="display:flex;align-items:center;gap:10px;">
+        <span class="dna-pillar-swatch-dot" style="background:${color};width:10px;height:10px;border-radius:50%;flex-shrink:0;"></span>
+        <input type="text" class="dna-input-premium dna-edit-pillar-name" value="${name.replace(/"/g, '&quot;')}" style="flex:1;font-size:12px;font-weight:700;" oninput="updateDnaInlinePillarsLive()">
+        <div class="dna-ratio-input-wrap" style="width:72px;">
+          <input type="number" class="dna-ratio-input dna-edit-pillar-pct" value="${pct}" min="0" max="100" oninput="updateDnaInlinePillarsLive()">
+          <span class="dna-ratio-unit">%</span>
+        </div>
+        <input type="color" class="dna-pillar-color-picker dna-edit-pillar-color" value="${color}" oninput="updateDnaInlinePillarRowColor(this)" title="Choose pillar color" style="width:28px;height:28px;border-radius:6px;border:1px solid #CBD5E1;cursor:pointer;padding:0;">
+        <button type="button" class="btn-dna-delete-prod" onclick="deleteDnaInlinePillarRow(this)" title="Remove Pillar" style="background:transparent;border:none;color:#94A3B8;font-size:13.5px;cursor:pointer;padding:0 4px;" onmouseover="this.style.color='#EF4444'" onmouseout="this.style.color='#94A3B8'">✕</button>
+      </div>
+    `;
+    container.insertAdjacentHTML('beforeend', rowHtml);
+  }
+
+  if (nameInp) nameInp.value = '';
+  if (pctInp) pctInp.value = '25';
+  updateDnaInlinePillarsLive();
+}
+window.addDnaInlinePillarItem = addDnaInlinePillarItem;
+
 
 /* --- Main In-Place Box Toggle --- */
 function toggleDnaBoxEdit(boxId) {
@@ -8578,6 +8871,10 @@ function toggleDnaBoxEdit(boxId) {
     renderDnaInlineToneChipsEditor(boxId);
   } else if (type === 'palette') {
     renderDnaInlinePaletteEditor(boxId);
+  } else if (type === 'offerings-catalog') {
+    renderDnaInlineOfferingsEditor(boxId);
+  } else if (type === 'pillars-list') {
+    renderDnaInlinePillarsEditor(boxId);
   } else if (type === 'product-card') {
     const originalVal = getDnaBoxCurrentText(box, type);
     box.setAttribute('data-original-val', originalVal);
@@ -8648,21 +8945,6 @@ function handleDnaBoxInput(boxId) {
 }
 window.handleDnaBoxInput = handleDnaBoxInput;
 
-function handleDnaBoxKeydown(event, boxId) {
-  if (event.key === 'Escape') {
-    event.preventDefault();
-    cancelDnaBoxEdit(boxId);
-  } else if (event.key === 'Enter') {
-    const box = document.getElementById(boxId);
-    const type = box?.getAttribute('data-dna-type');
-    if (type === 'text-single' || event.ctrlKey || event.metaKey) {
-      event.preventDefault();
-      saveDnaBoxEdit(boxId);
-    }
-  }
-}
-window.handleDnaBoxKeydown = handleDnaBoxKeydown;
-
 function cancelDnaBoxEdit(boxId) {
   const box = document.getElementById(boxId);
   if (!box) return;
@@ -8689,35 +8971,67 @@ function saveDnaBoxEdit(boxId) {
 
   let savedValue = '';
 
-  if (type === 'product-card') {
-    const title = (box.querySelector('.dna-editor-prod-title')?.value || '').trim();
-    const desc = (box.querySelector('.dna-editor-prod-desc')?.value || '').trim();
-    if (displayEl) {
-      const nameEl = displayEl.querySelector('.dna-prod-name');
-      const descEl = displayEl.querySelector('.dna-prod-desc');
-      if (nameEl) nameEl.innerText = title;
-      if (descEl) descEl.innerText = desc;
-    }
-    savedValue = { title, desc };
-  } else if (type === 'pillars-list') {
-    const raw = (box.querySelector('.dna-box-editor')?.value || '').trim();
-    const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-    const colors = ['#1E293B', '#0F9D8A', '#7C3AED', '#EA580C', '#2563EB', '#D97706'];
-    let totalPct = 0;
-    const pillars = lines.map((l, i) => {
-      const parts = l.split(':');
-      const name = parts[0]?.trim() || ('Pillar ' + (i+1));
-      const pct = parseInt(parts[1]?.replace('%', '')?.trim(), 10) || 25;
-      totalPct += pct;
-      return { name, pct, color: colors[i % colors.length] };
+  if (type === 'offerings-catalog') {
+    const cards = Array.from(box.querySelectorAll('#dna-inline-offerings-items-list .modal-offering-edit-card'));
+    let items = cards.map(c => {
+      const name = (c.querySelector('.modal-offering-name')?.value || '').trim() || 'Untitled Offering';
+      const desc = (c.querySelector('.modal-offering-desc')?.value || '').trim();
+      return { name, desc };
     });
 
-    if (displayEl) {
-      displayEl.innerHTML = pillars.map((p, idx) => `
+    // Check if new offering inputs have pending content
+    const npName = (box.querySelector('#dna-inp-new-offering-name')?.value || '').trim();
+    if (npName) {
+      const npTier = (box.querySelector('#dna-inp-new-offering-tier')?.value || '').trim();
+      const npPitch = (box.querySelector('#dna-inp-new-offering-pitch')?.value || '').trim();
+      let npDesc = npPitch || 'Flagship offering deliverable and core service architecture.';
+      if (npTier) npDesc += ' [Tier: ' + npTier + ']';
+      items.push({ name: npName, desc: npDesc });
+    }
+
+    const listEl = box.querySelector('#dna-products-list');
+    if (listEl) {
+      listEl.innerHTML = items.map((item, idx) => `
+        <div class="dna-product-item-card" data-id="${idx + 1}">
+          <div class="dna-prod-num-box">${idx + 1}</div>
+          <div class="dna-prod-info">
+            <h4 class="dna-prod-name">${item.name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h4>
+            <p class="dna-prod-desc">${item.desc.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    const countText = items.length + ' Products Registered';
+    const c1 = document.getElementById('dna-display-offerings-count');
+    const c2 = document.getElementById('dna-prod-registered-count');
+    if (c1) c1.innerText = countText;
+    if (c2) c2.innerText = countText;
+
+    try {
+      localStorage.setItem('vibodh_brand_dna_offerings', JSON.stringify(items));
+    } catch (e) {}
+
+    savedValue = items;
+  } else if (type === 'pillars-list') {
+    let pillars = getDnaInlinePillarsFromEditor();
+
+    const npName = (box.querySelector('#dna-new-pillar-name')?.value || '').trim();
+    if (npName) {
+      const npPct = parseInt(box.querySelector('#dna-new-pillar-pct')?.value || '25', 10) || 25;
+      const npCol = box.querySelector('#dna-new-pillar-color')?.value || '#0F9D8A';
+      pillars.push({ name: npName, pct: npPct, color: npCol });
+    }
+
+    const totalPct = pillars.reduce((sum, p) => sum + p.pct, 0);
+
+    const displayList = document.getElementById('dna-display-pillars-list');
+    if (displayList) {
+      displayList.innerHTML = pillars.map((p, idx) => `
         <div class="dna-display-pillar-card" data-pillar-idx="${idx}">
           <div style="display:flex;align-items:center;gap:10px;">
             <span class="dna-pillar-swatch-dot" style="background:${p.color};"></span>
-            <span style="font-size:11.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name}</span>
+            <span style="font-size:11.5px;font-weight:700;color:#0F172A;" class="dna-display-pillar-name">${p.name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
           </div>
           <span style="font-size:10.5px;font-weight:800;color:${p.color};padding:3px 10px;border-radius:6px;" class="dna-display-pillar-pct">${p.pct}%</span>
         </div>
@@ -8733,7 +9047,22 @@ function saveDnaBoxEdit(boxId) {
     if (typeof renderDnaDonutChart === 'function') {
       renderDnaDonutChart(pillars, totalPct);
     }
+
+    try {
+      localStorage.setItem('vibodh_brand_dna_pillars', JSON.stringify(pillars));
+    } catch (e) {}
+
     savedValue = pillars;
+  } else if (type === 'product-card') {
+    const title = (box.querySelector('.dna-editor-prod-title')?.value || '').trim();
+    const desc = (box.querySelector('.dna-editor-prod-desc')?.value || '').trim();
+    if (displayEl) {
+      const nameEl = displayEl.querySelector('.dna-prod-name');
+      const descEl = displayEl.querySelector('.dna-prod-desc');
+      if (nameEl) nameEl.innerText = title;
+      if (descEl) descEl.innerText = desc;
+    }
+    savedValue = { title, desc };
   } else if (type === 'tags-list' || type === 'words-list') {
     const items = getDnaBoxEditorTags(box);
     const pillClass = getDnaBoxPillClass(box);
@@ -8890,6 +9219,24 @@ function loadSavedBrandDna() {
             if (p) p.innerText = val.desc;
           }
         }
+      } else if (type === 'offerings-catalog' && Array.isArray(val)) {
+        const listEl = box.querySelector('#dna-products-list');
+        if (listEl) {
+          listEl.innerHTML = val.map((item, idx) => `
+            <div class="dna-product-item-card" data-id="${idx + 1}">
+              <div class="dna-prod-num-box">${idx + 1}</div>
+              <div class="dna-prod-info">
+                <h4 class="dna-prod-name">${item.name.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</h4>
+                <p class="dna-prod-desc">${item.desc.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p>
+              </div>
+            </div>
+          `).join('');
+        }
+        const countText = val.length + ' Products Registered';
+        const c1 = document.getElementById('dna-display-offerings-count');
+        const c2 = document.getElementById('dna-prod-registered-count');
+        if (c1) c1.innerText = countText;
+        if (c2) c2.innerText = countText;
       } else if (type === 'pillars-list' && Array.isArray(val)) {
         if (displayEl) {
           displayEl.innerHTML = val.map((p, idx) => `
