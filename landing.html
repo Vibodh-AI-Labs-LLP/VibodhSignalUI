@@ -764,349 +764,105 @@
 
     /* ═══════════════════════════════════════════════════════════
        5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us)
-       Modern High-Contrast Comparison (The Old Way vs Vibodh Signal)
     ═══════════════════════════════════════════════════════════ */
     .section-why {
-      padding: 96px 0;
-      background: radial-gradient(ellipse at 50% 0%, rgba(15, 157, 138, 0.05) 0%, transparent 70%), var(--bg-page);
-      position: relative;
+      padding: 88px 0;
+      background: var(--bg-page);
     }
 
+    /* Comparison Box (Old vs New) */
     .compare-container {
       display: grid;
-      grid-template-columns: 1fr 1.14fr;
-      gap: 32px;
-      align-items: stretch;
-      max-width: 1140px;
-      margin: 0 auto;
+      grid-template-columns: 1fr 1.08fr;
+      gap: 24px;
+      margin-top: 0;
     }
 
-    /* Common Card Styling */
     .compare-card {
-      border-radius: 24px;
-      padding: 38px 34px;
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
-    }
-
-    /* ─── Left Card: The Old Way (Light Card) ─── */
-    .compare-card-old {
       background: #FFFFFF;
-      border: 1px solid rgba(226, 232, 240, 0.9);
-      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06), 0 2px 6px rgba(15, 23, 42, 0.02);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-sm);
     }
 
-    .compare-card-old:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.1);
+    .compare-card.card-featured {
+      border: 2px solid var(--teal);
+      box-shadow: 0 10px 30px rgba(15, 157, 138, 0.12);
+      position: relative;
     }
 
-    /* Stat Header Row */
-    .compare-stat-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    .compare-stat-num {
-      font-family: var(--font-display);
-      font-size: 3.5rem;
-      font-weight: 800;
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .compare-stat-num.old-num {
-      color: #94A3B8;
-    }
-
-    .compare-stat-num.new-num {
-      color: #10B981;
-      text-shadow: 0 0 25px rgba(16, 185, 129, 0.4);
-    }
-
-    .compare-stat-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-
-    .compare-stat-label {
-      font-size: 0.75rem;
+    .compare-featured-badge {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--teal);
+      color: #FFFFFF;
+      font-size: 0.6875rem;
       font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: #64748B;
-      line-height: 1.25;
-    }
-
-    .compare-card-new .compare-stat-label {
-      color: #94A3B8;
-    }
-
-    .compare-stat-cost {
-      font-size: 0.8125rem;
-      color: #EF4444;
-      font-weight: 600;
-    }
-
-    .compare-stat-tag {
-      font-size: 0.8125rem;
-      color: #34D399;
-      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      letter-spacing: 0.05em;
     }
 
     .compare-head-title {
       font-family: var(--font-display);
-      font-size: 1.5rem;
+      font-size: 1.375rem;
       font-weight: 800;
-      color: var(--dark-navy);
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-      line-height: 1.25;
-    }
-
-    .compare-head-title.new-title {
-      color: #FFFFFF;
+      color: var(--indigo-dark);
+      margin-bottom: 8px;
     }
 
     .compare-head-sub {
-      font-size: 0.9125rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
-      line-height: 1.5;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .compare-head-sub.new-sub {
-      color: #94A3B8;
-    }
-
-    .compare-divider {
-      height: 1px;
-      background: #F1F5F9;
-      margin-bottom: 24px;
-    }
-
-    /* List items in Old Card */
-    .compare-list-old {
+    .compare-list {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 16px;
-      flex: 1;
+      gap: 14px;
     }
 
     .compare-item {
       display: flex;
       align-items: flex-start;
-      gap: 14px;
-      font-size: 0.875rem;
+      gap: 12px;
+      font-size: 0.9375rem;
       line-height: 1.5;
     }
 
-    .icon-cross-pill {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #FEE2E2;
+    .icon-cross {
       color: #DC2626;
+      font-weight: 800;
+      background: #FEE2E2;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 9.5px;
       flex-shrink: 0;
       margin-top: 2px;
     }
 
-    .compare-item-content {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .compare-item-content strong {
-      color: #1E293B;
-      font-weight: 700;
-      font-size: 0.9125rem;
-    }
-
-    .compare-item-content span {
-      color: #64748B;
-      font-size: 0.84375rem;
-      line-height: 1.45;
-    }
-
-    /* ─── Right Card: With Vibodh Signal (Dark Navy Container) ─── */
-    .compare-card-new {
-      background: linear-gradient(155deg, #0b1325 0%, #111d35 55%, #0d162a 100%);
-      border: 1.5px solid rgba(15, 157, 138, 0.4);
-      box-shadow: 0 24px 50px -12px rgba(15, 157, 138, 0.22), 0 0 0 1px rgba(15, 157, 138, 0.15);
-    }
-
-    .compare-card-new:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 28px 60px -12px rgba(15, 157, 138, 0.32), 0 0 0 1.5px rgba(16, 185, 129, 0.4);
-    }
-
-    /* Floating Top Badge */
-    .compare-new-badge {
-      position: absolute;
-      top: -14px;
-      right: 28px;
-      background: linear-gradient(135deg, #0F9D8A 0%, #10B981 100%);
-      color: #FFFFFF;
-      font-size: 0.725rem;
+    .icon-check {
+      color: #059669;
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      padding: 6px 16px;
-      border-radius: var(--radius-full);
-      box-shadow: 0 6px 18px rgba(16, 185, 129, 0.4), 0 0 0 2px rgba(255, 255, 255, 0.15);
-    }
-
-    /* 2x2 Bento Grid */
-    .compare-bento-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-bottom: 22px;
-      flex: 1;
-    }
-
-    .compare-bento-tile {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      border-radius: 16px;
-      padding: 18px 16px;
-      display: flex;
-      flex-direction: column;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .compare-bento-tile:hover {
-      background: rgba(255, 255, 255, 0.07);
-      border-color: rgba(16, 185, 129, 0.35);
-      transform: translateY(-2px);
-    }
-
-    .bento-tile-icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+      background: #D1FAE5;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 12px;
+      font-size: 9.5px;
       flex-shrink: 0;
-    }
-
-    .bento-tile-icon.icon-teal {
-      background: rgba(16, 185, 129, 0.15);
-      color: #34D399;
-      border: 1px solid rgba(16, 185, 129, 0.25);
-    }
-
-    .bento-tile-icon.icon-cyan {
-      background: rgba(56, 189, 248, 0.15);
-      color: #38BDF8;
-      border: 1px solid rgba(56, 189, 248, 0.25);
-    }
-
-    .bento-tile-icon.icon-indigo {
-      background: rgba(129, 140, 248, 0.15);
-      color: #A5B4FC;
-      border: 1px solid rgba(129, 140, 248, 0.25);
-    }
-
-    .bento-tile-title {
-      font-family: var(--font-display);
-      font-size: 0.9375rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      margin-bottom: 6px;
-      line-height: 1.3;
-    }
-
-    .bento-tile-desc {
-      font-size: 0.8125rem;
-      color: #94A3B8;
-      line-height: 1.45;
-    }
-
-    /* Hero Tile (Save 15+ hours) */
-    .compare-bento-tile.bento-tile-hero {
-      background: linear-gradient(135deg, #10B981 0%, #0F9D8A 100%);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      box-shadow: 0 10px 24px rgba(16, 185, 129, 0.35);
-    }
-
-    .compare-bento-tile.bento-tile-hero:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 14px 30px rgba(16, 185, 129, 0.45);
-    }
-
-    .bento-tile-icon.icon-hero {
-      background: rgba(4, 47, 46, 0.2);
-      color: #042F2E;
-      border: 1px solid rgba(4, 47, 46, 0.25);
-    }
-
-    .hero-text-title {
-      color: #042F2E !important;
-      font-weight: 800;
-      font-size: 1.025rem;
-    }
-
-    .hero-text-desc {
-      color: #064E3B !important;
-      font-weight: 600;
-    }
-
-    /* Footer link inside New Card */
-    .compare-new-footer {
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 18px;
-      margin-top: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
-    .compare-explore-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #34D399;
-      font-size: 0.8125rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: gap 0.2s ease, color 0.2s ease;
-    }
-
-    .compare-explore-cta:hover {
-      color: #6EE7B7;
-      gap: 9px;
-    }
-
-    @media (max-width: 960px) {
-      .compare-container {
-        grid-template-columns: 1fr;
-        gap: 36px;
-      }
-    }
-
-    @media (max-width: 580px) {
-      .compare-card {
-        padding: 28px 20px;
-      }
-      .compare-bento-grid {
-        grid-template-columns: 1fr;
-      }
-      .compare-stat-num {
-        font-size: 2.75rem;
-      }
+      margin-top: 2px;
     }
 
     .section-features {
@@ -3336,163 +3092,58 @@
     <section class="section-why" id="why-choose-us">
       <div class="container">
         <div class="section-header">
-          <span class="section-pill-badge">✨ Why Vibodh Signal</span>
+          <span class="section-pill-badge">⚡ Why Choose Us</span>
           <h2 class="section-title">Marketing Without the Marketing Overhead</h2>
           <p class="section-desc">Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.</p>
         </div>
 
         <!-- The Frustrating Old Way vs. The Simple Way Comparison -->
         <div class="compare-container">
-          <!-- Left Card: The Frustrating Old Way -->
-          <div class="compare-card compare-card-old">
-            <div class="compare-stat-row">
-              <span class="compare-stat-num old-num">8</span>
-              <div class="compare-stat-meta">
-                <span class="compare-stat-label">Apps, Tabs &amp; Subscriptions</span>
-                <span class="compare-stat-cost">~$350+/mo in scattered tools</span>
-              </div>
-            </div>
-
+          <div class="compare-card">
             <h3 class="compare-head-title">The Frustrating Old Way</h3>
             <p class="compare-head-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
-
-            <div class="compare-divider"></div>
-
-            <ul class="compare-list compare-list-old">
+            <ul class="compare-list">
               <li class="compare-item">
-                <span class="icon-cross-pill" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </span>
-                <div class="compare-item-content">
-                  <strong>Constantly switching between 8 open tabs</strong>
-                  <span>Juggling separate subscriptions, logins, and disconnected workflows.</span>
-                </div>
+                <span class="icon-cross">✕</span>
+                <span>Constantly switching between 8 open tabs and separate subscriptions.</span>
               </li>
               <li class="compare-item">
-                <span class="icon-cross-pill" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </span>
-                <div class="compare-item-content">
-                  <strong>Inconsistent brand colors &amp; tone</strong>
-                  <span>Mismatched hex codes, fonts, and drifting style when different team members post.</span>
-                </div>
+                <span class="icon-cross">✕</span>
+                <span>Inconsistent colors and tone when different team members post.</span>
               </li>
               <li class="compare-item">
-                <span class="icon-cross-pill" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </span>
-                <div class="compare-item-content">
-                  <strong>Hours wasted manually resizing assets</strong>
-                  <span>Re-exporting and cropping square posts, vertical reels, and banners by hand.</span>
-                </div>
+                <span class="icon-cross">✕</span>
+                <span>Hours wasted manually resizing images for square, story, and banner formats.</span>
               </li>
               <li class="compare-item">
-                <span class="icon-cross-pill" aria-hidden="true">
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                  </svg>
-                </span>
-                <div class="compare-item-content">
-                  <strong>Paying multiple expensive software bills</strong>
-                  <span>Separate fees for copywriters, design tools, schedulers, and analytics add up fast.</span>
-                </div>
+                <span class="icon-cross">✕</span>
+                <span>Paying multiple expensive software bills that add up fast each month.</span>
               </li>
             </ul>
           </div>
 
-          <!-- Right Card: With Vibodh Signal -->
-          <div class="compare-card compare-card-new">
-            <!-- Floating Top Badge -->
-            <div class="compare-new-badge">
-              <span>✨ The Simple Way</span>
-            </div>
-
-            <div class="compare-stat-row">
-              <span class="compare-stat-num new-num">1</span>
-              <div class="compare-stat-meta">
-                <span class="compare-stat-label">Unified App For Everything</span>
-                <span class="compare-stat-tag">Zero Context Switching</span>
-              </div>
-            </div>
-
-            <h3 class="compare-head-title new-title">With Vibodh Signal</h3>
-            <p class="compare-head-sub new-sub">One unified app that handles writing, designing, scheduling, and results.</p>
-
-            <!-- 2x2 Bento Micro-Cards Grid -->
-            <div class="compare-bento-grid">
-              <!-- Tile 1 -->
-              <div class="compare-bento-tile">
-                <div class="bento-tile-icon icon-teal">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                </div>
-                <h4 class="bento-tile-title">One easy login</h4>
-                <p class="bento-tile-desc">Create posts, plan your calendar, and manage ads together in one unified hub.</p>
-              </div>
-
-              <!-- Tile 2 -->
-              <div class="compare-bento-tile">
-                <div class="bento-tile-icon icon-cyan">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
-                    <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
-                    <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
-                    <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
-                    <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.563-2.512 5.563-5.563C22 6.5 17.5 2 12 2z"></path>
-                  </svg>
-                </div>
-                <h4 class="bento-tile-title">Brand colors locked in</h4>
-                <p class="bento-tile-desc">Every post automatically uses your exact brand logo, colors, and tone guidelines.</p>
-              </div>
-
-              <!-- Tile 3 -->
-              <div class="compare-bento-tile">
-                <div class="bento-tile-icon icon-indigo">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                    <line x1="8" y1="21" x2="16" y2="21"></line>
-                    <line x1="12" y1="17" x2="12" y2="21"></line>
-                  </svg>
-                </div>
-                <h4 class="bento-tile-title">1 click, all formats</h4>
-                <p class="bento-tile-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.</p>
-              </div>
-
-              <!-- Tile 4: Hero Highlight -->
-              <div class="compare-bento-tile bento-tile-hero">
-                <div class="bento-tile-icon icon-hero">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                  </svg>
-                </div>
-                <h4 class="bento-tile-title hero-text-title">Save 15+ hours weekly</h4>
-                <p class="bento-tile-desc hero-text-desc">Plan, create, and schedule an entire month of marketing in one afternoon.</p>
-              </div>
-            </div>
-
-            <!-- Footer Action inside New Card -->
-            <div class="compare-new-footer">
-              <a href="#key-features" onclick="switchLandingTab('key-features');" class="compare-explore-cta">
-                <span>Explore all Studio Features</span>
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-            </div>
+          <div class="compare-card card-featured">
+            <span class="compare-featured-badge">The Simple Way</span>
+            <h3 class="compare-head-title">With Vibodh Signal</h3>
+            <p class="compare-head-sub">One unified app that handles writing, designing, scheduling, and results.</p>
+            <ul class="compare-list">
+              <li class="compare-item">
+                <span class="icon-check">✓</span>
+                <span><strong>One easy login:</strong> Create posts, plan your calendar, and manage ads together.</span>
+              </li>
+              <li class="compare-item">
+                <span class="icon-check">✓</span>
+                <span><strong>Brand colors locked in:</strong> Every post automatically uses your exact logo and colors.</span>
+              </li>
+              <li class="compare-item">
+                <span class="icon-check">✓</span>
+                <span><strong>1 click, all formats:</strong> Instantly get square posts, vertical reels, and banners.</span>
+              </li>
+              <li class="compare-item">
+                <span class="icon-check">✓</span>
+                <span><strong>Save 15+ hours weekly:</strong> Plan an entire month of marketing in one afternoon.</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -4459,11 +4110,11 @@
       if (updateHash) {
         if (tabKey === 'home') {
           if (window.location.hash && window.location.hash !== '') {
-            history.pushState(null, '', window.location.pathname &rarr; window.location.search);
+            history.pushState(null, '', window.location.pathname + window.location.search);
           }
         } else {
-          if (window.location.hash !== '#' &rarr; tabKey) {
-            history.pushState(null, '', '#' &rarr; tabKey);
+          if (window.location.hash !== '#' + tabKey) {
+            history.pushState(null, '', '#' + tabKey);
           }
         }
       }
@@ -4555,7 +4206,7 @@
 
     function setPricingCycle(cycle) {
       document.querySelectorAll('.cycle-btn').forEach(btn => {
-        btn.classList.toggle('is-active', btn.id === 'btn-' &rarr; cycle);
+        btn.classList.toggle('is-active', btn.id === 'btn-' + cycle);
       });
 
       const data = PRICING_DATA[cycle];
@@ -4716,7 +4367,7 @@
           this.y = Math.random() * height;
           this.vx = (Math.random() - 0.5) * 0.75;
           this.vy = (Math.random() - 0.5) * 0.75;
-          this.radius = Math.random() * 2.2 &rarr; 1.2;
+          this.radius = Math.random() * 2.2 + 1.2;
           // Colors matching Vibodh palette: Teal (#0F9D8A), Indigo (#243B6B), Purple (#7C3AED), Sky (#0284C7)
           const colors = [
             'rgba(15, 157, 138, ',
@@ -4725,12 +4376,12 @@
             'rgba(14, 165, 233, '
           ];
           this.colorBase = colors[Math.floor(Math.random() * colors.length)];
-          this.baseAlpha = Math.random() * 0.4 &rarr; 0.35;
+          this.baseAlpha = Math.random() * 0.4 + 0.35;
         }
 
         update() {
-          this.x &rarr;= this.vx;
-          this.y &rarr;= this.vy;
+          this.x += this.vx;
+          this.y += this.vy;
 
           if (this.x < 0) this.x = width;
           else if (this.x > width) this.x = 0;
@@ -4745,8 +4396,8 @@
             if (dist < mouse.radius) {
               const force = (mouse.radius - dist) / mouse.radius;
               const angle = Math.atan2(dy, dx);
-              this.x &rarr;= Math.cos(angle) * force * 1.5;
-              this.y &rarr;= Math.sin(angle) * force * 1.5;
+              this.x += Math.cos(angle) * force * 1.5;
+              this.y += Math.sin(angle) * force * 1.5;
             }
           }
         }
@@ -4754,12 +4405,12 @@
         draw() {
           ctx.beginPath();
           ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-          ctx.fillStyle = this.colorBase &rarr; this.baseAlpha &rarr; ')';
+          ctx.fillStyle = this.colorBase + this.baseAlpha + ')';
           ctx.fill();
         }
       }
 
-      for (let i = 0; i < particleCount; i&rarr;&rarr;) {
+      for (let i = 0; i < particleCount; i++) {
         particles.push(new Particle());
       }
 
@@ -4767,8 +4418,8 @@
         ctx.clearRect(0, 0, width, height);
 
         // Draw connecting lines between particles
-        for (let i = 0; i < particles.length; i&rarr;&rarr;) {
-          for (let j = i &rarr; 1; j < particles.length; j&rarr;&rarr;) {
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
             const dx = particles[i].x - particles[j].x;
             const dy = particles[i].y - particles[j].y;
             const dist = Math.hypot(dx, dy);
@@ -4787,7 +4438,7 @@
 
         // Connect particles to mouse cursor when nearby
         if (mouse.x !== null && mouse.y !== null) {
-          for (let i = 0; i < particles.length; i&rarr;&rarr;) {
+          for (let i = 0; i < particles.length; i++) {
             const dx = mouse.x - particles[i].x;
             const dy = mouse.y - particles[i].y;
             const dist = Math.hypot(dx, dy);
@@ -4839,17 +4490,20 @@
         setup();
       }
     })();
+  
 
-    // 9. SignalMate Chatbot Assistant
-    (function initSignalMate() {
+    /* ═══════════════════════════════════════════════════════════
+       SIGNALMATE FLOATING AI CHATBOT CONTROLLER
+    ═══════════════════════════════════════════════════════════ */
+    function initSignalMate() {
       const triggerBtn = document.getElementById('signalmate-trigger-btn');
       const chatWindow = document.getElementById('signalmate-chat-window');
       const closeBtn = document.getElementById('signalmate-close-btn');
-      const messagesContainer = document.getElementById('signalmate-messages');
       const input = document.getElementById('signalmate-input');
+      const messagesContainer = document.getElementById('signalmate-messages');
       const optionBtns = document.querySelectorAll('.signalmate-option-btn');
 
-      if (!triggerBtn || !chatWindow) return;
+      if (!chatWindow) return;
 
       function toggleChat(open) {
         const isOpen = typeof open === 'boolean' ? open : !chatWindow.classList.contains('is-open');
@@ -4860,13 +4514,17 @@
           setTimeout(() => input.focus(), 250);
         }
       }
+      window.toggleSignalMateChat = toggleChat;
 
-      triggerBtn.addEventListener('click', () => toggleChat());
+      if (triggerBtn) {
+        triggerBtn.onclick = (e) => { e.preventDefault(); toggleChat(); };
+      }
       if (closeBtn) {
-        closeBtn.addEventListener('click', () => toggleChat(false));
+        closeBtn.onclick = (e) => { e.preventDefault(); toggleChat(false); };
       }
 
       function appendUserMessage(text) {
+        if (!messagesContainer) return;
         const msg = document.createElement('div');
         msg.className = 'signalmate-user-msg';
         msg.textContent = text;
@@ -4875,6 +4533,7 @@
       }
 
       function appendBotReply(html) {
+        if (!messagesContainer) return;
         const reply = document.createElement('div');
         reply.className = 'signalmate-bot-reply';
         reply.innerHTML = html;
@@ -4883,21 +4542,21 @@
       }
 
       optionBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.onclick = () => {
           const action = btn.getAttribute('data-action');
           const text = btn.innerText.trim();
           appendUserMessage(text);
 
           setTimeout(() => {
             if (action === 'features') {
-              appendBotReply('Vibodh Signal gives you AI content creation across Instagram, Facebook, and LinkedIn, brand voice locking, auto-scheduling, and high-conversion multi-format studio tools.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">→ View Key Features Tab</a>');
+              appendBotReply('Vibodh Signal gives you AI content creation across Instagram, Facebook, and LinkedIn, brand voice locking, auto-scheduling, and high-conversion multi-format studio tools.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; View Key Features Tab</a>');
             } else if (action === 'pricing') {
-              appendBotReply('We offer Starter (₹1,499/mo), Growth (₹3,999/mo), Business (₹8,999/mo), and Custom Agency plans with 14-day free trials.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">→ View Plans &amp; Pricing Tab</a>');
+              appendBotReply('We offer Starter (₹1,499/mo), Growth (₹3,999/mo), Business (₹8,999/mo), and Custom Agency plans with 14-day free trials.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">&rarr; View Plans &amp; Pricing Tab</a>');
             } else if (action === 'demo') {
-              appendBotReply('You can test the interactive workspace right now without signing up!<br><a class="signalmate-inline-link" href="dashboard.html">→ Open Live Dashboard Demo</a>');
+              appendBotReply('You can test the interactive workspace right now without signing up!<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Open Live Dashboard Demo</a>');
             }
           }, 350);
-        });
+        };
       });
 
       window.handleSignalMateSubmit = function() {
@@ -4910,18 +4569,24 @@
         setTimeout(() => {
           const lower = query.toLowerCase();
           if (lower.includes('price') || lower.includes('cost') || lower.includes('plan')) {
-            appendBotReply('Plans start at ₹1,499/month for individual creators and go up to agency tiers with custom limits.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">→ Open Plans &amp; Pricing</a>');
+            appendBotReply('Plans start at ₹1,499/month for individual creators and go up to agency tiers with custom limits.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">&rarr; Open Plans &amp; Pricing</a>');
           } else if (lower.includes('feature') || lower.includes('content') || lower.includes('studio') || lower.includes('ai')) {
-            appendBotReply('Signal Engine powers text, images, video reels, and brand persona synchronization automatically.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">→ Explore Features</a>');
+            appendBotReply('Signal Engine powers text, images, video reels, and brand persona synchronization automatically.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Explore Features</a>');
           } else if (lower.includes('trial') || lower.includes('demo') || lower.includes('start') || lower.includes('free')) {
-            appendBotReply('You can start your 14-day free trial right away or explore our live dashboard demo.<br><a class="signalmate-inline-link" href="dashboard.html">→ Get Started with Vibodh Signal</a>');
+            appendBotReply('You can start your 14-day free trial right away or explore our live dashboard demo.<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Get Started with Vibodh Signal</a>');
           } else {
-            appendBotReply('I\'d be glad to help with that! You can explore our <a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">Key Features</a>, view <a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">Plans &amp; Pricing</a>, or jump straight into the <a class="signalmate-inline-link" href="dashboard.html">Live Dashboard</a>.');
+            appendBotReply('I\'d be glad to help with that! You can explore our <a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Key Features</a>, view <a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">&rarr; Plans &amp; Pricing</a>, or jump straight into the <a class="signalmate-inline-link" href="dashboard.html">&rarr; Live Dashboard</a>.');
           }
         }, 400);
       };
-    })();
-  </script>
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initSignalMate);
+    } else {
+      initSignalMate();
+    }
+</script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
   <button type="button" id="back-to-top-btn" class="back-to-top-btn" aria-label="Back to top" title="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'});document.documentElement.scrollTo({top:0,behavior:'smooth'});document.body.scrollTo({top:0,behavior:'smooth'});">
@@ -4935,7 +4600,7 @@
        SIGNALMATE FLOATING CHATBOT WIDGET
   ═══════════════════════════════════════════════════════════ -->
   <!-- Floating Trigger Button (Placed directly above the Back to Top arrow) -->
-  <button type="button" id="signalmate-trigger-btn" class="signalmate-floating-btn" aria-label="Open SignalMate Chatbot" title="Chat with SignalMate">
+  <button type="button" id="signalmate-trigger-btn" class="signalmate-floating-btn" onclick="toggleSignalMateChat()" aria-label="Open SignalMate Chatbot" title="Chat with SignalMate">
     <span class="signalmate-btn-avatar">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <rect x="3" y="10" width="18" height="11" rx="4"></rect>
@@ -4971,7 +4636,7 @@
       </div>
       <div class="signalmate-header-right">
         <span class="signalmate-online-tag">Online</span>
-        <button type="button" id="signalmate-close-btn" class="signalmate-close-btn" aria-label="Close Chat Window">&times;</button>
+        <button type="button" id="signalmate-close-btn" class="signalmate-close-btn" onclick="toggleSignalMateChat(false)" aria-label="Close Chat Window">&times;</button>
       </div>
     </div>
 
