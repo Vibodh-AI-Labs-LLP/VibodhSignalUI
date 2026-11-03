@@ -3137,116 +3137,115 @@
       letter-spacing: 0.05em;
     }
 
-    .pt-tier-pillar-body {
-      width: 100%;
-      border-radius: 18px;
-      padding: 18px 12px;
+    /* Generalised Plan Hero Card */
+    .general-plan-hero-card {
+      background: linear-gradient(180deg, rgba(22, 34, 60, 0.95) 0%, rgba(13, 21, 39, 0.98) 100%);
+      border: 1.5px solid rgba(45, 212, 191, 0.4);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5), 0 0 30px rgba(15, 157, 138, 0.15);
+      position: relative;
+    }
+
+    .general-card-header {
       display: flex;
-      flex-direction: column;
       align-items: center;
-      text-align: center;
-      backdrop-filter: blur(12px);
-      position: relative;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
-    /* Starter Pillar */
-    .pt-tier-starter .pt-tier-pill-badge {
-      background: rgba(56, 189, 248, 0.15);
-      color: #38BDF8;
-      border: 1px solid rgba(56, 189, 248, 0.3);
-    }
-
-    .pt-tier-starter .pt-tier-pillar-body {
-      background: linear-gradient(180deg, rgba(20, 30, 65, 0.85) 0%, rgba(10, 15, 46, 0.95) 100%);
-      border: 1px solid rgba(56, 189, 248, 0.25);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
-      min-height: 155px;
-    }
-
-    /* Growth Pillar (Elevated, Most Popular) */
-    .pt-tier-growth {
-      position: relative;
-    }
-
-    .pt-popular-tag {
-      position: absolute;
-      top: -24px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: linear-gradient(135deg, #0F9D8A 0%, #10B981 100%);
-      color: #FFFFFF;
-      font-size: 0.625rem;
-      font-weight: 900;
-      padding: 3px 8px;
-      border-radius: var(--radius-full);
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(15, 157, 138, 0.4);
-      letter-spacing: 0.04em;
-    }
-
-    .pt-tier-growth .pt-tier-pill-badge {
-      background: rgba(45, 212, 191, 0.2);
+    .general-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      background: rgba(15, 157, 138, 0.25);
+      border: 1px solid rgba(45, 212, 191, 0.45);
       color: #2DD4BF;
-      border: 1px solid rgba(45, 212, 191, 0.4);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
-    .pt-tier-growth .pt-tier-pillar-body {
-      background: linear-gradient(180deg, rgba(15, 157, 138, 0.25) 0%, rgba(10, 25, 48, 0.95) 100%);
-      border: 1.5px solid rgba(45, 212, 191, 0.5);
-      box-shadow: 0 16px 36px rgba(15, 157, 138, 0.3), 0 0 20px rgba(45, 212, 191, 0.15);
-      min-height: 185px;
-    }
-
-    /* Enterprise Pillar */
-    .pt-tier-enterprise .pt-tier-pill-badge {
-      background: rgba(167, 139, 250, 0.2);
-      color: #C084FC;
-      border: 1px solid rgba(167, 139, 250, 0.35);
-    }
-
-    .pt-tier-enterprise .pt-tier-pillar-body {
-      background: linear-gradient(180deg, rgba(30, 27, 75, 0.85) 0%, rgba(10, 15, 46, 0.95) 100%);
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
-      min-height: 165px;
-    }
-
-    .pt-tier-icon-circle {
-      font-size: 1.25rem;
-      margin-bottom: 6px;
-    }
-
-    .pt-tier-credits {
+    .general-card-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       font-size: 0.72rem;
-      font-weight: 700;
-      color: #E2E8F0;
-      margin-bottom: 4px;
+      color: #94A3B8;
+      font-weight: 600;
     }
 
-    .pt-tier-price {
+    .general-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2DD4BF;
+      box-shadow: 0 0 8px #2DD4BF;
+    }
+
+    .general-plan-title-row {
+      margin-bottom: 16px;
+    }
+
+    .general-plan-main-title {
       font-family: var(--font-display);
-      font-size: 1.15rem;
+      font-size: 1.4rem;
       font-weight: 900;
       color: #FFFFFF;
       letter-spacing: -0.02em;
       margin-bottom: 4px;
     }
 
-    .pt-tier-freq {
-      font-size: 0.65rem;
-      font-weight: 600;
+    .general-plan-sub {
+      font-size: 0.82rem;
       color: #94A3B8;
+      line-height: 1.45;
     }
 
-    .pt-tier-spec {
-      font-size: 0.65rem;
-      color: #94A3B8;
-      font-weight: 600;
-      line-height: 1.25;
+    /* 3 Feature Module Blocks inside Generalised Plan */
+    .general-modules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
     }
 
-    .pt-tier-growth .pt-tier-spec {
-      color: #2DD4BF;
+    .general-module-tile {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 12px 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+    }
+
+    .general-module-tile.highlight {
+      background: rgba(15, 157, 138, 0.12);
+      border-color: rgba(45, 212, 191, 0.3);
+    }
+
+    .general-module-icon {
+      font-size: 1.3rem;
+    }
+
+    .general-module-name {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #FFFFFF;
+    }
+
+    .general-module-desc {
+      font-size: 0.68rem;
+      color: #94A3B8;
+      line-height: 1.3;
     }
 
     /* Live Telemetry Pill at bottom of right column */
@@ -3310,20 +3309,9 @@
         padding: 28px 20px;
       }
 
-      .pt-tiers-deck {
+      .general-modules-grid {
         grid-template-columns: 1fr;
-        gap: 16px;
-      }
-
-      .pt-tier-pillar-body {
-        min-height: auto !important;
-        padding: 14px;
-      }
-
-      .pt-popular-tag {
-        position: static;
-        transform: none;
-        margin-bottom: 6px;
+        gap: 8px;
       }
     }
 
@@ -4399,52 +4387,52 @@
             <div class="pt-content-left">
               <div class="pt-badge">
                 <span class="pt-badge-sparkle">✦</span>
-                <span>TAILORED &bull; FULLY CUSTOMIZABLE PLANS</span>
+                <span>GENERALISED PLAN &bull; ALL-IN-ONE ACCESS</span>
               </div>
 
               <h2 class="pt-title">
-                Tailored &amp; Flexible<br>
-                <span class="pt-title-gradient">Plans Built For You</span>
+                Simple, Flexible<br>
+                <span class="pt-title-gradient">Generalised Plan</span>
               </h2>
 
               <p class="pt-desc">
-                Every marketing team has different goals. We customize AI workflows, brand memory limits, and monthly credits to fit your exact scale &mdash; with no rigid tiers or unused features.
+                Everything your business needs in one AI-powered marketing platform. No rigid tiers, no locked features, and no unnecessary complexity &mdash; just one unified plan configured to your exact volume.
               </p>
 
               <div class="pt-checklist">
                 <div class="pt-check-item">
                   <span class="pt-check-icon">✓</span>
-                  <span>100% Tailored Workflows</span>
+                  <span>All AI Engines &amp; Content Formats Included</span>
                 </div>
                 <div class="pt-check-item">
                   <span class="pt-check-icon">✓</span>
-                  <span>Custom Credit Packages</span>
+                  <span>Multi-Channel Auto-Scheduling (IG, LI, FB, X)</span>
                 </div>
                 <div class="pt-check-item">
                   <span class="pt-check-icon">✓</span>
-                  <span>Dedicated Brand Calibration</span>
+                  <span>Brand DNA, Font &amp; Voice Consistency Lock</span>
                 </div>
               </div>
 
               <div class="pt-action-row">
-                <button type="button" class="pt-cta-btn" onclick="event.stopPropagation(); if(window.toggleSignalMateChat){toggleSignalMateChat(true); setTimeout(()=>{if(window.appendBotReply)appendBotReply('Hello! Our pricing is fully customizable and tailored to your team scale. Tell us about your channels, monthly content volume, and brand count, and we will build a custom package for you.');},300);}">
-                  <span>Get Tailored Quote</span>
+                <button type="button" class="pt-cta-btn" onclick="event.stopPropagation(); if(window.toggleSignalMateChat){toggleSignalMateChat(true); setTimeout(()=>{if(window.appendBotReply)appendBotReply('Hello! Our pricing is a simple, flexible generalised plan tailored to your team scale. Tell us about your channels, monthly content volume, and brand count, and we will get you set up right away.');},300);}">
+                  <span>Get Started with General Plan</span>
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                   </svg>
                   <span class="pt-btn-shimmer" aria-hidden="true"></span>
                 </button>
-                <span class="pt-sub-note">Custom onboarding &bull; Fast turnaround</span>
+                <span class="pt-sub-note">Tailored credits &bull; Instant setup</span>
               </div>
             </div>
 
-            <!-- Right Column: 3D AI Plan Pillars & Trajectory -->
+            <!-- Right Column: Unified Generalised Plan Card & Trajectory -->
             <div class="pt-visual-right">
               <!-- Trajectory curve with peak ROAS coin -->
               <div class="pt-trajectory-wrap" aria-hidden="true">
-                <svg class="pt-trajectory-svg" viewBox="0 0 340 120" fill="none">
-                  <path d="M 20 95 Q 160 80, 240 38 T 315 15" stroke="url(#ptLineGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+                <svg class="pt-trajectory-svg" viewBox="0 0 240 70" fill="none">
+                  <path d="M 10 55 Q 120 40, 180 20 T 230 10" stroke="url(#ptLineGrad)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="4 4"/>
                   <defs>
                     <linearGradient id="ptLineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
                       <stop offset="0%" stop-color="#0F9D8A" stop-opacity="0.2"/>
@@ -4459,47 +4447,43 @@
                 </div>
               </div>
 
-              <!-- 3 3D Plan Tier Pillars (Custom & Tailored without hardcoded prices) -->
-              <div class="pt-tiers-deck">
-                <!-- Tier 1: Starter -->
-                <div class="pt-tier-col pt-tier-starter">
-                  <div class="pt-tier-pill-badge">Starter</div>
-                  <div class="pt-tier-pillar-body">
-                    <div class="pt-tier-icon-circle">🌱</div>
-                    <div class="pt-tier-credits">Creator Scope</div>
-                    <div class="pt-tier-price">Tailored<span class="pt-tier-freq"> Plan</span></div>
-                    <div class="pt-tier-spec">Customized for solo brands &amp; creators</div>
+              <!-- Unified Generalised Plan Card (No tiers, all features unlocked) -->
+              <div class="general-plan-hero-card">
+                <div class="general-card-header">
+                  <span class="general-card-badge">⚡ ALL-IN-ONE PLATFORM</span>
+                  <span class="general-card-status">
+                    <span class="general-status-dot"></span>
+                    <span>All Features Unlocked</span>
+                  </span>
+                </div>
+
+                <div class="general-plan-title-row">
+                  <div class="general-plan-main-title">Generalised Plan</div>
+                  <div class="general-plan-sub">Complete marketing workspace for copy, visuals, scheduling, and analytics.</div>
+                </div>
+
+                <div class="general-modules-grid">
+                  <div class="general-module-tile">
+                    <span class="general-module-icon">✍️</span>
+                    <span class="general-module-name">Create</span>
+                    <span class="general-module-desc">AI copy, image studio &amp; 9:16 reels</span>
+                  </div>
+                  <div class="general-module-tile highlight">
+                    <span class="general-module-icon">🚀</span>
+                    <span class="general-module-name">Automate</span>
+                    <span class="general-module-desc">1-click social schedule &amp; brand lock</span>
+                  </div>
+                  <div class="general-module-tile">
+                    <span class="general-module-icon">📈</span>
+                    <span class="general-module-name">Scale</span>
+                    <span class="general-module-desc">Live telemetry &amp; conversion metrics</span>
                   </div>
                 </div>
 
-                <!-- Tier 2: Growth (Center, Elevated, Most Requested) -->
-                <div class="pt-tier-col pt-tier-growth is-popular">
-                  <div class="pt-popular-tag">🔥 MOST REQUESTED</div>
-                  <div class="pt-tier-pill-badge">Growth</div>
-                  <div class="pt-tier-pillar-body">
-                    <div class="pt-tier-icon-circle">🚀</div>
-                    <div class="pt-tier-credits">Agency Volume</div>
-                    <div class="pt-tier-price">Customized<span class="pt-tier-freq"> Plan</span></div>
-                    <div class="pt-tier-spec">Tailored multi-channel &amp; team queues</div>
-                  </div>
+                <div class="pt-telemetry-chip">
+                  <span class="pt-telemetry-pulse"></span>
+                  <span>⚡ One Unified Plan &bull; Scalable Credits For Any Brand Size</span>
                 </div>
-
-                <!-- Tier 3: Enterprise -->
-                <div class="pt-tier-col pt-tier-enterprise">
-                  <div class="pt-tier-pill-badge">Enterprise</div>
-                  <div class="pt-tier-pillar-body">
-                    <div class="pt-tier-icon-circle">👑</div>
-                    <div class="pt-tier-credits">Bespoke Suite</div>
-                    <div class="pt-tier-price">Full Custom<span class="pt-tier-freq"> SLA</span></div>
-                    <div class="pt-tier-spec">Dedicated infrastructure &amp; custom models</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Live Telemetry Pill -->
-              <div class="pt-telemetry-chip">
-                <span class="pt-telemetry-pulse"></span>
-                <span>⚡ 100% Customized Solutions &bull; Tailored to Your Growth Goals</span>
               </div>
             </div>
 
