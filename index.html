@@ -4125,7 +4125,7 @@
           <div class="brand-by-vibodhai">By <span>VibodhAI</span></div>
         </a>
 
-        <!-- Tabs (Center): Key features, Resources, Plans and pricing -->
+        <!-- Tabs (Center): Key features, Resources, FAQs -->
         <ul class="nav-section-links" id="desktop-nav">
           <li>
             <a href="#key-features" class="nav-anchor-link" data-tab="key-features">
@@ -4135,11 +4135,6 @@
           <li>
             <a href="#resources" class="nav-anchor-link" data-tab="resources">
               <span>Resources</span>
-            </a>
-          </li>
-          <li>
-            <a href="#plans-pricing" class="nav-anchor-link" data-tab="plans-pricing">
-              <span>Plans and pricing</span>
             </a>
           </li>
           <li>
@@ -4175,9 +4170,6 @@
       </a>
       <a href="#resources" class="mobile-nav-link" data-tab="resources">
         <span>Resources</span>
-      </a>
-      <a href="#plans-pricing" class="mobile-nav-link" data-tab="plans-pricing">
-        <span>Plans and pricing</span>
       </a>
       <a href="#faqs" class="mobile-nav-link" data-tab="faqs">
         <span>FAQs</span>
@@ -4812,16 +4804,16 @@
       </section>
 
                   <!-- ═══════════════════════════════════════════════════════════
-         STEP 5: SIMPLE, FLEXIBLE PRICING BANNER - VIBODH SIGNAL AI THEME
+         STEP 5: TAILORED & CUSTOMIZABLE PLANS - VIBODH SIGNAL AI
       ═══════════════════════════════════════════════════════════ -->
       <section class="section-pricing-teaser" id="pricing-teaser">
         <div class="container">
           <div class="pricing-teaser-card" id="pricing-teaser-card"
-               onclick="switchLandingTab('plans-pricing', true, true);"
+               onclick="if(window.toggleSignalMateChat){toggleSignalMateChat(true); setTimeout(()=>{if(window.appendBotReply)appendBotReply('Hello! Our pricing is fully customizable and tailored to your team scale. Tell us about your channels, monthly content volume, and brand count, and we will build a custom package for you.');},300);}"
                role="button"
                tabindex="0"
-               title="View Simple, Flexible Pricing Plans"
-               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); switchLandingTab('plans-pricing', true, true);}">
+               title="Request Tailored &amp; Flexible Plans"
+               onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); if(window.toggleSignalMateChat)toggleSignalMateChat(true);}">
             
             <!-- Ambient Glowing Orbs -->
             <div class="pt-glow-orb pt-glow-teal" aria-hidden="true"></div>
@@ -4832,43 +4824,43 @@
             <div class="pt-content-left">
               <div class="pt-badge">
                 <span class="pt-badge-sparkle">✦</span>
-                <span>FLEXIBLE PLANS &bull; POWERED BY AI CREDITS</span>
+                <span>TAILORED &bull; FULLY CUSTOMIZABLE PLANS</span>
               </div>
 
               <h2 class="pt-title">
-                Simple, Flexible<br>
-                <span class="pt-title-gradient">Pricing</span>
+                Tailored &amp; Flexible<br>
+                <span class="pt-title-gradient">Plans Built For You</span>
               </h2>
 
               <p class="pt-desc">
-                Choose the plan that fits your marketing needs. Start your 14-day free trial with full AI capabilities &mdash; upgrade, downgrade, or cancel anytime.
+                Every marketing team has different goals. We customize AI workflows, brand memory limits, and monthly credits to fit your exact scale &mdash; with no rigid tiers or unused features.
               </p>
 
               <div class="pt-checklist">
                 <div class="pt-check-item">
                   <span class="pt-check-icon">✓</span>
-                  <span>14-Day Free Trial</span>
+                  <span>100% Tailored Workflows</span>
                 </div>
                 <div class="pt-check-item">
                   <span class="pt-check-icon">✓</span>
-                  <span>No Setup Fees</span>
+                  <span>Custom Credit Packages</span>
                 </div>
                 <div class="pt-check-item">
                   <span class="pt-check-icon">✓</span>
-                  <span>Cancel Anytime</span>
+                  <span>Dedicated Brand Calibration</span>
                 </div>
               </div>
 
               <div class="pt-action-row">
-                <button type="button" class="pt-cta-btn" onclick="event.stopPropagation(); switchLandingTab('plans-pricing', true, true);">
-                  <span>View Pricing</span>
+                <button type="button" class="pt-cta-btn" onclick="event.stopPropagation(); if(window.toggleSignalMateChat){toggleSignalMateChat(true); setTimeout(()=>{if(window.appendBotReply)appendBotReply('Hello! Our pricing is fully customizable and tailored to your team scale. Tell us about your channels, monthly content volume, and brand count, and we will build a custom package for you.');},300);}">
+                  <span>Get Tailored Quote</span>
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                   </svg>
                   <span class="pt-btn-shimmer" aria-hidden="true"></span>
                 </button>
-                <span class="pt-sub-note">Instant activation &bull; 500 free credits included</span>
+                <span class="pt-sub-note">Custom onboarding &bull; Fast turnaround</span>
               </div>
             </div>
 
@@ -4887,33 +4879,33 @@
                   </defs>
                 </svg>
                 <div class="pt-peak-badge">
-                  <span class="pt-peak-coin">$</span>
+                  <span class="pt-peak-coin">📈</span>
                   <span class="pt-peak-text">+340% ROAS</span>
                 </div>
               </div>
 
-              <!-- 3 3D Plan Tier Pillars -->
+              <!-- 3 3D Plan Tier Pillars (Custom & Tailored without hardcoded prices) -->
               <div class="pt-tiers-deck">
                 <!-- Tier 1: Starter -->
                 <div class="pt-tier-col pt-tier-starter">
                   <div class="pt-tier-pill-badge">Starter</div>
                   <div class="pt-tier-pillar-body">
                     <div class="pt-tier-icon-circle">🌱</div>
-                    <div class="pt-tier-credits">500 Credits</div>
-                    <div class="pt-tier-price">₹1,499<span class="pt-tier-freq">/mo</span></div>
-                    <div class="pt-tier-spec">1 Brand DNA</div>
+                    <div class="pt-tier-credits">Creator Scope</div>
+                    <div class="pt-tier-price">Tailored<span class="pt-tier-freq"> Plan</span></div>
+                    <div class="pt-tier-spec">Customized for solo brands &amp; creators</div>
                   </div>
                 </div>
 
-                <!-- Tier 2: Growth (Center, Elevated, Most Popular) -->
+                <!-- Tier 2: Growth (Center, Elevated, Most Requested) -->
                 <div class="pt-tier-col pt-tier-growth is-popular">
-                  <div class="pt-popular-tag">🔥 MOST POPULAR</div>
+                  <div class="pt-popular-tag">🔥 MOST REQUESTED</div>
                   <div class="pt-tier-pill-badge">Growth</div>
                   <div class="pt-tier-pillar-body">
                     <div class="pt-tier-icon-circle">🚀</div>
-                    <div class="pt-tier-credits">3,000 Credits</div>
-                    <div class="pt-tier-price">₹3,999<span class="pt-tier-freq">/mo</span></div>
-                    <div class="pt-tier-spec">3 Brand DNAs &bull; Multi-Channel</div>
+                    <div class="pt-tier-credits">Agency Volume</div>
+                    <div class="pt-tier-price">Customized<span class="pt-tier-freq"> Plan</span></div>
+                    <div class="pt-tier-spec">Tailored multi-channel &amp; team queues</div>
                   </div>
                 </div>
 
@@ -4922,9 +4914,9 @@
                   <div class="pt-tier-pill-badge">Enterprise</div>
                   <div class="pt-tier-pillar-body">
                     <div class="pt-tier-icon-circle">👑</div>
-                    <div class="pt-tier-credits">10,000 Credits</div>
-                    <div class="pt-tier-price">₹8,999<span class="pt-tier-freq">/mo</span></div>
-                    <div class="pt-tier-spec">Unlimited Brands</div>
+                    <div class="pt-tier-credits">Bespoke Suite</div>
+                    <div class="pt-tier-price">Full Custom<span class="pt-tier-freq"> SLA</span></div>
+                    <div class="pt-tier-spec">Dedicated infrastructure &amp; custom models</div>
                   </div>
                 </div>
               </div>
@@ -4932,7 +4924,7 @@
               <!-- Live Telemetry Pill -->
               <div class="pt-telemetry-chip">
                 <span class="pt-telemetry-pulse"></span>
-                <span>⚡ 8,450 / 10,000 Credits Active &bull; 98.4% Brand Precision</span>
+                <span>⚡ 100% Customized Solutions &bull; Tailored to Your Growth Goals</span>
               </div>
             </div>
 
@@ -5032,9 +5024,9 @@
                   <polyline points="9 18 15 12 9 6" />
                 </svg>
               </a>
-              <a href="#plans-pricing" class="btn btn-outline"
+              <a href="#pricing-teaser" class="btn btn-outline"
                 style="background:rgba(255,255,255,0.1); color:#ffffff; border-color:rgba(255,255,255,0.3); font-size:1.0625rem; padding:15px 30px;">
-                <span>View Plans</span>
+                <span>Tailored Plans</span>
               </a>
             </div>
           </div>
@@ -5554,7 +5546,7 @@
     <!-- ═══════════════════════════════════════════════════════════
          TAB VIEW 4: PLANS AND PRICING TAB
     ═══════════════════════════════════════════════════════════ -->
-    <div id="tab-plans-pricing" class="landing-tab-view" style="display: none;">
+    <div id="tab-plans-pricing" class="landing-tab-view" style="display: none !important;">
       <!-- ═══════════════════════════════════════════════════════════
          STEP 7: 💳 PLANS & PRICING (#plans-pricing)
     ═══════════════════════════════════════════════════════════ -->
@@ -5754,7 +5746,7 @@
             <li><a href="#why-choose-us">Why Choose Us</a></li>
             <li><a href="#key-features">Key Features</a></li>
             <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#plans-pricing">Plans &amp; Pricing</a></li>
+            <li><a href="#pricing-teaser">Tailored Plans</a></li>
           </ul>
         </div>
 
@@ -5804,9 +5796,9 @@
       });
     }
 
-    // 3. Landing Page Tabs Manager (Key features, Resources, Plans and pricing, Home)
+    // 3. Landing Page Tabs Manager (Key features, Resources, FAQs, Home)
     function switchLandingTab(tabKey, updateHash = true, shouldScroll = true) {
-      const validTabs = ['home', 'key-features', 'resources', 'plans-pricing', 'faqs'];
+      const validTabs = ['home', 'key-features', 'resources', 'faqs'];
       if (!validTabs.includes(tabKey)) tabKey = 'home';
 
       const homeView = document.getElementById('tab-home');
@@ -5824,7 +5816,7 @@
       }
       if (featuresView) featuresView.style.display = (tabKey === 'key-features') ? 'block' : 'none';
       if (resourcesView) resourcesView.style.display = (tabKey === 'resources') ? 'block' : 'none';
-      if (pricingView) pricingView.style.display = (tabKey === 'plans-pricing') ? 'block' : 'none';
+      if (pricingView) pricingView.style.display = 'none';
       if (faqsView) faqsView.style.display = (tabKey === 'faqs') ? 'block' : 'none';
 
       // Update active state on navigation tabs
@@ -5869,7 +5861,11 @@
       } else if (hash === 'resources') {
         switchLandingTab('resources', false, true);
       } else if (hash === 'plans-pricing' || hash === 'pricing' || hash === 'plans') {
-        switchLandingTab('plans-pricing', false, true);
+        switchLandingTab('home', false, false);
+        setTimeout(() => {
+          const el = document.getElementById('pricing-teaser');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
       } else if (hash === 'faqs' || hash === 'faq') {
         switchLandingTab('faqs', false, true);
       } else if (hash === 'studio-preview' || hash === 'why-choose-us' || hash === 'how-it-works') {
@@ -5898,12 +5894,23 @@
       });
     });
 
-    // Also support any internal links pointing to #plans-pricing or #key-features (e.g. CTA buttons and footer links)
-    document.querySelectorAll('a[href="#plans-pricing"], a[href="#key-features"], a[href="#resources"], a[href="#faqs"]').forEach(link => {
+    // Support internal links pointing to tabs or sections
+    document.querySelectorAll('a[href="#key-features"], a[href="#resources"], a[href="#faqs"]').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
         const tabKey = link.getAttribute('href').replace('#', '');
         switchLandingTab(tabKey, true, true);
+      });
+    });
+
+    document.querySelectorAll('a[href="#plans-pricing"], a[href="#pricing-teaser"]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        switchLandingTab('home', false, false);
+        setTimeout(() => {
+          const el = document.getElementById('pricing-teaser');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 80);
       });
     });
 
@@ -6297,7 +6304,7 @@
             if (action === 'features') {
               appendBotReply('Vibodh Signal gives you AI content creation across Instagram, Facebook, and LinkedIn, brand voice locking, auto-scheduling, and high-conversion multi-format studio tools.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; View Key Features Tab</a>');
             } else if (action === 'pricing') {
-              appendBotReply('We offer Starter (₹1,499/mo), Growth (₹3,999/mo), Business (₹8,999/mo), and Custom Agency plans with 14-day free trials.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">&rarr; View Plans &amp; Pricing Tab</a>');
+              appendBotReply('Our pricing is fully customizable and tailored to your team scale, monthly content requirements, and brand count. We configure bespoke plans with dedicated AI credits and workflows.<br><a class="signalmate-inline-link" href="#pricing-teaser" onclick="switchLandingTab(\'home\', false, false); setTimeout(()=>{const el=document.getElementById(\'pricing-teaser\');if(el)el.scrollIntoView({behavior:\'smooth\'});},80);">&rarr; View Tailored Plans</a>');
             } else if (action === 'demo') {
               appendBotReply('You can test the interactive workspace right now without signing up!<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Open Live Dashboard Demo</a>');
             }
@@ -6315,13 +6322,13 @@
         setTimeout(() => {
           const lower = query.toLowerCase();
           if (lower.includes('price') || lower.includes('cost') || lower.includes('plan')) {
-            appendBotReply('Plans start at ₹1,499/month for individual creators and go up to agency tiers with custom limits.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">&rarr; Open Plans &amp; Pricing</a>');
+            appendBotReply('All our plans are 100% tailored and customizable to your marketing scale and monthly AI volume. Contact us for a personalized package, or test out our features in the live demo.<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Explore Live Demo</a>');
           } else if (lower.includes('feature') || lower.includes('content') || lower.includes('studio') || lower.includes('ai')) {
             appendBotReply('Signal Engine powers text, images, video reels, and brand persona synchronization automatically.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Explore Features</a>');
           } else if (lower.includes('trial') || lower.includes('demo') || lower.includes('start') || lower.includes('free')) {
             appendBotReply('You can start your 14-day free trial right away or explore our live dashboard demo.<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Get Started with Vibodh Signal</a>');
           } else {
-            appendBotReply('I\'d be glad to help with that! You can explore our <a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Key Features</a>, view <a class="signalmate-inline-link" onclick="switchLandingTab(\'plans-pricing\');">&rarr; Plans &amp; Pricing</a>, or jump straight into the <a class="signalmate-inline-link" href="dashboard.html">&rarr; Live Dashboard</a>.');
+            appendBotReply('I\'d be glad to help with that! You can explore our <a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Key Features</a>, or jump straight into the <a class="signalmate-inline-link" href="dashboard.html">&rarr; Live Dashboard</a>.');
           }
         }, 400);
       };
@@ -6470,7 +6477,7 @@
           <span>Explore features</span>
         </button>
         <button type="button" class="signalmate-option-btn" data-action="pricing">
-          <span>Understand pricing</span>
+          <span>Tailored plans</span>
         </button>
         <button type="button" class="signalmate-option-btn" data-action="demo">
           <span>Book a demo</span>
