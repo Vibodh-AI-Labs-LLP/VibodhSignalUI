@@ -68,6 +68,7 @@
     html {
       scroll-behavior: smooth;
       font-size: 13.5px;
+      overflow-x: hidden;
     }
 
     body {
@@ -493,11 +494,14 @@
 
     .hero-top-center {
       text-align: center;
-      max-width: 940px;
+      max-width: 1120px;
       margin: 0 auto;
       position: relative;
       z-index: 2;
       pointer-events: none;
+      width: 100%;
+      padding: 0 16px;
+      box-sizing: border-box;
     }
 
     .hero-top-center a,
@@ -523,9 +527,9 @@
 
     .hero-main-title {
       font-family: var(--font-display);
-      font-size: clamp(2.1rem, 4.2vw, 3.25rem);
+      font-size: clamp(1.15rem, 3.5vw, 3.25rem);
       font-weight: 900;
-      line-height: 1.2;
+      line-height: 1.25;
       letter-spacing: -0.035em;
       color: var(--dark-navy, #0F172A);
       margin-bottom: 18px;
@@ -536,6 +540,7 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
+      white-space: nowrap;
     }
 
     .hero-subcopy {
@@ -2326,8 +2331,30 @@
     }
 
     @media (max-width: 768px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      .brand-logo-img {
+        height: 32px;
+        max-width: 145px;
+      }
+
+      .navbar {
+        gap: 10px;
+      }
+
+      .nav-actions {
+        gap: 8px;
+      }
+
+      .nav-cta-btn {
+        padding: 7px 14px;
+        font-size: 0.8125rem;
+      }
+
       .hero-main-title {
-        font-size: 2.25rem;
+        font-size: 1.55rem;
       }
 
       .section-title {
@@ -2356,6 +2383,37 @@
       .footer-grid {
         grid-template-columns: 1fr;
         gap: 28px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 12px;
+      }
+
+      .brand-logo-img {
+        height: 28px;
+        max-width: 120px;
+      }
+
+      .nav-cta-btn {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+
+      .nav-cta-btn svg {
+        display: none;
+      }
+
+      .hero-main-title {
+        font-size: 1.15rem;
+        letter-spacing: -0.02em;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .hero-main-title {
+        font-size: 1.02rem;
       }
     }
 
