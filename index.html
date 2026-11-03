@@ -225,16 +225,16 @@
       left: 0;
       right: 0;
       z-index: 1000;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(22, 34, 60, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       transition: padding 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
 
     .site-header.is-scrolled {
-      background: rgba(255, 255, 255, 0.98);
-      box-shadow: 0 4px 20px rgba(15, 23, 42, 0.06);
+      background: rgba(22, 34, 60, 0.98);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
     }
 
     .navbar {
@@ -262,26 +262,15 @@
     }
 
     .brand-logo-img {
-      height: 36px;
+      height: 40px;
       width: auto;
-      max-width: 180px;
+      max-width: 210px;
       display: block;
       object-fit: contain;
     }
 
     .brand-by-vibodhai {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: #64748B;
-      text-transform: uppercase;
-      line-height: 1;
-      padding-left: 2px;
-    }
-
-    .brand-by-vibodhai span {
-      color: var(--orange);
-      font-weight: 800;
+      display: none;
     }
 
     /* Sticky Section Nav Items (Center) */
@@ -289,8 +278,8 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(241, 245, 249, 0.7);
-      border: 1px solid #E2E8F0;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
       padding: 4px;
       border-radius: var(--radius-full);
       list-style: none;
@@ -304,15 +293,15 @@
       border-radius: var(--radius-full);
       font-size: 0.8125rem;
       font-weight: 600;
-      color: #475569;
+      color: #CBD5E1;
       transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
       text-decoration: none;
     }
 
     .nav-anchor-link:hover {
-      color: var(--teal-dark);
-      background: rgba(255, 255, 255, 0.9);
+      color: #FFFFFF;
+      background: rgba(255, 255, 255, 0.12);
     }
 
     /* Active Section Indicator */
@@ -443,10 +432,10 @@
        3. HERO SECTION & INTERACTIVE BACKGROUND
     ═══════════════════════════════════════════════════════════ */
     .hero-section {
-      padding: 76px 0 72px;
+      padding: 80px 0 92px;
       position: relative;
       overflow: hidden;
-      background: radial-gradient(circle at 50% 0%, rgba(240, 253, 250, 0.8) 0%, rgba(255, 255, 255, 0.95) 70%, #FFFFFF 100%);
+      background: radial-gradient(circle at 50% 15%, #1f2f52 0%, #16223C 55%, #0d1526 100%);
     }
 
     /* Interactive Canvas Layer (constellation particle network) */
@@ -521,14 +510,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: var(--radius-full);
-      background: #EFF6FF;
-      color: #2563EB;
+      background: rgba(0, 229, 255, 0.12);
+      color: #00E5FF;
       font-size: 0.8125rem;
       font-weight: 700;
-      margin-bottom: 18px;
-      border: 1px solid #BFDBFE;
+      margin-bottom: 20px;
+      border: 1px solid rgba(0, 229, 255, 0.35);
+      box-shadow: 0 0 24px rgba(0, 229, 255, 0.16);
     }
 
     .hero-main-title {
@@ -537,13 +527,20 @@
       font-weight: 900;
       line-height: 1.2;
       letter-spacing: -0.035em;
-      color: var(--dark-navy);
+      color: #FFFFFF;
       margin-bottom: 18px;
+    }
+
+    .hero-section .gradient-text {
+      background: linear-gradient(135deg, #00E5FF 0%, #2DD4BF 45%, #FF7A45 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
     .hero-subcopy {
       font-size: 1.2rem;
-      color: var(--text-muted);
+      color: #CBD5E1;
       line-height: 1.6;
       max-width: 700px;
       margin: 0 auto 28px;
@@ -555,6 +552,20 @@
       justify-content: center;
       gap: 16px;
       flex-wrap: wrap;
+    }
+
+    .hero-cta-group .btn-outline {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1.5px solid rgba(255, 255, 255, 0.25) !important;
+      color: #FFFFFF !important;
+      backdrop-filter: blur(8px);
+    }
+
+    .hero-cta-group .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.5) !important;
+      color: #FFFFFF !important;
+      transform: translateY(-2px);
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -2466,11 +2477,11 @@
        11. SITE FOOTER
     ═══════════════════════════════════════════════════════════ */
     .site-footer {
-      border-top: 1px solid var(--border);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding: 56px 0 42px;
-      background: #FFFFFF;
+      background: #16223C;
       font-size: 0.8125rem;
-      color: var(--text-muted);
+      color: #94A3B8;
     }
 
     .footer-grid {
@@ -2488,9 +2499,9 @@
     }
 
     .footer-brand-logo-img {
-      height: 34px;
+      height: 38px;
       width: auto;
-      max-width: 175px;
+      max-width: 200px;
       display: block;
     }
 
@@ -2498,7 +2509,7 @@
       font-family: var(--font-display);
       font-size: 0.875rem;
       font-weight: 800;
-      color: var(--dark-navy);
+      color: #FFFFFF;
       margin-bottom: 16px;
       text-transform: uppercase;
       letter-spacing: 0.05em;
@@ -2512,9 +2523,13 @@
     }
 
     .footer-links-list li a {
-      color: var(--text-muted);
+      color: #94A3B8;
       transition: color 0.15s ease;
       display: inline-block;
+    }
+
+    .footer-links-list li a:hover {
+      color: #FFFFFF;
     }
 
     .footer-links-list li a:hover {
@@ -5271,11 +5286,10 @@
       <div class="footer-grid">
         <!-- Brand Column -->
         <div class="footer-brand-col">
-          <a href="landing.html" style="text-decoration:none;">
+          <a href="landing.html" style="text-decoration:none; margin-bottom: 12px; display:inline-block;">
             <img src="assets/vibodh-signal-logo-header.png" alt="Vibodh Signal" class="footer-brand-logo-img">
-            <div class="brand-by-vibodhai" style="margin-top:3px; margin-bottom:10px;">By <span>VibodhAI</span></div>
           </a>
-          <p style="font-size:0.8125rem; color:#64748B; line-height:1.55;">
+          <p style="font-size:0.8125rem; color:#94A3B8; line-height:1.55;">
             Smarter Marketing Starts Here.<br>
             Create, publish, advertise, and grow
           </p>
@@ -5667,15 +5681,15 @@
           this.vx = (Math.random() - 0.5) * 0.75;
           this.vy = (Math.random() - 0.5) * 0.75;
           this.radius = Math.random() * 2.2 + 1.2;
-          // Colors matching Vibodh palette: Teal (#0F9D8A), Indigo (#243B6B), Purple (#7C3AED), Sky (#0284C7)
+          // Colors matching Vibodh logo palette on #16223C: Cyan, Teal, Orange, White
           const colors = [
-            'rgba(15, 157, 138, ',
-            'rgba(36, 59, 107, ',
-            'rgba(124, 58, 237, ',
-            'rgba(14, 165, 233, '
+            'rgba(0, 229, 255, ',
+            'rgba(45, 212, 191, ',
+            'rgba(240, 81, 45, ',
+            'rgba(255, 255, 255, '
           ];
           this.colorBase = colors[Math.floor(Math.random() * colors.length)];
-          this.baseAlpha = Math.random() * 0.4 + 0.35;
+          this.baseAlpha = Math.random() * 0.45 + 0.45;
         }
 
         update() {
@@ -5724,11 +5738,11 @@
             const dist = Math.hypot(dx, dy);
 
             if (dist < maxDistance) {
-              const alpha = (1 - dist / maxDistance) * 0.22;
+              const alpha = (1 - dist / maxDistance) * 0.28;
               ctx.beginPath();
               ctx.moveTo(particles[i].x, particles[i].y);
               ctx.lineTo(particles[j].x, particles[j].y);
-              ctx.strokeStyle = `rgba(15, 157, 138, ${alpha})`;
+              ctx.strokeStyle = `rgba(0, 229, 255, ${alpha})`;
               ctx.lineWidth = 1;
               ctx.stroke();
             }
