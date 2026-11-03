@@ -778,8 +778,8 @@
       color: var(--dark-navy);
     }
 
-    /* ═══════════════════════════════════════════════════════════
-       5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us) - MATCHING EXACT DESIGN
+            /* ═══════════════════════════════════════════════════════════
+       5. SECTION 2: ⚡ WHY CHOOSE US (#why-choose-us) - VIBODH SIGNAL AI THEME
     ═══════════════════════════════════════════════════════════ */
     .section-why {
       padding: 88px 0;
@@ -794,7 +794,7 @@
       margin-bottom: 48px;
     }
 
-    /* Floating top-right badge: "✦ The Simple Way" */
+    /* Floating top-right badge: "✦ The Vibodh Signal Advantage" */
     .why-simple-way-badge {
       position: absolute;
       top: 0;
@@ -803,30 +803,25 @@
       align-items: center;
       gap: 7px;
       background: #FFFFFF;
-      border: 1px solid rgba(139, 92, 246, 0.22);
+      border: 1px solid rgba(15, 157, 138, 0.28);
       border-radius: var(--radius-full);
       padding: 7px 18px;
       font-size: 0.8125rem;
       font-weight: 700;
-      color: #4F46E5;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.08);
+      color: var(--indigo);
+      box-shadow: 0 4px 14px rgba(36, 59, 107, 0.08);
       animation: floatBadge 4s ease-in-out infinite alternate;
       z-index: 2;
     }
 
     .why-simple-way-badge .sparkle-icon {
-      color: #F59E0B;
+      color: var(--teal);
       font-size: 0.875rem;
     }
 
     @keyframes floatBadge {
-      0% {
-        transform: translateY(0);
-      }
-
-      100% {
-        transform: translateY(-4px);
-      }
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
     }
 
     /* Slanted accent dashes left of title */
@@ -849,17 +844,11 @@
       display: block;
       height: 3.5px;
       border-radius: var(--radius-full);
-      background: #6366F1;
+      background: var(--teal);
     }
 
-    .why-accent-dashes span:nth-child(1) {
-      width: 14px;
-    }
-
-    .why-accent-dashes span:nth-child(2) {
-      width: 22px;
-      transform: translateX(4px);
-    }
+    .why-accent-dashes span:nth-child(1) { width: 14px; }
+    .why-accent-dashes span:nth-child(2) { width: 22px; transform: translateX(4px); }
 
     .why-section-title {
       font-family: var(--font-display);
@@ -867,12 +856,12 @@
       font-weight: 800;
       line-height: 1.18;
       letter-spacing: -0.025em;
-      color: #1E1B4B;
+      color: var(--dark-navy);
       margin-bottom: 14px;
     }
 
     .why-title-gradient {
-      background: linear-gradient(135deg, #3730A3 0%, #4F46E5 50%, #7C3AED 100%);
+      background: linear-gradient(135deg, var(--indigo) 0%, #4F46E5 45%, var(--teal) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       display: inline-block;
@@ -881,7 +870,7 @@
     .why-section-desc {
       font-size: 1.0625rem;
       color: var(--text-muted);
-      max-width: 620px;
+      max-width: 640px;
       margin: 0 auto;
       line-height: 1.55;
     }
@@ -895,7 +884,7 @@
       position: relative;
     }
 
-    /* Center floating circle right arrow */
+    /* Center floating circle transformation node */
     .why-center-connector {
       position: absolute;
       left: calc(46.7% - 22px);
@@ -904,19 +893,20 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: #FFFFFF;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 24px rgba(99, 102, 241, 0.16), 0 2px 6px rgba(0, 0, 0, 0.05);
+      background: linear-gradient(135deg, #0F9D8A 0%, #7C3AED 100%);
+      border: 3px solid #FFFFFF;
+      box-shadow: 0 8px 24px rgba(15, 157, 138, 0.35), 0 2px 6px rgba(0, 0, 0, 0.1);
       display: flex;
       align-items: center;
       justify-content: center;
       z-index: 10;
-      color: #6366F1;
-      transition: box-shadow 0.3s ease;
+      color: #FFFFFF;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .why-center-connector:hover {
-      box-shadow: 0 12px 28px rgba(99, 102, 241, 0.28);
+      transform: translateY(-50%) scale(1.12);
+      box-shadow: 0 12px 30px rgba(15, 157, 138, 0.5);
     }
 
     /* Base Card */
@@ -926,12 +916,12 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       LEFT CARD: THE FRUSTRATING OLD WAY
+       LEFT CARD: THE FRUSTRATING OLD WAY (SaaS Fragmentation)
     ═══════════════════════════════════════════════════════════ */
     .why-card-old {
-      background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 86%, #FFF5F6 100%);
-      border: 1px solid var(--border);
-      box-shadow: 0 16px 40px -12px rgba(99, 102, 241, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FFFFFF 82%, #FFF5F6 100%);
+      border: 1.5px solid #FEE2E2;
+      box-shadow: 0 16px 40px -12px rgba(239, 68, 68, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
       padding: 34px 30px;
       display: flex;
       flex-direction: column;
@@ -941,7 +931,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       position: relative;
     }
 
@@ -949,8 +939,8 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: linear-gradient(135deg, rgba(255, 241, 242, 0.85) 0%, rgba(254, 226, 226, 0.45) 100%);
-      border: 1px solid rgba(254, 205, 211, 0.55);
+      background: linear-gradient(135deg, rgba(255, 241, 242, 0.9) 0%, rgba(254, 226, 226, 0.5) 100%);
+      border: 1px solid rgba(254, 205, 211, 0.6);
       border-radius: 20px;
       padding: 10px 16px;
     }
@@ -960,7 +950,7 @@
       font-size: 3.25rem;
       line-height: 1;
       font-weight: 900;
-      color: #6366F1;
+      color: #EF4444;
       letter-spacing: -0.04em;
     }
 
@@ -981,31 +971,86 @@
     .why-old-stat-cost {
       font-size: 0.84rem;
       font-weight: 800;
-      color: #E11D48;
+      color: #DC2626;
     }
 
-    /* Girl Photo Container */
-    .why-old-illustration-wrap {
-      width: 195px;
-      height: 160px;
-      margin-top: -10px;
-      margin-right: -8px;
-      flex-shrink: 0;
+    /* SaaS Chaos Matrix Visual (Replaces cartoon girl with authentic marketing stack) */
+    .why-old-chaos-matrix {
+      background: #FFF1F2;
+      border: 1px dashed #FECDD3;
+      border-radius: 18px;
+      padding: 14px 16px;
+      margin-bottom: 20px;
+    }
+
+    .why-chaos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .why-chaos-chip {
+      background: #FFFFFF;
+      border: 1px solid #FFE4E6;
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: 0 2px 4px rgba(225, 29, 72, 0.03);
+    }
+
+    .why-chaos-chip-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .why-chaos-icon { font-size: 0.875rem; }
+    .why-chaos-cost {
+      font-size: 0.6875rem;
+      font-weight: 800;
+      color: #DC2626;
+      background: #FEE2E2;
+      padding: 1px 5px;
+      border-radius: 4px;
+    }
+
+    .why-chaos-name {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--dark-navy);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .why-chaos-status {
+      font-size: 0.65rem;
+      color: #94A3B8;
+      font-weight: 500;
+    }
+
+    .why-chaos-tally {
       display: flex;
       align-items: center;
       justify-content: center;
+      padding-top: 6px;
+      border-top: 1px dashed #FECDD3;
     }
 
-    .why-girl-img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      filter: drop-shadow(0 4px 12px rgba(99, 102, 241, 0.08));
+    .why-tally-pill {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #BE123C;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
 
     .why-old-head {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
 
     .why-old-title {
@@ -1026,7 +1071,7 @@
     .why-old-pain-list {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
       margin-top: auto;
     }
 
@@ -1069,43 +1114,42 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       RIGHT CARD: WITH VIBODH SIGNAL
+       RIGHT CARD: WITH VIBODH SIGNAL (Autonomous AI Engine)
     ═══════════════════════════════════════════════════════════ */
     .why-card-signal {
-      background: linear-gradient(155deg, #0A0F2E 0%, #06091A 100%);
-      border: 1px solid rgba(99, 102, 241, 0.25);
+      background: linear-gradient(155deg, #0A0F2E 0%, #0F172A 55%, #172544 100%);
+      border: 1.5px solid rgba(15, 157, 138, 0.4);
       border-radius: 28px 44px 28px 28px;
-      box-shadow: 0 24px 60px -12px rgba(10, 15, 46, 0.45), 0 0 40px rgba(99, 102, 241, 0.1);
+      box-shadow: 0 24px 60px -12px rgba(10, 15, 46, 0.6), 0 0 45px rgba(15, 157, 138, 0.15);
       padding: 34px 30px;
       color: #FFFFFF;
       overflow: hidden;
       display: flex;
       flex-direction: column;
-    }
-
-    .why-signal-dot-matrix {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      opacity: 0.45;
-      pointer-events: none;
+      position: relative;
     }
 
     .why-signal-top-row {
       display: flex;
       align-items: center;
-      gap: 14px;
-      margin-bottom: 20px;
+      justify-content: space-between;
+      margin-bottom: 16px;
       position: relative;
       z-index: 2;
+    }
+
+    .why-signal-left-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .why-signal-badge-icon {
       width: 44px;
       height: 44px;
       border-radius: 13px;
-      background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
-      box-shadow: 0 6px 18px rgba(99, 102, 241, 0.35);
+      background: linear-gradient(135deg, #0F9D8A 0%, #7C3AED 100%);
+      box-shadow: 0 6px 18px rgba(15, 157, 138, 0.35);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -1130,11 +1174,175 @@
     .why-signal-context {
       font-size: 0.84rem;
       font-weight: 800;
-      color: #38BDF8;
+      color: #2DD4BF;
+    }
+
+    .why-signal-telemetry-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(15, 157, 138, 0.15);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      border-radius: var(--radius-full);
+      padding: 5px 12px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #2DD4BF;
+    }
+
+    .why-pulse-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+      animation: pulseGreen 2s infinite;
+    }
+
+    @keyframes pulseGreen {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.2); }
+    }
+
+    /* Live Mini AI Preview Showcase with Real AI Creatives */
+    .why-signal-ai-preview {
+      background: rgba(20, 27, 62, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      border-radius: 18px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .why-ai-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .why-ai-brand-lock {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #F8FAFC;
+    }
+
+    .why-ai-match-score {
+      font-size: 0.7rem;
+      background: rgba(16, 185, 129, 0.2);
+      color: #34D399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      padding: 1px 7px;
+      border-radius: 6px;
+      font-weight: 700;
+    }
+
+    .why-ai-channel-badge {
+      font-size: 0.7rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    .why-ai-creatives-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .why-ai-thumb-card {
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .why-ai-thumb-wrap {
+      position: relative;
+      width: 100%;
+      height: 64px;
+      overflow: hidden;
+    }
+
+    .why-ai-thumb-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .why-ai-thumb-card:hover .why-ai-thumb-img {
+      transform: scale(1.08);
+    }
+
+    .why-ai-thumb-tag {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      right: 4px;
+      background: rgba(10, 15, 46, 0.85);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      color: #2DD4BF;
+      font-size: 0.625rem;
+      font-weight: 800;
+      padding: 2px 5px;
+      border-radius: 5px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .why-tag-purple {
+      border-color: rgba(167, 139, 250, 0.4);
+      color: #C084FC;
+    }
+
+    .why-ai-queue-card {
+      padding: 10px 12px;
+      justify-content: center;
+      background: rgba(15, 157, 138, 0.12);
+      border-color: rgba(45, 212, 191, 0.3);
+    }
+
+    .why-queue-content {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .why-queue-status {
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: #34D399;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .why-queue-time {
+      font-size: 0.8125rem;
+      font-weight: 800;
+      color: #FFFFFF;
+    }
+
+    .why-queue-channels {
+      font-size: 0.65rem;
+      color: #94A3B8;
+      font-weight: 600;
     }
 
     .why-signal-head {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       position: relative;
       z-index: 2;
     }
@@ -1181,7 +1389,7 @@
 
     .why-sol-card:hover {
       background: #1A2350;
-      border-color: rgba(99, 102, 241, 0.45);
+      border-color: rgba(45, 212, 191, 0.45);
       transform: translateY(-2px);
     }
 
@@ -1195,20 +1403,9 @@
       margin-bottom: 12px;
     }
 
-    .why-icon-user {
-      background: rgba(45, 212, 191, 0.2);
-      color: #2DD4BF;
-    }
-
-    .why-icon-palette {
-      background: rgba(167, 139, 250, 0.2);
-      color: #C084FC;
-    }
-
-    .why-icon-screen {
-      background: rgba(56, 189, 248, 0.2);
-      color: #38BDF8;
-    }
+    .why-icon-user { background: rgba(45, 212, 191, 0.2); color: #2DD4BF; }
+    .why-icon-palette { background: rgba(167, 139, 250, 0.2); color: #C084FC; }
+    .why-icon-screen { background: rgba(56, 189, 248, 0.2); color: #38BDF8; }
 
     .why-sol-title {
       font-size: 0.9375rem;
@@ -1224,7 +1421,6 @@
       line-height: 1.45;
     }
 
-    /* HIGHLIGHTED HERO CARD (bottom right) */
     .why-sol-card.is-highlighted {
       background: linear-gradient(135deg, #A7F3D0 0%, #6EE7B7 60%, #34D399 100%);
       border: 1px solid #6EE7B7;
@@ -1246,7 +1442,7 @@
 
     .why-sol-card.is-highlighted .why-sol-desc {
       color: #065F46;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .why-sol-hero-header {
@@ -1256,138 +1452,37 @@
       margin-bottom: 10px;
     }
 
-    .why-hero-clock {
-      color: #064E3B;
-      display: flex;
-      align-items: center;
-    }
+    .why-hero-clock { color: #064E3B; display: flex; align-items: center; }
+    .why-hero-sparkle { color: #F59E0B; font-size: 0.875rem; }
 
-    .why-hero-sparkle {
-      color: #F59E0B;
-      font-size: 0.875rem;
-      animation: sparkleGlow 2s ease-in-out infinite alternate;
-    }
-
-    @keyframes sparkleGlow {
-      0% {
-        transform: scale(0.9);
-        opacity: 0.7;
-      }
-
-      100% {
-        transform: scale(1.2);
-        opacity: 1;
-      }
-    }
-
-    .why-doodle-arrow {
-      position: absolute;
-      top: -32px;
-      right: 2px;
-      width: 44px;
-      height: 44px;
-      pointer-events: none;
-      animation: doodleFloat 3s ease-in-out infinite alternate;
-    }
-
-    @keyframes doodleFloat {
-      0% {
-        transform: translate(0, 0) rotate(0deg);
-      }
-
-      100% {
-        transform: translate(2px, -4px) rotate(3deg);
-      }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       HARDWARE-ACCELERATED ENTRANCE KEYFRAMES
-    ═══════════════════════════════════════════════════════════ */
+    /* Hardware-Accelerated Entrance Keyframes */
     @keyframes whySlideLeftIn {
-      0% {
-        opacity: 0;
-        transform: translate3d(-50px, 0, 0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-      }
+      0% { opacity: 0; transform: translate3d(-50px, 0, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     @keyframes whySlideRightIn {
-      0% {
-        opacity: 0;
-        transform: translate3d(50px, 0, 0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-      }
+      0% { opacity: 0; transform: translate3d(50px, 0, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     @keyframes whyPopCenterArrow {
-      0% {
-        opacity: 0;
-        transform: translateY(-50%) scale(0.2);
-      }
-
-      70% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1.15);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(-50%) scale(1);
-      }
+      0% { opacity: 0; transform: translateY(-50%) scale(0.2); }
+      70% { opacity: 1; transform: translateY(-50%) scale(1.15); }
+      100% { opacity: 1; transform: translateY(-50%) scale(1); }
     }
 
     @keyframes whyItemStaggerUp {
-      0% {
-        opacity: 0;
-        transform: translate3d(0, 16px, 0);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-      }
+      0% { opacity: 0; transform: translate3d(0, 20px, 0); }
+      100% { opacity: 1; transform: translate3d(0, 0, 0); }
     }
 
     @keyframes whyHighlightPop {
-      0% {
-        opacity: 0;
-        transform: translate3d(0, 16px, 0) scale(0.95);
-        box-shadow: 0 0 0 rgba(52, 211, 153, 0);
-      }
-
-      70% {
-        transform: translate3d(0, 0, 0) scale(1.03);
-        box-shadow: 0 16px 36px rgba(52, 211, 153, 0.45);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translate3d(0, 0, 0) scale(1);
-        box-shadow: 0 12px 30px -6px rgba(52, 211, 153, 0.35);
-      }
+      0% { opacity: 0; transform: scale(0.92) translateY(12px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
     }
 
-    @keyframes whyGirlEntrance {
-      0% {
-        opacity: 0;
-        transform: scale(0.9) translateY(12px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-      }
-    }
-
-    /* Initial hidden state only when ready to animate AND not yet in view */
+    /* Initial hidden state when ready to animate AND not yet in view */
     .section-why.animate-ready:not(.animate-in) .why-header-wrapper {
       opacity: 0;
       transform: translate3d(0, 24px, 0);
@@ -1395,12 +1490,12 @@
 
     .section-why.animate-ready:not(.animate-in) .why-card-old {
       opacity: 0;
-      transform: translate3d(-50px, 0, 0);
+      transform: translate3d(-30px, 0, 0);
     }
 
     .section-why.animate-ready:not(.animate-in) .why-card-signal {
       opacity: 0;
-      transform: translate3d(50px, 0, 0);
+      transform: translate3d(30px, 0, 0);
     }
 
     .section-why.animate-ready:not(.animate-in) .why-center-connector {
@@ -1408,67 +1503,21 @@
       transform: translateY(-50%) scale(0.2);
     }
 
-    .section-why.animate-ready:not(.animate-in) .why-pain-item {
-      opacity: 0;
-      transform: translate3d(0, 16px, 0);
-    }
-
-    .section-why.animate-ready:not(.animate-in) .why-sol-card {
-      opacity: 0;
-      transform: translate3d(0, 16px, 0);
-    }
-
-    /* Triggered state */
+    /* Triggered entrance animation states */
     .section-why.animate-in .why-header-wrapper {
-      animation: whyItemStaggerUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: whyItemStaggerUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
 
     .section-why.animate-in .why-card-old {
-      animation: whySlideLeftIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.06s forwards;
+      animation: whySlideLeftIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.05s forwards;
     }
 
     .section-why.animate-in .why-card-signal {
-      animation: whySlideRightIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
-    }
-
-    .section-why.animate-in .why-girl-img {
-      animation: whyGirlEntrance 0.65s cubic-bezier(0.34, 1.25, 0.64, 1) 0.18s backwards;
+      animation: whySlideRightIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.08s forwards;
     }
 
     .section-why.animate-in .why-center-connector {
-      animation: whyPopCenterArrow 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) 0.22s forwards;
-    }
-
-    .section-why.animate-in .why-pain-item:nth-child(1) {
-      animation: whyItemStaggerUp 0.4s ease 0.16s forwards;
-    }
-
-    .section-why.animate-in .why-pain-item:nth-child(2) {
-      animation: whyItemStaggerUp 0.4s ease 0.22s forwards;
-    }
-
-    .section-why.animate-in .why-pain-item:nth-child(3) {
-      animation: whyItemStaggerUp 0.4s ease 0.28s forwards;
-    }
-
-    .section-why.animate-in .why-pain-item:nth-child(4) {
-      animation: whyItemStaggerUp 0.4s ease 0.34s forwards;
-    }
-
-    .section-why.animate-in .why-sol-card:nth-child(1) {
-      animation: whyItemStaggerUp 0.4s ease 0.18s forwards;
-    }
-
-    .section-why.animate-in .why-sol-card:nth-child(2) {
-      animation: whyItemStaggerUp 0.4s ease 0.24s forwards;
-    }
-
-    .section-why.animate-in .why-sol-card:nth-child(3) {
-      animation: whyItemStaggerUp 0.4s ease 0.30s forwards;
-    }
-
-    .section-why.animate-in .why-sol-card:nth-child(4) {
-      animation: whyHighlightPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.36s forwards;
+      animation: whyPopCenterArrow 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
     }
 
     /* Responsive adjustments */
@@ -1502,15 +1551,8 @@
       }
 
       @keyframes whyPopCenterArrowMobile {
-        0% {
-          opacity: 0;
-          transform: rotate(90deg) scale(0.2);
-        }
-
-        100% {
-          opacity: 1;
-          transform: rotate(90deg) scale(1);
-        }
+        0% { opacity: 0; transform: rotate(90deg) scale(0.2); }
+        100% { opacity: 1; transform: rotate(90deg) scale(1); }
       }
 
       .section-why.animate-in .why-center-connector {
@@ -1519,7 +1561,6 @@
     }
 
     @media (max-width: 640px) {
-
       .why-card-old,
       .why-card-signal {
         padding: 24px 18px;
@@ -1530,21 +1571,17 @@
         align-items: center;
       }
 
-      .why-old-stat-number {
-        font-size: 2.75rem;
+      .why-old-stat-number { font-size: 2.75rem; }
+      .why-old-stat-title { font-size: 0.65rem; }
+      .why-old-stat-cost { font-size: 0.78rem; }
+
+      .why-chaos-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
 
-      .why-old-stat-title {
-        font-size: 0.65rem;
-      }
-
-      .why-old-stat-cost {
-        font-size: 0.78rem;
-      }
-
-      .why-old-illustration-wrap {
-        width: 110px;
-        height: auto;
+      .why-ai-creatives-row {
+        grid-template-columns: 1fr;
+        gap: 8px;
       }
 
       .why-solution-grid {
@@ -1556,7 +1593,6 @@
         font-size: 1.85rem;
       }
     }
-
 
     .section-features {
       padding: 88px 0 0 0;
@@ -3108,11 +3144,11 @@
       }
     }
 
-    /* ═══════════════════════════════════════════════════════════
-       PRICING TEASER BANNER (Post How-It-Works) - MATCHING EXACT DESIGN
+            /* ═══════════════════════════════════════════════════════════
+       PRICING TEASER BANNER (Post How-It-Works) - VIBODH SIGNAL AI THEME
     ═══════════════════════════════════════════════════════════ */
     .section-pricing-teaser {
-      padding: 44px 0 20px 0;
+      padding: 60px 0 30px 0;
       background: #FFFFFF;
       position: relative;
     }
@@ -3120,77 +3156,480 @@
     .pricing-teaser-card {
       position: relative;
       width: 100%;
-      max-width: 820px;
+      max-width: 1080px;
       margin: 0 auto;
-      border-radius: 22px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #0A0F2E 0%, #172544 55%, #0F172A 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 24px 60px -15px rgba(10, 15, 46, 0.5), 0 0 50px rgba(15, 157, 138, 0.15);
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      padding: 48px 52px;
       overflow: hidden;
-      background: #FFFFFF;
-      border: 1px solid rgba(0, 191, 165, 0.22);
-      box-shadow: 0 16px 40px -12px rgba(0, 163, 137, 0.16), 0 4px 16px rgba(15, 23, 42, 0.04);
       cursor: pointer;
       transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
     }
 
     .pricing-teaser-card:hover {
       transform: translateY(-3px);
-      border-color: rgba(0, 191, 165, 0.45);
-      box-shadow: 0 24px 50px -12px rgba(0, 163, 137, 0.22), 0 6px 20px rgba(15, 23, 42, 0.06);
+      border-color: rgba(45, 212, 191, 0.45);
+      box-shadow: 0 30px 70px -15px rgba(10, 15, 46, 0.6), 0 0 60px rgba(15, 157, 138, 0.25);
     }
 
-    .pricing-banner-img {
-      width: 100%;
-      height: auto;
-      display: block;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    /* Interactive button overlay aligned with the exact button in the image */
-    .pricing-banner-btn-overlay {
+    /* Ambient glowing orbs in card background */
+    .pt-glow-orb {
       position: absolute;
-      left: 5.5%;
-      top: 68.5%;
-      width: 19.8%;
-      height: 9.8%;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(65px);
+      z-index: 1;
+    }
+
+    .pt-glow-teal {
+      width: 280px;
+      height: 280px;
+      background: rgba(15, 157, 138, 0.32);
+      bottom: -60px;
+      left: -40px;
+    }
+
+    .pt-glow-purple {
+      width: 260px;
+      height: 260px;
+      background: rgba(124, 58, 237, 0.28);
+      top: -40px;
+      right: 20%;
+    }
+
+    .pt-glow-orange {
+      width: 200px;
+      height: 200px;
+      background: rgba(240, 81, 45, 0.15);
+      bottom: -20px;
+      right: -20px;
+    }
+
+    /* Left Content Column */
+    .pt-content-left {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .pt-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(45, 212, 191, 0.35);
       border-radius: var(--radius-full);
+      padding: 6px 16px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: #2DD4BF;
+      margin-bottom: 20px;
+      backdrop-filter: blur(8px);
+    }
+
+    .pt-badge-sparkle { color: #34D399; font-size: 0.85rem; }
+
+    .pt-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.4vw, 2.75rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+    }
+
+    .pt-title-gradient {
+      background: linear-gradient(135deg, #2DD4BF 0%, #0F9D8A 50%, #38BDF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .pt-desc {
+      font-size: 1rem;
+      color: #CBD5E1;
+      line-height: 1.55;
+      margin-bottom: 24px;
+      max-width: 460px;
+    }
+
+    .pt-checklist {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 30px;
+    }
+
+    .pt-check-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #E2E8F0;
+    }
+
+    .pt-check-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(16, 185, 129, 0.5);
+      color: #34D399;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .pt-action-row {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .pt-cta-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      background: linear-gradient(135deg, #0F9D8A 0%, #0C8877 100%);
+      border: 1px solid rgba(45, 212, 191, 0.4);
+      color: #FFFFFF;
+      font-family: var(--font-base);
+      font-size: 0.9375rem;
+      font-weight: 800;
       cursor: pointer;
-      z-index: 5;
-      text-decoration: none;
-      background: transparent;
+      box-shadow: 0 8px 24px rgba(15, 157, 138, 0.4);
       overflow: hidden;
       transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .pricing-banner-btn-overlay:hover {
-      box-shadow: 0 0 0 3px rgba(0, 191, 165, 0.45), 0 8px 24px rgba(0, 163, 137, 0.5);
-      background: rgba(255, 255, 255, 0.15);
-      transform: scale(1.025);
+    .pt-cta-btn:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 12px 30px rgba(15, 157, 138, 0.55);
+      background: linear-gradient(135deg, #12AF9A 0%, #0F9D8A 100%);
     }
 
-    .pricing-banner-btn-overlay:active {
-      transform: scale(0.98);
-    }
-
-    .pricing-banner-btn-overlay:focus-visible {
-      outline: 3px solid #00BFA5;
-      outline-offset: 3px;
-    }
-
-    /* Subtle shimmer sweep on hover */
-    .pricing-btn-shimmer {
+    .pt-btn-shimmer {
       position: absolute;
       top: 0;
       left: -100%;
       width: 60%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.35), transparent);
       transform: skewX(-20deg);
       pointer-events: none;
       transition: left 0.75s ease;
     }
 
-    .pricing-banner-btn-overlay:hover .pricing-btn-shimmer {
+    .pt-cta-btn:hover .pt-btn-shimmer {
       left: 140%;
+    }
+
+    .pt-sub-note {
+      font-size: 0.8125rem;
+      color: #94A3B8;
+      font-weight: 600;
+    }
+
+    /* Right Visual Column: 3D AI Plan Pillars & Trajectory */
+    .pt-visual-right {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .pt-trajectory-wrap {
+      position: relative;
+      width: 100%;
+      height: 60px;
+      margin-bottom: -10px;
+    }
+
+    .pt-trajectory-svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .pt-peak-badge {
+      position: absolute;
+      top: -2px;
+      right: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(52, 211, 153, 0.5);
+      backdrop-filter: blur(8px);
+      border-radius: var(--radius-full);
+      padding: 4px 12px;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+      animation: peakBounce 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes peakBounce {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-4px); }
+    }
+
+    .pt-peak-coin {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #10B981;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 900;
+    }
+
+    .pt-peak-text {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #34D399;
+    }
+
+    /* 3 3D Plan Tier Pillars */
+    .pt-tiers-deck {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      width: 100%;
+      align-items: flex-end;
+      margin-bottom: 16px;
+    }
+
+    .pt-tier-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .pt-tier-col:hover {
+      transform: translateY(-6px);
+    }
+
+    .pt-tier-pill-badge {
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: var(--radius-full);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pt-tier-pillar-body {
+      width: 100%;
+      border-radius: 18px;
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+
+    /* Starter Pillar */
+    .pt-tier-starter .pt-tier-pill-badge {
+      background: rgba(56, 189, 248, 0.15);
+      color: #38BDF8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .pt-tier-starter .pt-tier-pillar-body {
+      background: linear-gradient(180deg, rgba(20, 30, 65, 0.85) 0%, rgba(10, 15, 46, 0.95) 100%);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+      min-height: 155px;
+    }
+
+    /* Growth Pillar (Elevated, Most Popular) */
+    .pt-tier-growth {
+      position: relative;
+    }
+
+    .pt-popular-tag {
+      position: absolute;
+      top: -24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, #0F9D8A 0%, #10B981 100%);
+      color: #FFFFFF;
+      font-size: 0.625rem;
+      font-weight: 900;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(15, 157, 138, 0.4);
+      letter-spacing: 0.04em;
+    }
+
+    .pt-tier-growth .pt-tier-pill-badge {
+      background: rgba(45, 212, 191, 0.2);
+      color: #2DD4BF;
+      border: 1px solid rgba(45, 212, 191, 0.4);
+    }
+
+    .pt-tier-growth .pt-tier-pillar-body {
+      background: linear-gradient(180deg, rgba(15, 157, 138, 0.25) 0%, rgba(10, 25, 48, 0.95) 100%);
+      border: 1.5px solid rgba(45, 212, 191, 0.5);
+      box-shadow: 0 16px 36px rgba(15, 157, 138, 0.3), 0 0 20px rgba(45, 212, 191, 0.15);
+      min-height: 185px;
+    }
+
+    /* Enterprise Pillar */
+    .pt-tier-enterprise .pt-tier-pill-badge {
+      background: rgba(167, 139, 250, 0.2);
+      color: #C084FC;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+    }
+
+    .pt-tier-enterprise .pt-tier-pillar-body {
+      background: linear-gradient(180deg, rgba(30, 27, 75, 0.85) 0%, rgba(10, 15, 46, 0.95) 100%);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);
+      min-height: 165px;
+    }
+
+    .pt-tier-icon-circle {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+
+    .pt-tier-credits {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #E2E8F0;
+      margin-bottom: 4px;
+    }
+
+    .pt-tier-price {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      letter-spacing: -0.02em;
+      margin-bottom: 4px;
+    }
+
+    .pt-tier-freq {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: #94A3B8;
+    }
+
+    .pt-tier-spec {
+      font-size: 0.65rem;
+      color: #94A3B8;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+
+    .pt-tier-growth .pt-tier-spec {
+      color: #2DD4BF;
+    }
+
+    /* Live Telemetry Pill at bottom of right column */
+    .pt-telemetry-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #CBD5E1;
+      backdrop-filter: blur(8px);
+    }
+
+    .pt-telemetry-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2DD4BF;
+      box-shadow: 0 0 8px #2DD4BF;
+      animation: pulseGreen 2s infinite;
+    }
+
+        @media (max-width: 991px) {
+      .pricing-teaser-card {
+        grid-template-columns: 1fr;
+        padding: 40px 32px;
+        text-align: center;
+      }
+
+      .pt-content-left {
+        align-items: center;
+      }
+
+      .pt-desc {
+        max-width: 100%;
+      }
+
+      .pt-checklist {
+        justify-content: center;
+      }
+
+      .pt-action-row {
+        justify-content: center;
+      }
+
+      .pt-visual-right {
+        margin-top: 10px;
+        width: 100%;
+        max-width: 520px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pricing-teaser-card {
+        padding: 28px 20px;
+      }
+
+      .pt-tiers-deck {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .pt-tier-pillar-body {
+        min-height: auto !important;
+        padding: 14px;
+      }
+
+      .pt-popular-tag {
+        position: static;
+        transform: none;
+        margin-bottom: 6px;
+      }
     }
 
     /* Trusted Integrations Bar */
@@ -3912,9 +4351,9 @@
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
-         STEP 3: ⚡ WHY CHOOSE US (#why-choose-us)
-    ═══════════════════════════════════════════════════════════ -->
+                  <!-- ═══════════════════════════════════════════════════════════
+         STEP 3: ⚡ WHY CHOOSE US (#why-choose-us) - VIBODH SIGNAL AI THEME
+      ═══════════════════════════════════════════════════════════ -->
       <section class="section-why" id="why-choose-us">
         <div class="container">
 
@@ -3922,7 +4361,7 @@
           <div class="why-header-wrapper">
             <div class="why-simple-way-badge">
               <span class="sparkle-icon">✦</span>
-              <span>The Simple Way</span>
+              <span>The Vibodh Signal Advantage</span>
             </div>
 
             <div class="why-title-container">
@@ -3936,7 +4375,7 @@
               </h2>
             </div>
             <p class="why-section-desc">
-              Everything you need to keep your digital marketing moving, without managing a pile of disconnected tools.
+              Replace 8 fragmented, disconnected tools with one autonomous, brand-calibrated AI marketing engine.
             </p>
           </div>
 
@@ -3945,35 +4384,91 @@
 
             <!-- LEFT CARD: The Frustrating Old Way -->
             <div class="why-card why-card-old">
-              <!-- Top Row: Stat Number + Labels + Illustration -->
+              <!-- Top Row: Stat Number + Labels -->
               <div class="why-old-top-row">
                 <div class="why-old-stat-group">
                   <span class="why-old-stat-number">8</span>
                   <div class="why-old-stat-labels">
-                    <span class="why-old-stat-title">APPS, TABS &amp; SUBSCRIPTIONS</span>
-                    <span class="why-old-stat-cost">~$350+/mo in scattered tools</span>
+                    <span class="why-old-stat-title">DISCONNECTED SAAS APPS</span>
+                    <span class="why-old-stat-cost">~$370+/mo in scattered tool subscriptions</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- SaaS Chaos Matrix (Replaces cartoon girl with authentic marketing stack) -->
+              <div class="why-old-chaos-matrix">
+                <div class="why-chaos-grid">
+                  <div class="why-chaos-chip">
+                    <div class="why-chaos-chip-top">
+                      <span class="why-chaos-icon">✍️</span>
+                      <span class="why-chaos-cost">$49/mo</span>
+                    </div>
+                    <span class="why-chaos-name">Copywriting AI</span>
+                    <span class="why-chaos-status">No Brand Memory</span>
+                  </div>
+
+                  <div class="why-chaos-chip">
+                    <div class="why-chaos-chip-top">
+                      <span class="why-chaos-icon">🎨</span>
+                      <span class="why-chaos-cost">$55/mo</span>
+                    </div>
+                    <span class="why-chaos-name">Design Software</span>
+                    <span class="why-chaos-status">Manual Resizing</span>
+                  </div>
+
+                  <div class="why-chaos-chip">
+                    <div class="why-chaos-chip-top">
+                      <span class="why-chaos-icon">📅</span>
+                      <span class="why-chaos-cost">$79/mo</span>
+                    </div>
+                    <span class="why-chaos-name">Social Schedulers</span>
+                    <span class="why-chaos-status">Separate Logins</span>
+                  </div>
+
+                  <div class="why-chaos-chip">
+                    <div class="why-chaos-chip-top">
+                      <span class="why-chaos-icon">📊</span>
+                      <span class="why-chaos-cost">$99/mo</span>
+                    </div>
+                    <span class="why-chaos-name">Analytics &amp; ROAS</span>
+                    <span class="why-chaos-status">Siloed Data</span>
+                  </div>
+
+                  <div class="why-chaos-chip">
+                    <div class="why-chaos-chip-top">
+                      <span class="why-chaos-icon">🖼️</span>
+                      <span class="why-chaos-cost">$60/mo</span>
+                    </div>
+                    <span class="why-chaos-name">Stock Photography</span>
+                    <span class="why-chaos-status">Generic Assets</span>
+                  </div>
+
+                  <div class="why-chaos-chip">
+                    <div class="why-chaos-chip-top">
+                      <span class="why-chaos-icon">🎬</span>
+                      <span class="why-chaos-cost">$30/mo</span>
+                    </div>
+                    <span class="why-chaos-name">Video Reel Editor</span>
+                    <span class="why-chaos-status">Manual Keyframing</span>
                   </div>
                 </div>
 
-                <!-- Real Girl Photo from reference design -->
-                <div class="why-old-illustration-wrap">
-                  <img src="why-girl-frustrated.png" alt="Stressed marketer handling 8 different apps"
-                    class="why-girl-img" />
+                <div class="why-chaos-tally">
+                  <span class="why-tally-pill">⚠️ 6+ Disconnected Subscriptions &bull; ~$372/mo Tool Tax + 15 hrs Lost</span>
                 </div>
               </div>
 
               <!-- Old Head -->
               <div class="why-old-head">
                 <h3 class="why-old-title">The Frustrating Old Way</h3>
-                <p class="why-old-sub">Paying for 8 different apps and constantly copy-pasting between tabs.</p>
+                <p class="why-old-sub">Paying for 8 separate tools and constantly copy-pasting between browser tabs.</p>
               </div>
 
               <!-- 4 Pain Points -->
               <div class="why-old-pain-list">
                 <div class="why-pain-item">
                   <div class="why-pain-icon">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M16 3l4 4-4 4" />
                       <path d="M20 7H4" />
                       <path d="M8 21l-4-4 4-4" />
@@ -3982,66 +4477,57 @@
                   </div>
                   <div class="why-pain-content">
                     <span class="why-pain-heading">Constantly switching between 8 open tabs</span>
-                    <span class="why-pain-detail">Juggling separate subscriptions, logins, and disconnected
-                      workflows.</span>
+                    <span class="why-pain-detail">Juggling separate subscriptions, logins, and disconnected workflows.</span>
                   </div>
                 </div>
 
                 <div class="why-pain-item">
                   <div class="why-pain-icon">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
                       <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
                       <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
                       <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-                      <path
-                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
                     </svg>
                   </div>
                   <div class="why-pain-content">
                     <span class="why-pain-heading">Inconsistent brand colors &amp; tone</span>
-                    <span class="why-pain-detail">Mismatched hex codes, fonts, and editing style when different team
-                      members post.</span>
+                    <span class="why-pain-detail">Mismatched hex codes, fonts, and editing style when different team members post.</span>
                   </div>
                 </div>
 
                 <div class="why-pain-item">
                   <div class="why-pain-icon">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="12" cy="12" r="9" />
                       <polyline points="12 7 12 12 15 15" />
                     </svg>
                   </div>
                   <div class="why-pain-content">
                     <span class="why-pain-heading">Hours wasted manually resizing assets</span>
-                    <span class="why-pain-detail">Re-exporting and cropping square posts, vertical reels, and banners by
-                      hand.</span>
+                    <span class="why-pain-detail">Re-exporting and cropping square posts, vertical reels, and banners by hand.</span>
                   </div>
                 </div>
 
                 <div class="why-pain-item">
                   <div class="why-pain-icon">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="12" y1="1" x2="12" y2="23" />
                       <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
                     </svg>
                   </div>
                   <div class="why-pain-content">
                     <span class="why-pain-heading">Paying multiple expensive software bills</span>
-                    <span class="why-pain-detail">Separate fees for copywriters, design tools, schedulers, and analytics
-                      add up fast.</span>
+                    <span class="why-pain-detail">Separate fees for copywriters, design tools, schedulers, and analytics add up fast.</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- CENTER FLOATING CONNECTOR ARROW -->
-            <div class="why-center-connector" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
+            <!-- CENTER FLOATING CONNECTOR -->
+            <div class="why-center-connector" aria-hidden="true" title="Autonomous AI Shift">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line x1="5" y1="12" x2="19" y2="12" />
                 <polyline points="12 5 19 12 12 19" />
               </svg>
@@ -4049,45 +4535,58 @@
 
             <!-- RIGHT CARD: With Vibodh Signal -->
             <div class="why-card why-card-signal">
-              <!-- Decorative Dot Matrix in top right -->
-              <div class="why-signal-dot-matrix" aria-hidden="true">
-                <svg width="84" height="60" viewBox="0 0 84 60" fill="none">
-                  <circle cx="6" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="24" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="42" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="60" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="78" cy="6" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="6" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="24" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="42" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="60" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="78" cy="22" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="6" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="24" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="42" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="60" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="78" cy="38" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="6" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="24" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="42" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="60" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                  <circle cx="78" cy="54" r="2.5" fill="#6366F1" fill-opacity="0.35" />
-                </svg>
+              <!-- Top Row: Badge + Engine Status -->
+              <div class="why-signal-top-row">
+                <div class="why-signal-left-meta">
+                  <div class="why-signal-badge-icon">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                      <path d="M2 17l10 5 10-5" />
+                      <path d="M2 12l10 5 10-5" />
+                    </svg>
+                  </div>
+                  <div class="why-signal-badge-labels">
+                    <span class="why-signal-tag">UNIFIED AI MARKETING ENGINE</span>
+                    <span class="why-signal-context">Zero Context Switching &bull; 100% Brand Lock</span>
+                  </div>
+                </div>
+
+                <div class="why-signal-telemetry-pill">
+                  <span class="why-pulse-dot"></span>
+                  <span>Gemini 2.5 Active</span>
+                </div>
               </div>
 
-              <!-- Top Row: Badge Icon + Labels -->
-              <div class="why-signal-top-row">
-                <div class="why-signal-badge-icon">
-                  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 3v18h18" />
-                    <path d="M18 9l-5 5-4-4-3 3" />
-                    <polyline points="14 9 18 9 18 13" />
-                  </svg>
+              <!-- Live Mini AI Preview Showcase with Real AI Creatives -->
+              <div class="why-signal-ai-preview">
+                <div class="why-ai-topbar">
+                  <div class="why-ai-brand-lock">
+                    <span class="why-ai-dna-icon">🧬</span>
+                    <span>Brand DNA: Aurelia Paris</span>
+                    <span class="why-ai-match-score">98.4% precision</span>
+                  </div>
+                  <span class="why-ai-channel-badge">Multi-Channel Synced</span>
                 </div>
-                <div class="why-signal-badge-labels">
-                  <span class="why-signal-tag">UNIFIED APP FOR EVERYTHING</span>
-                  <span class="why-signal-context">Zero Context Switching</span>
+                <div class="why-ai-creatives-row">
+                  <div class="why-ai-thumb-card">
+                    <div class="why-ai-thumb-wrap">
+                      <img src="assets/hero-perfume.png" alt="1:1 AI Feed Ad" class="why-ai-thumb-img" />
+                      <span class="why-ai-thumb-tag">1:1 Feed &bull; 4.8x ROAS</span>
+                    </div>
+                  </div>
+                  <div class="why-ai-thumb-card">
+                    <div class="why-ai-thumb-wrap">
+                      <img src="assets/hero-matcha.png" alt="9:16 AI Video Reel" class="why-ai-thumb-img" />
+                      <span class="why-ai-thumb-tag why-tag-purple">9:16 Reel &bull; 84% Ret.</span>
+                    </div>
+                  </div>
+                  <div class="why-ai-thumb-card why-ai-queue-card">
+                    <div class="why-queue-content">
+                      <span class="why-queue-status">● Auto-Queue</span>
+                      <div class="why-queue-time">Mon 10:00 AM</div>
+                      <div class="why-queue-channels">IG &bull; LinkedIn &bull; X</div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -4102,64 +4601,48 @@
                 <!-- Sol 1 -->
                 <div class="why-sol-card">
                   <div class="why-sol-icon-wrap why-icon-user">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                       <circle cx="12" cy="7" r="4" />
                     </svg>
                   </div>
                   <h4 class="why-sol-title">One easy login</h4>
-                  <p class="why-sol-desc">Create posts, plan your calendar, and manage ads together in one unified hub.
-                  </p>
+                  <p class="why-sol-desc">Create posts, plan your calendar, and manage ads together in one unified hub.</p>
                 </div>
 
                 <!-- Sol 2 -->
                 <div class="why-sol-card">
                   <div class="why-sol-icon-wrap why-icon-palette">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
                       <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
                       <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
                       <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
-                      <path
-                        d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
+                      <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z" />
                     </svg>
                   </div>
                   <h4 class="why-sol-title">Brand colors locked in</h4>
-                  <p class="why-sol-desc">Every post automatically uses your exact brand logo, colors, and tone
-                    guidelines.</p>
+                  <p class="why-sol-desc">Every post automatically uses your exact brand logo, colors, and tone guidelines.</p>
                 </div>
 
                 <!-- Sol 3 -->
                 <div class="why-sol-card">
                   <div class="why-sol-icon-wrap why-icon-screen">
-                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
-                      stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
                       <line x1="8" y1="21" x2="16" y2="21" />
                       <line x1="12" y1="17" x2="12" y2="21" />
                     </svg>
                   </div>
                   <h4 class="why-sol-title">1 click, all formats</h4>
-                  <p class="why-sol-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.
-                  </p>
+                  <p class="why-sol-desc">Instantly get 1:1 square feeds, 9:16 vertical reels, and social story formats.</p>
                 </div>
 
                 <!-- Sol 4: HIGHLIGHTED HERO CARD -->
                 <div class="why-sol-card is-highlighted">
-                  <!-- Cute Doodle Arrow Pointing Down -->
-                  <div class="why-doodle-arrow" aria-hidden="true">
-                    <svg width="46" height="46" viewBox="0 0 46 46" fill="none">
-                      <path d="M40 4C34 12 26 24 12 36M12 36L14 26M12 36L22 38" stroke="#10B981" stroke-width="2.6"
-                        stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                  </div>
-
                   <div class="why-sol-hero-header">
                     <div class="why-hero-clock">
-                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
-                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="9" />
                         <polyline points="12 7 12 12 15 15" />
                       </svg>
@@ -4169,7 +4652,6 @@
                   <h4 class="why-sol-title">Save 15+ hours weekly</h4>
                   <p class="why-sol-desc">Plan, create, and schedule an entire month of marketing in one afternoon.</p>
                 </div>
-
               </div>
             </div>
 
@@ -4177,7 +4659,7 @@
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════════
          STEP 6: 🛠️ HOW IT WORKS (#how-it-works)
     ═══════════════════════════════════════════════════════════ -->
       <section class="section-steps" id="how-it-works">
@@ -4301,8 +4783,8 @@
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
-         STEP 5: SIMPLE, FLEXIBLE PRICING BANNER
+                  <!-- ═══════════════════════════════════════════════════════════
+         STEP 5: SIMPLE, FLEXIBLE PRICING BANNER - VIBODH SIGNAL AI THEME
       ═══════════════════════════════════════════════════════════ -->
       <section class="section-pricing-teaser" id="pricing-teaser">
         <div class="container">
@@ -4313,24 +4795,124 @@
                title="View Simple, Flexible Pricing Plans"
                onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault(); switchLandingTab('plans-pricing', true, true);}">
             
-            <!-- Authentic 3D Pricing Banner Image matching exact design -->
-            <img src="pricing-flexible-banner.jpg" 
-                 alt="Simple, Flexible Pricing - Choose the plan that fits your marketing needs. Click to view pricing." 
-                 class="pricing-banner-img" />
-            
-            <!-- Interactive Clickable Button Hotspot with hover effects -->
-            <a href="#plans-pricing" 
-               class="pricing-banner-btn-overlay" 
-               aria-label="View Pricing - Choose the plan that fits your marketing needs" 
-               title="View Pricing"
-               onclick="event.stopPropagation(); switchLandingTab('plans-pricing', true, true); return false;">
-              <span class="pricing-btn-shimmer" aria-hidden="true"></span>
-            </a>
+            <!-- Ambient Glowing Orbs -->
+            <div class="pt-glow-orb pt-glow-teal" aria-hidden="true"></div>
+            <div class="pt-glow-orb pt-glow-purple" aria-hidden="true"></div>
+            <div class="pt-glow-orb pt-glow-orange" aria-hidden="true"></div>
+
+            <!-- Left Column: Content & Pitch -->
+            <div class="pt-content-left">
+              <div class="pt-badge">
+                <span class="pt-badge-sparkle">✦</span>
+                <span>FLEXIBLE PLANS &bull; POWERED BY AI CREDITS</span>
+              </div>
+
+              <h2 class="pt-title">
+                Simple, Flexible<br>
+                <span class="pt-title-gradient">Pricing</span>
+              </h2>
+
+              <p class="pt-desc">
+                Choose the plan that fits your marketing needs. Start your 14-day free trial with full AI capabilities &mdash; upgrade, downgrade, or cancel anytime.
+              </p>
+
+              <div class="pt-checklist">
+                <div class="pt-check-item">
+                  <span class="pt-check-icon">✓</span>
+                  <span>14-Day Free Trial</span>
+                </div>
+                <div class="pt-check-item">
+                  <span class="pt-check-icon">✓</span>
+                  <span>No Setup Fees</span>
+                </div>
+                <div class="pt-check-item">
+                  <span class="pt-check-icon">✓</span>
+                  <span>Cancel Anytime</span>
+                </div>
+              </div>
+
+              <div class="pt-action-row">
+                <button type="button" class="pt-cta-btn" onclick="event.stopPropagation(); switchLandingTab('plans-pricing', true, true);">
+                  <span>View Pricing</span>
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                  <span class="pt-btn-shimmer" aria-hidden="true"></span>
+                </button>
+                <span class="pt-sub-note">Instant activation &bull; 500 free credits included</span>
+              </div>
+            </div>
+
+            <!-- Right Column: 3D AI Plan Pillars & Trajectory -->
+            <div class="pt-visual-right">
+              <!-- Trajectory curve with peak ROAS coin -->
+              <div class="pt-trajectory-wrap" aria-hidden="true">
+                <svg class="pt-trajectory-svg" viewBox="0 0 340 120" fill="none">
+                  <path d="M 20 95 Q 160 80, 240 38 T 315 15" stroke="url(#ptLineGrad)" stroke-width="3" stroke-linecap="round" stroke-dasharray="4 4"/>
+                  <defs>
+                    <linearGradient id="ptLineGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#0F9D8A" stop-opacity="0.2"/>
+                      <stop offset="60%" stop-color="#2DD4BF" stop-opacity="0.85"/>
+                      <stop offset="100%" stop-color="#34D399" stop-opacity="1"/>
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="pt-peak-badge">
+                  <span class="pt-peak-coin">$</span>
+                  <span class="pt-peak-text">+340% ROAS</span>
+                </div>
+              </div>
+
+              <!-- 3 3D Plan Tier Pillars -->
+              <div class="pt-tiers-deck">
+                <!-- Tier 1: Starter -->
+                <div class="pt-tier-col pt-tier-starter">
+                  <div class="pt-tier-pill-badge">Starter</div>
+                  <div class="pt-tier-pillar-body">
+                    <div class="pt-tier-icon-circle">🌱</div>
+                    <div class="pt-tier-credits">500 Credits</div>
+                    <div class="pt-tier-price">₹1,499<span class="pt-tier-freq">/mo</span></div>
+                    <div class="pt-tier-spec">1 Brand DNA</div>
+                  </div>
+                </div>
+
+                <!-- Tier 2: Growth (Center, Elevated, Most Popular) -->
+                <div class="pt-tier-col pt-tier-growth is-popular">
+                  <div class="pt-popular-tag">🔥 MOST POPULAR</div>
+                  <div class="pt-tier-pill-badge">Growth</div>
+                  <div class="pt-tier-pillar-body">
+                    <div class="pt-tier-icon-circle">🚀</div>
+                    <div class="pt-tier-credits">3,000 Credits</div>
+                    <div class="pt-tier-price">₹3,999<span class="pt-tier-freq">/mo</span></div>
+                    <div class="pt-tier-spec">3 Brand DNAs &bull; Multi-Channel</div>
+                  </div>
+                </div>
+
+                <!-- Tier 3: Enterprise -->
+                <div class="pt-tier-col pt-tier-enterprise">
+                  <div class="pt-tier-pill-badge">Enterprise</div>
+                  <div class="pt-tier-pillar-body">
+                    <div class="pt-tier-icon-circle">👑</div>
+                    <div class="pt-tier-credits">10,000 Credits</div>
+                    <div class="pt-tier-price">₹8,999<span class="pt-tier-freq">/mo</span></div>
+                    <div class="pt-tier-spec">Unlimited Brands</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Live Telemetry Pill -->
+              <div class="pt-telemetry-chip">
+                <span class="pt-telemetry-pulse"></span>
+                <span>⚡ 8,450 / 10,000 Credits Active &bull; 98.4% Brand Precision</span>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
 
-      <!-- ═══════════════════════════════════════════════════════════
+<!-- ═══════════════════════════════════════════════════════════
          STEP 6: TRUSTED INTEGRATIONS BAR
     ═══════════════════════════════════════════════════════════ -->
       <section class="section-trusted-integrations">
