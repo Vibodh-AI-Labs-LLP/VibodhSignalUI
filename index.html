@@ -62,7 +62,7 @@
       --shadow-glow: 0 0 30px rgba(15, 157, 138, 0.2);
 
       /* Sticky Nav Height */
-      --header-height: 72px;
+      --header-height: 80px;
     }
 
     html {
@@ -269,7 +269,7 @@
     }
 
     .site-header.is-scrolled .navbar {
-      height: 64px;
+      height: 66px;
     }
 
     /* Logo */
@@ -284,11 +284,16 @@
     }
 
     .brand-logo-img {
-      height: 48px;
+      height: 58px;
       width: auto;
-      max-width: 95px;
+      max-width: 250px;
       display: block;
       object-fit: contain;
+      transition: height 0.2s ease;
+    }
+
+    .site-header.is-scrolled .brand-logo-img {
+      height: 48px;
     }
 
     .brand-by-vibodhai {
@@ -299,10 +304,10 @@
     .nav-section-links {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
       background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      padding: 4px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 6px 8px;
       border-radius: var(--radius-full);
       list-style: none;
     }
@@ -311,14 +316,15 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 7px 16px;
+      padding: 10px 24px;
       border-radius: var(--radius-full);
-      font-size: 0.8125rem;
+      font-size: 1.025rem;
       font-weight: 600;
-      color: #CBD5E1;
+      color: #E2E8F0;
       transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
       white-space: nowrap;
       text-decoration: none;
+      letter-spacing: -0.01em;
     }
 
     .nav-anchor-link:hover {
@@ -2229,9 +2235,9 @@
     }
 
     .footer-brand-logo-img {
-      height: 48px;
+      height: 52px;
       width: auto;
-      max-width: 95px;
+      max-width: 220px;
       display: block;
       object-fit: contain;
     }
@@ -2350,8 +2356,8 @@
       }
 
       .brand-logo-img {
-        height: 32px;
-        max-width: 145px;
+        height: 44px;
+        max-width: 190px;
       }
 
       .navbar {
@@ -2406,8 +2412,8 @@
       }
 
       .brand-logo-img {
-        height: 28px;
-        max-width: 120px;
+        height: 38px;
+        max-width: 160px;
       }
 
       .nav-cta-btn {
