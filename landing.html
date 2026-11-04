@@ -3897,6 +3897,296 @@
         height: calc(100vh - 80px) !important;
       }
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       FAQS TAB STYLING (Categorized & Interactive Accordions)
+    ═══════════════════════════════════════════════════════════ */
+    .section-faqs {
+      width: 100%;
+      min-height: 80vh;
+      padding-top: 110px;
+      padding-bottom: 96px;
+      background: #FFFFFF;
+    }
+
+    .faq-category-filter-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 40px;
+    }
+
+    .faq-cat-filter-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 9999px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+    }
+
+    .faq-cat-filter-btn:hover {
+      border-color: #CBD5E1;
+      background: #F8FAFC;
+      color: #0F172A;
+      transform: translateY(-1px);
+    }
+
+    .faq-cat-filter-btn.is-active {
+      background: #243B6B;
+      border-color: #243B6B;
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px rgba(36, 59, 107, 0.2);
+    }
+
+    .faq-cat-count {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 20px;
+      height: 20px;
+      padding: 0 6px;
+      border-radius: 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      background: #F1F5F9;
+      color: #475569;
+      transition: all 0.2s ease;
+    }
+
+    .faq-cat-filter-btn.is-active .faq-cat-count {
+      background: rgba(255, 255, 255, 0.22);
+      color: #FFFFFF;
+    }
+
+    .faq-categories-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .faq-category-block {
+      transition: all 0.25s ease;
+    }
+
+    .faq-category-block.is-hidden {
+      display: none !important;
+    }
+
+    .faq-category-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1.5px solid #E2E8F0;
+      margin-bottom: 16px;
+    }
+
+    .faq-category-icon-wrap {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .faq-category-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0 0 2px 0;
+      letter-spacing: -0.015em;
+    }
+
+    .faq-category-sub {
+      font-size: 0.85rem;
+      color: #64748B;
+      margin: 0;
+      font-weight: 500;
+    }
+
+    .faq-accordion-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-accordion-item {
+      background: #FFFFFF;
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+    }
+
+    .faq-accordion-item:hover {
+      border-color: #CBD5E1;
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+    }
+
+    .faq-accordion-item.is-open {
+      border-color: #243B6B;
+      box-shadow: 0 8px 24px -4px rgba(36, 59, 107, 0.12);
+    }
+
+    .faq-accordion-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+    }
+
+    .faq-question-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.45;
+      flex: 1;
+    }
+
+    .faq-accordion-item.is-open .faq-question-text {
+      color: #243B6B;
+    }
+
+    .faq-q-num {
+      color: #0F9D8A;
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    .faq-chevron-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-accordion-item.is-open .faq-chevron-icon {
+      transform: rotate(180deg);
+      background: #EFF6FF;
+      border-color: #BFDBFE;
+      color: #243B6B;
+    }
+
+    .faq-accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .faq-accordion-item.is-open .faq-accordion-body {
+      max-height: 400px;
+    }
+
+    .faq-answer-content {
+      padding: 12px 20px 18px 20px;
+      font-size: 0.925rem;
+      line-height: 1.7;
+      color: #475569;
+      border-top: 1px solid #F1F5F9;
+    }
+
+    .faq-footer-help-card {
+      margin-top: 50px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%);
+      border: 1.5px solid #BFDBFE;
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 12px 30px -6px rgba(37, 99, 235, 0.08);
+    }
+
+    .faq-help-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #DBEAFE;
+      color: #1E40AF;
+      border-radius: 9999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+    }
+
+    .faq-help-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0 0 8px 0;
+    }
+
+    .faq-help-desc {
+      font-size: 0.92rem;
+      color: #64748B;
+      max-width: 540px;
+      margin: 0 auto 20px auto;
+      line-height: 1.6;
+    }
+
+    .faq-help-btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 768px) {
+      .section-faqs {
+        padding-top: 88px;
+        padding-bottom: 60px;
+      }
+      .faq-category-filter-row {
+        gap: 6px;
+      }
+      .faq-cat-filter-btn {
+        padding: 6px 12px;
+        font-size: 0.78rem;
+      }
+      .faq-category-title {
+        font-size: 1.1rem;
+      }
+      .faq-question-text {
+        font-size: 0.9rem;
+      }
+      .faq-answer-content {
+        font-size: 0.86rem;
+      }
+    }
   </style>
 </head>
 
@@ -5412,10 +5702,336 @@
          TAB VIEW 5: FAQS TAB (Blank as requested)
     ═══════════════════════════════════════════════════════════ -->
     <div id="tab-faqs" class="landing-tab-view" style="display: none;">
-      <section class="section-faqs"
-        style="min-height: 70vh; padding-top: 120px; padding-bottom: 80px; background: #FFFFFF;">
+      <section class="section-faqs">
         <div class="container">
-          <!-- FAQs content intentionally blank as requested -->
+          <!-- Section Header -->
+          <div class="section-header" style="text-align: center; max-width: 760px; margin: 0 auto 40px auto;">
+            <span class="section-pill-badge">💬 Frequently Asked Questions</span>
+            <h2 class="section-title">Everything You Need to Know About <span class="theme-gradient-text">Vibodh Signal</span></h2>
+            <p class="section-desc">Find quick, clear answers to common questions about our all-in-one AI marketing workspace, content creation, social media management, advertising, and subscription plans.</p>
+          </div>
+
+          <!-- Category Filter Quick-Pill Bar -->
+          <div class="faq-category-filter-row">
+            <button type="button" class="faq-cat-filter-btn is-active" data-cat="all" onclick="filterFaqCategory('all')">
+              <span>All Questions</span>
+              <span class="faq-cat-count">12</span>
+            </button>
+            <button type="button" class="faq-cat-filter-btn" data-cat="about" onclick="filterFaqCategory('about')">
+              <span>🏢 About Vibodh Signal</span>
+              <span class="faq-cat-count">3</span>
+            </button>
+            <button type="button" class="faq-cat-filter-btn" data-cat="ai-content" onclick="filterFaqCategory('ai-content')">
+              <span>✨ AI Content Creation</span>
+              <span class="faq-cat-count">2</span>
+            </button>
+            <button type="button" class="faq-cat-filter-btn" data-cat="social-media" onclick="filterFaqCategory('social-media')">
+              <span>📱 Social Media Management</span>
+              <span class="faq-cat-count">2</span>
+            </button>
+            <button type="button" class="faq-cat-filter-btn" data-cat="advertising" onclick="filterFaqCategory('advertising')">
+              <span>📊 Advertising &amp; Analytics</span>
+              <span class="faq-cat-count">2</span>
+            </button>
+            <button type="button" class="faq-cat-filter-btn" data-cat="plans" onclick="filterFaqCategory('plans')">
+              <span>💳 Plans &amp; Subscription</span>
+              <span class="faq-cat-count">3</span>
+            </button>
+          </div>
+
+          <!-- FAQ Accordion Container -->
+          <div class="faq-categories-wrapper">
+
+            <!-- Category 1: About Vibodh Signal -->
+            <div class="faq-category-block" data-category="about">
+              <div class="faq-category-header">
+                <div class="faq-category-icon-wrap" style="background: rgba(36, 59, 107, 0.08); color: #243B6B;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="faq-category-title">Category 1: About Vibodh Signal</h3>
+                  <p class="faq-category-sub">Understanding the platform, audience, and core differences</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-group">
+                <!-- FAQ 1 -->
+                <div class="faq-accordion-item is-open">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="true" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">1.</span> What is Vibodh Signal?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Vibodh Signal is an AI-powered digital marketing platform that brings content creation, social media management, advertising, and marketing insights together in one centralized workspace. It helps businesses simplify their marketing activities, save time, and grow their digital presence without having to switch between multiple tools.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">2.</span> Who can use Vibodh Signal?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Vibodh Signal is designed for startups, small businesses, growing brands, marketing agencies, and enterprises. Whether you're managing your own business marketing or handling multiple clients, Vibodh Signal helps streamline your marketing workflow and make digital marketing easier to manage.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">3.</span> How is Vibodh Signal different from other marketing tools?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Vibodh Signal brings multiple digital marketing activities together in one platform. Instead of switching between separate tools for content creation, image and video generation, social media publishing, advertising, and performance tracking, you can manage your marketing workflow from a single workspace.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 2: AI Content Creation -->
+            <div class="faq-category-block" data-category="ai-content">
+              <div class="faq-category-header">
+                <div class="faq-category-icon-wrap" style="background: rgba(15, 157, 138, 0.1); color: #0F9D8A;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="faq-category-title">Category 2: AI Content Creation</h3>
+                  <p class="faq-category-sub">AI copywriting, captions, images, and video creation</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-group">
+                <!-- FAQ 4 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">4.</span> Can I generate social media content using AI?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal uses AI-powered content generation to help you create engaging captions, marketing copy, and social media posts tailored to your business, target audience, and brand voice. This makes it easier to create relevant content while saving time and effort.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">5.</span> Can I create images and videos using Vibodh Signal?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal helps you create marketing visuals using AI-powered image and video generation capabilities. You can develop creative and engaging visual content for your social media campaigns, helping your business maintain a consistent and attractive online presence.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 3: Social Media Management -->
+            <div class="faq-category-block" data-category="social-media">
+              <div class="faq-category-header">
+                <div class="faq-category-icon-wrap" style="background: rgba(124, 58, 237, 0.1); color: #7C3AED;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="faq-category-title">Category 3: Social Media Management</h3>
+                  <p class="faq-category-sub">Multi-account management, calendars, and scheduled publishing</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-group">
+                <!-- FAQ 6 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">6.</span> Can I manage multiple social media accounts from one place?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal allows you to connect and manage multiple supported social media accounts through one centralized dashboard. This makes it easier to organize your business or client accounts, manage content, and streamline your social media activities without switching between different platforms.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">7.</span> Can I schedule social media posts in advance?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal helps you plan and schedule social media content in advance. You can organize your publishing calendar, prepare posts ahead of time, and maintain a consistent posting schedule without manually publishing every post.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 4: Advertising & Analytics -->
+            <div class="faq-category-block" data-category="advertising">
+              <div class="faq-category-header">
+                <div class="faq-category-icon-wrap" style="background: rgba(37, 99, 235, 0.1); color: #2563EB;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="faq-category-title">Category 4: Advertising &amp; Analytics</h3>
+                  <p class="faq-category-sub">Digital ad campaigns, cross-network coordination, and performance tracking</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-group">
+                <!-- FAQ 8 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">8.</span> Can I run advertising campaigns through Vibodh Signal?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal helps you manage your digital advertising activities and streamline campaign workflows through a centralized workspace. You can plan and manage campaigns across supported advertising platforms, making it easier to coordinate your marketing and advertising efforts.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 9 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">9.</span> Can I track the performance of my marketing campaigns?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal provides marketing insights and performance tracking to help you understand how your content and campaigns are performing. You can monitor relevant metrics, evaluate engagement, identify opportunities, and make informed decisions to improve your marketing strategy.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Category 5: Plans & Subscription -->
+            <div class="faq-category-block" data-category="plans">
+              <div class="faq-category-header">
+                <div class="faq-category-icon-wrap" style="background: rgba(234, 88, 12, 0.1); color: #EA580C;">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="faq-category-title">Category 5: Plans &amp; Subscription</h3>
+                  <p class="faq-category-sub">Subscription tiers, advertising budgets, and plan upgrades</p>
+                </div>
+              </div>
+
+              <div class="faq-accordion-group">
+                <!-- FAQ 10 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">10.</span> Does Vibodh Signal offer different subscription plans?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Yes! Vibodh Signal offers flexible subscription plans designed for businesses with different sizes, goals, and marketing requirements. Each plan comes with its own features and usage limits, allowing you to choose the option that best suits your business needs and scale as your business grows.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 11 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">11.</span> Are advertising costs included in my Vibodh Signal subscription?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Advertising costs are generally separate from your Vibodh Signal subscription. Your subscription covers the applicable platform features and services, while advertising budgets are paid separately to the respective advertising platforms unless explicitly included in your selected offering.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- FAQ 12 -->
+                <div class="faq-accordion-item">
+                  <button type="button" class="faq-accordion-btn" aria-expanded="false" onclick="toggleFaqAccordion(this)">
+                    <span class="faq-question-text"><span class="faq-q-num">12.</span> Can I upgrade or downgrade my subscription?</span>
+                    <span class="faq-chevron-icon">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </span>
+                  </button>
+                  <div class="faq-accordion-body">
+                    <div class="faq-answer-content">
+                      Absolutely! Vibodh Signal offers flexibility to change your subscription as your business and marketing requirements evolve, subject to the applicable plan conditions. You can choose a plan that better matches your needs as your business grows or your marketing activities change.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Help Card -->
+          <div class="faq-footer-help-card">
+            <span class="faq-help-badge">Still Have Questions?</span>
+            <h3 class="faq-help-title">We’re Here to Help Your Marketing Move Forward</h3>
+            <p class="faq-help-desc">Can’t find the answer you’re looking for? Reach out to our marketing operations team or chat live with SignalMate.</p>
+            <div class="faq-help-btn-row">
+              <button type="button" class="btn btn-teal" onclick="toggleSignalMateChat(true)">
+                <span>Chat with SignalMate</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+              </button>
+              <a href="#plans-pricing" class="btn btn-outline" onclick="switchLandingTab('home'); setTimeout(() => { const el = document.getElementById('pricing-teaser'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 100);">
+                <span>Explore Pricing Plans</span>
+              </a>
+            </div>
+          </div>
+
         </div>
       </section>
     </div>
@@ -6160,6 +6776,32 @@
       // Gentle subtle pulse
     }
 
+
+    // ═══════════════════════════════════════════════════════════
+    // FAQ INTERACTIVE ACCORDION & CATEGORY FILTER
+    // ═══════════════════════════════════════════════════════════
+    function toggleFaqAccordion(btn) {
+      const item = btn.closest('.faq-accordion-item');
+      if (!item) return;
+      const isOpen = item.classList.contains('is-open');
+      item.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', !isOpen);
+    }
+
+    function filterFaqCategory(catKey) {
+      document.querySelectorAll('.faq-cat-filter-btn').forEach(btn => {
+        btn.classList.toggle('is-active', btn.getAttribute('data-cat') === catKey);
+      });
+
+      document.querySelectorAll('.faq-category-block').forEach(block => {
+        if (catKey === 'all') {
+          block.classList.remove('is-hidden');
+        } else {
+          const blockCat = block.getAttribute('data-category');
+          block.classList.toggle('is-hidden', blockCat !== catKey);
+        }
+      });
+    }
   </script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
