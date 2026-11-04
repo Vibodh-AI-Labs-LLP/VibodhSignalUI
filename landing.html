@@ -284,9 +284,9 @@
     }
 
     .brand-logo-img {
-      height: 40px;
+      height: 48px;
       width: auto;
-      max-width: 210px;
+      max-width: 95px;
       display: block;
       object-fit: contain;
     }
@@ -853,15 +853,7 @@
     }
 
     .section-why-ambient {
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at 5% 10%, rgba(204, 251, 241, 0.6) 0%, transparent 45%),
-        radial-gradient(circle at 95% 15%, rgba(237, 233, 254, 0.7) 0%, transparent 45%),
-        radial-gradient(circle at 90% 90%, rgba(207, 250, 254, 0.5) 0%, transparent 45%),
-        radial-gradient(circle at 10% 95%, rgba(238, 242, 255, 0.8) 0%, transparent 45%);
-      pointer-events: none;
-      z-index: 0;
+      display: none;
     }
 
     .section-why-inner {
@@ -2237,10 +2229,11 @@
     }
 
     .footer-brand-logo-img {
-      height: 38px;
+      height: 48px;
       width: auto;
-      max-width: 200px;
+      max-width: 95px;
       display: block;
+      object-fit: contain;
     }
 
     .footer-col-title {
@@ -2832,7 +2825,7 @@
        FLEXIBLE PRICING SECTION - 3D CLAYMORPHIC & INTERACTIVE DECK
     ═══════════════════════════════════════════════════════════════ */
     .section-flexible-pricing {
-      padding: 90px 0 100px;
+      padding: 80px 0 70px;
       background: #FFFFFF;
       position: relative;
       overflow: hidden;
@@ -4024,7 +4017,7 @@
         <!-- Logo -->
         <a href="landing.html#home" class="brand-logo" aria-label="Vibodh Signal Home"
           onclick="switchLandingTab('home'); return false;">
-          <img src="assets/vibodh-signal-logo-header.png" alt="Vibodh Signal" class="brand-logo-img">
+          <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" class="brand-logo-img">
           <div class="brand-by-vibodhai">By <span>VibodhAI</span></div>
         </a>
 
@@ -4628,125 +4621,6 @@
                 </div>
                 <div class="pricing-hotspot hotspot-pill-3" onclick="highlightBenefit(3)" title="Upgrade or downgrade anytime">
                   <span class="hotspot-tooltip">Zero contracts, adjust anytime with 1 click</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Supplementary Interactive Volume Slider & Plan Scope Deck -->
-            <div class="pricing-interactive-deck">
-              <!-- Volume Slider -->
-              <div class="deck-slider-row">
-                <div class="deck-slider-header">
-                  <div class="deck-slider-title">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FF5722" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
-                    <span>Adjust Your Plan &amp; Volume</span>
-                  </div>
-                  <div class="deck-slider-val" id="slider-vol-label">50 Posts &bull; 300 AI Credits</div>
-                </div>
-
-                <div class="deck-slider-wrap">
-                  <input type="range" min="1" max="3" step="1" value="2" class="deck-range-input" id="planRangeSlider" oninput="onSliderMove(this.value)" aria-label="Adjust your marketing plan volume">
-                </div>
-
-                <div class="deck-slider-ticks">
-                  <span onclick="selectPlan(1)">🌱 Starter (20 posts)</span>
-                  <span onclick="selectPlan(2)" style="color: #FF5722;">⭐ Growth (50 posts &bull; Most Popular)</span>
-                  <span onclick="selectPlan(3)">👑 Enterprise (Custom Queue)</span>
-                </div>
-              </div>
-
-              <!-- 3 Synchronized Plan Cards -->
-              <div class="pricing-summary-grid">
-                <!-- 1. Starter -->
-                <div class="summary-col" id="col-starter" onclick="selectPlan(1)">
-                  <div class="summary-badge badge-starter">🌱 Starter Scope</div>
-                  <div class="summary-title">Starter</div>
-                  <div class="summary-desc">Perfect for small businesses and creators launching digital marketing.</div>
-                  <ul class="summary-list">
-                    <li><strong>1</strong> Brand &amp; <strong>5</strong> Social Profiles</li>
-                    <li><strong>20</strong> AI Posts / Month</li>
-                    <li><strong>100</strong> AI Generation Credits</li>
-                    <li>Multi-format auto-resizing (Square &amp; Story)</li>
-                    <li>Basic Brand Kit &amp; Voice Lock</li>
-                  </ul>
-                  <a href="dashboard.html?plan=starter" class="summary-btn btn-style-starter">Get Started &rarr;</a>
-                </div>
-
-                <!-- 2. Growth (Featured) -->
-                <div class="summary-col is-active-growth" id="col-growth" onclick="selectPlan(2)">
-                  <div class="summary-badge badge-growth">⭐ Most Popular</div>
-                  <div class="summary-title">Growth</div>
-                  <div class="summary-desc">For growing brands scaling multi-channel advertising and organic reach.</div>
-                  <ul class="summary-list">
-                    <li><strong>2</strong> Brands &amp; <strong>10</strong> Social Profiles</li>
-                    <li><strong>50</strong> AI Posts / Month</li>
-                    <li><strong>300</strong> AI Generation Credits</li>
-                    <li>Multi-Channel Auto-Scheduler (IG, FB, LI, X)</li>
-                    <li>AI Ad Copy &amp; Multi-Variations Generator</li>
-                    <li>2 Team Workspace Seats</li>
-                  </ul>
-                  <a href="dashboard.html?plan=growth" class="summary-btn btn-style-growth">Choose Growth Plan &rarr;</a>
-                </div>
-
-                <!-- 3. Enterprise -->
-                <div class="summary-col" id="col-enterprise" onclick="selectPlan(3)">
-                  <div class="summary-badge badge-enterprise">👑 Enterprise Scope</div>
-                  <div class="summary-title">Enterprise</div>
-                  <div class="summary-desc">For large teams and marketing agencies managing multiple client brands.</div>
-                  <ul class="summary-list">
-                    <li><strong>Unlimited</strong> Brands &amp; Social Profiles</li>
-                    <li>Custom Monthly Post Queues &amp; Reels</li>
-                    <li>High-Capacity Dedicated Credits</li>
-                    <li>Custom Brand DNA &amp; Fine-Tuned Models</li>
-                    <li>Full Agency Workspace &amp; Client Access</li>
-                    <li>Dedicated Account Strategist &amp; SLA</li>
-                  </ul>
-                  <a href="javascript:void(0)" onclick="if(window.toggleSignalMateChat){toggleSignalMateChat(true); setTimeout(()=>{if(window.appendBotReply)window.appendBotReply('Hello! Our enterprise plan offers custom channel queues, dedicated AI credits, and bespoke SLA. How can we tailor Vibodh Signal for your team?');},300);}" class="summary-btn btn-style-enterprise">Contact Us &rarr;</a>
-                </div>
-              </div>
-
-              <!-- 3 Benefit Badges Banner at Bottom -->
-              <div class="deck-benefits-row">
-                <div class="benefit-item">
-                  <div class="benefit-icon-box icon-box-orange">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="18" y1="20" x2="18" y2="10"></line>
-                      <line x1="12" y1="20" x2="12" y2="4"></line>
-                      <line x1="6" y1="20" x2="6" y2="14"></line>
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="benefit-title">Scale as you grow</div>
-                    <div class="benefit-sub">Add channels, brands &amp; teammates anytime</div>
-                  </div>
-                </div>
-
-                <div class="benefit-item">
-                  <div class="benefit-icon-box icon-box-teal">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <rect x="2" y="4" width="20" height="16" rx="3"></rect>
-                      <circle cx="16" cy="12" r="2"></circle>
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="benefit-title">Stay within your budget</div>
-                    <div class="benefit-sub">Predictable monthly credits, zero hidden surprises</div>
-                  </div>
-                </div>
-
-                <div class="benefit-item">
-                  <div class="benefit-icon-box icon-box-purple">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <circle cx="12" cy="12" r="3"></circle>
-                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                    </svg>
-                  </div>
-                  <div>
-                    <div class="benefit-title">Upgrade or downgrade anytime</div>
-                    <div class="benefit-sub">Complete control with 1-click self-service switching</div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -5553,7 +5427,7 @@
         <!-- Brand Column -->
         <div class="footer-brand-col">
           <a href="landing.html" style="text-decoration:none; margin-bottom: 12px; display:inline-block;">
-            <img src="assets/vibodh-signal-logo-header.png" alt="Vibodh Signal" class="footer-brand-logo-img">
+            <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" class="footer-brand-logo-img">
           </a>
           <p style="font-size:0.8125rem; color:#94A3B8; line-height:1.55;">
             Smarter Marketing Starts Here.<br>
