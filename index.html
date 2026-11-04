@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus&rarr;Jakarta&rarr;Sans:wght@500;600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&display=swap"
     rel="stylesheet">
   <style>
     /* ═══════════════════════════════════════════════════════════
@@ -203,12 +203,33 @@
 
     .section-title {
       font-family: var(--font-display);
-      font-size: 2.375rem;
-      font-weight: 900;
+      font-size: clamp(2rem, 3.6vw, 2.75rem);
+      font-weight: 800;
       line-height: 1.22;
-      letter-spacing: -0.025em;
-      color: var(--dark-navy);
+      letter-spacing: -0.03em;
+      color: var(--dark-navy, #0F172A);
       margin-bottom: 14px;
+    }
+
+    .theme-gradient-text {
+      background: linear-gradient(135deg, #0284C7 0%, #0F9D8A 45%, #F95721 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .theme-gradient-teal-cyan {
+      background: linear-gradient(135deg, #00C4CC 0%, #0F9D8A 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+
+    .theme-gradient-orange {
+      background: linear-gradient(135deg, #F95721 0%, #FF7A00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
     }
 
     .section-desc {
@@ -2480,6 +2501,186 @@
     /* ═══════════════════════════════════════════════════════════
        PRODUCT TOUR / STUDIO SHOWCASE VIDEO
     ═══════════════════════════════════════════════════════════ */
+    .studio-video-container-wrap {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 0;
+    }
+
+    .studio-video-floating-group {
+      pointer-events: none;
+    }
+
+    .video-float-badge {
+      position: absolute;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 18px;
+      box-shadow: 0 16px 36px -6px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(255, 255, 255, 0.85);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      cursor: default;
+      user-select: none;
+      pointer-events: auto;
+    }
+
+    .video-float-badge:hover {
+      transform: translateY(-4px) scale(1.03) !important;
+      box-shadow: 0 22px 48px -8px rgba(15, 157, 138, 0.22), 0 0 0 1.5px rgba(15, 157, 138, 0.45);
+      border-color: #0F9D8A;
+    }
+
+    @keyframes floatY1 {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-10px); }
+    }
+    @keyframes floatY2 {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-12px); }
+    }
+    @keyframes floatY3 {
+      0% { transform: translateY(-8px); }
+      100% { transform: translateY(4px); }
+    }
+    @keyframes floatY4 {
+      0% { transform: translateY(-6px); }
+      100% { transform: translateY(6px); }
+    }
+
+    .float-top-left {
+      top: 10%;
+      left: -28px;
+      animation: floatY1 4.8s ease-in-out infinite alternate;
+    }
+
+    .float-top-right {
+      top: 18%;
+      right: -28px;
+      animation: floatY2 5.6s ease-in-out infinite alternate;
+    }
+
+    .float-bottom-left {
+      bottom: 12%;
+      left: -36px;
+      animation: floatY3 6.2s ease-in-out infinite alternate;
+    }
+
+    .float-bottom-right {
+      bottom: 8%;
+      right: -24px;
+      animation: floatY4 5.2s ease-in-out infinite alternate;
+    }
+
+    .badge-icon-box {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.15rem;
+    }
+
+    .icon-box-cyan {
+      background: linear-gradient(135deg, #EFF6FF 0%, #DBEAFE 100%);
+      border: 1px solid #BFDBFE;
+      color: #2563EB;
+    }
+    .icon-box-green {
+      background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+      border: 1px solid #A7F3D0;
+      color: #059669;
+    }
+    .icon-box-purple {
+      background: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+      border: 1px solid #DDD6FE;
+      color: #7C3AED;
+    }
+    .icon-box-orange {
+      background: linear-gradient(135deg, #FFF7ED 0%, #FFEDD5 100%);
+      border: 1px solid #FED7AA;
+      color: #EA580C;
+    }
+
+    .badge-text-col {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .badge-label {
+      font-family: var(--font-display);
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #0F172A;
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    .badge-subtext {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      color: #64748B;
+      white-space: nowrap;
+    }
+
+    .badge-pill-status {
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 6px;
+    }
+    .pill-green {
+      background: #DEF7EC;
+      color: #03543F;
+    }
+    .pill-orange {
+      background: #FEEBC8;
+      color: #C05621;
+    }
+
+    @media (max-width: 1040px) {
+      .float-top-left { left: -10px; }
+      .float-top-right { right: -10px; }
+      .float-bottom-left { left: -14px; }
+      .float-bottom-right { right: -10px; }
+    }
+
+    @media (max-width: 900px) {
+      .studio-video-container-wrap {
+        padding-bottom: 0;
+      }
+      .studio-video-floating-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 18px;
+        pointer-events: auto;
+      }
+      .video-float-badge {
+        position: static !important;
+        animation: none !important;
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .studio-video-floating-group {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .studio-video-frame {
       max-width: 860px;
       margin: 0 auto;
@@ -3939,40 +4140,96 @@
         <div class="container">
           <div class="section-header">
             <span class="section-pill-badge">🎬 Product Tour</span>
-            <h2 class="section-title">See Vibodh Signal in Action</h2>
+            <h2 class="section-title">See Vibodh Signal in <span class="theme-gradient-text">Action</span></h2>
             <p class="section-desc">Watch how Vibodh Signal unifies copywriting, automated asset resizing, multi-channel
               scheduling, and brand memory into one seamless workspace.</p>
           </div>
 
-          <!-- Video Player Showcase Frame -->
-          <div class="studio-video-frame">
-            <!-- Mac Window Chrome Topbar -->
-            <div class="studio-video-topbar">
-              <div class="studio-video-dots">
-                <span class="studio-video-dot dot-red"></span>
-                <span class="studio-video-dot dot-yellow"></span>
-                <span class="studio-video-dot dot-green"></span>
+          <!-- Video Player Showcase Frame with Floating Brand Badges -->
+          <div class="studio-video-container-wrap">
+            <!-- Video Frame -->
+            <div class="studio-video-frame">
+              <!-- Mac Window Chrome Topbar -->
+              <div class="studio-video-topbar">
+                <div class="studio-video-dots">
+                  <span class="studio-video-dot dot-red"></span>
+                  <span class="studio-video-dot dot-yellow"></span>
+                  <span class="studio-video-dot dot-green"></span>
+                </div>
+                <div class="studio-video-url-pill">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                  </svg>
+                  <span>vibodhsignal.com &bull; Marketing, Connected</span>
+                </div>
+                <div class="studio-video-badge">
+                  <span class="studio-video-pulse"></span>
+                  <span>Product Tour &bull; 2:15</span>
+                </div>
               </div>
-              <div class="studio-video-url-pill">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                </svg>
-                <span>vibodhsignal.com &bull; Marketing, Connected</span>
-              </div>
-              <div class="studio-video-badge">
-                <span class="studio-video-pulse"></span>
-                <span>Product Tour &bull; 2:15</span>
+
+              <!-- Video Player -->
+              <div class="studio-video-player-wrap">
+                <video id="vibodh-product-video" class="studio-video-element" controls playsinline preload="auto"
+                  poster="assets/video-frame-1m20s.jpg">
+                  <source src="assets/Vibodh_Signal__Marketing,_Connected.mp4" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
 
-            <!-- Video Player -->
-            <div class="studio-video-player-wrap">
-              <video id="vibodh-product-video" class="studio-video-element" controls playsinline preload="auto"
-                poster="assets/video-first-frame.png">
-                <source src="assets/Vibodh_Signal__Marketing,_Connected.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-              </video>
+            <!-- Floating Brand Badges Around Video Layout -->
+            <div class="studio-video-floating-group">
+              <!-- Floating Badge 1: Top Left -->
+              <div class="video-float-badge float-top-left">
+                <div class="badge-icon-box icon-box-cyan">✨</div>
+                <div class="badge-text-col">
+                  <div style="display:flex; align-items:center;">
+                    <span class="badge-label">AI Copy & Creatives</span>
+                    <span class="badge-pill-status pill-green">Ready</span>
+                  </div>
+                  <span class="badge-subtext">3 variations generated in 3.2s</span>
+                </div>
+              </div>
+
+              <!-- Floating Badge 2: Top Right -->
+              <div class="video-float-badge float-top-right">
+                <div class="badge-icon-box icon-box-green">📈</div>
+                <div class="badge-text-col">
+                  <div style="display:flex; align-items:center;">
+                    <span class="badge-label">+340% ROAS</span>
+                    <span class="badge-pill-status pill-green">▲ Live</span>
+                  </div>
+                  <span class="badge-subtext">Cross-channel ad optimization</span>
+                </div>
+              </div>
+
+              <!-- Floating Badge 3: Bottom Left -->
+              <div class="video-float-badge float-bottom-left">
+                <div class="badge-icon-box icon-box-purple">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M22 2L11 13"></path>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                  </svg>
+                </div>
+                <div class="badge-text-col">
+                  <span class="badge-label">Multi-Channel Publish</span>
+                  <span class="badge-subtext">Google &bull; Meta &bull; LinkedIn &bull; YouTube</span>
+                </div>
+              </div>
+
+              <!-- Floating Badge 4: Bottom Right -->
+              <div class="video-float-badge float-bottom-right">
+                <div class="badge-icon-box icon-box-orange">🎨</div>
+                <div class="badge-text-col">
+                  <div style="display:flex; align-items:center;">
+                    <span class="badge-label">Brand Memory</span>
+                    <span class="badge-pill-status pill-orange">Locked</span>
+                  </div>
+                  <span class="badge-subtext">Auto-formats Square, Story & Banner</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -4203,7 +4460,7 @@
         <div class="container">
           <div class="section-header">
             <span class="section-pill-badge">🛠️ How It Works</span>
-            <h2 class="section-title">From Idea to Published Campaign</h2>
+            <h2 class="section-title">From Idea to <span class="theme-gradient-text">Published Campaign</span></h2>
             <p class="section-desc">A connected four-step workflow that takes your business from raw idea to published
               multi-channel marketing in minutes.</p>
           </div>
@@ -4581,7 +4838,7 @@
       <section class="section-final-cta">
         <div class="container">
           <div class="final-cta-container">
-            <h2 class="final-cta-title">Ready to Make Marketing Simpler?</h2>
+            <h2 class="final-cta-title">Ready to Make Marketing <span class="theme-gradient-text">Simpler?</span></h2>
             <p class="final-cta-desc">
               Bring your next marketing idea to Vibodh Signal and turn it into content your audience can see, engage
               with and remember.
@@ -4615,7 +4872,7 @@
         <div class="container">
           <div class="section-header">
             <span class="section-pill-badge">🚀 Key Features</span>
-            <h2 class="section-title">Everything Your Marketing Needs</h2>
+            <h2 class="section-title">Everything Your Marketing <span class="theme-gradient-text">Needs</span></h2>
             <p class="section-desc">Six deeply integrated engines that work seamlessly together so your brand can grow
               without complicated workflows.</p>
           </div>
@@ -4927,7 +5184,7 @@
             <div class="section-header">
               <span class="section-pill-badge" style="background:#F3E8FF; color:#7C3AED; border-color:#DDD6FE;">✨
                 Signature Workflow</span>
-              <h2 class="section-title">One Idea. Multiple Marketing Possibilities.</h2>
+              <h2 class="section-title">One Idea. <span class="theme-gradient-text">Multiple Possibilities.</span></h2>
               <p class="section-desc">Watch how a single campaign concept branches into every high-impact format your
                 business needs without extra effort.</p>
             </div>
@@ -5124,7 +5381,7 @@
         <div class="container">
           <div class="section-header">
             <span class="section-pill-badge">💳 Plans &amp; Pricing</span>
-            <h2 class="section-title">Choose the Plan That Fits Your Growth</h2>
+            <h2 class="section-title">Choose the Plan That <span class="theme-gradient-text">Fits Your Growth</span></h2>
             <p class="section-desc">Flexible plans built for individuals, growing brands, businesses, and digital
               agencies.</p>
           </div>
