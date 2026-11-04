@@ -2822,547 +2822,300 @@
     }
 
         /* ═══════════════════════════════════════════════════════════
-       FLEXIBLE PRICING SECTION - 3D CLAYMORPHIC & INTERACTIVE DECK
+       FLEXIBLE PRICING SECTION - DISPLAY DESIGN (IMAGE 2 ARTWORK + ELEMENTS)
     ═══════════════════════════════════════════════════════════════ */
     .section-flexible-pricing {
-      padding: 80px 0 70px;
+      padding: 90px 0;
       background: #FFFFFF;
       position: relative;
       overflow: hidden;
     }
 
-    .pricing-redesign-section {
-      width: 100%;
-      max-width: 1040px;
-      margin: 0 auto;
+    /* Outer Card matching Image 1 */
+    .pricing-display-card {
       position: relative;
+      background: #FFFFFF;
+      border-radius: 40px;
+      padding: 48px 48px 0 48px;
+      overflow: hidden;
+      max-width: 1140px;
+      margin: 0 auto;
+      box-shadow: 
+        0 24px 60px -15px rgba(15, 23, 42, 0.08),
+        0 0 0 1px rgba(226, 232, 240, 0.9);
     }
 
-    /* Ambient background gradient glow */
-    .pricing-ambient-glow {
+    /* Ambient Pastel Backdrops matching Image 1 */
+    .pricing-card-ambient {
       position: absolute;
-      inset: -40px;
-      background: 
-        radial-gradient(circle at 10% 15%, rgba(255, 138, 76, 0.16) 0%, transparent 45%),
-        radial-gradient(circle at 90% 35%, rgba(45, 212, 191, 0.16) 0%, transparent 45%),
-        radial-gradient(circle at 50% 95%, rgba(124, 58, 237, 0.08) 0%, transparent 55%);
+      inset: 0;
       pointer-events: none;
       z-index: 0;
-      border-radius: 40px;
     }
 
-    /* Main 3D Artwork Stage Card */
-    .pricing-stage-card {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      border-radius: 32px;
-      background: #FFFFFF;
-      box-shadow: 
-        0 24px 60px -12px rgba(15, 23, 42, 0.1),
-        0 0 0 1px rgba(226, 232, 240, 0.8),
-        inset 0 2px 0 rgba(255, 255, 255, 0.9);
-      overflow: hidden;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    .ambient-peach {
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 520px;
+      height: 420px;
+      background: radial-gradient(ellipse at 25% 25%, rgba(255, 140, 70, 0.42) 0%, rgba(255, 190, 150, 0.2) 45%, transparent 70%);
+      border-radius: 50%;
     }
 
-    .pricing-stage-card:hover {
-      box-shadow: 
-        0 32px 75px -15px rgba(15, 23, 42, 0.14),
-        0 0 0 1px rgba(203, 213, 225, 0.9);
+    .ambient-blue {
+      position: absolute;
+      top: 120px;
+      left: 10px;
+      width: 540px;
+      height: 440px;
+      background: radial-gradient(ellipse at 30% 40%, rgba(219, 234, 254, 0.65) 0%, transparent 65%);
+      border-radius: 50%;
     }
 
-    .pricing-art-wrapper {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 1024 / 682;
-      overflow: hidden;
+    .ambient-teal-top {
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      width: 480px;
+      height: 380px;
+      background: radial-gradient(ellipse at 80% 20%, rgba(204, 251, 241, 0.55) 0%, transparent 60%);
+      border-radius: 50%;
     }
 
-    .pricing-art-img {
+    .ambient-teal-bottom {
+      position: absolute;
+      bottom: -40px;
+      right: -40px;
+      width: 500px;
+      height: 420px;
+      background: radial-gradient(ellipse at 75% 75%, rgba(45, 212, 191, 0.28) 0%, rgba(13, 148, 136, 0.15) 45%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* Decorative Curved Waves */
+    .pricing-card-waves {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      display: block;
-      user-select: none;
-      -webkit-user-drag: none;
-    }
-
-    /* Interactive Hotspot Buttons */
-    .pricing-hotspot {
-      position: absolute;
-      cursor: pointer;
-      z-index: 10;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      outline: none;
-    }
-
-    /* Hotspot: Starter Button */
-    .hotspot-btn-starter {
-      left: 12%;
-      top: 52.8%;
-      width: 9.8%;
-      height: 6.8%;
-      border-radius: 20px;
-      background: transparent;
-    }
-    .hotspot-btn-starter:hover, .hotspot-btn-starter.is-active {
-      background: rgba(16, 185, 129, 0.25);
-      box-shadow: 0 0 22px rgba(16, 185, 129, 0.55);
-      transform: translateY(-2px) scale(1.05);
-    }
-
-    /* Hotspot: Growth Button (Primary Orange) */
-    .hotspot-btn-growth {
-      left: 26.5%;
-      top: 50.8%;
-      width: 13.8%;
-      height: 7.2%;
-      border-radius: 22px;
-      background: transparent;
-    }
-    .hotspot-btn-growth:hover, .hotspot-btn-growth.is-active {
-      background: rgba(249, 87, 33, 0.3);
-      box-shadow: 0 0 26px rgba(249, 87, 33, 0.7);
-      transform: translateY(-2px) scale(1.05);
-    }
-
-    /* Hotspot: Enterprise Button */
-    .hotspot-btn-enterprise {
-      left: 43%;
-      top: 52.8%;
-      width: 9.4%;
-      height: 6.8%;
-      border-radius: 20px;
-      background: transparent;
-    }
-    .hotspot-btn-enterprise:hover, .hotspot-btn-enterprise.is-active {
-      background: rgba(139, 92, 246, 0.25);
-      box-shadow: 0 0 22px rgba(139, 92, 246, 0.55);
-      transform: translateY(-2px) scale(1.05);
-    }
-
-    /* Hotspot: Entire Plan Cards on Tablet for direct selection */
-    .hotspot-card-starter {
-      left: 9.5%;
-      top: 34%;
-      width: 14.5%;
-      height: 27%;
-      border-radius: 20px;
-    }
-    .hotspot-card-growth {
-      left: 24.5%;
-      top: 32%;
-      width: 17.5%;
-      height: 29%;
-      border-radius: 20px;
-    }
-    .hotspot-card-enterprise {
-      left: 41%;
-      top: 34%;
-      width: 14%;
-      height: 27%;
-      border-radius: 20px;
-    }
-
-    /* Hotspot: Slider & Tooltip */
-    .hotspot-slider {
-      left: 13.5%;
-      top: 68%;
-      width: 32%;
-      height: 14%;
-      border-radius: 20px;
-    }
-    .hotspot-slider:hover {
-      background: rgba(37, 99, 235, 0.08);
-      box-shadow: 0 0 20px rgba(37, 99, 235, 0.25);
-      transform: scale(1.02);
-    }
-
-    /* Hotspots: 3 Right Benefit Badges */
-    .hotspot-pill-1 {
-      left: 78.5%;
-      top: 40.5%;
-      width: 18.5%;
-      height: 10.5%;
-      border-radius: 26px;
-    }
-    .hotspot-pill-2 {
-      left: 78.5%;
-      top: 52.8%;
-      width: 18.5%;
-      height: 10.5%;
-      border-radius: 26px;
-    }
-    .hotspot-pill-3 {
-      left: 78.5%;
-      top: 65%;
-      width: 18.5%;
-      height: 10.5%;
-      border-radius: 26px;
-    }
-    .hotspot-pill-1:hover, .hotspot-pill-2:hover, .hotspot-pill-3:hover {
-      background: rgba(255, 255, 255, 0.35);
-      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
-      transform: translateX(-4px) scale(1.02);
-    }
-
-    /* Tooltip popup for hotspots */
-    .hotspot-tooltip {
-      position: absolute;
-      bottom: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(4px);
-      background: #0F172A;
-      color: #FFFFFF;
-      font-size: 0.75rem;
-      font-weight: 600;
-      padding: 6px 12px;
-      border-radius: 8px;
-      white-space: nowrap;
       pointer-events: none;
-      opacity: 0;
-      transition: all 0.2s ease;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
-      z-index: 30;
-    }
-    .hotspot-tooltip::after {
-      content: '';
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border: 4px solid transparent;
-      border-top-color: #0F172A;
-    }
-    .pricing-hotspot:hover .hotspot-tooltip {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* Interactive Volume Slider & Scope Deck Below */
-    .pricing-interactive-deck {
-      margin-top: 28px;
-      background: #FFFFFF;
-      border: 1px solid #E2E8F0;
-      border-radius: 28px;
-      padding: 32px 36px 36px;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.04);
-      position: relative;
       z-index: 1;
     }
 
-    /* Interactive Volume Slider Controls */
-    .deck-slider-row {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 32px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #F1F5F9;
-    }
-
-    .deck-slider-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 680px;
-    }
-
-    .deck-slider-title {
-      font-size: 1rem;
-      font-weight: 800;
-      color: #0F172A;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .deck-slider-val {
-      font-size: 0.875rem;
-      font-weight: 700;
-      color: #FF5722;
-      background: #FFF7ED;
-      padding: 4px 12px;
-      border-radius: 20px;
-      border: 1px solid #FFEDD5;
-    }
-
-    .deck-slider-wrap {
-      width: 100%;
-      max-width: 680px;
+    /* Header */
+    .pricing-display-header {
       position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 16px;
     }
 
-    .deck-range-input {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 12px;
-      border-radius: 9999px;
-      background: linear-gradient(90deg, #10B981 0%, #FF6B35 50%, #8B5CF6 100%);
-      outline: none;
-      cursor: pointer;
-      box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
-    }
-
-    .deck-range-input::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      appearance: none;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      background: #FFFFFF;
-      border: 3px solid #FF5722;
-      box-shadow: 0 4px 12px rgba(249, 87, 33, 0.35);
-      cursor: pointer;
-      transition: transform 0.15s ease, border-color 0.2s ease;
-    }
-    .deck-range-input::-webkit-slider-thumb:hover {
-      transform: scale(1.18);
-    }
-
-    .deck-slider-ticks {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 680px;
-      margin-top: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #64748B;
-    }
-
-    .deck-slider-ticks span {
-      cursor: pointer;
-      transition: color 0.2s ease;
-    }
-    .deck-slider-ticks span:hover {
-      color: #0F172A;
-    }
-
-    /* 3 Interactive Cards Grid */
-    .pricing-summary-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .summary-col {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 24px 22px;
-      border-radius: 20px;
-      background: #F8FAFC;
-      border: 2px solid transparent;
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: pointer;
-      position: relative;
-    }
-
-    .summary-col:hover {
-      background: #FFFFFF;
-      border-color: #CBD5E1;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
-      transform: translateY(-3px);
-    }
-
-    .summary-col.is-active-starter {
-      background: #FFFFFF;
-      border-color: #10B981;
-      box-shadow: 0 14px 32px rgba(16, 185, 129, 0.14);
-      transform: translateY(-4px);
-    }
-
-    .summary-col.is-active-growth {
-      background: #FFFFFF;
-      border-color: #FF6B35;
-      box-shadow: 0 16px 36px rgba(249, 87, 33, 0.18);
-      transform: translateY(-5px);
-    }
-
-    .summary-col.is-active-enterprise {
-      background: #FFFFFF;
-      border-color: #8B5CF6;
-      box-shadow: 0 14px 32px rgba(139, 92, 246, 0.15);
-      transform: translateY(-4px);
-    }
-
-    .summary-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
+    .pricing-display-title {
+      font-size: clamp(2.3rem, 3.8vw, 3.25rem);
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .badge-starter { color: #059669; }
-    .badge-growth { color: #EA580C; }
-    .badge-enterprise { color: #7C3AED; }
-
-    .summary-title {
-      font-size: 1.35rem;
-      font-weight: 800;
-      color: #0F172A;
-    }
-
-    .summary-desc {
-      font-size: 0.875rem;
-      color: #64748B;
-      line-height: 1.5;
-    }
-
-    .summary-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      margin: 12px 0;
-      font-size: 0.8125rem;
-      color: #334155;
-      flex: 1;
-    }
-
-    .summary-list li {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .summary-list li::before {
-      content: "✓";
-      font-weight: 800;
-      color: #0F9D8A;
-      flex-shrink: 0;
-    }
-
-    .summary-btn {
-      margin-top: auto;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 12px 20px;
-      border-radius: 14px;
-      font-size: 0.875rem;
-      font-weight: 800;
-      text-decoration: none;
-      transition: all 0.2s ease;
-      cursor: pointer;
-      border: none;
+      gap: 12px;
+      position: relative;
     }
 
-    .btn-style-starter {
-      background: #E6F7F5;
-      color: #0F9D8A;
-      border: 1.5px solid #A7F3D0;
-    }
-    .btn-style-starter:hover, .summary-col.is-active-starter .btn-style-starter {
-      background: #0F9D8A;
-      color: #FFFFFF;
-      border-color: #0F9D8A;
-      box-shadow: 0 4px 14px rgba(15, 157, 138, 0.3);
+    .title-dark {
+      color: #0F172A;
     }
 
-    .btn-style-growth {
-      background: linear-gradient(135deg, #FF6B35 0%, #F95721 100%);
-      color: #FFFFFF;
-      box-shadow: 0 4px 14px rgba(249, 87, 33, 0.35);
-    }
-    .btn-style-growth:hover, .summary-col.is-active-growth .btn-style-growth {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 18px rgba(249, 87, 33, 0.5);
+    .title-orange {
+      color: #FF5722;
+      background: linear-gradient(135deg, #FF6B00 0%, #FF5722 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
-    .btn-style-enterprise {
-      background: #F3E8FF;
-      color: #7C3AED;
-      border: 1.5px solid #DDD6FE;
-    }
-    .btn-style-enterprise:hover, .summary-col.is-active-enterprise .btn-style-enterprise {
-      background: #7C3AED;
-      color: #FFFFFF;
-      border-color: #7C3AED;
-      box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+    .title-sparks-wrap {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+      margin-left: 2px;
+      transform: translateY(-8px);
     }
 
-    /* 3 Benefit Badges Banner at Bottom */
-    .deck-benefits-row {
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid #F1F5F9;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+    .pricing-display-subtitle {
+      font-size: clamp(1rem, 1.35vw, 1.15rem);
+      font-weight: 600;
+      color: #334155;
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    /* Stage: 3D Illustration + 3 Right Badges */
+    .pricing-display-stage {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
       gap: 20px;
     }
 
-    .benefit-item {
+    .pricing-scene-box {
+      position: relative;
+      flex: 1 1 760px;
+      max-width: 800px;
       display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 12px 16px;
-      border-radius: 16px;
-      background: #F8FAFC;
+      align-items: flex-end;
+      justify-content: flex-start;
     }
 
-    .benefit-icon-box {
-      width: 44px;
-      height: 44px;
+    .pricing-scene-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      margin-bottom: -1px; /* Flush with card bottom */
+      filter: drop-shadow(0 15px 30px rgba(15, 23, 42, 0.05));
+    }
+
+    /* Right Badges Column */
+    .pricing-badges-col {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 275px;
+      flex-shrink: 0;
+      margin-bottom: 72px; /* Vertically centered alongside the character */
+      z-index: 3;
+    }
+
+    .pricing-benefit-pill {
+      background: #FFFFFF;
+      border-radius: 9999px;
+      padding: 10px 24px 10px 10px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 
+        0 14px 30px -4px rgba(15, 23, 42, 0.09),
+        0 2px 6px -1px rgba(15, 23, 42, 0.04),
+        0 0 0 1px rgba(226, 232, 240, 0.95);
+      user-select: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .pricing-benefit-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 
+        0 18px 36px -4px rgba(15, 23, 42, 0.12),
+        0 4px 10px -1px rgba(15, 23, 42, 0.06),
+        0 0 0 1px rgba(203, 213, 225, 1);
+    }
+
+    .pill-icon-wrap {
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
       color: #FFFFFF;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-    .icon-box-orange { background: linear-gradient(135deg, #FF6B35, #F95721); }
-    .icon-box-teal   { background: linear-gradient(135deg, #00B4D8, #0D9488); }
-    .icon-box-purple { background: linear-gradient(135deg, #A855F7, #7C3AED); }
-
-    .benefit-title {
-      font-size: 0.9rem;
-      font-weight: 800;
-      color: #0F172A;
-    }
-    .benefit-sub {
-      font-size: 0.775rem;
-      color: #64748B;
+      flex-shrink: 0;
     }
 
-    @media (max-width: 900px) {
-      .pricing-stage-card {
-        border-radius: 20px;
+    .pill-icon-orange {
+      background: linear-gradient(135deg, #FF6B00 0%, #FF5722 100%);
+      box-shadow: 0 5px 16px rgba(255, 87, 34, 0.4);
+    }
+
+    .pill-icon-teal {
+      background: linear-gradient(135deg, #14B8A6 0%, #0D9488 100%);
+      box-shadow: 0 5px 16px rgba(13, 148, 136, 0.4);
+    }
+
+    .pill-icon-purple {
+      background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%);
+      box-shadow: 0 5px 16px rgba(124, 58, 237, 0.4);
+    }
+
+    .pill-text-wrap {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pill-title {
+      font-size: 0.9375rem;
+      font-weight: 700;
+      color: #1E293B;
+      line-height: 1.25;
+    }
+
+    .pill-sub {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #475569;
+      line-height: 1.25;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px) {
+      .pricing-display-card {
+        padding: 40px 24px 30px;
+        border-radius: 32px;
       }
-      .pricing-summary-grid {
-        grid-template-columns: 1fr;
-      }
-      .deck-benefits-row {
-        grid-template-columns: 1fr;
-      }
-      .pricing-interactive-deck {
-        padding: 24px 18px;
-        border-radius: 20px;
-      }
-      .deck-slider-header {
+      .pricing-display-stage {
         flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
+        align-items: center;
+        gap: 24px;
       }
-      .deck-slider-ticks {
-        font-size: 0.7rem;
+      .pricing-scene-box {
+        flex: 1 1 auto;
+        width: 100%;
+        max-width: 100%;
+        justify-content: center;
+      }
+      .pricing-badges-col {
+        flex-direction: row;
         flex-wrap: wrap;
-        gap: 6px;
+        justify-content: center;
+        margin-bottom: 0;
+        width: 100%;
+        gap: 14px;
+      }
+      .pricing-benefit-pill {
+        flex: 1 1 240px;
+        max-width: 300px;
       }
     }
 
+    @media (max-width: 640px) {
+      .pricing-display-card {
+        padding: 32px 16px 24px;
+        border-radius: 24px;
+      }
+      .pricing-display-title {
+        font-size: 1.95rem;
+      }
+      .pricing-display-subtitle {
+        font-size: 0.9375rem;
+      }
+      .pricing-scene-box {
+        width: 100%;
+      }
+      .pricing-scene-img {
+        width: 100%;
+        height: auto;
+      }
+      .pricing-benefit-pill {
+        flex: 1 1 100%;
+        max-width: 100%;
+        padding: 8px 16px 8px 8px;
+        gap: 12px;
+      }
+      .pill-icon-wrap {
+        width: 44px;
+        height: 44px;
+      }
+    }
 
     /* ═══════════════════════════════════════════════════════════
        TRUSTED INTEGRATIONS SECTION (White Theme, 2 Concentric Circles)
@@ -4571,59 +4324,108 @@
       </section>
 
             <!-- ═══════════════════════════════════════════════════════════
-         STEP 5: FLEXIBLE PRICING (#pricing-teaser)
+         STEP 5: FLEXIBLE PRICING (Display Mode - 2nd Image Artwork + Badges)
       ═══════════════════════════════════════════════════════════ -->
       <section class="section-flexible-pricing" id="pricing-teaser">
         <div class="container">
-          <div class="pricing-redesign-section">
-            <div class="pricing-ambient-glow" aria-hidden="true"></div>
-
-            <!-- 3D Artwork Stage Card with Interactive Hotspots -->
-            <div class="pricing-stage-card">
-              <div class="pricing-art-wrapper">
-                <img src="assets/flexible-pricing-3d.jpg" alt="Vibodh Signal Flexible Pricing - Starter, Growth, Enterprise" class="pricing-art-img">
-
-                <!-- Hotspot Card 1: Starter Card -->
-                <div class="pricing-hotspot hotspot-card-starter" onclick="selectPlan(1)" title="Select Starter Plan"></div>
-
-                <!-- Hotspot Button 1: Starter Button -->
-                <a href="dashboard.html?plan=starter" class="pricing-hotspot hotspot-btn-starter" id="hotspot-btn-1" aria-label="Get Started with Starter Plan" title="Get Started with Starter Plan">
-                  <span class="hotspot-tooltip">Start Free Trial with Starter</span>
-                </a>
-
-                <!-- Hotspot Card 2: Growth Card (Most Popular) -->
-                <div class="pricing-hotspot hotspot-card-growth" onclick="selectPlan(2)" title="Select Growth Plan (Most Popular)"></div>
-
-                <!-- Hotspot Button 2: Growth Button (Primary Orange) -->
-                <a href="dashboard.html?plan=growth" class="pricing-hotspot hotspot-btn-growth is-active" id="hotspot-btn-2" aria-label="Choose Growth Plan (Most Popular)" title="Choose Growth Plan (Most Popular)">
-                  <span class="hotspot-tooltip">Choose Growth Plan (Most Popular)</span>
-                </a>
-
-                <!-- Hotspot Card 3: Enterprise Card -->
-                <div class="pricing-hotspot hotspot-card-enterprise" onclick="selectPlan(3)" title="Select Enterprise Plan"></div>
-
-                <!-- Hotspot Button 3: Enterprise Button -->
-                <a href="javascript:void(0)" onclick="selectPlan(3); if(window.toggleSignalMateChat){toggleSignalMateChat(true); setTimeout(()=>{if(window.appendBotReply)appendBotReply('Hello! Our enterprise plan offers custom channel queues, dedicated AI credits, and bespoke SLA. How can we tailor Vibodh Signal for your team?');},300);}" class="pricing-hotspot hotspot-btn-enterprise" id="hotspot-btn-3" aria-label="Contact Us for Enterprise Plan" title="Contact Us for Enterprise Plan">
-                  <span class="hotspot-tooltip">Contact Us for Enterprise Custom Scope</span>
-                </a>
-
-                <!-- Hotspot 4: Adjust Your Plan Slider -->
-                <div class="pricing-hotspot hotspot-slider" onclick="cycleNextPlan()" title="Adjust Your Plan - Find the perfect fit">
-                  <span class="hotspot-tooltip">Click to toggle plan volume</span>
-                </div>
-
-                <!-- Hotspots 5, 6, 7: 3 Right Benefit Badges -->
-                <div class="pricing-hotspot hotspot-pill-1" onclick="highlightBenefit(1)" title="Scale as you grow">
-                  <span class="hotspot-tooltip">Add unlimited brands & channels seamlessly</span>
-                </div>
-                <div class="pricing-hotspot hotspot-pill-2" onclick="highlightBenefit(2)" title="Stay within your budget">
-                  <span class="hotspot-tooltip">Predictable credits, zero hidden fees</span>
-                </div>
-                <div class="pricing-hotspot hotspot-pill-3" onclick="highlightBenefit(3)" title="Upgrade or downgrade anytime">
-                  <span class="hotspot-tooltip">Zero contracts, adjust anytime with 1 click</span>
-                </div>
-              </div>
+          <!-- Outer Card matching Image 1 -->
+          <div class="pricing-display-card">
+            
+            <!-- Ambient Pastel Glows matching Image 1 -->
+            <div class="pricing-card-ambient" aria-hidden="true">
+              <div class="ambient-peach"></div>
+              <div class="ambient-blue"></div>
+              <div class="ambient-teal-top"></div>
+              <div class="ambient-teal-bottom"></div>
             </div>
+
+            <!-- Decorative SVG Curved Accent Wave matching Image 1 -->
+            <svg class="pricing-card-waves" viewBox="0 0 1140 640" fill="none" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M780 40C880 120 1020 90 1140 180" stroke="#06B6D4" stroke-width="2.5" stroke-linecap="round" opacity="0.4" />
+              <path d="M960 120C1060 220 980 380 1140 480" stroke="#14B8A6" stroke-width="2.5" stroke-linecap="round" opacity="0.45" />
+              <path d="M840 540C940 500 1020 560 1140 580" stroke="#2DD4BF" stroke-width="2" stroke-linecap="round" opacity="0.35" />
+            </svg>
+
+            <!-- Top Header -->
+            <div class="pricing-display-header">
+              <h2 class="pricing-display-title">
+                <span class="title-dark">Flexible</span>
+                <span class="title-orange">Pricing</span>
+                <span class="title-sparks-wrap" aria-hidden="true">
+                  <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                    <path d="M10 28C14 24 19 22 24 20" stroke="#FF5722" stroke-width="4.5" stroke-linecap="round" />
+                    <path d="M16 14C21 10 27 7 34 4" stroke="#06B6D4" stroke-width="4.5" stroke-linecap="round" />
+                    <path d="M22 34C27 31 32 28 36 26" stroke="#8B5CF6" stroke-width="4.5" stroke-linecap="round" />
+                  </svg>
+                </span>
+              </h2>
+              <p class="pricing-display-subtitle">
+                Choose the plan that fits your needs and budget.<br>
+                Scale anytime, with complete control.
+              </p>
+            </div>
+
+            <!-- Stage: 2nd Image Illustration + 3 Right Badges (No links, pure display) -->
+            <div class="pricing-display-stage">
+              
+              <!-- Left: 2nd Image given (assets/pricing-character-scene.png) -->
+              <div class="pricing-scene-box">
+                <img src="assets/pricing-character-scene.png" alt="Flexible Pricing - Starter, Growth, Enterprise with Vibodh Signal" class="pricing-scene-img">
+              </div>
+
+              <!-- Right: 3 Benefit Badges matching Image 1 (Pure display, no links) -->
+              <div class="pricing-badges-col">
+                
+                <!-- Badge 1: Scale as you grow -->
+                <div class="pricing-benefit-pill">
+                  <div class="pill-icon-wrap pill-icon-orange">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                      <polyline points="4 9 9 4 14 7 20 1"></polyline>
+                      <polyline points="15 1 20 1 20 6"></polyline>
+                    </svg>
+                  </div>
+                  <div class="pill-text-wrap">
+                    <div class="pill-title">Scale</div>
+                    <div class="pill-sub">as you grow</div>
+                  </div>
+                </div>
+
+                <!-- Badge 2: Stay within your budget -->
+                <div class="pricing-benefit-pill">
+                  <div class="pill-icon-wrap pill-icon-teal">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                      <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                      <circle cx="18" cy="14" r="1.5" fill="currentColor"></circle>
+                    </svg>
+                  </div>
+                  <div class="pill-text-wrap">
+                    <div class="pill-title">Stay within</div>
+                    <div class="pill-sub">your budget</div>
+                  </div>
+                </div>
+
+                <!-- Badge 3: Upgrade or downgrade anytime -->
+                <div class="pricing-benefit-pill">
+                  <div class="pill-icon-wrap pill-icon-purple">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                  </div>
+                  <div class="pill-text-wrap">
+                    <div class="pill-title">Upgrade or</div>
+                    <div class="pill-sub">downgrade anytime</div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
         </div>
       </section>
