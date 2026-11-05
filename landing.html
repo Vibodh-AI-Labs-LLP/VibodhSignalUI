@@ -2857,7 +2857,7 @@
       position: relative;
       background: #FFFFFF;
       border-radius: 40px;
-      padding: 48px 48px 0 48px;
+      padding: 48px 48px 32px 48px;
       overflow: hidden;
       max-width: 1140px;
       margin: 0 auto;
@@ -2976,17 +2976,17 @@
       position: relative;
       z-index: 2;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
-      gap: 20px;
+      gap: 32px;
     }
 
     .pricing-scene-box {
       position: relative;
-      flex: 1 1 760px;
-      max-width: 800px;
+      flex: 1 1 740px;
+      max-width: 780px;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: flex-start;
     }
 
@@ -2994,8 +2994,7 @@
       width: 100%;
       height: auto;
       display: block;
-      margin-bottom: -1px; /* Flush with card bottom */
-      filter: drop-shadow(0 15px 30px rgba(15, 23, 42, 0.05));
+      filter: drop-shadow(0 12px 28px rgba(15, 23, 42, 0.04));
     }
 
     /* Right Badges Column */
@@ -3005,7 +3004,8 @@
       gap: 18px;
       width: 275px;
       flex-shrink: 0;
-      margin-bottom: 72px; /* Vertically centered alongside the character */
+      margin-bottom: 0;
+      align-self: center;
       z-index: 3;
     }
 
@@ -3080,7 +3080,7 @@
     /* Responsive */
     @media (max-width: 980px) {
       .pricing-display-card {
-        padding: 40px 24px 30px;
+        padding: 36px 20px 28px;
         border-radius: 32px;
       }
       .pricing-display-stage {
