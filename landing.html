@@ -55,11 +55,14 @@
       --radius-xl: 24px;
       --radius-full: 9999px;
 
-      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
-      --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
-      --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.07);
-      --shadow-lg: 0 16px 40px rgba(15, 23, 42, 0.09);
-      --shadow-glow: 0 0 30px rgba(15, 157, 138, 0.2);
+      --shadow-xs: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+      --shadow-sm: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      --shadow-md: 0 14px 30px -6px rgba(15, 23, 42, 0.12), 0 6px 14px -3px rgba(15, 23, 42, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+      --shadow-lg: 0 26px 54px -12px rgba(15, 23, 42, 0.16), 0 12px 24px -6px rgba(15, 23, 42, 0.08), inset 0 1.5px 0 rgba(255, 255, 255, 0.95);
+      --shadow-xl: 0 38px 90px -18px rgba(15, 23, 42, 0.22), 0 18px 40px -8px rgba(15, 157, 138, 0.18), inset 0 2px 0 rgba(255, 255, 255, 0.95);
+      --shadow-glow: 0 0 35px rgba(15, 157, 138, 0.32), 0 0 70px rgba(15, 157, 138, 0.14);
+      --shadow-3d-card: 0 18px 42px -8px rgba(15, 23, 42, 0.12), 0 8px 18px -4px rgba(15, 23, 42, 0.06), inset 0 1px 1px rgba(255, 255, 255, 0.95);
+      --shadow-3d-hover: 0 32px 72px -12px rgba(15, 23, 42, 0.18), 0 16px 36px -8px rgba(15, 157, 138, 0.22), inset 0 1.5px 1px rgba(255, 255, 255, 1);
 
       /* Sticky Nav Height */
       --header-height: 80px;
@@ -4133,6 +4136,321 @@
         font-size: 0.86rem;
       }
     }
+  
+    /* ═══════════════════════════════════════════════════════════
+       GLOBAL 3D PERSPECTIVE & SPATIAL DEPTH SYSTEM
+    ═══════════════════════════════════════════════════════════ */
+    /* 3D Perspective Canvas for Sections */
+    section {
+      perspective: 1200px;
+      transform-style: preserve-3d;
+    }
+
+    /* 3D Glassmorphic Cards & Interactive Elevators */
+    .has-3d-tilt,
+    .branch-card,
+    .flip-step-card,
+    .summary-col,
+    .feature-detail-pane,
+    .faq-accordion-item,
+    .studio-video-frame,
+    .plan-card,
+    .feature-nav-btn {
+      transform-style: preserve-3d;
+      will-change: transform, box-shadow;
+      transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+      position: relative;
+    }
+
+    /* Specular Light Glare Sheen that moves with mouse cursor */
+    .card-3d-glare {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background: radial-gradient(circle 280px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.38), transparent 70%);
+      mix-blend-mode: overlay;
+    }
+    .has-3d-tilt:hover .card-3d-glare,
+    .branch-card:hover .card-3d-glare,
+    .flip-step-card:hover .card-3d-glare,
+    .summary-col:hover .card-3d-glare,
+    .faq-accordion-item:hover .card-3d-glare,
+    .studio-video-frame:hover .card-3d-glare {
+      opacity: 1;
+    }
+
+    /* 3D Tactile Buttons with Realistic Bevels & Depth */
+    .btn-teal,
+    .btn-brand-primary,
+    .nav-cta-btn {
+      position: relative;
+      transform-style: preserve-3d;
+      box-shadow: 
+        0 4px 0 #0B8575,
+        0 10px 22px -3px rgba(15, 157, 138, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.42) !important;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .btn-teal:hover,
+    .btn-brand-primary:hover,
+    .nav-cta-btn:hover {
+      transform: translateY(-2.5px) translateZ(4px) !important;
+      box-shadow: 
+        0 6px 0 #0B8575,
+        0 14px 28px -4px rgba(15, 157, 138, 0.48),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+    }
+    .btn-teal:active,
+    .btn-brand-primary:active,
+    .nav-cta-btn:active {
+      transform: translateY(2px) translateZ(0) !important;
+      box-shadow: 
+        0 1px 0 #0B8575,
+        0 4px 10px rgba(15, 157, 138, 0.35),
+        inset 0 1.5px 2px rgba(0, 0, 0, 0.22) !important;
+    }
+
+    /* 3D Outline Buttons */
+    .btn-outline {
+      box-shadow: 
+        0 3px 0 #E2E8F0,
+        0 8px 18px -4px rgba(15, 23, 42, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .btn-outline:hover {
+      transform: translateY(-2px) translateZ(4px) !important;
+      border-color: #CBD5E1 !important;
+      box-shadow: 
+        0 5px 0 #CBD5E1,
+        0 12px 24px -4px rgba(15, 23, 42, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    }
+    .btn-outline:active {
+      transform: translateY(2px) translateZ(0) !important;
+      box-shadow: 
+        0 1px 0 #E2E8F0,
+        0 3px 8px rgba(15, 23, 42, 0.08),
+        inset 0 1px 2px rgba(15, 23, 42, 0.08) !important;
+    }
+
+    /* 3D Floating Action Buttons (Back to Top & SignalMate) */
+    .signalmate-floating-btn {
+      box-shadow: 
+        0 5px 0 #1D4ED8,
+        0 14px 30px -4px rgba(37, 99, 235, 0.45),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.5) !important;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+    }
+    .signalmate-floating-btn:hover {
+      transform: translateY(-3px) scale(1.05) translateZ(6px) !important;
+      box-shadow: 
+        0 8px 0 #1D4ED8,
+        0 18px 36px -4px rgba(37, 99, 235, 0.55),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.6) !important;
+    }
+    .signalmate-floating-btn:active {
+      transform: translateY(3px) scale(0.98) translateZ(0) !important;
+      box-shadow: 
+        0 1.5px 0 #1D4ED8,
+        0 6px 14px rgba(37, 99, 235, 0.35) !important;
+    }
+
+    .back-to-top-btn {
+      box-shadow: 
+        0 4px 0 #0B8575,
+        0 12px 26px -4px rgba(15, 157, 138, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
+    }
+    .back-to-top-btn:hover {
+      transform: translateY(-3px) scale(1.06) translateZ(6px) !important;
+      box-shadow: 
+        0 7px 0 #0B8575,
+        0 16px 32px -4px rgba(15, 157, 138, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
+    }
+    .back-to-top-btn:active {
+      transform: translateY(2px) scale(0.98) translateZ(0) !important;
+      box-shadow: 
+        0 1.5px 0 #0B8575,
+        0 4px 10px rgba(15, 157, 138, 0.3) !important;
+    }
+
+    /* 3D Pill Badges */
+    .section-pill-badge,
+    .badge-pill-status,
+    .pricing-badge-popular,
+    .hero-badge-pill {
+      box-shadow: 
+        0 3px 8px -1px rgba(15, 23, 42, 0.08),
+        inset 0 1px 1px rgba(255, 255, 255, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      transform-style: preserve-3d;
+    }
+
+    /* 3D Volumetric Ambient Floating Spheres */
+    .hero-3d-ambient-layer {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ambient-sphere-3d {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      filter: blur(2px);
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+
+    .sphere-1 {
+      width: 140px;
+      height: 140px;
+      top: 14%;
+      right: 8%;
+      background: radial-gradient(circle at 35% 35%, rgba(15, 157, 138, 0.35), rgba(15, 157, 138, 0.08) 60%, transparent 80%);
+      box-shadow: 
+        inset -12px -12px 24px rgba(15, 157, 138, 0.25),
+        inset 8px 8px 18px rgba(255, 255, 255, 0.75),
+        0 20px 40px rgba(15, 157, 138, 0.15);
+      animation: float3DSphere1 9s ease-in-out infinite alternate;
+    }
+
+    .sphere-2 {
+      width: 110px;
+      height: 110px;
+      top: 55%;
+      left: 6%;
+      background: radial-gradient(circle at 35% 35%, rgba(124, 58, 237, 0.32), rgba(124, 58, 237, 0.06) 60%, transparent 80%);
+      box-shadow: 
+        inset -10px -10px 20px rgba(124, 58, 237, 0.22),
+        inset 6px 6px 16px rgba(255, 255, 255, 0.7),
+        0 18px 36px rgba(124, 58, 237, 0.12);
+      animation: float3DSphere2 11s ease-in-out infinite alternate;
+    }
+
+    .sphere-3 {
+      width: 85px;
+      height: 85px;
+      bottom: 12%;
+      right: 18%;
+      background: radial-gradient(circle at 35% 35%, rgba(240, 81, 45, 0.28), rgba(240, 81, 45, 0.05) 60%, transparent 80%);
+      box-shadow: 
+        inset -8px -8px 16px rgba(240, 81, 45, 0.2),
+        inset 5px 5px 12px rgba(255, 255, 255, 0.65),
+        0 14px 28px rgba(240, 81, 45, 0.1);
+      animation: float3DSphere3 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes float3DSphere1 {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); }
+      50% { transform: translateY(-18px) translateX(8px) scale(1.05); }
+      100% { transform: translateY(12px) translateX(-6px) scale(0.96); }
+    }
+    @keyframes float3DSphere2 {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); }
+      50% { transform: translateY(16px) translateX(-10px) scale(1.04); }
+      100% { transform: translateY(-14px) translateX(8px) scale(0.95); }
+    }
+    @keyframes float3DSphere3 {
+      0% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-14px) translateX(-8px) scale(1.08); }
+      100% { transform: translateY(10px) translateX(6px) scale(0.94); }
+    }
+
+    /* 3D Workstation Frame Depth */
+    .studio-video-frame {
+      box-shadow: 
+        0 35px 85px -15px rgba(15, 23, 42, 0.22),
+        0 14px 32px -8px rgba(15, 157, 138, 0.16),
+        0 0 0 1.5px rgba(255, 255, 255, 0.95),
+        inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
+    }
+    .studio-video-frame:hover {
+      box-shadow: 
+        0 45px 105px -18px rgba(15, 23, 42, 0.28),
+        0 20px 44px -8px rgba(15, 157, 138, 0.26),
+        0 0 0 1.5px rgba(15, 157, 138, 0.45),
+        inset 0 1px 2px rgba(255, 255, 255, 0.7) !important;
+    }
+
+    /* 3D Depth on Why Choose Us Cards */
+    .branch-card {
+      box-shadow: var(--shadow-3d-card) !important;
+      border: 1.5px solid rgba(226, 232, 240, 0.9) !important;
+    }
+    .branch-card:hover {
+      box-shadow: var(--shadow-3d-hover) !important;
+      border-color: rgba(15, 157, 138, 0.4) !important;
+    }
+
+    /* 3D Depth on How It Works Step Cards */
+    .flip-step-front,
+    .flip-step-back {
+      box-shadow: var(--shadow-3d-card) !important;
+    }
+    .flip-step-card:hover .flip-step-front,
+    .flip-step-card:hover .flip-step-back {
+      box-shadow: var(--shadow-3d-hover) !important;
+    }
+
+    /* 3D Depth on Pricing Cards */
+    .summary-col {
+      box-shadow: var(--shadow-3d-card) !important;
+    }
+    .summary-col:hover {
+      box-shadow: var(--shadow-3d-hover) !important;
+    }
+
+    /* 3D Depth on FAQ Accordion Items */
+    .faq-accordion-item {
+      box-shadow: var(--shadow-xs) !important;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .faq-accordion-item:hover {
+      box-shadow: var(--shadow-sm) !important;
+      transform: translateY(-2px) translateZ(4px);
+    }
+    .faq-accordion-item.is-open {
+      box-shadow: var(--shadow-md) !important;
+      border-color: rgba(15, 157, 138, 0.35) !important;
+    }
+
+    /* Floating Navigation 3D Sheen */
+    .header-nav-wrap {
+      box-shadow: 
+        0 14px 34px -6px rgba(15, 23, 42, 0.08),
+        0 4px 12px -2px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+    }
+
+    @media (hover: none), (prefers-reduced-motion: reduce) {
+      .ambient-sphere-3d {
+        animation: none !important;
+      }
+      .card-3d-glare {
+        display: none !important;
+      }
+      .has-3d-tilt,
+      .branch-card,
+      .flip-step-card,
+      .summary-col,
+      .feature-detail-pane,
+      .faq-accordion-item,
+      .studio-video-frame,
+      .plan-card {
+        transform: none !important;
+      }
+    }
+
   </style>
 </head>
 
@@ -4221,6 +4539,12 @@
         <!-- Ambient Animated Gradient Blobs -->
         <div class="hero-bg-blob hero-bg-blob-1" aria-hidden="true"></div>
         <div class="hero-bg-blob hero-bg-blob-2" aria-hidden="true"></div>
+        <!-- 3D Volumetric Floating Ambient Spheres -->
+        <div class="hero-3d-ambient-layer" aria-hidden="true">
+          <div class="ambient-sphere-3d sphere-1"></div>
+          <div class="ambient-sphere-3d sphere-2"></div>
+          <div class="ambient-sphere-3d sphere-3"></div>
+        </div>
 
         <!-- Interactive Constellation Network Canvas (responds to mouse pointer) -->
         <canvas id="hero-particles" class="hero-interactive-canvas" aria-hidden="true"></canvas>
@@ -6708,6 +7032,89 @@
         }
       });
     }
+  
+    /* ═══════════════════════════════════════════════════════════
+       INTERACTIVE 3D PERSPECTIVE & TILT ENGINE
+    ═══════════════════════════════════════════════════════════ */
+    function init3DLandingEffects() {
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if ('ontouchstart' in window || navigator.maxTouchPoints > 0) return;
+
+      const tiltCards = document.querySelectorAll(
+        '.branch-card, .flip-step-card, .summary-col, .feature-detail-pane, .faq-accordion-item, .studio-video-frame, .plan-card, .has-3d-tilt'
+      );
+
+      tiltCards.forEach(card => {
+        if (!card.querySelector('.card-3d-glare')) {
+          const glare = document.createElement('div');
+          glare.className = 'card-3d-glare';
+          card.appendChild(glare);
+        }
+
+        let isHovered = false;
+        let bounds = null;
+
+        card.addEventListener('mouseenter', () => {
+          isHovered = true;
+          bounds = card.getBoundingClientRect();
+          card.style.transition = 'transform 0.1s ease-out, box-shadow 0.25s ease';
+        });
+
+        card.addEventListener('mousemove', (e) => {
+          if (!isHovered || !bounds) return;
+          const x = e.clientX - bounds.left;
+          const y = e.clientY - bounds.top;
+
+          card.style.setProperty('--mouse-x', x + 'px');
+          card.style.setProperty('--mouse-y', y + 'px');
+
+          const centerX = bounds.width / 2;
+          const centerY = bounds.height / 2;
+          const percentX = (x - centerX) / centerX;
+          const percentY = (y - centerY) / centerY;
+
+          const rotateX = (-percentY * 5.5).toFixed(2);
+          const rotateY = (percentX * 5.5).toFixed(2);
+
+          card.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateZ(10px)';
+        });
+
+        card.addEventListener('mouseleave', () => {
+          isHovered = false;
+          card.style.transition = 'transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s ease';
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+        });
+      });
+
+      // Hero Mouse Parallax on 3D ambient spheres
+      const hero = document.querySelector('.hero-section');
+      const spheres = document.querySelectorAll('.ambient-sphere-3d');
+      if (hero && spheres.length) {
+        hero.addEventListener('mousemove', (e) => {
+          const rect = hero.getBoundingClientRect();
+          const relX = (e.clientX - rect.left) / rect.width - 0.5;
+          const relY = (e.clientY - rect.top) / rect.height - 0.5;
+
+          spheres.forEach((sp, idx) => {
+            const factor = (idx + 1) * 22;
+            sp.style.transform = 'translate3d(' + (relX * factor) + 'px, ' + (relY * factor) + 'px, 0)';
+          });
+        }, { passive: true });
+
+        hero.addEventListener('mouseleave', () => {
+          spheres.forEach(sp => {
+            sp.style.transform = '';
+          });
+        }, { passive: true });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init3DLandingEffects);
+    } else {
+      init3DLandingEffects();
+    }
+
   </script>
 
   <!-- Floating Back to Top Button (Arrow Only) -->
