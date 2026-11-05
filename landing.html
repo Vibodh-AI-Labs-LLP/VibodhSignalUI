@@ -3482,368 +3482,79 @@
     
 
     /* ═══════════════════════════════════════════════════════════
-       SIGNALMATE FLOATING CHATBOT (Dark Theme matching Reference)
+       FLOATING CONTACT US BUTTON (Outlook / reachus@vibodhai.com)
     ═══════════════════════════════════════════════════════════ */
-    .signalmate-floating-btn {
+    .contact-us-floating-btn {
       position: fixed !important;
       bottom: 86px !important;
-      /* Right above the Back to Top arrow (28px &rarr; 48px &rarr; 10px) */
       right: 28px !important;
-      width: 48px;
-      height: 48px;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 9px !important;
+      padding: 0 18px 0 13px !important;
+      height: 48px !important;
+      border-radius: 9999px !important;
+      background: linear-gradient(135deg, #1E3A8A 0%, #243B6B 50%, #0F9D8A 100%) !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+      color: #FFFFFF !important;
+      font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif) !important;
+      font-size: 0.9375rem !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.01em !important;
+      text-decoration: none !important;
+      cursor: pointer !important;
+      z-index: 9999 !important;
+      box-shadow: 
+        0 5px 0 #1D4ED8,
+        0 14px 28px -4px rgba(37, 99, 235, 0.45),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.5) !important;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease, border-color 0.2s ease !important;
+    }
+
+    .contact-us-floating-btn:hover {
+      transform: translateY(-3px) scale(1.04) translateZ(6px) !important;
+      box-shadow: 
+        0 8px 0 #1D4ED8,
+        0 18px 36px -4px rgba(37, 99, 235, 0.55),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.6) !important;
+      border-color: #FFFFFF !important;
+      color: #FFFFFF !important;
+    }
+
+    .contact-us-floating-btn:active {
+      transform: translateY(3px) scale(0.98) translateZ(0) !important;
+      box-shadow: 
+        0 1.5px 0 #1D4ED8,
+        0 6px 14px rgba(37, 99, 235, 0.35) !important;
+    }
+
+    .contact-us-floating-btn .contact-btn-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.16);
       border-radius: 50%;
-      background: linear-gradient(135deg, #1E3A8A 0%, #243B6B 50%, #0F9D8A 100%);
-      border: 1.5px solid rgba(255, 255, 255, 0.25);
+    }
+
+    .contact-us-floating-btn .contact-btn-label {
       color: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 10px 25px rgba(36, 59, 107, 0.35), 0 4px 12px rgba(15, 157, 138, 0.25);
-      cursor: pointer;
-      z-index: 9999;
-      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .signalmate-floating-btn:hover {
-      transform: translateY(-3px) scale(1.08);
-      box-shadow: 0 14px 32px rgba(15, 157, 138, 0.45), 0 4px 14px rgba(36, 59, 107, 0.3);
-      border-color: #FFFFFF;
-    }
-
-    .signalmate-btn-avatar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .signalmate-live-pulse {
-      position: absolute;
-      top: 1px;
-      right: 1px;
-      width: 12px;
-      height: 12px;
-      background: #10B981;
-      border-radius: 50%;
-      border: 2px solid #FFFFFF;
-      box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.3);
-      animation: pulseGreenSignal 2s infinite;
-    }
-
-    @keyframes pulseGreenSignal {
-      0% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
-      }
-
-      70% {
-        box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
-      }
-
-      100% {
-        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
-      }
-    }
-
-    /* SignalMate Window (Right & Down Corner) */
-    .signalmate-window {
-      position: fixed !important;
-      bottom: 28px !important;
-      right: 28px !important;
-      width: 390px;
-      max-width: calc(100vw - 36px);
-      height: 520px;
-      max-height: calc(100vh - 48px);
-      background: #111418;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
-      display: flex;
-      flex-direction: column;
-      z-index: 1000005 !important;
-      overflow: hidden;
-      opacity: 0;
-      transform: translateY(20px) scale(0.96);
-      pointer-events: none;
-      transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-
-    body.signalmate-chat-open #back-to-top-btn,
-    body.signalmate-chat-open #signalmate-trigger-btn {
-      opacity: 0 !important;
-      visibility: hidden !important;
-      pointer-events: none !important;
-      transform: scale(0.8) !important;
-      transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s !important;
-    }
-
-    .signalmate-window.is-open {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    /* Header */
-    .signalmate-header {
-      background: #161A22;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .signalmate-header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .signalmate-header-avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, #1E3A8A 0%, #1D4ED8 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      box-shadow: 0 4px 12px rgba(29, 78, 216, 0.3);
-    }
-
-    .signalmate-header-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
-
-    .signalmate-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #FFFFFF;
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-    }
-
-    .signalmate-subtitle {
-      font-size: 0.75rem;
-      color: #94A3B8;
-      line-height: 1.3;
-    }
-
-    .signalmate-header-right {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .signalmate-online-tag {
-      font-size: 0.6875rem;
-      font-weight: 700;
-      color: #10B981;
-      background: rgba(16, 185, 129, 0.12);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      padding: 3px 10px;
-      border-radius: var(--radius-full);
-      line-height: 1.2;
-    }
-
-    .signalmate-close-btn {
-      background: transparent;
-      border: none;
-      color: #94A3B8;
-      font-size: 1.4rem;
-      line-height: 1;
-      cursor: pointer;
-      padding: 4px;
-      border-radius: 6px;
-      transition: color 0.15s ease, background 0.15s ease;
-    }
-
-    .signalmate-close-btn:hover {
-      color: #FFFFFF;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    /* Body */
-    .signalmate-body {
-      flex: 1;
-      padding: 24px 20px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .signalmate-msg.bot {
-      color: #E2E8F0;
-      font-size: 0.9375rem;
-      line-height: 1.55;
-    }
-
-    .signalmate-greeting {
-      font-size: 1.05rem;
-      color: #FFFFFF;
-      margin-bottom: 8px;
-    }
-
-    .signalmate-text {
-      color: #CBD5E1;
-      margin-bottom: 14px;
-      font-size: 0.9125rem;
-    }
-
-    .signalmate-subprompt {
-      color: #FFFFFF;
-      font-weight: 600;
-      font-size: 0.9375rem;
-      margin-bottom: 12px;
-    }
-
-    /* Option Pills */
-    .signalmate-options {
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .signalmate-option-btn {
-      background: #181D26;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #E2E8F0;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-align: left;
-      cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .signalmate-option-btn:hover {
-      background: #202735;
-      border-color: rgba(15, 157, 138, 0.4);
-      color: #FFFFFF;
-      transform: translateX(4px);
-    }
-
-    .signalmate-user-msg {
-      align-self: flex-end;
-      background: var(--teal);
-      color: #FFFFFF;
-      padding: 10px 16px;
-      border-radius: 14px 14px 2px 14px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      max-width: 85%;
-      box-shadow: 0 4px 12px rgba(15, 157, 138, 0.25);
-      animation: fadeInMsg 0.2s ease;
-    }
-
-    .signalmate-bot-reply {
-      align-self: flex-start;
-      background: #1A202C;
-      color: #E2E8F0;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 12px 16px;
-      border-radius: 14px 14px 14px 2px;
-      font-size: 0.875rem;
-      line-height: 1.5;
-      max-width: 90%;
-      animation: fadeInMsg 0.2s ease;
-    }
-
-    .signalmate-inline-link {
-      display: inline-block;
-      margin-top: 8px;
-      color: #10B981;
-      font-weight: 600;
-      text-decoration: underline;
-      cursor: pointer;
-    }
-
-    @keyframes fadeInMsg {
-      from {
-        opacity: 0;
-        transform: translateY(6px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Footer Input */
-    .signalmate-footer {
-      background: #161A22;
-      border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 14px 16px;
-    }
-
-    .signalmate-form {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #0E1217;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: var(--radius-full);
-      padding: 4px 6px 4px 16px;
-      transition: border-color 0.2s ease;
-    }
-
-    .signalmate-form:focus-within {
-      border-color: var(--teal);
-      box-shadow: 0 0 0 2px rgba(15, 157, 138, 0.2);
-    }
-
-    .signalmate-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      outline: none;
-      color: #FFFFFF;
-      font-size: 0.875rem;
-    }
-
-    .signalmate-input::placeholder {
-      color: #64748B;
-    }
-
-    .signalmate-send-btn {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: #0F9D8A;
-      border: none;
-      color: #FFFFFF;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex-shrink: 0;
-      transition: all 0.2s ease;
-    }
-
-    .signalmate-send-btn:hover {
-      background: #10B981;
-      transform: scale(1.05);
+      white-space: nowrap;
     }
 
     @media (max-width: 640px) {
-      .signalmate-floating-btn {
+      .contact-us-floating-btn {
         bottom: 74px !important;
-        right: 20px !important;
-        width: 44px;
-        height: 44px;
+        right: 18px !important;
+        height: 42px !important;
+        padding: 0 14px 0 10px !important;
+        font-size: 0.8125rem !important;
+        gap: 7px !important;
       }
-
-      .signalmate-window {
-        bottom: 16px !important;
-        right: 16px !important;
-        left: 16px !important;
-        width: auto !important;
-        height: calc(100vh - 80px) !important;
+      .contact-us-floating-btn .contact-btn-icon {
+        width: 24px;
+        height: 24px;
       }
     }
 
@@ -4238,27 +3949,7 @@
         inset 0 1px 2px rgba(15, 23, 42, 0.08) !important;
     }
 
-    /* 3D Floating Action Buttons (Back to Top & SignalMate) */
-    .signalmate-floating-btn {
-      box-shadow: 
-        0 5px 0 #1D4ED8,
-        0 14px 30px -4px rgba(37, 99, 235, 0.45),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.5) !important;
-      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease !important;
-    }
-    .signalmate-floating-btn:hover {
-      transform: translateY(-3px) scale(1.05) translateZ(6px) !important;
-      box-shadow: 
-        0 8px 0 #1D4ED8,
-        0 18px 36px -4px rgba(37, 99, 235, 0.55),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.6) !important;
-    }
-    .signalmate-floating-btn:active {
-      transform: translateY(3px) scale(0.98) translateZ(0) !important;
-      box-shadow: 
-        0 1.5px 0 #1D4ED8,
-        0 6px 14px rgba(37, 99, 235, 0.35) !important;
-    }
+    /* 3D Floating Action Buttons (Back to Top) */
 
     .back-to-top-btn {
       box-shadow: 
@@ -6230,12 +5921,12 @@
           <div class="faq-footer-help-card">
             <span class="faq-help-badge">Still Have Questions?</span>
             <h3 class="faq-help-title">We’re Here to Help Your Marketing Move Forward</h3>
-            <p class="faq-help-desc">Can’t find the answer you’re looking for? Reach out to our marketing operations team or chat live with SignalMate.</p>
+            <p class="faq-help-desc">Can’t find the answer you’re looking for? Reach out to our team directly at reachus@vibodhai.com.</p>
             <div class="faq-help-btn-row">
-              <button type="button" class="btn btn-teal" onclick="toggleSignalMateChat(true)">
-                <span>Chat with SignalMate</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-              </button>
+              <a href="mailto:reachus@vibodhai.com?subject=Inquiry%20via%20Vibodh%20Signal" class="btn btn-teal">
+                <span>Contact Us</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
               <a href="#plans-pricing" class="btn btn-outline" onclick="switchLandingTab('home'); setTimeout(() => { const el = document.getElementById('pricing-teaser'); if(el) el.scrollIntoView({behavior:'smooth'}); }, 100);">
                 <span>Explore Pricing Plans</span>
               </a>
@@ -6793,100 +6484,7 @@
     })();
 
 
-    /* ═════════════════════════════    ══════════════════════════
-       SIGNALMATE FLOATING AI CHATBO       OLLER
-    ════════════════════════════════    ═══════════════════════ */
-    function initSignalMate() {
-      const triggerBtn = document.getElementById('signalmate-trigger-btn');
-      const chatWindow = document.getElementById('signalmate-chat-window');
-      const closeBtn = document.getElementById('signalmate-close-btn');
-      const input = document.getElementById('signalmate-input');
-      const messagesContainer = document.getElementById('signalmate-messages');
-      const optionBtns = document.querySelectorAll('.signalmate-option-btn');
-
-      if (!chatWindow) return;
-
-      function toggleChat(open) {
-        const isOpen = typeof open === 'boolean' ? open : !chatWindow.classList.contains('is-open');
-        chatWindow.classList.toggle('is-open', isOpen);
-        document.body.classList.toggle('signalmate-chat-open', isOpen);
-        chatWindow.setAttribute('aria-hidden', (!isOpen).toString());
-        if (isOpen && input) {
-          setTimeout(() => input.focus(), 250);
-        }
-      }
-      window.toggleSignalMateChat = toggleChat;
-
-      if (triggerBtn) {
-        triggerBtn.onclick = (e) => { e.preventDefault(); toggleChat(); };
-      }
-      if (closeBtn) {
-        closeBtn.onclick = (e) => { e.preventDefault(); toggleChat(false); };
-      }
-
-      function appendUserMessage(text) {
-        if (!messagesContainer) return;
-        const msg = document.createElement('div');
-        msg.className = 'signalmate-user-msg';
-        msg.textContent = text;
-        messagesContainer.appendChild(msg);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      }
-
-      function appendBotReply(html) {
-        if (!messagesContainer) return;
-        const reply = document.createElement('div');
-        reply.className = 'signalmate-bot-reply';
-        reply.innerHTML = html;
-        messagesContainer.appendChild(reply);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-      }
-
-      optionBtns.forEach(btn => {
-        btn.onclick = () => {
-          const action = btn.getAttribute('data-action');
-          const text = btn.innerText.trim();
-          appendUserMessage(text);
-
-          setTimeout(() => {
-            if (action === 'features') {
-              appendBotReply('Vibodh Signal gives you AI content creation across Instagram, Facebook, and LinkedIn, brand voice locking, auto-scheduling, and high-conversion multi-format studio tools.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; View Key Features Tab</a>');
-            } else if (action === 'pricing') {
-              appendBotReply('Our pricing is fully customizable and tailored to your team scale, monthly content requirements, and brand count. We configure bespoke plans with dedicated AI credits and workflows.<br><a class="signalmate-inline-link" href="#pricing-teaser" onclick="switchLandingTab(\'home\', false, false); setTimeout(()=>{const el=document.getElementById(\'pricing-teaser\');if(el)el.scrollIntoView({behavior:\'smooth\'});},80);">&rarr; View Tailored Plans</a>');
-            } else if (action === 'demo') {
-              appendBotReply('You can test the interactive workspace right now without signing up!<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Open Live Dashboard Demo</a>');
-            }
-          }, 350);
-        };
-      });
-
-      window.handleSignalMateSubmit = function () {
-        if (!input) return;
-        const query = input.value.trim();
-        if (!query) return;
-        input.value = '';
-        appendUserMessage(query);
-
-        setTimeout(() => {
-          const lower = query.toLowerCase();
-          if (lower.includes('price') || lower.includes('cost') || lower.includes('plan')) {
-            appendBotReply('All our plans are 100% tailored and customizable to your marketing scale and monthly AI volume. Contact us for a personalized package, or test out our features in the live demo.<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Explore Live Demo</a>');
-          } else if (lower.includes('feature') || lower.includes('content') || lower.includes('studio') || lower.includes('ai')) {
-            appendBotReply('Signal Engine powers text, images, video reels, and brand persona synchronization automatically.<br><a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Explore Features</a>');
-          } else if (lower.includes('trial') || lower.includes('demo') || lower.includes('start') || lower.includes('free')) {
-            appendBotReply('You can start your 14-day free trial right away or explore our live dashboard demo.<br><a class="signalmate-inline-link" href="dashboard.html">&rarr; Get Started with Vibodh Signal</a>');
-          } else {
-            appendBotReply('I\'d be glad to help with that! You can explore our <a class="signalmate-inline-link" onclick="switchLandingTab(\'key-features\');">&rarr; Key Features</a>, or jump straight into the <a class="signalmate-inline-link" href="dashboard.html">&rarr; Live Dashboard</a>.');
-          }
-        }, 400);
-      };
-    }
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSignalMate);
-    } else {
-      initSignalMate();
-    }
+    // Chatbot removed; replaced with Contact Us (reachus@vibodhai.com)
 
     // 6. Why Vibodh Signal Entrance Animation (Scroll & View Trigger)
     function initWhyChooseAnimation() {
@@ -7127,96 +6725,22 @@
   </button>
 
   <!-- ═══════════════════════════════════════════════════════════
-       SIGNALMATE FLOATING CHATBOT WIDGET
+       FLOATING CONTACT US BUTTON (Outlook / reachus@vibodhai.com)
   ═══════════════════════════════════════════════════════════ -->
-  <!-- Floating Trigger Button (Placed directly above the Back to Top arrow) -->
-  <button type="button" id="signalmate-trigger-btn" class="signalmate-floating-btn" onclick="toggleSignalMateChat()"
-    aria-label="Open SignalMate Chatbot" title="Chat with SignalMate">
-    <span class="signalmate-btn-avatar">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
+  <a href="mailto:reachus@vibodhai.com?subject=Inquiry%20via%20Vibodh%20Signal"
+    id="contact-us-floating-btn"
+    class="contact-us-floating-btn"
+    aria-label="Contact Us"
+    title="Contact Us: reachus@vibodhai.com">
+    <span class="contact-btn-icon">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
         stroke-linecap="round" stroke-linejoin="round">
-        <rect x="3" y="10" width="18" height="11" rx="4"></rect>
-        <circle cx="8.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
-        <circle cx="15.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
-        <path d="M9.5 18.5h5"></path>
-        <path d="M12 6v4"></path>
-        <circle cx="12" cy="4.5" r="1.5" fill="#FFFFFF"></circle>
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+        <polyline points="22,6 12,13 2,6"></polyline>
       </svg>
     </span>
-    <span class="signalmate-live-pulse" title="Online"></span>
-  </button>
-
-  <!-- Chat Window (Right & Down Corner) -->
-  <div id="signalmate-chat-window" class="signalmate-window" aria-hidden="true">
-    <!-- Header -->
-    <div class="signalmate-header">
-      <div class="signalmate-header-left">
-        <div class="signalmate-header-avatar">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="10" width="18" height="11" rx="4"></rect>
-            <circle cx="8.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
-            <circle cx="15.5" cy="15.5" r="1.5" fill="#FFFFFF"></circle>
-            <path d="M9.5 18.5h5"></path>
-            <path d="M12 6v4"></path>
-            <circle cx="12" cy="4.5" r="1.5" fill="#FFFFFF"></circle>
-          </svg>
-        </div>
-        <div class="signalmate-header-meta">
-          <h4 class="signalmate-title">SignalMate</h4>
-          <p class="signalmate-subtitle">Your Vibodh Signal AI assistant</p>
-        </div>
-      </div>
-      <div class="signalmate-header-right">
-        <span class="signalmate-online-tag">Online</span>
-        <button type="button" id="signalmate-close-btn" class="signalmate-close-btn"
-          onclick="toggleSignalMateChat(false)" aria-label="Close Chat Window">&times;</button>
-      </div>
-    </div>
-
-    <!-- Body -->
-    <div class="signalmate-body" id="signalmate-messages">
-      <div class="signalmate-msg bot">
-        <div class="signalmate-greeting">
-          <strong>Hi! 👋 I'm SignalMate.</strong>
-        </div>
-        <p class="signalmate-text">
-          I'm here to help you discover how Vibodh Signal can simplify your marketing.
-        </p>
-        <p class="signalmate-subprompt">What would you like to know?</p>
-      </div>
-
-      <!-- Quick Option Pills -->
-      <div class="signalmate-options" id="signalmate-options">
-        <button type="button" class="signalmate-option-btn" data-action="features">
-          <span>Explore features</span>
-        </button>
-        <button type="button" class="signalmate-option-btn" data-action="pricing">
-          <span>Tailored plans</span>
-        </button>
-        <button type="button" class="signalmate-option-btn" data-action="demo">
-          <span>Book a demo</span>
-        </button>
-      </div>
-    </div>
-
-    <!-- Footer Input Bar -->
-    <div class="signalmate-footer">
-      <form id="signalmate-input-form" class="signalmate-form"
-        onsubmit="event.preventDefault(); handleSignalMateSubmit();">
-        <input type="text" id="signalmate-input" class="signalmate-input" placeholder="Type your message..."
-          autocomplete="off">
-        <button type="submit" class="signalmate-send-btn" aria-label="Send message">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="22" y1="2" x2="11" y2="13"></line>
-            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-          </svg>
-        </button>
-      </form>
-    </div>
-  </div>
-
+    <span class="contact-btn-label">Contact Us</span>
+  </a>
 
 </body>
 
