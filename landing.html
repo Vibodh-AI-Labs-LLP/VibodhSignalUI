@@ -4595,47 +4595,57 @@
 
     .engine-pipeline-grid {
       display: grid;
-      grid-template-columns: repeat(6, 1fr) auto;
+      grid-template-columns: repeat(5, minmax(0, 1fr) auto) minmax(0, 1fr);
       gap: 8px;
-      align-items: center;
-      background: #0F172A;
-      padding: 24px 20px;
+      align-items: stretch;
+      background: #0B132B;
+      padding: 24px 18px;
       border-radius: 18px;
       box-shadow: 0 14px 30px -6px rgba(15, 23, 42, 0.35);
       overflow-x: auto;
     }
 
     .engine-stage-card {
-      background: rgba(255, 255, 255, 0.06);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 12px;
-      padding: 16px 12px;
+      border-radius: 14px;
+      padding: 16px 10px;
       text-align: center;
       transition: all 0.2s ease;
-      min-width: 120px;
+      min-width: 96px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
     }
 
     .engine-stage-card:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
       border-color: #0F9D8A;
       transform: translateY(-2px);
     }
 
     .engine-stage-num {
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 800;
       color: #38BDF8;
       letter-spacing: 0.05em;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .engine-stage-title {
       font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
-      font-size: 0.8125rem;
+      font-size: 0.775rem;
       font-weight: 800;
       color: #FFFFFF;
       letter-spacing: 0.04em;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      line-height: 1.25;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .engine-stage-list {
@@ -4644,16 +4654,25 @@
       margin: 0;
       font-size: 0.75rem;
       color: #94A3B8;
-      line-height: 1.5;
+      line-height: 1.6;
+      width: 100%;
+    }
+
+    .engine-stage-list li {
+      white-space: nowrap;
     }
 
     .engine-arrow {
       color: #38BDF8;
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 800;
       padding: 0 2px;
-      opacity: 0.8;
+      opacity: 0.85;
       user-select: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      align-self: center;
     }
 
     .engine-caption {
@@ -5225,9 +5244,15 @@
         grid-template-columns: 1fr;
         gap: 12px;
       }
+      .engine-stage-card {
+        min-width: auto;
+        width: 100%;
+      }
       .engine-arrow {
         transform: rotate(90deg);
         text-align: center;
+        align-self: center;
+        padding: 6px 0;
       }
       .roadmap-grid {
         grid-template-columns: 1fr;
