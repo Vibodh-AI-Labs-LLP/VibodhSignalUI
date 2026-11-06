@@ -5632,6 +5632,22 @@
       box-shadow: 0 0 0 4px rgba(15, 157, 138, 0.15);
     }
 
+    .thoughts-input[readonly],
+    .thoughts-input:read-only {
+      background: #F8FAFC;
+      color: #64748B;
+      cursor: not-allowed;
+      border-color: #E2E8F0;
+      user-select: all;
+    }
+
+    .thoughts-input[readonly]:focus,
+    .thoughts-input:read-only:focus {
+      outline: none;
+      border-color: #CBD5E1;
+      box-shadow: none;
+    }
+
     .thoughts-textarea {
       min-height: 200px;
       resize: vertical;
@@ -9827,8 +9843,8 @@
 
         <form id="thoughts-feedback-form">
           <div class="thoughts-form-group">
-            <label class="thoughts-form-label" for="thoughts-email-input">Email address <span style="font-weight:400; color:#94A3B8;">(default: reachus@vibodhai.com)</span></label>
-            <input type="email" id="thoughts-email-input" class="thoughts-input" value="reachus@vibodhai.com" placeholder="reachus@vibodhai.com">
+            <label class="thoughts-form-label" for="thoughts-email-input">Email address</label>
+            <input type="email" id="thoughts-email-input" class="thoughts-input" value="reachus@vibodhai.com" placeholder="reachus@vibodhai.com" readonly tabindex="-1">
           </div>
 
           <div class="thoughts-form-group">
