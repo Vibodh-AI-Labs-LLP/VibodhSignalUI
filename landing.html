@@ -2561,92 +2561,98 @@
       transition: all 0.35s ease;
     }
 
-    /* Left Side: Placed completely outside the video layout */
+    /* Left Side: Randomly scattered around video, completely non-linear */
     .ambient-left-top {
-      top: 6%;
-      left: -90px;
+      top: -18px;
+      left: -98px;
       animation: floatAmbient1 8s ease-in-out infinite alternate;
     }
     .img-megaphone {
-      width: 76px;
-      transform: rotate(-10deg);
+      width: 74px;
+      transform: rotate(-16deg);
     }
 
     .ambient-left-mid {
-      top: 44%;
-      left: -75px;
+      top: 34%;
+      left: -44px;
       animation: floatAmbient2 9.5s ease-in-out infinite alternate 1.2s;
     }
     .img-play {
-      width: 52px;
-      transform: rotate(6deg);
+      width: 48px;
+      transform: rotate(12deg);
     }
 
     .ambient-left-bottom {
-      bottom: 8%;
-      left: -85px;
+      bottom: 4%;
+      left: -108px;
       animation: floatAmbient3 8.8s ease-in-out infinite alternate 0.5s;
     }
     .img-target {
-      width: 58px;
-      transform: rotate(-6deg);
+      width: 54px;
+      transform: rotate(-8deg);
     }
 
-    /* Right Side: Placed completely outside the video layout */
+    /* Right Side: Randomly scattered around video, completely non-linear */
     .ambient-right-top {
-      top: 8%;
-      right: -75px;
+      top: -4px;
+      right: -52px;
       animation: floatAmbient4 7.8s ease-in-out infinite alternate 0.8s;
     }
     .img-thumbs {
-      width: 52px;
-      transform: rotate(8deg);
+      width: 50px;
+      transform: rotate(14deg);
     }
 
     .ambient-right-mid {
-      top: 40%;
-      right: -95px;
+      top: 38%;
+      right: -128px;
       animation: floatAmbient5 10s ease-in-out infinite alternate 2s;
     }
     .img-growth {
-      width: 84px;
-      transform: rotate(-4deg);
+      width: 88px;
+      transform: rotate(-5deg);
     }
 
     .ambient-right-bottom {
-      bottom: 10%;
-      right: -75px;
+      bottom: 5%;
+      right: -54px;
       animation: floatAmbient6 8.5s ease-in-out infinite alternate 1.5s;
     }
     .img-trend {
-      width: 54px;
-      transform: rotate(5deg);
+      width: 52px;
+      transform: rotate(10deg);
     }
 
-    /* Smooth organic floating keyframes */
+    /* Smooth organic floating keyframes with 2D wander & rotational drift */
     @keyframes floatAmbient1 {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(-16px) rotate(3deg); }
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(-5px, -10px) rotate(3deg); }
+      100% { transform: translate(4px, -18px) rotate(-2deg); }
     }
     @keyframes floatAmbient2 {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(14px) rotate(-4deg); }
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(6px, 9px) rotate(-3deg); }
+      100% { transform: translate(-3px, 15px) rotate(2deg); }
     }
     @keyframes floatAmbient3 {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(-12px) rotate(2deg); }
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(-6px, -7px) rotate(3deg); }
+      100% { transform: translate(5px, -14px) rotate(-1deg); }
     }
     @keyframes floatAmbient4 {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(-15px) rotate(-3deg); }
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(5px, 10px) rotate(-3deg); }
+      100% { transform: translate(-4px, 16px) rotate(2deg); }
     }
     @keyframes floatAmbient5 {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(16px) rotate(3deg); }
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(-8px, -9px) rotate(3deg); }
+      100% { transform: translate(6px, -18px) rotate(-2deg); }
     }
     @keyframes floatAmbient6 {
-      0% { transform: translateY(0px) rotate(0deg); }
-      100% { transform: translateY(-14px) rotate(-2deg); }
+      0% { transform: translate(0px, 0px) rotate(0deg); }
+      50% { transform: translate(4px, 7px) rotate(-2deg); }
+      100% { transform: translate(-5px, 13px) rotate(3deg); }
     }
 
     /* Ensure elements NEVER crowd or touch video on smaller viewports */
