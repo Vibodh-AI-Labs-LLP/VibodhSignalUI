@@ -5486,9 +5486,258 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 12px;
+      gap: 14px;
       margin: 0 auto;
       pointer-events: auto;
+    }
+
+    .hero-buttons-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin: 0 auto;
+      pointer-events: auto;
+    }
+
+    /* Thoughts Floating Window Modal */
+    .thoughts-modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 99999;
+      background: rgba(11, 19, 43, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .thoughts-modal-overlay.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .thoughts-modal-card {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+      border: 1.5px solid rgba(226, 232, 240, 0.9);
+      border-radius: 24px;
+      padding: 32px 36px;
+      box-shadow: 
+        0 25px 60px -12px rgba(15, 23, 42, 0.3),
+        0 0 0 1px rgba(15, 157, 138, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      transform: scale(0.96) translateY(12px);
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .thoughts-modal-overlay.is-open .thoughts-modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .thoughts-modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #F1F5F9;
+      border: 1px solid #E2E8F0;
+      color: #64748B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+      transition: all 0.2s ease;
+    }
+    .thoughts-modal-close-btn:hover {
+      background: #E2E8F0;
+      color: #0F172A;
+      transform: rotate(90deg);
+    }
+
+    .thoughts-modal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      background: rgba(15, 157, 138, 0.1);
+      border: 1px solid rgba(15, 157, 138, 0.25);
+      border-radius: 999px;
+      color: #0F9D8A;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .thoughts-modal-title {
+      font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
+      font-size: 1.375rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0 0 8px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .thoughts-modal-desc {
+      font-size: 0.9rem;
+      color: #64748B;
+      line-height: 1.5;
+      margin: 0 0 20px 0;
+    }
+
+    .thoughts-form-group {
+      margin-bottom: 16px;
+    }
+
+    .thoughts-form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      color: #1E293B;
+      margin-bottom: 6px;
+    }
+
+    .thoughts-input,
+    .thoughts-textarea {
+      width: 100%;
+      box-sizing: border-box;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.9375rem;
+      color: #0F172A;
+      background: #FFFFFF;
+      border: 1.5px solid #CBD5E1;
+      border-radius: 12px;
+      padding: 12px 14px;
+      transition: all 0.2s ease;
+    }
+
+    .thoughts-input:focus,
+    .thoughts-textarea:focus {
+      outline: none;
+      border-color: #0F9D8A;
+      box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.15);
+    }
+
+    .thoughts-textarea {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .thoughts-char-counter {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.75rem;
+      color: #94A3B8;
+      margin-top: 4px;
+    }
+
+    .thoughts-modal-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .thoughts-btn-cancel {
+      padding: 11px 20px;
+      border-radius: 999px;
+      background: transparent;
+      border: 1px solid #CBD5E1;
+      color: #64748B;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .thoughts-btn-cancel:hover {
+      background: #F1F5F9;
+      color: #0F172A;
+    }
+
+    .thoughts-btn-submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0F9D8A 0%, #0B8575 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(15, 157, 138, 0.3);
+      transition: all 0.2s ease;
+    }
+    .thoughts-btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(15, 157, 138, 0.4);
+    }
+
+    /* Success Screen State */
+    .thoughts-success-state {
+      text-align: center;
+      padding: 16px 8px;
+      display: none;
+    }
+
+    .thoughts-success-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 16px;
+      background: rgba(15, 157, 138, 0.12);
+      border: 2px solid #0F9D8A;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #0F9D8A;
+    }
+
+    .thoughts-success-title {
+      font-size: 1.375rem;
+      font-weight: 800;
+      color: #0F172A;
+      margin: 0 0 8px;
+    }
+
+    .thoughts-success-text {
+      font-size: 0.9375rem;
+      color: #64748B;
+      line-height: 1.6;
+      margin: 0 0 24px;
+    }
+
+    .thoughts-btn-done {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 26px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0F9D8A 0%, #0B8575 100%);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #FFFFFF;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(15, 157, 138, 0.3);
+      transition: all 0.2s ease;
     }
 
     .hero-feedback-btn {
@@ -5586,13 +5835,37 @@
       .hero-subcopy-secondary {
         font-size: 0.9rem;
       }
+      .hero-buttons-row {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+      }
       .hero-feedback-btn {
-        padding: 14px 28px !important;
-        font-size: 0.975rem !important;
+        width: 100%;
+        max-width: 320px;
+        padding: 13px 20px !important;
+        font-size: 0.9375rem !important;
       }
       .hero-feedback-subnote {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: center;
         font-size: 0.8125rem;
         text-align: center;
+        max-width: 320px;
+        margin: 10px auto 0;
+        line-height: 1.45;
+        padding: 0 10px;
+        gap: 6px;
+      }
+      .hero-feedback-subnote span {
+        white-space: normal;
+        text-align: center;
+      }
+      .thoughts-modal-card {
+        padding: 24px 20px;
+        border-radius: 20px;
       }
     }
 
@@ -5933,17 +6206,24 @@
               </p>
             </div>
 
-            <!-- Single Feedback CTA -->
+            <!-- Hero Action Buttons Trio & Feedback Note -->
             <div class="hero-cta-group hero-feedback-group">
-              <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSDnNzFXmxwIoul1DAWHdbHF8qiNgPozYC2qLo68NpjvBkcg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-teal hero-feedback-btn">
-                <span>Share Your Feedback &rarr;</span>
-              </a>
+              <div class="hero-buttons-row">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeSDnNzFXmxwIoul1DAWHdbHF8qiNgPozYC2qLo68NpjvBkcg/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-teal hero-feedback-btn btn-share-feedback">
+                  <span>Share Your Feedback &rarr;</span>
+                </a>
+                <button type="button" class="btn btn-teal hero-feedback-btn btn-submit-thoughts" id="btn-open-thoughts-modal" onclick="openThoughtsModal()">
+                  <span>Submit My Thoughts &rarr;</span>
+                </button>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSfRpd0DwPu1GlmkupyuI9_MpkWlNMU72xYHHrXT9ZMENht_FQ/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-teal hero-feedback-btn btn-request-demo">
+                  <span>Request a Demo &rarr;</span>
+                </a>
+              </div>
               <div class="hero-feedback-subnote">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.75;">
-                  <circle cx="12" cy="12" r="10"></circle>
-                  <polyline points="12 6 12 12 16 14"></polyline>
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:#0F9D8A; flex-shrink:0;">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
                 </svg>
-                <span>Help shape Vibodh Signal &bull; Takes just 3&ndash;5 minutes</span>
+                <span>We'd love to hear your ideas, suggestions, or feedback...</span>
               </div>
             </div>
           </div>
@@ -9432,7 +9712,151 @@
     }
     window.switchResourceSubtab = switchResourceSubtab;
 
-  </script>
+  
+  // ── Thoughts Floating Modal Window Handlers ────────────────────────────────
+  function openThoughtsModal() {
+    const modal = document.getElementById('thoughts-modal');
+    if (!modal) return;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    const textarea = document.getElementById('thoughts-textarea-input');
+    if (textarea) {
+      setTimeout(() => textarea.focus(), 150);
+    }
+  }
+
+  function closeThoughtsModal() {
+    const modal = document.getElementById('thoughts-modal');
+    if (!modal) return;
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      const formBody = document.getElementById('thoughts-form-body');
+      const successState = document.getElementById('thoughts-success-state');
+      const form = document.getElementById('thoughts-feedback-form');
+      if (formBody) formBody.style.display = 'block';
+      if (successState) successState.style.display = 'none';
+      if (form) form.reset();
+      const counter = document.getElementById('char-count');
+      if (counter) counter.textContent = '0';
+    }, 300);
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('thoughts-modal');
+    const form = document.getElementById('thoughts-feedback-form');
+    const textarea = document.getElementById('thoughts-textarea-input');
+    const charCounter = document.getElementById('char-count');
+
+    if (textarea && charCounter) {
+      textarea.addEventListener('input', () => {
+        charCounter.textContent = textarea.value.length;
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeThoughtsModal();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('is-open')) {
+        closeThoughtsModal();
+      }
+    });
+
+    if (form) {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const thoughts = textarea ? textarea.value.trim() : '';
+        const emailInput = document.getElementById('thoughts-email-input');
+        const email = emailInput ? emailInput.value.trim() : '';
+
+        if (!thoughts) {
+          if (textarea) textarea.focus();
+          return;
+        }
+
+        try {
+          const stored = JSON.parse(localStorage.getItem('vibodh_user_thoughts') || '[]');
+          stored.push({
+            thoughts: thoughts,
+            email: email,
+            timestamp: new Date().toISOString()
+          });
+          localStorage.setItem('vibodh_user_thoughts', JSON.stringify(stored));
+        } catch (err) {
+          console.warn('Could not save to localStorage:', err);
+        }
+
+        const formBody = document.getElementById('thoughts-form-body');
+        const successState = document.getElementById('thoughts-success-state');
+        if (formBody) formBody.style.display = 'none';
+        if (successState) successState.style.display = 'block';
+      });
+    }
+  });
+
+</script>
+
+
+  <!-- FLOATING THOUGHTS / FEEDBACK MODAL WINDOW -->
+  <div class="thoughts-modal-overlay" id="thoughts-modal" role="dialog" aria-modal="true" aria-labelledby="thoughts-modal-title">
+    <div class="thoughts-modal-card">
+      <button type="button" class="thoughts-modal-close-btn" onclick="closeThoughtsModal()" aria-label="Close modal">&times;</button>
+      
+      <!-- Form Body -->
+      <div id="thoughts-form-body">
+        <div class="thoughts-modal-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          Vibodh Signal &bull; Ideas &amp; Feedback
+        </div>
+        <h3 class="thoughts-modal-title" id="thoughts-modal-title">Submit Your Thoughts</h3>
+        <p class="thoughts-modal-desc">Tell us what workflows, automations, or features you'd like to see in Vibodh Signal. We value your input!</p>
+
+        <form id="thoughts-feedback-form">
+          <div class="thoughts-form-group">
+            <label class="thoughts-form-label" for="thoughts-email-input">Email address <span style="font-weight:400; color:#94A3B8;">(optional, for follow-up)</span></label>
+            <input type="email" id="thoughts-email-input" class="thoughts-input" placeholder="you@company.com">
+          </div>
+
+          <div class="thoughts-form-group">
+            <label class="thoughts-form-label" for="thoughts-textarea-input">Your thoughts, suggestions, or ideas <span style="color:#0F9D8A;">*</span></label>
+            <textarea id="thoughts-textarea-input" class="thoughts-textarea" placeholder="Describe the feature, idea, or marketing challenge you'd like Vibodh Signal to solve..." required maxlength="1000"></textarea>
+            <div class="thoughts-char-counter">
+              <span id="char-count">0</span>&nbsp;/ 1000
+            </div>
+          </div>
+
+          <div class="thoughts-modal-actions">
+            <button type="button" class="thoughts-btn-cancel" onclick="closeThoughtsModal()">Cancel</button>
+            <button type="submit" class="thoughts-btn-submit">
+              <span>Send Response &rarr;</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Success Screen State -->
+      <div id="thoughts-success-state" class="thoughts-success-state">
+        <div class="thoughts-success-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h3 class="thoughts-success-title">Response Received!</h3>
+        <p class="thoughts-success-text">
+          Thank you for sharing your thoughts. Your feedback has been recorded and will directly guide the design and features of Vibodh Signal!
+        </p>
+        <button type="button" class="thoughts-btn-done" onclick="closeThoughtsModal()">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
