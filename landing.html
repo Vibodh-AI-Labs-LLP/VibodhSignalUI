@@ -5526,15 +5526,15 @@
     .thoughts-modal-card {
       position: relative;
       width: 100%;
-      max-width: 520px;
+      max-width: 680px;
       background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
-      border: 1.5px solid rgba(226, 232, 240, 0.9);
-      border-radius: 24px;
-      padding: 32px 36px;
+      border: 1.5px solid rgba(226, 232, 240, 0.95);
+      border-radius: 28px;
+      padding: 40px 46px;
       box-shadow: 
-        0 25px 60px -12px rgba(15, 23, 42, 0.3),
-        0 0 0 1px rgba(15, 157, 138, 0.12),
-        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+        0 30px 70px -15px rgba(15, 23, 42, 0.35),
+        0 0 0 1px rgba(15, 157, 138, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95);
       transform: scale(0.96) translateY(12px);
       transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -5585,18 +5585,18 @@
 
     .thoughts-modal-title {
       font-family: var(--font-display, 'Plus Jakarta Sans', sans-serif);
-      font-size: 1.375rem;
+      font-size: 1.625rem;
       font-weight: 800;
       color: #0F172A;
-      margin: 0 0 8px 0;
-      letter-spacing: -0.02em;
+      margin: 0 0 10px 0;
+      letter-spacing: -0.025em;
     }
 
     .thoughts-modal-desc {
-      font-size: 0.9rem;
+      font-size: 0.975rem;
       color: #64748B;
-      line-height: 1.5;
-      margin: 0 0 20px 0;
+      line-height: 1.55;
+      margin: 0 0 24px 0;
     }
 
     .thoughts-form-group {
@@ -5616,12 +5616,12 @@
       width: 100%;
       box-sizing: border-box;
       font-family: 'Plus Jakarta Sans', sans-serif;
-      font-size: 0.9375rem;
+      font-size: 1rem;
       color: #0F172A;
       background: #FFFFFF;
       border: 1.5px solid #CBD5E1;
-      border-radius: 12px;
-      padding: 12px 14px;
+      border-radius: 14px;
+      padding: 14px 18px;
       transition: all 0.2s ease;
     }
 
@@ -5629,13 +5629,13 @@
     .thoughts-textarea:focus {
       outline: none;
       border-color: #0F9D8A;
-      box-shadow: 0 0 0 3px rgba(15, 157, 138, 0.15);
+      box-shadow: 0 0 0 4px rgba(15, 157, 138, 0.15);
     }
 
     .thoughts-textarea {
-      min-height: 110px;
+      min-height: 200px;
       resize: vertical;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
     .thoughts-char-counter {
@@ -5866,6 +5866,10 @@
       .thoughts-modal-card {
         padding: 24px 20px;
         border-radius: 20px;
+        max-width: 95%;
+      }
+      .thoughts-textarea {
+        min-height: 160px;
       }
     }
 
@@ -9736,7 +9740,11 @@
       const form = document.getElementById('thoughts-feedback-form');
       if (formBody) formBody.style.display = 'block';
       if (successState) successState.style.display = 'none';
-      if (form) form.reset();
+      if (form) {
+        form.reset();
+        const emailInput = document.getElementById('thoughts-email-input');
+        if (emailInput) emailInput.value = 'reachus@vibodhai.com';
+      }
       const counter = document.getElementById('char-count');
       if (counter) counter.textContent = '0';
     }, 300);
@@ -9819,8 +9827,8 @@
 
         <form id="thoughts-feedback-form">
           <div class="thoughts-form-group">
-            <label class="thoughts-form-label" for="thoughts-email-input">Email address <span style="font-weight:400; color:#94A3B8;">(optional, for follow-up)</span></label>
-            <input type="email" id="thoughts-email-input" class="thoughts-input" placeholder="you@company.com">
+            <label class="thoughts-form-label" for="thoughts-email-input">Email address <span style="font-weight:400; color:#94A3B8;">(default: reachus@vibodhai.com)</span></label>
+            <input type="email" id="thoughts-email-input" class="thoughts-input" value="reachus@vibodhai.com" placeholder="reachus@vibodhai.com">
           </div>
 
           <div class="thoughts-form-group">
