@@ -264,11 +264,24 @@
 
     .navbar {
       height: var(--header-height);
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
-      justify-content: space-between;
       gap: 20px;
       transition: height 0.2s ease;
+    }
+
+    .brand-logo {
+      justify-self: start;
+    }
+
+    .nav-section-links {
+      justify-self: center;
+      margin: 0 auto;
+    }
+
+    .nav-actions {
+      justify-self: end;
     }
 
     .site-header.is-scrolled .navbar {
@@ -315,11 +328,18 @@
       list-style: none;
     }
 
+    .nav-section-links li {
+      display: flex;
+    }
+
     .nav-anchor-link {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      min-width: 136px;
       gap: 6px;
-      padding: 10px 24px;
+      padding: 10px 20px;
+      text-align: center;
       border-radius: var(--radius-full);
       font-size: 1.025rem;
       font-weight: 600;
@@ -2369,6 +2389,9 @@
       }
 
       .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         gap: 10px;
       }
 
