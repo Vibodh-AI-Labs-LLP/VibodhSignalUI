@@ -2515,133 +2515,125 @@
       padding: 16px 0 54px 0;
     }
 
-  .studio-video-floating-group {
-      pointer-events: none;
-    }
-
-    .video-float-element {
+    /* Ambient 3D Marketing Elements Floating on Left & Right Sides */
+    .video-ambient-floating-wrap {
       position: absolute;
-      width: 220px;
-      z-index: 10;
-      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-      cursor: default;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .ambient-float {
+      position: absolute;
+      pointer-events: none;
       user-select: none;
-      pointer-events: auto;
-      display: block;
     }
 
-    .video-float-img {
+    /* Muted, duller color that doesn't highlight or distract */
+    .ambient-icon-img {
       display: block;
-      width: 100%;
       height: auto;
-      filter: drop-shadow(0 18px 36px rgba(15, 23, 42, 0.12));
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), filter 0.35s ease;
+      opacity: 0.48;
+      filter: saturate(0.65) brightness(0.92) drop-shadow(0 8px 16px rgba(15, 23, 42, 0.08));
+      transition: all 0.35s ease;
     }
 
-    .video-float-element:hover .video-float-img {
-      transform: translateY(-5px) scale(1.03);
-      filter: drop-shadow(0 26px 44px rgba(15, 157, 138, 0.22));
+    /* Left Side: Placed completely outside the video layout */
+    .ambient-left-top {
+      top: 6%;
+      left: -90px;
+      animation: floatAmbient1 8s ease-in-out infinite alternate;
+    }
+    .img-megaphone {
+      width: 76px;
+      transform: rotate(-10deg);
     }
 
-    @keyframes floatY1 {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-8px); }
+    .ambient-left-mid {
+      top: 44%;
+      left: -75px;
+      animation: floatAmbient2 9.5s ease-in-out infinite alternate 1.2s;
     }
-    @keyframes floatY2 {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-10px); }
-    }
-    @keyframes floatY3 {
-      0% { transform: translateY(-6px); }
-      100% { transform: translateY(4px); }
-    }
-    @keyframes floatY4 {
-      0% { transform: translateY(-4px); }
-      100% { transform: translateY(6px); }
+    .img-play {
+      width: 52px;
+      transform: rotate(6deg);
     }
 
-    /* Left elements: positioned outside left video border, overlapping/touching by 20px */
-    .float-top-left {
-      top: 5%;
-      left: calc(-220px + 20px);
-      right: auto;
-      animation: floatY1 5s ease-in-out infinite alternate;
-    }
-
-    .float-bottom-left {
+    .ambient-left-bottom {
       bottom: 8%;
-      left: calc(-220px + 20px);
-      right: auto;
-      animation: floatY3 6.4s ease-in-out infinite alternate;
+      left: -85px;
+      animation: floatAmbient3 8.8s ease-in-out infinite alternate 0.5s;
+    }
+    .img-target {
+      width: 58px;
+      transform: rotate(-6deg);
     }
 
-    /* Right elements: positioned outside right video border, overlapping/touching by 20px */
-    .float-top-right {
-      top: 10%;
-      left: calc(100% - 20px);
-      right: auto;
-      animation: floatY2 5.8s ease-in-out infinite alternate;
+    /* Right Side: Placed completely outside the video layout */
+    .ambient-right-top {
+      top: 8%;
+      right: -75px;
+      animation: floatAmbient4 7.8s ease-in-out infinite alternate 0.8s;
+    }
+    .img-thumbs {
+      width: 52px;
+      transform: rotate(8deg);
     }
 
-    .float-bottom-right {
-      bottom: 5%;
-      left: calc(100% - 20px);
-      right: auto;
-      animation: floatY4 5.4s ease-in-out infinite alternate;
+    .ambient-right-mid {
+      top: 40%;
+      right: -95px;
+      animation: floatAmbient5 10s ease-in-out infinite alternate 2s;
+    }
+    .img-growth {
+      width: 84px;
+      transform: rotate(-4deg);
     }
 
-    /* Moderate desktop screens (1181px - 1320px) */
-    @media (max-width: 1320px) and (min-width: 1181px) {
-      .video-float-element {
-        width: 195px;
-      }
-      .float-top-left, .float-bottom-left {
-        left: calc(-195px + 26px);
-      }
-      .float-top-right, .float-bottom-right {
-        left: calc(100% - 26px);
-      }
+    .ambient-right-bottom {
+      bottom: 10%;
+      right: -75px;
+      animation: floatAmbient6 8.5s ease-in-out infinite alternate 1.5s;
+    }
+    .img-trend {
+      width: 54px;
+      transform: rotate(5deg);
     }
 
-    /* Screens <= 1180px: 2x2 grid cleanly beneath video so video is 100% unobstructed */
-    @media (max-width: 1180px) {
-      .studio-video-container-wrap {
-        padding-bottom: 0;
-      }
-      .studio-video-floating-group {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-top: 24px;
-        pointer-events: auto;
-        justify-items: center;
-      }
-      .video-float-element {
-        position: static !important;
-        animation: none !important;
-        max-width: 250px;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        transform: none !important;
-      }
-      .video-float-img {
-        max-width: 250px;
-        width: 100%;
-      }
+    /* Smooth organic floating keyframes */
+    @keyframes floatAmbient1 {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-16px) rotate(3deg); }
+    }
+    @keyframes floatAmbient2 {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(14px) rotate(-4deg); }
+    }
+    @keyframes floatAmbient3 {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-12px) rotate(2deg); }
+    }
+    @keyframes floatAmbient4 {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-15px) rotate(-3deg); }
+    }
+    @keyframes floatAmbient5 {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(16px) rotate(3deg); }
+    }
+    @keyframes floatAmbient6 {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-14px) rotate(-2deg); }
     }
 
-    @media (max-width: 580px) {
-      .studio-video-floating-group {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-      .video-float-element {
-        max-width: 240px;
+    /* Ensure elements NEVER crowd or touch video on smaller viewports */
+    @media (max-width: 1140px) {
+      .video-ambient-floating-wrap {
+        display: none !important;
       }
     }
 
-      .studio-video-frame {
+    .studio-video-frame {
       max-width: 860px;
       margin: 0 auto;
       background: #0B1120;
@@ -6045,12 +6037,6 @@
 
         <!-- Right Action Button & Mobile Toggle -->
         <div class="nav-actions">
-          <a href="dashboard.html" class="btn btn-teal nav-cta-btn">
-            <span>Get Started</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <polyline points="9 18 15 12 9 6" />
-            </svg>
-          </a>
           <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="3" y1="12" x2="21" y2="12" />
@@ -6329,28 +6315,31 @@
               </div>
             </div>
 
-            <!-- Floating Brand Badges Around Video Layout -->
-            <div class="studio-video-floating-group">
-              <!-- Floating Image Element 1: Top Left - AI Video Reel -->
-              <div class="video-float-element float-top-left">
-                <img src="assets/element-video-reel.png" alt="AI Video Reel Generator" class="video-float-img" width="290" height="220" loading="lazy">
+            <!-- Ambient 3D Marketing Elements Floating on Left & Right Sides (Unobstructed Video) -->
+            <div class="video-ambient-floating-wrap" aria-hidden="true">
+              <!-- Left Side Ambient Elements -->
+              <div class="ambient-float ambient-left-top" title="Campaign Reach">
+                <img src="assets/floating/float-megaphone.png" alt="" class="ambient-icon-img img-megaphone">
+              </div>
+              <div class="ambient-float ambient-left-mid" title="Interactive Content">
+                <img src="assets/floating/float-play.png" alt="" class="ambient-icon-img img-play">
+              </div>
+              <div class="ambient-float ambient-left-bottom" title="Audience Targeting">
+                <img src="assets/floating/float-target.png" alt="" class="ambient-icon-img img-target">
               </div>
 
-              <!-- Floating Image Element 2: Top Right - Performance ROAS -->
-              <div class="video-float-element float-top-right">
-                <img src="assets/element-growth-roas.png" alt="Performance ROAS Analytics" class="video-float-img" width="290" height="170" loading="lazy">
+              <!-- Right Side Ambient Elements -->
+              <div class="ambient-float ambient-right-top" title="Community Engagement">
+                <img src="assets/floating/float-thumbs-up.png" alt="" class="ambient-icon-img img-thumbs">
               </div>
-
-              <!-- Floating Image Element 3: Bottom Left - Multi-Channel Publishing -->
-              <div class="video-float-element float-bottom-left">
-                <img src="assets/element-multi-publish.png" alt="Multi-Channel Social Publishing" class="video-float-img" width="290" height="140" loading="lazy">
+              <div class="ambient-float ambient-right-mid" title="Marketing Growth Engine">
+                <img src="assets/floating/float-growth-chart.png" alt="" class="ambient-icon-img img-growth">
               </div>
-
-              <!-- Floating Image Element 4: Bottom Right - AI Brand Creatives -->
-              <div class="video-float-element float-bottom-right">
-                <img src="assets/element-brand-creatives.png" alt="AI Brand Creative Generator" class="video-float-img" width="290" height="220" loading="lazy">
+              <div class="ambient-float ambient-right-bottom" title="Performance Trending">
+                <img src="assets/floating/float-trend-arrow.png" alt="" class="ambient-icon-img img-trend">
               </div>
             </div>
+          </div>
           </div>
 
           <!-- Product Tour CTA: Submit My Thoughts Button & Subnote -->
