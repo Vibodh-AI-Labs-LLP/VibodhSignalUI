@@ -21,6 +21,36 @@ const MIME_TYPES = {
 
 const server = http.createServer((req, res) => {
   let reqPath = decodeURI(req.url.split('?')[0]);
+
+  // The PMF experience uses the existing local feedback service for validation,
+  // persistence, and notification delivery while keeping this UI same-origin.
+  if (req.method === 'POST' && ['/api/pmf-feedback', '/api/visitor-thoughts'].includes(reqPath)) {
+    const upstream = http.request({
+      hostname: '127.0.0.1',
+      port: 4173,
+      path: reqPath,
+      method: 'POST',
+      headers: {
+        'Content-Type': req.headers['content-type'] || 'application/json',
+        'Content-Length': req.headers['content-length'] || 0
+      }
+    }, (upstreamResponse) => {
+      res.writeHead(upstreamResponse.statusCode || 502, {
+        'Content-Type': upstreamResponse.headers['content-type'] || 'application/json',
+        'Cache-Control': 'no-cache'
+      });
+      upstreamResponse.pipe(res);
+    });
+
+    upstream.on('error', () => {
+      res.writeHead(503, { 'Content-Type': 'application/json' });
+      res.end(JSON.stringify({ error: 'The feedback service is temporarily unavailable. Please try again shortly.' }));
+    });
+
+    req.pipe(upstream);
+    return;
+  }
+
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
   if (reqPath.toLowerCase() === '/billing.html') reqPath = '/dashboard.html';
 
