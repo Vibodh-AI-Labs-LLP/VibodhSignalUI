@@ -24,15 +24,28 @@ const server = http.createServer((req, res) => {
   if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
   if (reqPath.toLowerCase() === '/billing.html') reqPath = '/dashboard.html';
 
+  const lower = reqPath.toLowerCase();
+
+  // Control Plane Admin App Routes
+  if (lower === '/control-plane' || lower === '/controlplane' || lower === '/admin' || lower === '/saas-control-plane') {
+    reqPath = '/control-plane.html';
+  }
+
+  // Usage & Analytics App Routes
+  if (lower === '/usage-analytics' || lower === '/analytics-usage' || lower === '/usage-db') {
+    reqPath = '/usage-analytics.html';
+  }
+
+  // Customer Workspace Side Panel Routes
   const SIDE_PANEL_ROUTES = [
     '/dashboard', '/campaign', '/campaigns', '/contentstudio', '/content-studio',
     '/branddna', '/brand-dna', '/calendar', '/analytics', '/medialibrary',
     '/media-library', '/socialchannels', '/social-channels', '/agency',
     '/agency-hub', '/brandknowledge', '/brand-knowledge', '/activity',
-    '/settings', '/billing'
+    '/settings', '/billing', '/usage'
   ];
 
-  if (SIDE_PANEL_ROUTES.includes(reqPath.toLowerCase())) {
+  if (SIDE_PANEL_ROUTES.includes(lower)) {
     reqPath = '/dashboard.html';
   }
 
@@ -61,5 +74,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '127.0.0.1', () => {
-  console.log(`Vibodh Signal Pricing Page preview server running at: http://localhost:${PORT}/`);
+  console.log(`Vibodh Signal preview server running at: http://localhost:${PORT}/`);
 });

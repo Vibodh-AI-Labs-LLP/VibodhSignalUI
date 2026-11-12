@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibodh Signal — Usage &amp; Analytics (Admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin-platform.css">
+</head>
+<body>
+  <div class="admin-app-container">
+
+    <!-- ═══════════════ SIDEBAR: 9 MODULES ═══════════════ -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-header" style="padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div class="admin-sidebar-brand" style="display:flex;flex-direction:column;gap:4px;">
+          <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" style="width:138px; height:auto; display:block;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:8.5px;font-weight:800;background:rgba(124,58,237,0.25);color:#C4B5FD;border:1px solid rgba(124,58,237,0.4);padding:1.5px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em;">Usage &amp; Analytics</span>
+          </div>
+        </div>
+        <div class="admin-sidebar-logo-collapsed" onclick="toggleAdminSidebar()" title="Vibodh Signal — Click to Expand">
+          <div class="admin-logo-collapsed-frame">
+            <img src="assets/vibodh-signal-mini.png" alt="Vibodh Signal" class="admin-logo-collapsed-img">
+          </div>
+        </div>
+        <button type="button" class="admin-sidebar-toggle-btn" id="ua-sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle Sidebar">
+          <svg class="sidebar-toggle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+            <line x1="8.5" y1="7.5" x2="8.5" y2="16.5" stroke-width="2.4"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="admin-nav" role="navigation">
+        <!-- Main Menu 1: Metering & Telemetry -->
+        <div class="admin-nav-group is-open has-active" id="group-metering-telemetry">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('metering-telemetry')" title="Metering & Telemetry">
+            <span class="admin-nav-icon">⚡</span>
+            <span class="admin-nav-label">Metering &amp; Telemetry</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item active" data-screen="usage-dashboard" title="Usage Dashboard" onclick="switchUaScreen('usage-dashboard')">
+              <span class="admin-nav-icon">📊</span>
+              <span class="admin-nav-label">Usage Dashboard</span>
+            </div>
+            <div class="admin-nav-item" data-screen="ai-credit-usage" title="AI Credit Usage" onclick="switchUaScreen('ai-credit-usage')">
+              <span class="admin-nav-icon">⚡</span>
+              <span class="admin-nav-label">AI Credit Usage</span>
+            </div>
+            <div class="admin-nav-item" data-screen="credit-reservations" title="Credit Reservations" onclick="switchUaScreen('credit-reservations')">
+              <span class="admin-nav-icon">🔒</span>
+              <span class="admin-nav-label">Credit Reservations</span>
+            </div>
+            <div class="admin-nav-item" data-screen="credit-ledger" title="Credit Ledger" onclick="switchUaScreen('credit-ledger')">
+              <span class="admin-nav-icon">📖</span>
+              <span class="admin-nav-label">Credit Ledger</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Menu 2: Economics & Costs -->
+        <div class="admin-nav-group" id="group-economics-costs">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('economics-costs')" title="Economics & Costs">
+            <span class="admin-nav-icon">💵</span>
+            <span class="admin-nav-label">Economics &amp; Costs</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item" data-screen="provider-costs" title="Provider Cost Analytics" onclick="switchUaScreen('provider-costs')">
+              <span class="admin-nav-icon">🧠</span>
+              <span class="admin-nav-label">Provider Cost Analytics</span>
+            </div>
+            <div class="admin-nav-item" data-screen="cost-attribution" title="Cost Attribution" onclick="switchUaScreen('cost-attribution')">
+              <span class="admin-nav-icon">💵</span>
+              <span class="admin-nav-label">Cost Attribution</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Menu 3: Control & Reporting -->
+        <div class="admin-nav-group" id="group-control-reporting">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('control-reporting')" title="Control & Reporting">
+            <span class="admin-nav-icon">📈</span>
+            <span class="admin-nav-label">Control &amp; Reporting</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item" data-screen="quota-alerts" title="Quota Alerts" onclick="switchUaScreen('quota-alerts')">
+              <span class="admin-nav-icon">🔔</span>
+              <span class="admin-nav-label">Quota Alerts</span>
+            </div>
+            <div class="admin-nav-item" data-screen="usage-reconciliation" title="Reconciliation" onclick="switchUaScreen('usage-reconciliation')">
+              <span class="admin-nav-icon">⚖️</span>
+              <span class="admin-nav-label">Reconciliation</span>
+            </div>
+            <div class="admin-nav-item" data-screen="reports" title="Reports" onclick="switchUaScreen('reports')">
+              <span class="admin-nav-icon">📈</span>
+              <span class="admin-nav-label">Reports</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+    <main class="admin-main">
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-topbar-sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle Sidebar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="admin-breadcrumb">Usage &amp; Analytics &bull; <strong id="current-ua-screen-title">Usage Dashboard</strong></div>
+          <span class="status-pill status-active" style="background:#F5F0FE;color:#7C3AED;"><span class="dot" style="background:#7C3AED;"></span> Connected (usage_db)</span>
+        </div>
+        <div class="admin-topbar-right">
+          <!-- App Switcher -->
+          <div class="topbar-app-switcher">
+            <button type="button" class="app-switcher-btn" onclick="toggleAppSwitcher(event)">
+              <span class="app-dot" style="background:#7C3AED;"></span>
+              <span>Usage &amp; Analytics</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="app-switcher-dropdown" id="app-switcher-dropdown">
+              <a href="/dashboard.html" class="app-link"><span class="app-link-badge client">Workspace</span> <div><strong>Customer Workspace</strong><small>Marketing Studio &amp; Brand Hub</small></div></a>
+              <a href="/control-plane.html" class="app-link"><span class="app-link-badge cp">Control Plane</span> <div><strong>SaaS Control Plane</strong><small>Tenants, Subscriptions &amp; GST</small></div></a>
+              <a href="/usage-analytics.html" class="app-link active"><span class="app-link-badge usage">Usage</span> <div><strong>Usage &amp; Analytics</strong><small>Ledger, Metering &amp; Cost Attribution</small></div></a>
+            </div>
+          </div>
+          <div class="topbar-avatar" style="width:32px;height:32px;border-radius:8px;background:#7C3AED;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">UA</div>
+        </div>
+      </header>
+
+      <div class="admin-screen-container">
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 1: USAGE DASHBOARD
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen active" id="screen-usage-dashboard">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Usage Dashboard</h1>
+              <p>Platform-wide AI credit metering, inference velocity, and modality consumption telemetry.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-outline-neutral" onclick="showToast('Telemetry refreshed from usage_db.', '⚡')">🔄 Refresh Real-Time</button>
+            </div>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="admin-kpi-grid">
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Credits Consumed (MTD)</span>
+                <span class="kpi-icon-bubble kpi-icon-teal">⚡</span>
+              </div>
+              <div class="kpi-value">54,280</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">↑ +21.4%</span>
+                <span>vs previous 30-day window</span>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Active In-Flight Locks</span>
+                <span class="kpi-icon-bubble kpi-icon-coral">🔒</span>
+              </div>
+              <div class="kpi-value">3</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-neutral">45 credits</span>
+                <span>temporarily held in reservation</span>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Gross Margin on AI</span>
+                <span class="kpi-icon-bubble kpi-icon-purple">💎</span>
+              </div>
+              <div class="kpi-value">79.2%</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">Healthy</span>
+                <span>Retail ₹10/cr vs COGS ₹2.08/cr</span>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Inference Volume</span>
+                <span class="kpi-icon-bubble kpi-icon-indigo">🚀</span>
+              </div>
+              <div class="kpi-value">12,410</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">↑ +18%</span>
+                <span>generations completed</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modality Breakdown Visual Meter -->
+          <div class="meter-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <h3 style="font-size:14px;font-weight:800;color:#243B6B;margin:0;">Modality Consumption Distribution</h3>
+              <span style="font-size:12px;font-weight:700;color:#64748B;">Total: 54,280 Credits</span>
+            </div>
+            <div class="meter-track">
+              <div class="meter-seg text" style="width: 32%;" title="Text: 17,370 credits (32%)"></div>
+              <div class="meter-seg image" style="width: 44%;" title="Image: 23,883 credits (44%)"></div>
+              <div class="meter-seg video" style="width: 24%;" title="Video: 13,027 credits (24%)"></div>
+            </div>
+            <div class="meter-legend">
+              <div class="legend-item"><span class="legend-dot" style="background:#0F9D8A;"></span> <strong>Text (Gemini Copywriter):</strong> 17,370 credits (32.0%) &bull; avg 1 cr/req</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#7C3AED;"></span> <strong>Image (Imagen 3 Visuals):</strong> 23,883 credits (44.0%) &bull; avg 1.4 cr/req</div>
+              <div class="legend-item"><span class="legend-dot" style="background:#243B6B;"></span> <strong>Video (Veo Motion Clips):</strong> 13,027 credits (24.0%) &bull; avg 18 cr/req</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 2: AI CREDIT USAGE
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-ai-credit-usage">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>AI Credit Usage Explorer</h1>
+              <p>Granular organization-level consumption data across text, image, and video operations.</p>
+            </div>
+          </div>
+
+          <div class="admin-filter-bar">
+            <div class="admin-search-wrap">
+              <input type="text" class="admin-search-input" placeholder="Filter by organization or slug..." oninput="filterTable(this, 'ua-usage-table')">
+            </div>
+            <div class="admin-filter-controls">
+              <select class="admin-select">
+                <option value="all">All Tiers</option>
+                <option value="growth">Growth</option>
+                <option value="agency">Agency</option>
+                <option value="starter">Starter</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table" id="ua-usage-table">
+              <thead>
+                <tr>
+                  <th>Organization</th>
+                  <th>Tier</th>
+                  <th>Allocated</th>
+                  <th>Used (MTD)</th>
+                  <th>Remaining</th>
+                  <th>Burn Rate</th>
+                  <th>Text / Image / Video</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>BlueWave Digital Media</strong><br><small>org_bluewave_44</small></td>
+                  <td>Agency</td>
+                  <td>3,500 cr</td>
+                  <td><strong>1,840 cr</strong></td>
+                  <td>1,660 cr</td>
+                  <td>61.3 cr/day</td>
+                  <td>420 / 920 / 500</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> 52% Used</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Vibodh AI Technologies</strong><br><small>org_vibodhai_01</small></td>
+                  <td>Growth</td>
+                  <td>1,000 cr</td>
+                  <td><strong>260 cr</strong></td>
+                  <td>740 cr</td>
+                  <td>8.6 cr/day</td>
+                  <td>45 / 115 / 100</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> 26% Used</span></td>
+                </tr>
+                <tr>
+                  <td><strong>AyurVeda Naturals D2C</strong><br><small>org_ayurveda_89</small></td>
+                  <td>Growth</td>
+                  <td>1,000 cr</td>
+                  <td><strong>910 cr</strong></td>
+                  <td>90 cr</td>
+                  <td>30.3 cr/day</td>
+                  <td>110 / 680 / 120</td>
+                  <td><span class="status-pill status-pastdue"><span class="dot"></span> 91% (Quota Alert)</span></td>
+                </tr>
+                <tr>
+                  <td><strong>NexGen Retail Solutions</strong><br><small>org_nexgen_12</small></td>
+                  <td>Starter</td>
+                  <td>250 cr</td>
+                  <td><strong>248 cr</strong></td>
+                  <td>2 cr</td>
+                  <td>8.2 cr/day</td>
+                  <td>180 / 68 / 0</td>
+                  <td><span class="status-pill status-failed"><span class="dot"></span> 99% (Near Cap)</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 3: CREDIT RESERVATIONS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-credit-reservations">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Credit Reservations</h1>
+              <p>Active two-phase commit locks. Lifecycle: <code>RESERVE</code> &rarr; <code>COMMIT</code> / <code>RELEASE</code> / <code>HELD</code>.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-outline-neutral" onclick="showToast('Expired reservations cleaned up automatically.', '🧹')">Sweep Expired Locks</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Reservation Hold ID</th>
+                  <th>Organization</th>
+                  <th>Modality</th>
+                  <th>Reserved Credits</th>
+                  <th>State</th>
+                  <th>Created At</th>
+                  <th>TTL Expiry</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>res_hold_99812</code></td>
+                  <td>Vibodh AI Technologies</td>
+                  <td>Video Clip (15s)</td>
+                  <td><strong>15 Credits</strong></td>
+                  <td><span class="status-pill status-trial"><span class="dot"></span> IN_FLIGHT</span></td>
+                  <td>Just now</td>
+                  <td>in 115s</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;" onclick="showToast('Hold released manually.', '🔓')">Force Release</button></td>
+                </tr>
+                <tr>
+                  <td><code>res_hold_99811</code></td>
+                  <td>BlueWave Digital Media</td>
+                  <td>Video Clip (30s)</td>
+                  <td><strong>30 Credits</strong></td>
+                  <td><span class="status-pill status-trial"><span class="dot"></span> IN_FLIGHT</span></td>
+                  <td>24s ago</td>
+                  <td>in 96s</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;" onclick="showToast('Hold released manually.', '🔓')">Force Release</button></td>
+                </tr>
+                <tr>
+                  <td><code>res_hold_99810</code></td>
+                  <td>AyurVeda Naturals D2C</td>
+                  <td>Image 4K High-Res</td>
+                  <td><strong>2 Credits</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> COMMITTED</span></td>
+                  <td>2m ago</td>
+                  <td>Settled</td>
+                  <td><span style="color:#64748B;font-size:11px;">Completed</span></td>
+                </tr>
+                <tr>
+                  <td><code>res_hold_99809</code></td>
+                  <td>NexGen Retail Solutions</td>
+                  <td>Text Headline</td>
+                  <td><strong>1 Credit</strong></td>
+                  <td><span class="status-pill status-failed"><span class="dot"></span> RELEASED (Error)</span></td>
+                  <td>8m ago</td>
+                  <td>Released</td>
+                  <td><span style="color:#64748B;font-size:11px;">Released</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 4: CREDIT LEDGER
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-credit-ledger">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Credit Ledger</h1>
+              <p>Append-only, immutable transaction log for every credit grant, top-up, usage, and expiry in usage_db.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-outline-neutral" onclick="exportData('ledger')">📥 Export Ledger CSV</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ledger ID</th>
+                  <th>Timestamp</th>
+                  <th>Organization</th>
+                  <th>Entry Type</th>
+                  <th>Modality</th>
+                  <th>Delta</th>
+                  <th>Balance After</th>
+                  <th>Idempotency Key</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>ledg_009182</code></td>
+                  <td>Nov 11, 2026 10:14:02</td>
+                  <td>Vibodh AI Technologies</td>
+                  <td><code>GENERATION_COMMIT</code></td>
+                  <td>Text</td>
+                  <td><strong style="color:#334155;">-1 Credit</strong></td>
+                  <td><strong>740 Credits</strong></td>
+                  <td><code>idemp_gen_txt_11029a</code></td>
+                </tr>
+                <tr>
+                  <td><code>ledg_009181</code></td>
+                  <td>Nov 11, 2026 09:32:15</td>
+                  <td>Vibodh AI Technologies</td>
+                  <td><code>GENERATION_COMMIT</code></td>
+                  <td>Image</td>
+                  <td><strong style="color:#334155;">-2 Credits</strong></td>
+                  <td><strong>741 Credits</strong></td>
+                  <td><code>idemp_gen_img_88192c</code></td>
+                </tr>
+                <tr>
+                  <td><code>ledg_009180</code></td>
+                  <td>Nov 10, 2026 16:45:00</td>
+                  <td>BlueWave Digital Media</td>
+                  <td><code>TOPUP_PURCHASE</code></td>
+                  <td>System</td>
+                  <td><strong style="color:#059669;">+500 Credits</strong></td>
+                  <td><strong>1,660 Credits</strong></td>
+                  <td><code>idemp_topup_500_blue</code></td>
+                </tr>
+                <tr>
+                  <td><code>ledg_009179</code></td>
+                  <td>Nov 01, 2026 00:00:01</td>
+                  <td>Vibodh AI Technologies</td>
+                  <td><code>SUBSCRIPTION_GRANT</code></td>
+                  <td>System</td>
+                  <td><strong style="color:#059669;">+1,000 Credits</strong></td>
+                  <td><strong>1,000 Credits</strong></td>
+                  <td><code>idemp_sub_vibodh_nov01</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 5: PROVIDER COST ANALYTICS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-provider-costs">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Provider Cost Analytics</h1>
+              <p>Underlying AI inference costs (Google Gemini, Imagen 3, Veo) vs consumer retail credit pricing.</p>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns: repeat(3, 1fr); gap:18px; margin-bottom:24px;">
+            <div class="admin-kpi-card">
+              <span class="kpi-title">Gemini 1.5 Flash (Copywriting)</span>
+              <div class="kpi-value">₹0.08 <small style="font-size:11px;color:#64748B;">/ post</small></div>
+              <p style="font-size:12px;color:#64748B;">Retail credit charged: 1 Credit (₹10.00)<br><strong style="color:#059669;">Gross Margin: 99.2%</strong></p>
+            </div>
+            <div class="admin-kpi-card">
+              <span class="kpi-title">Imagen 3 (Visual Creatives)</span>
+              <div class="kpi-value">₹2.40 <small style="font-size:11px;color:#64748B;">/ image</small></div>
+              <p style="font-size:12px;color:#64748B;">Retail credit charged: 1-2 Credits (₹10-20)<br><strong style="color:#059669;">Gross Margin: 82.0%</strong></p>
+            </div>
+            <div class="admin-kpi-card">
+              <span class="kpi-title">Veo (1080p Motion Video)</span>
+              <div class="kpi-value">₹28.50 <small style="font-size:11px;color:#64748B;">/ 15s clip</small></div>
+              <p style="font-size:12px;color:#64748B;">Retail credit charged: 15 Credits (₹150.00)<br><strong style="color:#059669;">Gross Margin: 81.0%</strong></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 6: CUSTOMER COST ATTRIBUTION
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-cost-attribution">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Customer Cost Attribution</h1>
+              <p>Per-tenant unit economics, COGS, and profit margin contribution.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Organization</th>
+                  <th>Subscription Fee</th>
+                  <th>Credits Consumed</th>
+                  <th>Estimated COGS</th>
+                  <th>Gross Profit (₹)</th>
+                  <th>Margin %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>BlueWave Digital Media</strong></td>
+                  <td>₹16,666 / mo</td>
+                  <td>1,840 credits</td>
+                  <td>₹3,120</td>
+                  <td><strong>+₹13,546</strong></td>
+                  <td><span class="status-pill status-active">81.3%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Vibodh AI Technologies</strong></td>
+                  <td>₹6,999 / mo</td>
+                  <td>260 credits</td>
+                  <td>₹412</td>
+                  <td><strong>+₹6,587</strong></td>
+                  <td><span class="status-pill status-active">94.1%</span></td>
+                </tr>
+                <tr>
+                  <td><strong>AyurVeda Naturals D2C</strong></td>
+                  <td>₹6,999 / mo</td>
+                  <td>910 credits</td>
+                  <td>₹1,860</td>
+                  <td><strong>+₹5,139</strong></td>
+                  <td><span class="status-pill status-active">73.4%</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 7: QUOTA ALERTS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-quota-alerts">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Quota Alerts</h1>
+              <p>Proactive threshold triggers at 80%, 90%, and 100% capacity.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Alert Timestamp</th>
+                  <th>Organization</th>
+                  <th>Threshold</th>
+                  <th>Consumption</th>
+                  <th>Notification Channel</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Nov 11, 2026 08:12</td>
+                  <td><strong>NexGen Retail Solutions</strong></td>
+                  <td><span class="status-pill status-failed">100% Limit</span></td>
+                  <td>248 / 250 credits</td>
+                  <td>Email &amp; In-App Banner</td>
+                  <td><span class="status-pill status-failed">Dispatched</span></td>
+                </tr>
+                <tr>
+                  <td>Nov 10, 2026 14:22</td>
+                  <td><strong>AyurVeda Naturals D2C</strong></td>
+                  <td><span class="status-pill status-pastdue">90% Limit</span></td>
+                  <td>910 / 1,000 credits</td>
+                  <td>Email to priya@</td>
+                  <td><span class="status-pill status-active">Dispatched</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 8: USAGE RECONCILIATION
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-usage-reconciliation">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Usage Reconciliation</h1>
+              <p>Automated variance detection between provider inference tokens and committed ledger debits.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="showToast('Reconciliation run completed. 0 variances detected.', '✓')">⚡ Trigger Reconciliation Run</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Reconciliation Run</th>
+                  <th>Time Window</th>
+                  <th>Provider Events</th>
+                  <th>Ledger Commits</th>
+                  <th>Variance</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>rec_run_20261110</code></td>
+                  <td>10 Nov 2026 (00:00 - 23:59)</td>
+                  <td>1,842 calls</td>
+                  <td>1,842 ledger entries</td>
+                  <td><strong>0 (0.00%)</strong></td>
+                  <td><span class="status-pill status-active">Clean Match</span></td>
+                </tr>
+                <tr>
+                  <td><code>rec_run_20261109</code></td>
+                  <td>09 Nov 2026 (00:00 - 23:59)</td>
+                  <td>1,420 calls</td>
+                  <td>1,420 ledger entries</td>
+                  <td><strong>0 (0.00%)</strong></td>
+                  <td><span class="status-pill status-active">Clean Match</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 9: REPORTS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-reports">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Reports</h1>
+              <p>Downloadable management and financial reports for gross margin, COGS, and credit velocity.</p>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns: repeat(2, 1fr); gap:16px;">
+            <div class="admin-kpi-card">
+              <h3 style="font-size:14px;color:#243B6B;margin-bottom:6px;">Monthly Financial &amp; Usage Summary (October 2026)</h3>
+              <p style="font-size:12px;color:#64748B;">Complete summary of ₹7.38L MRR, ₹1.48L provider COGS, and 80.0% net gross margin.</p>
+              <button class="btn-outline-neutral" style="margin-top:10px;" onclick="showToast('Downloading October Report CSV...', '📥')">📥 Download CSV</button>
+            </div>
+
+            <div class="admin-kpi-card">
+              <h3 style="font-size:14px;color:#243B6B;margin-bottom:6px;">Credit Burn &amp; Velocity Report (Q4 YTD)</h3>
+              <p style="font-size:12px;color:#64748B;">Inference breakdown across text, image, and video generators with peak usage hours.</p>
+              <button class="btn-outline-neutral" style="margin-top:10px;" onclick="showToast('Downloading Velocity Report PDF...', '📥')">📥 Download PDF</button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:99999;"></div>
+
+  <script>
+    function toggleAdminSidebar() {
+      const sidebar = document.getElementById('admin-sidebar');
+      if (!sidebar) return;
+      const isCollapsed = sidebar.classList.toggle('collapsed');
+      try {
+        localStorage.setItem('vibodh_ua_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+      } catch(e) {}
+    }
+    window.toggleAdminSidebar = toggleAdminSidebar;
+
+    // Restore sidebar state
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        if (localStorage.getItem('vibodh_ua_sidebar_collapsed') === 'true') {
+          document.getElementById('admin-sidebar')?.classList.add('collapsed');
+        }
+      } catch(e) {}
+    });
+
+    function toggleNavGroup(groupId) {
+      const sidebar = document.getElementById('admin-sidebar');
+      if (sidebar && sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        try { localStorage.setItem('vibodh_ua_sidebar_collapsed', 'false'); } catch(e) {}
+      }
+      const group = document.getElementById('group-' + groupId);
+      if (!group) return;
+      const isCurrentlyOpen = group.classList.contains('is-open');
+      if (isCurrentlyOpen) {
+        group.classList.remove('is-open');
+      } else {
+        // Accordion: close other groups to keep only main menu clean
+        document.querySelectorAll('.admin-nav-group').forEach(g => g.classList.remove('is-open'));
+        group.classList.add('is-open');
+      }
+    }
+    window.toggleNavGroup = toggleNavGroup;
+
+    function switchUaScreen(screenId) {
+      document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+      const activeNav = document.querySelector(`[data-screen="${screenId}"]`);
+      if (activeNav) {
+        activeNav.classList.add('active');
+        const parentGroup = activeNav.closest('.admin-nav-group');
+        if (parentGroup) {
+          document.querySelectorAll('.admin-nav-group').forEach(g => g.classList.remove('has-active'));
+          parentGroup.classList.add('has-active');
+          parentGroup.classList.add('is-open');
+        }
+      }
+
+      document.querySelectorAll('.admin-screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('screen-' + screenId);
+      if (target) {
+        target.classList.add('active');
+        const titleEl = document.getElementById('current-ua-screen-title');
+        if (titleEl && activeNav) {
+          const labelSpan = activeNav.querySelector('.admin-nav-label');
+          titleEl.innerText = labelSpan ? labelSpan.innerText : activeNav.innerText.trim();
+        }
+      }
+    }
+
+    function toggleAppSwitcher(e) {
+      e.stopPropagation();
+      const dd = document.getElementById('app-switcher-dropdown');
+      if (dd) dd.classList.toggle('show');
+    }
+    document.addEventListener('click', () => {
+      const dd = document.getElementById('app-switcher-dropdown');
+      if (dd) dd.classList.remove('show');
+    });
+
+    function showToast(msg, icon = '✓') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.style.cssText = 'background:#243B6B;color:#fff;padding:10px 16px;border-radius:8px;font-size:12.5px;font-weight:600;margin-top:8px;box-shadow:0 6px 16px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;animation:fadeIn 0.2s;';
+      toast.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+  </script>
+</body>
+</html>

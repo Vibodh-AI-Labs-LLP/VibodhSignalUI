@@ -1,0 +1,1657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vibodh Signal — SaaS Control Plane (Admin)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="admin-platform.css">
+  <style>
+    /* Control Plane Specific Additions */
+    .cp-metric-sub { font-size: 11px; color: #64748B; margin-top: 2px; }
+    .cp-flag-toggle {
+      position: relative;
+      width: 36px;
+      height: 20px;
+      background: #CBD5E1;
+      border-radius: 9999px;
+      cursor: pointer;
+      transition: background 0.2s;
+      display: inline-block;
+      vertical-align: middle;
+    }
+    .cp-flag-toggle.on { background: #0F9D8A; }
+    .cp-flag-toggle::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.2s;
+    }
+    .cp-flag-toggle.on::after { transform: translateX(16px); }
+  </style>
+</head>
+<body>
+  <div class="admin-app-container">
+
+    <!-- ═══════════════ SIDEBAR: 18 MODULES ═══════════════ -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="admin-sidebar-header" style="padding:14px 16px 12px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between;gap:8px;">
+        <div class="admin-sidebar-brand" style="display:flex;flex-direction:column;gap:4px;">
+          <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" style="width:138px; height:auto; display:block;">
+          <div style="display:flex;align-items:center;gap:6px;">
+            <span style="font-size:8.5px;font-weight:800;background:rgba(15,157,138,0.15);color:#0F9D8A;border:1px solid rgba(15,157,138,0.3);padding:1.5px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em;">SaaS Control Plane</span>
+          </div>
+        </div>
+        <div class="admin-sidebar-logo-collapsed" onclick="toggleAdminSidebar()" title="Vibodh Signal — Click to Expand">
+          <div class="admin-logo-collapsed-frame">
+            <img src="assets/vibodh-signal-mini.png" alt="Vibodh Signal" class="admin-logo-collapsed-img">
+          </div>
+        </div>
+        <button type="button" class="admin-sidebar-toggle-btn" id="cp-sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle Sidebar">
+          <svg class="sidebar-toggle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+            <line x1="8.5" y1="7.5" x2="8.5" y2="16.5" stroke-width="2.4"></line>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="admin-nav" role="navigation">
+        <!-- Main Menu 1: Core Platform -->
+        <div class="admin-nav-group is-open has-active" id="group-core-platform">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('core-platform')" title="Core Platform">
+            <span class="admin-nav-icon">🏛️</span>
+            <span class="admin-nav-label">Core Platform</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item active" data-screen="admin-dashboard" title="Admin Dashboard" onclick="switchCpScreen('admin-dashboard')">
+              <span class="admin-nav-icon">📊</span>
+              <span class="admin-nav-label">Admin Dashboard</span>
+            </div>
+            <div class="admin-nav-item" data-screen="organizations" title="Organizations" onclick="switchCpScreen('organizations')">
+              <span class="admin-nav-icon">🏢</span>
+              <span class="admin-nav-label">Organizations</span>
+            </div>
+            <div class="admin-nav-item" data-screen="segmentation" title="Customer Segmentation" onclick="switchCpScreen('segmentation')">
+              <span class="admin-nav-icon">🎯</span>
+              <span class="admin-nav-label">Customer Segmentation</span>
+            </div>
+            <div class="admin-nav-item" data-screen="users-memberships" title="Users & Memberships" onclick="switchCpScreen('users-memberships')">
+              <span class="admin-nav-icon">👥</span>
+              <span class="admin-nav-label">Users &amp; Memberships</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Menu 2: Packaging & Access -->
+        <div class="admin-nav-group" id="group-packaging-access">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('packaging-access')" title="Packaging & Access">
+            <span class="admin-nav-icon">💎</span>
+            <span class="admin-nav-label">Packaging &amp; Access</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item" data-screen="plans-pricing" title="Plans & Pricing" onclick="switchCpScreen('plans-pricing')">
+              <span class="admin-nav-icon">💎</span>
+              <span class="admin-nav-label">Plans &amp; Pricing</span>
+            </div>
+            <div class="admin-nav-item" data-screen="feature-flags" title="Feature Flags" onclick="switchCpScreen('feature-flags')">
+              <span class="admin-nav-icon">🚩</span>
+              <span class="admin-nav-label">Feature Flags</span>
+            </div>
+            <div class="admin-nav-item" data-screen="entitlements" title="Entitlements" onclick="switchCpScreen('entitlements')">
+              <span class="admin-nav-icon">🛡️</span>
+              <span class="admin-nav-label">Entitlements</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Menu 3: Billing & Finance -->
+        <div class="admin-nav-group" id="group-billing-finance">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('billing-finance')" title="Billing & Finance">
+            <span class="admin-nav-icon">💳</span>
+            <span class="admin-nav-label">Billing &amp; Finance</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item" data-screen="subscriptions" title="Subscriptions" onclick="switchCpScreen('subscriptions')">
+              <span class="admin-nav-icon">🔄</span>
+              <span class="admin-nav-label">Subscriptions</span>
+            </div>
+            <div class="admin-nav-item" data-screen="payments" title="Payments" onclick="switchCpScreen('payments')">
+              <span class="admin-nav-icon">💳</span>
+              <span class="admin-nav-label">Payments</span>
+            </div>
+            <div class="admin-nav-item" data-screen="gst-invoices" title="GST Invoices" onclick="switchCpScreen('gst-invoices')">
+              <span class="admin-nav-icon">📑</span>
+              <span class="admin-nav-label">GST Invoices</span>
+            </div>
+            <div class="admin-nav-item" data-screen="agency-billing" title="Agency Billing" onclick="switchCpScreen('agency-billing')">
+              <span class="admin-nav-icon">🏛️</span>
+              <span class="admin-nav-label">Agency Billing</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Menu 4: Growth & Ecosystem -->
+        <div class="admin-nav-group" id="group-growth-ecosystem">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('growth-ecosystem')" title="Growth & Ecosystem">
+            <span class="admin-nav-icon">📣</span>
+            <span class="admin-nav-label">Growth &amp; Ecosystem</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item" data-screen="promoters-referrals" title="Promoters & Referrals" onclick="switchCpScreen('promoters-referrals')">
+              <span class="admin-nav-icon">📣</span>
+              <span class="admin-nav-label">Promoters &amp; Referrals</span>
+            </div>
+            <div class="admin-nav-item" data-screen="commissions" title="Commissions" onclick="switchCpScreen('commissions')">
+              <span class="admin-nav-icon">💰</span>
+              <span class="admin-nav-label">Commissions</span>
+            </div>
+            <div class="admin-nav-item" data-screen="academy" title="Vibodh AI Academy" onclick="switchCpScreen('academy')">
+              <span class="admin-nav-icon">🎓</span>
+              <span class="admin-nav-label">Vibodh AI Academy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Menu 5: Operations & Governance -->
+        <div class="admin-nav-group" id="group-operations-governance">
+          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('operations-governance')" title="Operations & Governance">
+            <span class="admin-nav-icon">⚙️</span>
+            <span class="admin-nav-label">Operations &amp; Governance</span>
+            <span class="admin-nav-chevron">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </span>
+          </button>
+          <div class="admin-nav-submenu">
+            <div class="admin-nav-item" data-screen="support-access" title="Support Access" onclick="switchCpScreen('support-access')">
+              <span class="admin-nav-icon">🔑</span>
+              <span class="admin-nav-label">Support Access</span>
+            </div>
+            <div class="admin-nav-item" data-screen="creative-services" title="Creative Services" onclick="switchCpScreen('creative-services')">
+              <span class="admin-nav-icon">🎨</span>
+              <span class="admin-nav-label">Creative Services</span>
+            </div>
+            <div class="admin-nav-item" data-screen="audit-logs" title="Audit Logs" onclick="switchCpScreen('audit-logs')">
+              <span class="admin-nav-icon">📜</span>
+              <span class="admin-nav-label">Audit Logs</span>
+            </div>
+            <div class="admin-nav-item" data-screen="admin-settings" title="Admin Settings" onclick="switchCpScreen('admin-settings')">
+              <span class="admin-nav-icon">⚙️</span>
+              <span class="admin-nav-label">Admin Settings</span>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ═══════════════ MAIN CONTENT ═══════════════ -->
+    <main class="admin-main">
+      <!-- Topbar with App Switcher & Environment Indicator -->
+      <header class="admin-topbar">
+        <div class="admin-topbar-left">
+          <button type="button" class="admin-topbar-sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle Sidebar">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <div class="admin-breadcrumb">Control Plane &bull; <strong id="current-screen-title">Admin Dashboard</strong></div>
+          <span class="status-pill status-active"><span class="dot"></span> Production (control_plane_db)</span>
+        </div>
+        <div class="admin-topbar-right">
+          <!-- App Switcher -->
+          <div class="topbar-app-switcher">
+            <button type="button" class="app-switcher-btn" onclick="toggleAppSwitcher(event)">
+              <span class="app-dot" style="background:#0F9D8A;"></span>
+              <span>Control Plane</span>
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="app-switcher-dropdown" id="app-switcher-dropdown">
+              <a href="/dashboard.html" class="app-link"><span class="app-link-badge client">Workspace</span> <div><strong>Customer Workspace</strong><small>Marketing Studio &amp; Brand Hub</small></div></a>
+              <a href="/control-plane.html" class="app-link active"><span class="app-link-badge cp">Control Plane</span> <div><strong>SaaS Control Plane</strong><small>Tenants, Subscriptions &amp; GST</small></div></a>
+              <a href="/usage-analytics.html" class="app-link"><span class="app-link-badge usage">Usage</span> <div><strong>Usage &amp; Analytics</strong><small>Ledger, Metering &amp; Cost Attribution</small></div></a>
+            </div>
+          </div>
+          <div class="topbar-avatar" style="width:32px;height:32px;border-radius:8px;background:#243B6B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;">AD</div>
+        </div>
+      </header>
+
+      <div class="admin-screen-container">
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 1: ADMIN DASHBOARD
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen active" id="screen-admin-dashboard">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Admin Dashboard</h1>
+              <p>Platform commercial metrics, active tenant cohorts, revenue trajectory, and subscription health.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-outline-neutral" onclick="exportData('dashboard')">📥 Export Executive Brief</button>
+              <button class="btn-primary-coral" onclick="switchCpScreen('organizations')">+ Provision Organization</button>
+            </div>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="admin-kpi-grid">
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Monthly Recurring (MRR)</span>
+                <span class="kpi-icon-bubble kpi-icon-indigo">₹</span>
+              </div>
+              <div class="kpi-value">₹8,42,500</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">↑ +14.2%</span>
+                <span>vs last month (Net +₹1.05L)</span>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Annual Recurring (ARR)</span>
+                <span class="kpi-icon-bubble kpi-icon-teal">📈</span>
+              </div>
+              <div class="kpi-value">₹1.01 Cr</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">↑ +18.8%</span>
+                <span>Paced for ₹1.2 Cr Q4 run-rate</span>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Active Organizations</span>
+                <span class="kpi-icon-bubble kpi-icon-purple">🏢</span>
+              </div>
+              <div class="kpi-value">128</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">+12</span>
+                <span>new this month &bull; 98.4% retention</span>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-title">Average Revenue / Org</span>
+                <span class="kpi-icon-bubble kpi-icon-coral">🎯</span>
+              </div>
+              <div class="kpi-value">₹6,582</div>
+              <div class="kpi-footer">
+                <span class="kpi-trend-pill trend-up">↑ +4.1%</span>
+                <span>Driven by Agency Tier upgrades</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Plan Distribution & Recent Tenant Table -->
+          <div style="display:grid;grid-template-columns: 1fr 1fr; gap:20px; margin-bottom:24px;">
+            <div class="admin-kpi-card">
+              <h3 style="font-size:14px;font-weight:700;color:#243B6B;margin-bottom:12px;">Active Subscriptions by Tier</h3>
+              <div style="display:flex;flex-direction:column;gap:10px;">
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                    <span><strong>Growth Tier (₹6,999/mo)</strong> &bull; 64 orgs</span>
+                    <span style="font-weight:700;color:#243B6B;">50.0%</span>
+                  </div>
+                  <div style="height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden;"><div style="width:50%;height:100%;background:#0F9D8A;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                    <span><strong>Starter Tier (₹2,499/mo)</strong> &bull; 42 orgs</span>
+                    <span style="font-weight:700;color:#243B6B;">32.8%</span>
+                  </div>
+                  <div style="height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden;"><div style="width:32.8%;height:100%;background:#243B6B;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                    <span><strong>Agency Tier (₹19,999/mo)</strong> &bull; 18 orgs</span>
+                    <span style="font-weight:700;color:#243B6B;">14.1%</span>
+                  </div>
+                  <div style="height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden;"><div style="width:14.1%;height:100%;background:#7C3AED;"></div></div>
+                </div>
+                <div>
+                  <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                    <span><strong>Enterprise Custom</strong> &bull; 4 orgs</span>
+                    <span style="font-weight:700;color:#243B6B;">3.1%</span>
+                  </div>
+                  <div style="height:8px;background:#E2E8F0;border-radius:4px;overflow:hidden;"><div style="width:3.1%;height:100%;background:#F0512D;"></div></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card">
+              <h3 style="font-size:14px;font-weight:700;color:#243B6B;margin-bottom:12px;">Customer Segmentation Mix</h3>
+              <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                <div style="flex:1;min-width:130px;background:#F8FAFC;border:1px solid #E2E8F0;padding:10px;border-radius:8px;">
+                  <span class="segment-badge seg-smb">india_smb</span>
+                  <div style="font-size:18px;font-weight:800;color:#243B6B;margin-top:4px;">46 orgs</div>
+                  <small style="color:#64748B;">35.9% of base</small>
+                </div>
+                <div style="flex:1;min-width:130px;background:#F8FAFC;border:1px solid #E2E8F0;padding:10px;border-radius:8px;">
+                  <span class="segment-badge seg-d2c">d2c_ecommerce</span>
+                  <div style="font-size:18px;font-weight:800;color:#243B6B;margin-top:4px;">32 orgs</div>
+                  <small style="color:#64748B;">25.0% of base</small>
+                </div>
+                <div style="flex:1;min-width:130px;background:#F8FAFC;border:1px solid #E2E8F0;padding:10px;border-radius:8px;">
+                  <span class="segment-badge seg-agency">marketing_agency</span>
+                  <div style="font-size:18px;font-weight:800;color:#243B6B;margin-top:4px;">24 orgs</div>
+                  <small style="color:#64748B;">18.8% of base</small>
+                </div>
+                <div style="flex:1;min-width:130px;background:#F8FAFC;border:1px solid #E2E8F0;padding:10px;border-radius:8px;">
+                  <span class="segment-badge seg-b2b">b2b_tech</span>
+                  <div style="font-size:18px;font-weight:800;color:#243B6B;margin-top:4px;">18 orgs</div>
+                  <small style="color:#64748B;">14.1% of base</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Provisioned Orgs -->
+          <div class="admin-table-card">
+            <div style="padding:16px 20px;border-bottom:1px solid #E2E8F0;display:flex;justify-content:space-between;align-items:center;">
+              <h3 style="font-size:14px;font-weight:800;color:#243B6B;margin:0;">Recent Organization Activity</h3>
+              <button class="btn-outline-neutral" style="padding:4px 10px;font-size:11.5px;" onclick="switchCpScreen('organizations')">View All Organizations &rarr;</button>
+            </div>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Organization</th>
+                  <th>Segment</th>
+                  <th>Active Plan</th>
+                  <th>Status</th>
+                  <th>Billing Interval</th>
+                  <th>GSTIN</th>
+                  <th>Created</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Vibodh AI Technologies</strong><br><small style="color:#64748B;">org_vibodhai_01</small></td>
+                  <td><span class="segment-badge seg-b2b">b2b_tech</span></td>
+                  <td><strong>Growth Tier</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Monthly (₹6,999)</td>
+                  <td><code>29AAACV1234F1Z5</code></td>
+                  <td>Nov 01, 2026</td>
+                </tr>
+                <tr>
+                  <td><strong>BlueWave Digital Media</strong><br><small style="color:#64748B;">org_bluewave_44</small></td>
+                  <td><span class="segment-badge seg-agency">marketing_agency</span></td>
+                  <td><strong>Agency Tier</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Annual (₹1,99,990)</td>
+                  <td><code>27AABCU9603R1ZM</code></td>
+                  <td>Nov 08, 2026</td>
+                </tr>
+                <tr>
+                  <td><strong>AyurVeda Naturals D2C</strong><br><small style="color:#64748B;">org_ayurveda_89</small></td>
+                  <td><span class="segment-badge seg-d2c">d2c_ecommerce</span></td>
+                  <td><strong>Growth Tier</strong></td>
+                  <td><span class="status-pill status-trial"><span class="dot"></span> Trial (Day 5)</span></td>
+                  <td>Monthly (₹6,999)</td>
+                  <td><code>33AADCA1234L1Z2</code></td>
+                  <td>Nov 06, 2026</td>
+                </tr>
+                <tr>
+                  <td><strong>NexGen Retail Solutions</strong><br><small style="color:#64748B;">org_nexgen_12</small></td>
+                  <td><span class="segment-badge seg-smb">india_smb</span></td>
+                  <td><strong>Starter Tier</strong></td>
+                  <td><span class="status-pill status-pastdue"><span class="dot"></span> Past Due</span></td>
+                  <td>Monthly (₹2,499)</td>
+                  <td><code>Unregistered</code></td>
+                  <td>Oct 24, 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 2: ORGANIZATIONS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-organizations">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Organizations</h1>
+              <p>Manage multi-tenant organizations, slug identifiers, GSTIN verification, and status controls.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="openModal('modal-org')">+ Create Organization</button>
+            </div>
+          </div>
+
+          <div class="admin-filter-bar">
+            <div class="admin-search-wrap">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" class="admin-search-input" placeholder="Search by name, slug, or GSTIN..." oninput="filterTable(this, 'org-table')">
+            </div>
+            <div class="admin-filter-controls">
+              <select class="admin-select" onchange="filterStatus(this, 'org-table', 3)">
+                <option value="">All Statuses</option>
+                <option value="Active">Active</option>
+                <option value="Trial">Trial</option>
+                <option value="Past Due">Past Due</option>
+                <option value="Suspended">Suspended</option>
+              </select>
+              <select class="admin-select">
+                <option value="">All Segments</option>
+                <option value="india_smb">india_smb</option>
+                <option value="d2c_ecommerce">d2c_ecommerce</option>
+                <option value="marketing_agency">marketing_agency</option>
+                <option value="b2b_tech">b2b_tech</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table" id="org-table">
+              <thead>
+                <tr>
+                  <th>Organization &amp; Slug</th>
+                  <th>Segment</th>
+                  <th>Owner Email</th>
+                  <th>Status</th>
+                  <th>Active Plan</th>
+                  <th>GSTIN</th>
+                  <th>Seats</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Vibodh AI Technologies</strong><br><small style="color:#64748B;">org_vibodhai_01</small></td>
+                  <td><span class="segment-badge seg-b2b">b2b_tech</span></td>
+                  <td>sahana@vibodhai.com</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Growth Tier</td>
+                  <td><code>29AAACV1234F1Z5</code></td>
+                  <td>2 / 3</td>
+                  <td>
+                    <button class="btn-outline-neutral" style="padding:3px 8px;font-size:11px;" onclick="viewOrgDetails('org_vibodhai_01')">Manage</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>BlueWave Digital Media</strong><br><small style="color:#64748B;">org_bluewave_44</small></td>
+                  <td><span class="segment-badge seg-agency">marketing_agency</span></td>
+                  <td>arun@bluewave.agency</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Agency Tier</td>
+                  <td><code>27AABCU9603R1ZM</code></td>
+                  <td>7 / 10</td>
+                  <td>
+                    <button class="btn-outline-neutral" style="padding:3px 8px;font-size:11px;">Manage</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>AyurVeda Naturals D2C</strong><br><small style="color:#64748B;">org_ayurveda_89</small></td>
+                  <td><span class="segment-badge seg-d2c">d2c_ecommerce</span></td>
+                  <td>priya@ayurvedanaturals.in</td>
+                  <td><span class="status-pill status-trial"><span class="dot"></span> Trial</span></td>
+                  <td>Growth Tier</td>
+                  <td><code>33AADCA1234L1Z2</code></td>
+                  <td>1 / 3</td>
+                  <td>
+                    <button class="btn-outline-neutral" style="padding:3px 8px;font-size:11px;">Manage</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>NexGen Retail Solutions</strong><br><small style="color:#64748B;">org_nexgen_12</small></td>
+                  <td><span class="segment-badge seg-smb">india_smb</span></td>
+                  <td>kiran@nexgenretail.com</td>
+                  <td><span class="status-pill status-pastdue"><span class="dot"></span> Past Due</span></td>
+                  <td>Starter Tier</td>
+                  <td><code>Unregistered</code></td>
+                  <td>1 / 1</td>
+                  <td>
+                    <button class="btn-outline-neutral" style="padding:3px 8px;font-size:11px;">Manage</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td><strong>Kavita Creative Studio</strong><br><small style="color:#64748B;">org_kavita_07</small></td>
+                  <td><span class="segment-badge seg-creator">creator_solo</span></td>
+                  <td>kavita@creatorhub.me</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Starter Tier</td>
+                  <td><code>Unregistered</code></td>
+                  <td>1 / 1</td>
+                  <td>
+                    <button class="btn-outline-neutral" style="padding:3px 8px;font-size:11px;">Manage</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="admin-table-footer">
+              <span>Showing 5 of 128 Organizations</span>
+              <div class="pagination-btns">
+                <button class="btn-page active">1</button>
+                <button class="btn-page">2</button>
+                <button class="btn-page">3</button>
+                <button class="btn-page">&rarr;</button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 3: CUSTOMER SEGMENTATION
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-segmentation">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Customer Segmentation</h1>
+              <p>Cohorts configured according to 08-billing-and-entitlements.md: india_smb, d2c_ecommerce, b2b_tech, marketing_agency, creator_solo, enterprise.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-secondary-indigo" onclick="runSegmentationRules()">⚡ Run Re-Segmentation</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap:18px;">
+            <div class="admin-kpi-card" style="border-top:4px solid #0284C7;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge seg-smb">india_smb</span>
+                <span style="font-size:11px;font-weight:700;color:#64748B;">46 Orgs (35.9%)</span>
+              </div>
+              <h3 style="font-size:15px;color:#243B6B;margin:10px 0 6px 0;">India SMB</h3>
+              <p style="font-size:12px;color:#64748B;line-height:1.4;">Traditional Indian businesses, retailers, and local service providers. High UPI preference, GST registered or composite scheme.</p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #F1F5F9;font-size:11.5px;color:#334155;">
+                <div>Avg ARPU: <strong>₹2,840/mo</strong></div>
+                <div>Top Plan: <strong>Starter Tier (78%)</strong></div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card" style="border-top:4px solid #DB2777;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge seg-d2c">d2c_ecommerce</span>
+                <span style="font-size:11px;font-weight:700;color:#64748B;">32 Orgs (25.0%)</span>
+              </div>
+              <h3 style="font-size:15px;color:#243B6B;margin:10px 0 6px 0;">D2C E-commerce</h3>
+              <p style="font-size:12px;color:#64748B;line-height:1.4;">Direct-to-consumer lifestyle, fashion, beauty brands. Heavy visual creative &amp; product image generation demands.</p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #F1F5F9;font-size:11.5px;color:#334155;">
+                <div>Avg ARPU: <strong>₹7,450/mo</strong></div>
+                <div>Top Plan: <strong>Growth Tier (84%)</strong></div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card" style="border-top:4px solid #D97706;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge seg-agency">marketing_agency</span>
+                <span style="font-size:11px;font-weight:700;color:#64748B;">24 Orgs (18.8%)</span>
+              </div>
+              <h3 style="font-size:15px;color:#243B6B;margin:10px 0 6px 0;">Marketing Agency</h3>
+              <p style="font-size:12px;color:#64748B;line-height:1.4;">Digital marketing &amp; performance agencies managing multi-client workspaces, approval queues, and client billing passes.</p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #F1F5F9;font-size:11.5px;color:#334155;">
+                <div>Avg ARPU: <strong>₹21,800/mo</strong></div>
+                <div>Top Plan: <strong>Agency Tier (92%)</strong></div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card" style="border-top:4px solid #7C3AED;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge seg-b2b">b2b_tech</span>
+                <span style="font-size:11px;font-weight:700;color:#64748B;">18 Orgs (14.1%)</span>
+              </div>
+              <h3 style="font-size:15px;color:#243B6B;margin:10px 0 6px 0;">B2B Tech &amp; SaaS</h3>
+              <p style="font-size:12px;color:#64748B;line-height:1.4;">Technology providers, software companies, and IT consultancies prioritizing thought leadership on LinkedIn &amp; Twitter/X.</p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #F1F5F9;font-size:11.5px;color:#334155;">
+                <div>Avg ARPU: <strong>₹8,120/mo</strong></div>
+                <div>Top Plan: <strong>Growth + Addons</strong></div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card" style="border-top:4px solid #16A34A;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge seg-creator">creator_solo</span>
+                <span style="font-size:11px;font-weight:700;color:#64748B;">5 Orgs (3.9%)</span>
+              </div>
+              <h3 style="font-size:15px;color:#243B6B;margin:10px 0 6px 0;">Creator &amp; Solo</h3>
+              <p style="font-size:12px;color:#64748B;line-height:1.4;">Solo entrepreneurs, influencers, and independent content creators needing personal brand automation.</p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #F1F5F9;font-size:11.5px;color:#334155;">
+                <div>Avg ARPU: <strong>₹2,499/mo</strong></div>
+                <div>Top Plan: <strong>Starter Tier</strong></div>
+              </div>
+            </div>
+
+            <div class="admin-kpi-card" style="border-top:4px solid #6B21A8;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge seg-enterprise">enterprise</span>
+                <span style="font-size:11px;font-weight:700;color:#64748B;">3 Orgs (2.3%)</span>
+              </div>
+              <h3 style="font-size:15px;color:#243B6B;margin:10px 0 6px 0;">Enterprise</h3>
+              <p style="font-size:12px;color:#64748B;line-height:1.4;">Large multinational corporates requiring SSO/SAML, dedicated IP pools, custom MSA, and custom SLAs.</p>
+              <div style="margin-top:14px;padding-top:12px;border-top:1px solid #F1F5F9;font-size:11.5px;color:#334155;">
+                <div>Avg ARPU: <strong>₹85,000/mo</strong></div>
+                <div>Top Plan: <strong>Enterprise Contract</strong></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 4: USERS & MEMBERSHIPS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-users-memberships">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Users &amp; Memberships</h1>
+              <p>Role-Based Access Control (RBAC): Owner, Admin, Creator, Reviewer, and Viewer across organizations.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="showToast('Invite sent to new workspace collaborator!', '✉️')">+ Invite User</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>User &amp; Email</th>
+                  <th>Organization</th>
+                  <th>Role</th>
+                  <th>Seat Type</th>
+                  <th>Status</th>
+                  <th>Last Active</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Sahana B V</strong><br><small style="color:#64748B;">sahana@vibodhai.com</small></td>
+                  <td>Vibodh AI Technologies</td>
+                  <td><span class="status-pill status-active">Owner</span></td>
+                  <td>Billable Seat</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>2 mins ago</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Edit Role</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Rohan Verma</strong><br><small style="color:#64748B;">rohan@vibodhai.com</small></td>
+                  <td>Vibodh AI Technologies</td>
+                  <td><span class="status-pill status-trial">Creator</span></td>
+                  <td>Billable Seat</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>1 hour ago</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Edit Role</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Kavya Sharma</strong><br><small style="color:#64748B;">kavya@clientbrand.com</small></td>
+                  <td>Vibodh AI Technologies</td>
+                  <td><span class="status-pill status-canceled">Reviewer</span></td>
+                  <td>Free Seat</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Yesterday</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Edit Role</button></td>
+                </tr>
+                <tr>
+                  <td><strong>Arun Kumar</strong><br><small style="color:#64748B;">arun@bluewave.agency</small></td>
+                  <td>BlueWave Digital Media</td>
+                  <td><span class="status-pill status-active">Owner</span></td>
+                  <td>Billable Seat</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>3 hours ago</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Edit Role</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 5: PLANS & PRICING
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-plans-pricing">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Plans &amp; Pricing</h1>
+              <p>Immutable plan versions in control_plane_db. Active version: <code>v2.1_2026_q4</code>.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-outline-neutral" onclick="showToast('Cloned plan draft ready for review.', '📋')">Clone as New Version</button>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns: repeat(3, 1fr); gap:20px;">
+            <!-- Starter -->
+            <div class="admin-kpi-card" style="border-top:4px solid #243B6B;">
+              <span class="segment-badge" style="background:#F1F5F9;color:#243B6B;">Starter Plan</span>
+              <div style="font-size:24px;font-weight:800;color:#243B6B;margin:10px 0 2px 0;">₹2,499 <small style="font-size:12px;color:#64748B;">+ GST / mo</small></div>
+              <p style="font-size:11.5px;color:#64748B;">₹6,747/quarter (-10%) &bull; ₹24,890/year (-17%)</p>
+              <ul style="font-size:12px;color:#334155;margin:14px 0;line-height:1.9;">
+                <li>✓ 1 Brand Identity</li>
+                <li>✓ 3 Connected Social Profiles</li>
+                <li>✓ <strong>250 AI Credits / month</strong></li>
+                <li>✓ 1 Team Seat</li>
+                <li>✓ 60-day Post History</li>
+              </ul>
+              <div style="font-size:11px;color:#64748B;">Active Subscribers: <strong>42 Orgs</strong></div>
+            </div>
+
+            <!-- Growth -->
+            <div class="admin-kpi-card" style="border:2px solid #0F9D8A;box-shadow:0 6px 16px rgba(15,157,138,0.12);">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span class="segment-badge" style="background:#E6F6F4;color:#0F9D8A;">Growth Plan</span>
+                <span style="font-size:9.5px;background:#0F9D8A;color:#fff;padding:2px 6px;border-radius:4px;font-weight:800;">MOST POPULAR</span>
+              </div>
+              <div style="font-size:24px;font-weight:800;color:#243B6B;margin:10px 0 2px 0;">₹6,999 <small style="font-size:12px;color:#64748B;">+ GST / mo</small></div>
+              <p style="font-size:11.5px;color:#64748B;">₹18,897/quarter (-10%) &bull; ₹69,710/year (-17%)</p>
+              <ul style="font-size:12px;color:#334155;margin:14px 0;line-height:1.9;">
+                <li>✓ 3 Brand Identities</li>
+                <li>✓ 10 Connected Social Profiles</li>
+                <li>✓ <strong>1,000 AI Credits / month</strong></li>
+                <li>✓ 3 Team Seats</li>
+                <li>✓ Approval Workflow &amp; Guardrails</li>
+                <li>✓ Unlimited Scheduling</li>
+              </ul>
+              <div style="font-size:11px;color:#64748B;">Active Subscribers: <strong>64 Orgs</strong></div>
+            </div>
+
+            <!-- Agency -->
+            <div class="admin-kpi-card" style="border-top:4px solid #7C3AED;">
+              <span class="segment-badge" style="background:#F5F0FE;color:#7C3AED;">Agency Plan</span>
+              <div style="font-size:24px;font-weight:800;color:#243B6B;margin:10px 0 2px 0;">₹19,999 <small style="font-size:12px;color:#64748B;">+ GST / mo</small></div>
+              <p style="font-size:11.5px;color:#64748B;">₹53,997/quarter (-10%) &bull; ₹1,99,190/year (-17%)</p>
+              <ul style="font-size:12px;color:#334155;margin:14px 0;line-height:1.9;">
+                <li>✓ 10 Brand Identities</li>
+                <li>✓ 35 Connected Social Profiles</li>
+                <li>✓ <strong>3,500 AI Credits / month</strong></li>
+                <li>✓ 10 Team Seats</li>
+                <li>✓ Multi-Tenant Agency Hub</li>
+                <li>✓ Client Approval Portals (Free Reviewers)</li>
+                <li>✓ API Access Included</li>
+              </ul>
+              <div style="font-size:11px;color:#64748B;">Active Subscribers: <strong>18 Orgs</strong></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 6: FEATURE FLAGS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-feature-flags">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Feature Flags</h1>
+              <p>Dynamic rollout stages: internal, beta, 10%, 50%, 100% with emergency kill switches.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="showToast('New flag created in control_plane_db', '🚩')">+ Add Flag</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Feature Flag Key</th>
+                  <th>Description</th>
+                  <th>Rollout Stage</th>
+                  <th>Target Cohort</th>
+                  <th>Kill Switch</th>
+                  <th>Last Modified</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>veo_video_generation_v2</code></td>
+                  <td>Veo 1080p motion video generator in Studio</td>
+                  <td><span class="status-pill status-active">100% Rollout</span></td>
+                  <td>Growth, Agency</td>
+                  <td><span class="cp-flag-toggle on" onclick="this.classList.toggle('on')"></span></td>
+                  <td>Nov 04, 2026</td>
+                </tr>
+                <tr>
+                  <td><code>whatsapp_broadcast_pipeline</code></td>
+                  <td>Automated WhatsApp business marketing campaigns</td>
+                  <td><span class="status-pill status-trial">Beta (10%)</span></td>
+                  <td>india_smb</td>
+                  <td><span class="cp-flag-toggle on" onclick="this.classList.toggle('on')"></span></td>
+                  <td>Nov 07, 2026</td>
+                </tr>
+                <tr>
+                  <td><code>multi_account_meta_ads</code></td>
+                  <td>Cross-organization Facebook &amp; Instagram ad orchestrator</td>
+                  <td><span class="status-pill status-active">50% Rollout</span></td>
+                  <td>marketing_agency</td>
+                  <td><span class="cp-flag-toggle on" onclick="this.classList.toggle('on')"></span></td>
+                  <td>Nov 02, 2026</td>
+                </tr>
+                <tr>
+                  <td><code>ai_voiceover_cloning</code></td>
+                  <td>Custom neural voice replication for video ads</td>
+                  <td><span class="status-pill status-pastdue">Internal Only</span></td>
+                  <td>Vibodh Internal</td>
+                  <td><span class="cp-flag-toggle" onclick="this.classList.toggle('on')"></span></td>
+                  <td>Oct 29, 2026</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 7: ENTITLEMENTS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-entitlements">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Entitlements Matrix</h1>
+              <p>Centralized resource limits enforced across client and server layers.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Entitlement Key</th>
+                  <th>Type</th>
+                  <th>Starter Limit</th>
+                  <th>Growth Limit</th>
+                  <th>Agency Limit</th>
+                  <th>Enforcement Mode</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>brands_count</code></td>
+                  <td>Numeric Max</td>
+                  <td>1 Brand</td>
+                  <td>3 Brands</td>
+                  <td>10 Brands</td>
+                  <td><span class="status-pill status-active">Hard Cap (Block)</span></td>
+                </tr>
+                <tr>
+                  <td><code>social_profiles_count</code></td>
+                  <td>Numeric Max</td>
+                  <td>3 Profiles</td>
+                  <td>10 Profiles</td>
+                  <td>35 Profiles</td>
+                  <td><span class="status-pill status-active">Hard Cap (Block)</span></td>
+                </tr>
+                <tr>
+                  <td><code>monthly_ai_credits</code></td>
+                  <td>Metering / Bal</td>
+                  <td>250 Credits</td>
+                  <td>1,000 Credits</td>
+                  <td>3,500 Credits</td>
+                  <td><span class="status-pill status-active">Balance Check &amp; Lock</span></td>
+                </tr>
+                <tr>
+                  <td><code>team_seats</code></td>
+                  <td>Numeric Max</td>
+                  <td>1 Seat</td>
+                  <td>3 Seats</td>
+                  <td>10 Seats</td>
+                  <td><span class="status-pill status-active">Hard Cap (Block)</span></td>
+                </tr>
+                <tr>
+                  <td><code>approval_workflows</code></td>
+                  <td>Boolean Feature</td>
+                  <td>✕ Disabled</td>
+                  <td>✓ Enabled</td>
+                  <td>✓ Enabled</td>
+                  <td><span class="status-pill status-active">Feature Gate</span></td>
+                </tr>
+                <tr>
+                  <td><code>video_max_duration_sec</code></td>
+                  <td>Numeric Max</td>
+                  <td>0 sec</td>
+                  <td>30 sec</td>
+                  <td>60 sec</td>
+                  <td><span class="status-pill status-active">Input Constraint</span></td>
+                </tr>
+                <tr>
+                  <td><code>api_access</code></td>
+                  <td>Boolean Feature</td>
+                  <td>✕ Disabled</td>
+                  <td>✕ Disabled</td>
+                  <td>✓ Enabled</td>
+                  <td><span class="status-pill status-active">Feature Gate</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 8: SUBSCRIPTIONS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-subscriptions">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Subscriptions</h1>
+              <p>Active commercial agreements, renewal dates, payment cycles, and cancellation status.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Subscription ID</th>
+                  <th>Organization</th>
+                  <th>Plan Tier</th>
+                  <th>Interval</th>
+                  <th>Status</th>
+                  <th>Next Renewal</th>
+                  <th>MRR Base</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>sub_vibodh_091</code></td>
+                  <td>Vibodh AI Technologies</td>
+                  <td>Growth Tier</td>
+                  <td>Monthly</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Dec 15, 2026</td>
+                  <td>₹6,999</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Inspect</button></td>
+                </tr>
+                <tr>
+                  <td><code>sub_bluewave_441</code></td>
+                  <td>BlueWave Digital Media</td>
+                  <td>Agency Tier</td>
+                  <td>Annual</td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                  <td>Nov 08, 2027</td>
+                  <td>₹16,666</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Inspect</button></td>
+                </tr>
+                <tr>
+                  <td><code>sub_ayurveda_892</code></td>
+                  <td>AyurVeda Naturals D2C</td>
+                  <td>Growth Tier</td>
+                  <td>Monthly</td>
+                  <td><span class="status-pill status-trial"><span class="dot"></span> Trial</span></td>
+                  <td>Nov 19, 2026</td>
+                  <td>₹0</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Inspect</button></td>
+                </tr>
+                <tr>
+                  <td><code>sub_nexgen_120</code></td>
+                  <td>NexGen Retail Solutions</td>
+                  <td>Starter Tier</td>
+                  <td>Monthly</td>
+                  <td><span class="status-pill status-pastdue"><span class="dot"></span> Past Due</span></td>
+                  <td>Nov 02, 2026</td>
+                  <td>₹2,499</td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;">Retry Card</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 9: PAYMENTS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-payments">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Payments &amp; Transactions</h1>
+              <p>Razorpay &amp; Stripe gateway webhooks, idempotency key validation, and settlements.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Payment ID</th>
+                  <th>Idempotency Key</th>
+                  <th>Organization</th>
+                  <th>Amount</th>
+                  <th>Method</th>
+                  <th>Gateway Ref</th>
+                  <th>Status</th>
+                  <th>Timestamp</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>pay_razor_9918</code></td>
+                  <td><code>idemp_sub_vibodh_dec26</code></td>
+                  <td>Vibodh AI Technologies</td>
+                  <td>₹8,259 (incl. 18% GST)</td>
+                  <td>UPI (Auto-Pay)</td>
+                  <td><code>rzp_live_pay_01A</code></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Captured</span></td>
+                  <td>Nov 11, 2026 09:30</td>
+                </tr>
+                <tr>
+                  <td><code>pay_razor_9917</code></td>
+                  <td><code>idemp_topup_500_blue</code></td>
+                  <td>BlueWave Digital Media</td>
+                  <td>₹5,074 (incl. 18% GST)</td>
+                  <td>Visa &bull;&bull;&bull;&bull; 4242</td>
+                  <td><code>rzp_live_pay_02B</code></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Captured</span></td>
+                  <td>Nov 10, 2026 16:45</td>
+                </tr>
+                <tr>
+                  <td><code>pay_razor_9916</code></td>
+                  <td><code>idemp_sub_nexgen_nov26</code></td>
+                  <td>NexGen Retail Solutions</td>
+                  <td>₹2,949 (incl. 18% GST)</td>
+                  <td>Mastercard &bull;&bull;&bull;&bull; 8812</td>
+                  <td><code>rzp_live_pay_03C</code></td>
+                  <td><span class="status-pill status-failed"><span class="dot"></span> Failed (Insufficient Funds)</span></td>
+                  <td>Nov 08, 2026 11:20</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 10: GST INVOICES
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-gst-invoices">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>GST Invoices</h1>
+              <p>B2B and B2C tax invoices under SAC 998314. Computes CGST (9%) + SGST (9%) for Karnataka (29) vs IGST (18%) interstate.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="showInvoiceModal('INV-2026-11-001')">👁️ Preview Sample Tax Invoice</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Invoice #</th>
+                  <th>Organization &amp; Buyer GSTIN</th>
+                  <th>SAC Code</th>
+                  <th>Base Taxable</th>
+                  <th>Tax Breakdown</th>
+                  <th>Total Amount</th>
+                  <th>Status</th>
+                  <th>PDF Invoice</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>INV-2026-11-001</strong><br><small>Nov 11, 2026</small></td>
+                  <td>Vibodh AI Technologies Pvt Ltd<br><code>29AAACV1234F1Z5</code> (Intra-State)</td>
+                  <td>998314</td>
+                  <td>₹6,999.00</td>
+                  <td>CGST 9% (₹629.91)<br>SGST 9% (₹629.91)</td>
+                  <td><strong>₹8,258.82</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Paid</span></td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;" onclick="showInvoiceModal('INV-2026-11-001')">Download PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>INV-2026-11-002</strong><br><small>Nov 08, 2026</small></td>
+                  <td>BlueWave Digital Media LLP<br><code>27AABCU9603R1ZM</code> (Inter-State: MH)</td>
+                  <td>998314</td>
+                  <td>₹1,99,990.00</td>
+                  <td>IGST 18% (₹35,998.20)</td>
+                  <td><strong>₹2,35,988.20</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Paid</span></td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;" onclick="showInvoiceModal('INV-2026-11-002')">Download PDF</button></td>
+                </tr>
+                <tr>
+                  <td><strong>INV-2026-11-003</strong><br><small>Nov 05, 2026</small></td>
+                  <td>AyurVeda Naturals D2C<br><code>33AADCA1234L1Z2</code> (Inter-State: TN)</td>
+                  <td>998314</td>
+                  <td>₹2,250.00 (250 Top-up)</td>
+                  <td>IGST 18% (₹405.00)</td>
+                  <td><strong>₹2,655.00</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Paid</span></td>
+                  <td><button class="btn-outline-neutral" style="padding:2px 6px;font-size:11px;" onclick="showInvoiceModal('INV-2026-11-003')">Download PDF</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 11: AGENCY BILLING
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-agency-billing">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Agency Billing</h1>
+              <p>Supports pooled agency credit allocation or independent client workspace billing.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Agency Organization</th>
+                  <th>Client Workspaces</th>
+                  <th>Billing Mode</th>
+                  <th>Pooled Monthly Credits</th>
+                  <th>Credits Used</th>
+                  <th>Remaining</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>BlueWave Digital Media</strong></td>
+                  <td>8 active clients</td>
+                  <td><span class="status-pill status-active">Pooled Agency Plan</span></td>
+                  <td>3,500 Credits</td>
+                  <td>1,840</td>
+                  <td><strong>1,660</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Healthy</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Apex Growth Partners</strong></td>
+                  <td>4 active clients</td>
+                  <td><span class="status-pill status-trial">Client Self-Pay</span></td>
+                  <td>Independent / Client</td>
+                  <td>980</td>
+                  <td><strong>Varies</strong></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Healthy</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 12: PROMOTERS & REFERRALS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-promoters-referrals">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Promoters &amp; Referrals</h1>
+              <p>Promoter referral links, 60-day attribution window, click conversion tracking.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="showToast('New promoter approved and vanity link generated.', '📣')">+ Register Promoter</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Promoter Name</th>
+                  <th>Vanity Referral Code</th>
+                  <th>Attributed Clicks</th>
+                  <th>Conversions</th>
+                  <th>Conv. Rate</th>
+                  <th>KYC Status</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Vikram Malhotra</strong><br><small>Growth Marketer &bull; Bangalore</small></td>
+                  <td><code>vibodh.com/r/vikramgrowth</code></td>
+                  <td>1,420</td>
+                  <td>18 Subscriptions</td>
+                  <td>1.27%</td>
+                  <td><span class="status-pill status-active">KYC Verified</span></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Pooja Singhania</strong><br><small>Agency Consultant &bull; Mumbai</small></td>
+                  <td><code>vibodh.com/r/pooja-agency</code></td>
+                  <td>890</td>
+                  <td>12 Subscriptions</td>
+                  <td>1.35%</td>
+                  <td><span class="status-pill status-trial">Lazy KYC Pending</span></td>
+                  <td><span class="status-pill status-active"><span class="dot"></span> Active</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 13: COMMISSIONS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-commissions">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Commissions &amp; Payouts</h1>
+              <p>5% net recurring subscription base for 12 months. Enforces Section 194H 2% TDS withholding.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Promoter</th>
+                  <th>Net Base (Excl. GST)</th>
+                  <th>Commission Rate</th>
+                  <th>Gross Commission</th>
+                  <th>TDS 2% (Sec 194H)</th>
+                  <th>Net Payable</th>
+                  <th>Payout Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Vikram Malhotra</strong></td>
+                  <td>₹1,26,000</td>
+                  <td>5% Recurring (12 mo)</td>
+                  <td>₹6,300</td>
+                  <td>-₹126 (2%)</td>
+                  <td><strong>₹6,174</strong></td>
+                  <td><span class="status-pill status-active">Paid via NEFT</span></td>
+                </tr>
+                <tr>
+                  <td><strong>Pooja Singhania</strong></td>
+                  <td>₹84,000</td>
+                  <td>5% Recurring (12 mo)</td>
+                  <td>₹4,200</td>
+                  <td>-₹84 (2%)</td>
+                  <td><strong>₹4,116</strong></td>
+                  <td><span class="status-pill status-trial">Ready for Payout</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 14: VIBODH AI ACADEMY
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-academy">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Vibodh AI Academy</h1>
+              <p>Agency partner training, LMS module completions, and Vibodh Certified Marketer badging.</p>
+            </div>
+          </div>
+
+          <div class="admin-kpi-grid">
+            <div class="admin-kpi-card">
+              <span class="kpi-title">Enrolled Agency Students</span>
+              <div class="kpi-value">184</div>
+            </div>
+            <div class="admin-kpi-card">
+              <span class="kpi-title">Certified Marketers</span>
+              <div class="kpi-value">46</div>
+            </div>
+            <div class="admin-kpi-card">
+              <span class="kpi-title">Course Modules</span>
+              <div class="kpi-value">6 Completed</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 15: SUPPORT ACCESS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-support-access">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Support Access &amp; Impersonation</h1>
+              <p>Time-bound, consent-backed administrative login to customer accounts. Automatically logs all actions.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Target Organization</th>
+                  <th>Requesting Admin</th>
+                  <th>Customer Consent Ref</th>
+                  <th>Duration Granted</th>
+                  <th>Expires In</th>
+                  <th>Audit Token</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>AyurVeda Naturals D2C</strong></td>
+                  <td>Sahana B V (Admin)</td>
+                  <td><code>ticket_help_8819_consent_yes</code></td>
+                  <td>2 Hours</td>
+                  <td><span class="status-pill status-active">48 mins remaining</span></td>
+                  <td><code>aud_tok_991823a</code></td>
+                  <td><button class="btn-primary-coral" style="padding:3px 8px;font-size:11px;" onclick="showToast('Impersonation session terminated securely.', '🔒')">Revoke Now</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 16: CREATIVE SERVICES
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-creative-services">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Creative Services</h1>
+              <p>Offline agency concierge requests. Milestone billed. Zero AI credits deducted from customer plan.</p>
+            </div>
+            <div class="admin-screen-actions">
+              <button class="btn-primary-coral" onclick="showToast('New service project initiated', '🎨')">+ New Creative Project</button>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Project ID</th>
+                  <th>Organization</th>
+                  <th>Scope &amp; Deliverables</th>
+                  <th>Offline Quote</th>
+                  <th>AI Credit Impact</th>
+                  <th>Status</th>
+                  <th>Milestone</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>srv_video_001</code></td>
+                  <td>AyurVeda Naturals D2C</td>
+                  <td>Bespoke 3D Bottle CGI Shoot &amp; Sound Design</td>
+                  <td>₹45,000 + GST</td>
+                  <td><strong>0 Credits (Excluded)</strong></td>
+                  <td><span class="status-pill status-active">In Production</span></td>
+                  <td>Storyboard Approved</td>
+                </tr>
+                <tr>
+                  <td><code>srv_brand_002</code></td>
+                  <td>NexGen Retail Solutions</td>
+                  <td>Full Brand DNA Architecture &amp; Font Licensing</td>
+                  <td>₹30,000 + GST</td>
+                  <td><strong>0 Credits (Excluded)</strong></td>
+                  <td><span class="status-pill status-trial">Brief Review</span></td>
+                  <td>Asset Ingestion</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 17: AUDIT LOGS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-audit-logs">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Audit Logs</h1>
+              <p>Append-only, immutable administrative compliance trail in control_plane_db.</p>
+            </div>
+          </div>
+
+          <div class="admin-table-card">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Timestamp</th>
+                  <th>Actor</th>
+                  <th>Action Type</th>
+                  <th>Target Entity</th>
+                  <th>Details &amp; Parameters</th>
+                  <th>IP Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Nov 11, 2026 10:04:12</td>
+                  <td>sahana@vibodhai.com</td>
+                  <td><code>FLAG_UPDATE</code></td>
+                  <td><code>veo_video_generation_v2</code></td>
+                  <td>Rollout increased from 50% to 100%</td>
+                  <td><code>103.21.124.18</code></td>
+                </tr>
+                <tr>
+                  <td>Nov 11, 2026 09:45:00</td>
+                  <td>system_billing_worker</td>
+                  <td><code>SUBSCRIPTION_RENEW</code></td>
+                  <td><code>sub_vibodh_091</code></td>
+                  <td>Auto-renewed Growth Tier for Dec 15 cycle</td>
+                  <td><code>10.0.4.12</code></td>
+                </tr>
+                <tr>
+                  <td>Nov 11, 2026 09:12:34</td>
+                  <td>sahana@vibodhai.com</td>
+                  <td><code>SUPPORT_SESSION_START</code></td>
+                  <td><code>org_ayurveda_89</code></td>
+                  <td>Time-bound impersonation granted (2hr)</td>
+                  <td><code>103.21.124.18</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- ──────────────────────────────────────────────────────────
+             SCREEN 18: ADMIN SETTINGS
+        ────────────────────────────────────────────────────────── -->
+        <section class="admin-screen" id="screen-admin-settings">
+          <div class="admin-screen-header">
+            <div class="admin-screen-title">
+              <h1>Admin Settings</h1>
+              <p>Global control plane environment parameters, webhook endpoints, and tax identifiers.</p>
+            </div>
+          </div>
+
+          <div style="background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:24px;max-width:720px;">
+            <div class="form-group">
+              <label class="form-label">Platform Operating Legal Entity</label>
+              <input type="text" class="form-control" value="Vibodh AI Technologies Private Limited">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Platform Supplier GSTIN (Karnataka)</label>
+              <input type="text" class="form-control" value="29AAACV9876E1Z4">
+              <div class="form-help">Default tax origin for CGST/SGST calculations.</div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Default Currency &amp; Tax Code</label>
+              <div style="display:flex;gap:12px;">
+                <input type="text" class="form-control" value="INR (₹)" style="flex:1;">
+                <input type="text" class="form-control" value="SAC 998314" style="flex:1;">
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Razorpay Webhook Secret</label>
+              <input type="password" class="form-control" value="whsec_live_992140a8d7fe">
+            </div>
+            <button class="btn-primary-coral" onclick="showToast('Global settings saved successfully.', '💾')">Save Changes</button>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ═══════════════ SAMPLE GST INVOICE MODAL ═══════════════ -->
+  <div class="admin-modal-overlay" id="modal-invoice">
+    <div class="admin-modal-card" style="max-width:680px;">
+      <div class="admin-modal-header">
+        <h3>GST Tax Invoice Preview</h3>
+        <button class="btn-modal-close" onclick="closeModal('modal-invoice')">&times;</button>
+      </div>
+      <div class="admin-modal-body" id="modal-invoice-body">
+        <!-- Rendered Tax Invoice -->
+        <div style="border:1.5px solid #243B6B;border-radius:8px;padding:20px;font-family:'Inter',sans-serif;font-size:12px;color:#1E293B;">
+          <div style="display:flex;justify-content:space-between;border-bottom:2px solid #243B6B;padding-bottom:12px;margin-bottom:14px;">
+            <div>
+              <h2 style="font-size:18px;font-weight:800;color:#243B6B;margin:0 0 4px 0;">TAX INVOICE</h2>
+              <div style="color:#64748B;">Invoice #: <strong id="inv-modal-number">INV-2026-11-001</strong></div>
+              <div style="color:#64748B;">Invoice Date: <strong>11 Nov 2026</strong></div>
+              <div style="color:#64748B;">Place of Supply: <strong>Karnataka (29)</strong></div>
+            </div>
+            <div style="text-align:right;">
+              <strong style="color:#243B6B;font-size:14px;">Vibodh AI Technologies Pvt Ltd</strong><br>
+              #42, 4th Cross, Koramangala<br>
+              Bengaluru, Karnataka 560034<br>
+              <strong>GSTIN: 29AAACV9876E1Z4</strong>
+            </div>
+          </div>
+
+          <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:12px;margin-bottom:16px;">
+            <div style="font-weight:700;color:#243B6B;margin-bottom:4px;">BILL TO (BUYER):</div>
+            <strong>Vibodh AI Technologies Pvt Ltd</strong><br>
+            GSTIN: <code>29AAACV1234F1Z5</code><br>
+            State: Karnataka (Code: 29) &bull; Intra-State Supply
+          </div>
+
+          <table style="width:100%;border-collapse:collapse;margin-bottom:16px;">
+            <thead>
+              <tr style="background:#F1F5F9;border-bottom:1px solid #CBD5E1;text-align:left;">
+                <th style="padding:8px;">Description</th>
+                <th style="padding:8px;">SAC</th>
+                <th style="padding:8px;text-align:right;">Taxable Value</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid #E2E8F0;">
+                <td style="padding:8px;"><strong>Vibodh Signal Growth Tier (Monthly)</strong><br><small style="color:#64748B;">Marketing Automation &amp; AI Studio (1,000 Credits)</small></td>
+                <td style="padding:8px;">998314</td>
+                <td style="padding:8px;text-align:right;">₹6,999.00</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="display:flex;justify-content:flex-end;">
+            <div style="width:260px;font-size:12px;">
+              <div style="display:flex;justify-content:space-between;padding:3px 0;"><span>Taxable Subtotal:</span><strong>₹6,999.00</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:3px 0;color:#0F9D8A;"><span>CGST (9.0%):</span><strong>₹629.91</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:3px 0;color:#0F9D8A;"><span>SGST (9.0%):</span><strong>₹629.91</strong></div>
+              <div style="display:flex;justify-content:space-between;padding:8px 0;border-top:2px solid #243B6B;font-size:14px;color:#243B6B;">
+                <span>Total Amount:</span>
+                <strong>₹8,258.82</strong>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top:14px;font-size:10px;color:#94A3B8;text-align:center;">
+            This is a computer-generated tax invoice. No physical signature required.
+          </div>
+        </div>
+      </div>
+      <div class="admin-modal-footer">
+        <button class="btn-outline-neutral" onclick="closeModal('modal-invoice')">Close</button>
+        <button class="btn-primary-coral" onclick="showToast('Tax invoice PDF generated and downloaded.', '📄')">📥 Download Official PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" style="position:fixed;bottom:24px;right:24px;z-index:99999;"></div>
+
+  <script>
+    function toggleAdminSidebar() {
+      const sidebar = document.getElementById('admin-sidebar');
+      if (!sidebar) return;
+      const isCollapsed = sidebar.classList.toggle('collapsed');
+      try {
+        localStorage.setItem('vibodh_cp_sidebar_collapsed', isCollapsed ? 'true' : 'false');
+      } catch(e) {}
+    }
+    window.toggleAdminSidebar = toggleAdminSidebar;
+
+    // Restore sidebar state
+    document.addEventListener('DOMContentLoaded', () => {
+      try {
+        if (localStorage.getItem('vibodh_cp_sidebar_collapsed') === 'true') {
+          document.getElementById('admin-sidebar')?.classList.add('collapsed');
+        }
+      } catch(e) {}
+    });
+
+    function toggleNavGroup(groupId) {
+      const sidebar = document.getElementById('admin-sidebar');
+      if (sidebar && sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        try { localStorage.setItem('vibodh_cp_sidebar_collapsed', 'false'); } catch(e) {}
+      }
+      const group = document.getElementById('group-' + groupId);
+      if (!group) return;
+      const isCurrentlyOpen = group.classList.contains('is-open');
+      if (isCurrentlyOpen) {
+        group.classList.remove('is-open');
+      } else {
+        // Accordion: close other groups to keep only main menu clean
+        document.querySelectorAll('.admin-nav-group').forEach(g => g.classList.remove('is-open'));
+        group.classList.add('is-open');
+      }
+    }
+    window.toggleNavGroup = toggleNavGroup;
+
+    function switchCpScreen(screenId) {
+      document.querySelectorAll('.admin-nav-item').forEach(el => el.classList.remove('active'));
+      const activeNav = document.querySelector(`[data-screen="${screenId}"]`);
+      if (activeNav) {
+        activeNav.classList.add('active');
+        const parentGroup = activeNav.closest('.admin-nav-group');
+        if (parentGroup) {
+          document.querySelectorAll('.admin-nav-group').forEach(g => g.classList.remove('has-active'));
+          parentGroup.classList.add('has-active');
+          parentGroup.classList.add('is-open');
+        }
+      }
+
+      document.querySelectorAll('.admin-screen').forEach(s => s.classList.remove('active'));
+      const target = document.getElementById('screen-' + screenId);
+      if (target) {
+        target.classList.add('active');
+        const titleEl = document.getElementById('current-screen-title');
+        if (titleEl && activeNav) {
+          const labelSpan = activeNav.querySelector('.admin-nav-label');
+          titleEl.innerText = labelSpan ? labelSpan.innerText : activeNav.innerText.trim();
+        }
+      }
+    }
+
+    function toggleAppSwitcher(e) {
+      e.stopPropagation();
+      const dd = document.getElementById('app-switcher-dropdown');
+      if (dd) dd.classList.toggle('show');
+    }
+    document.addEventListener('click', () => {
+      const dd = document.getElementById('app-switcher-dropdown');
+      if (dd) dd.classList.remove('show');
+    });
+
+    function showInvoiceModal(num) {
+      document.getElementById('inv-modal-number').innerText = num;
+      document.getElementById('modal-invoice').classList.add('open');
+    }
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('open');
+    }
+
+    function showToast(msg, icon = '✓') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.style.cssText = 'background:#243B6B;color:#fff;padding:10px 16px;border-radius:8px;font-size:12.5px;font-weight:600;margin-top:8px;box-shadow:0 6px 16px rgba(0,0,0,0.15);display:flex;align-items:center;gap:8px;animation:fadeIn 0.2s;';
+      toast.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 3200);
+    }
+  </script>
+</body>
+</html>

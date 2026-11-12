@@ -1,4 +1,327 @@
 
+/* ═══════════════════════════════════════════════════════════════════
+   VIBODH SIGNAL — PLATFORM STATE, ENTITLEMENTS & USAGE ENGINE
+   Governed by 01-product-requirements.md & 08-billing-and-entitlements.md
+   ═══════════════════════════════════════════════════════════════════ */
+
+window.vibodhPlatformState = {
+  activeOrg: {
+    id: 'org_vibodhai_01',
+    name: 'Vibodh AI Technologies Pvt Ltd',
+    slug: 'vibodh-ai',
+    segment: 'b2b_tech',
+    gstin: '29AAACV1234F1Z5',
+    status: 'active'
+  },
+  activePlan: {
+    id: 'growth',
+    name: 'Growth Tier',
+    price: 6999,
+    interval: 'monthly',
+    renewalDate: 'Dec 15, 2026',
+    monthlyCredits: 1000,
+    includedBrands: 3,
+    includedSocialProfiles: 10,
+    includedSeats: 3
+  },
+  credits: {
+    totalAllocated: 1000,
+    consumed: 260,
+    reserved: 0,
+    remaining: 740,
+    breakdown: {
+      text: 45,
+      image: 115,
+      video: 100
+    }
+  },
+  reservations: [],
+  ledger: [
+    { id: 'LEDG-004', time: '10:14 AM', type: 'GENERATION_COMMIT', modality: 'Text', delta: -1, balance: 740, desc: 'AI Copy: 5 Mistakes That Kill Agency Margins' },
+    { id: 'LEDG-003', time: '09:32 AM', type: 'GENERATION_COMMIT', modality: 'Image', delta: -2, balance: 741, desc: '4K Creative: Amber Perfume Studio Visual' },
+    { id: 'LEDG-002', time: 'Yesterday', type: 'GENERATION_COMMIT', modality: 'Video', delta: -15, balance: 743, desc: '1080p Clip: Q4 Motion Video Showcase' },
+    { id: 'LEDG-001', time: 'Nov 01, 2026', type: 'SUBSCRIPTION_GRANT', modality: 'System', delta: +1000, balance: 1000, desc: 'Monthly Growth Plan Credit Allocation' }
+  ],
+  entitlements: {
+    brands: { current: 2, max: 3 },
+    socialProfiles: { current: 4, max: 10 },
+    seats: { current: 2, max: 3 },
+    scheduledPosts: { current: 18, max: 500 },
+    approvalWorkflows: true,
+    apiAccess: false
+  }
+};
+
+window.updateCreditDisplays = function() {
+  const s = window.vibodhPlatformState;
+  const rem = s.credits.remaining;
+  const tot = s.credits.totalAllocated;
+  const con = s.credits.consumed;
+  const res = s.credits.reserved;
+
+  // Topbar
+  const topCount = document.getElementById('topbar-credit-count');
+  if (topCount) topCount.innerText = rem.toLocaleString();
+
+  // Dashboard card
+  const dashNum = document.querySelector('.dtc-credits-number');
+  if (dashNum) dashNum.innerText = rem.toLocaleString();
+  const dashTot = document.querySelector('.dtc-credits-total');
+  if (dashTot) dashTot.innerText = '/ ' + tot.toLocaleString();
+
+  // Usage Screen KPIs
+  const uRem = document.getElementById('usage-val-remaining');
+  if (uRem) uRem.innerHTML = rem.toLocaleString() + ' <small style="font-size:13px;color:#64748B;">/ ' + tot.toLocaleString() + '</small>';
+  const uCon = document.getElementById('usage-val-consumed');
+  if (uCon) uCon.innerHTML = con.toLocaleString() + ' <small style="font-size:13px;color:#64748B;">Credits</small>';
+  const uRes = document.getElementById('usage-val-reserved');
+  if (uRes) uRes.innerHTML = res.toLocaleString() + ' <small style="font-size:13px;color:#64748B;">Credits</small>';
+
+  // Modality Breakdown Meters
+  const bText = s.credits.breakdown.text;
+  const bImg = s.credits.breakdown.image;
+  const bVid = s.credits.breakdown.video;
+  const sum = (bText + bImg + bVid) || 1;
+
+  const barText = document.getElementById('usage-bar-text');
+  if (barText) barText.style.width = ((bText / sum) * 100).toFixed(1) + '%';
+  const barImg = document.getElementById('usage-bar-image');
+  if (barImg) barImg.style.width = ((bImg / sum) * 100).toFixed(1) + '%';
+  const barVid = document.getElementById('usage-bar-video');
+  if (barVid) barVid.style.width = ((bVid / sum) * 100).toFixed(1) + '%';
+
+  const cText = document.getElementById('usage-count-text');
+  if (cText) cText.innerText = bText + ' credits';
+  const cImg = document.getElementById('usage-count-image');
+  if (cImg) cImg.innerText = bImg + ' credits';
+  const cVid = document.getElementById('usage-count-video');
+  if (cVid) cVid.innerText = bVid + ' credits';
+  const modTot = document.getElementById('usage-modality-total');
+  if (modTot) modTot.innerText = con + ' Credits Consumed';
+
+  // Render Ledger
+  const tbody = document.getElementById('customer-ledger-tbody');
+  if (tbody) {
+    tbody.innerHTML = s.ledger.map(row => {
+      const isPos = row.delta > 0;
+      const deltaColor = isPos ? '#059669' : '#DC2626';
+      const deltaSign = isPos ? '+' : '';
+      let modIcon = '⚙️';
+      if (row.modality === 'Text') modIcon = '✍️';
+      if (row.modality === 'Image') modIcon = '🖼️';
+      if (row.modality === 'Video') modIcon = '🎬';
+
+      return `
+        <tr>
+          <td><code>${row.id}</code></td>
+          <td>${row.time}</td>
+          <td><code>${row.type}</code></td>
+          <td>${modIcon} <strong>${row.modality}</strong></td>
+          <td><strong style="color:${deltaColor}">${deltaSign}${row.delta} Credit${Math.abs(row.delta) > 1 ? 's' : ''}</strong></td>
+          <td><strong>${row.balance} Credits</strong></td>
+          <td>${row.desc}</td>
+          <td><span class="status-pill status-active">Settled</span></td>
+        </tr>
+      `;
+    }).join('');
+  }
+};
+
+window.reserveCredits = function(modality, count, promptDesc) {
+  const s = window.vibodhPlatformState;
+  if (s.activeOrg.status !== 'active') {
+    if (window.showToast) window.showToast('Workspace is currently suspended. Please contact support.', '⚠️');
+    return null;
+  }
+  if (s.credits.remaining < count) {
+    if (window.showToast) {
+      window.showToast('Insufficient AI credits! Needed: ' + count + ', Available: ' + s.credits.remaining + '. Please top up.', '⚠️');
+    }
+    setTimeout(() => {
+      if (window.openTopUpModal) window.openTopUpModal(250);
+    }, 800);
+    return null;
+  }
+
+  // Create two-phase reservation hold
+  const holdId = 'res_hold_' + Date.now().toString(36);
+  s.credits.remaining -= count;
+  s.credits.reserved += count;
+  s.reservations.push({
+    id: holdId,
+    modality: modality,
+    credits: count,
+    desc: promptDesc,
+    createdAt: Date.now()
+  });
+
+  window.updateCreditDisplays();
+  return holdId;
+};
+
+window.commitCredits = function(holdId, promptDesc) {
+  const s = window.vibodhPlatformState;
+  const idx = s.reservations.findIndex(r => r.id === holdId);
+  if (idx === -1) return;
+
+  const hold = s.reservations[idx];
+  s.reservations.splice(idx, 1);
+
+  s.credits.reserved -= hold.credits;
+  s.credits.consumed += hold.credits;
+
+  const modKey = hold.modality.toLowerCase();
+  if (s.credits.breakdown[modKey] !== undefined) {
+    s.credits.breakdown[modKey] += hold.credits;
+  }
+
+  // Append to immutable ledger
+  const ledgerId = 'LEDG-' + String(s.ledger.length + 1).padStart(3, '0');
+  s.ledger.unshift({
+    id: ledgerId,
+    time: 'Just now',
+    type: 'GENERATION_COMMIT',
+    modality: hold.modality,
+    delta: -hold.credits,
+    balance: s.credits.remaining,
+    desc: promptDesc || hold.desc
+  });
+
+  window.updateCreditDisplays();
+};
+
+window.releaseCredits = function(holdId) {
+  const s = window.vibodhPlatformState;
+  const idx = s.reservations.findIndex(r => r.id === holdId);
+  if (idx === -1) return;
+
+  const hold = s.reservations[idx];
+  s.reservations.splice(idx, 1);
+
+  s.credits.remaining += hold.credits;
+  s.credits.reserved -= hold.credits;
+
+  window.updateCreditDisplays();
+};
+
+// UI Interactions: App Switcher, Top-up, Invoice
+window.toggleAppSwitcher = function(e) {
+  if (e) e.stopPropagation();
+  const dd = document.getElementById('app-switcher-dropdown');
+  if (dd) dd.classList.toggle('show');
+};
+
+document.addEventListener('click', () => {
+  const dd = document.getElementById('app-switcher-dropdown');
+  if (dd) dd.classList.remove('show');
+});
+
+let pendingTopUp = { credits: 250, price: 2250 };
+window.openTopUpModal = function(credits) {
+  const packs = {
+    50: 500,
+    100: 950,
+    250: 2250,
+    500: 4300,
+    1000: 8300
+  };
+  const price = packs[credits] || 2250;
+  pendingTopUp = { credits, price };
+
+  const lbl = document.getElementById('modal-topup-credits-label');
+  if (lbl) lbl.innerText = credits + ' AI Credits Top-Up Pack';
+  const base = document.getElementById('modal-topup-base');
+  if (base) base.innerText = '₹' + price.toLocaleString() + '.00';
+  const tax = document.getElementById('modal-topup-tax');
+  const taxVal = Math.round(price * 0.18);
+  if (tax) tax.innerText = '₹' + taxVal.toLocaleString() + '.00';
+  const tot = document.getElementById('modal-topup-total');
+  if (tot) tot.innerText = '₹' + (price + taxVal).toLocaleString() + '.00';
+
+  const m = document.getElementById('modal-topup-pack');
+  if (m) m.classList.add('open');
+};
+
+window.executeTopUpPurchase = function() {
+  const s = window.vibodhPlatformState;
+  const count = pendingTopUp.credits;
+  s.credits.remaining += count;
+  s.credits.totalAllocated += count;
+
+  const ledgerId = 'LEDG-' + String(s.ledger.length + 1).padStart(3, '0');
+  s.ledger.unshift({
+    id: ledgerId,
+    time: 'Just now',
+    type: 'TOPUP_PURCHASE',
+    modality: 'System',
+    delta: +count,
+    balance: s.credits.remaining,
+    desc: 'On-Demand Wallet Top-Up (' + count + ' Credits, Never Expire)'
+  });
+
+  window.closeModal('modal-topup-pack');
+  window.updateCreditDisplays();
+  if (window.showToast) {
+    window.showToast('Successfully added ' + count + ' credits! Wallet balance: ' + s.credits.remaining, '⚡');
+  }
+};
+
+window.showCustomerInvoice = function(num, desc, baseVal) {
+  const numEl = document.getElementById('cust-inv-num');
+  if (numEl) numEl.innerText = num;
+  const descEl = document.getElementById('cust-inv-desc');
+  if (descEl) descEl.innerText = desc;
+  const baseEl = document.getElementById('cust-inv-base');
+  if (baseEl) baseEl.innerText = '₹' + baseVal.toLocaleString() + '.00';
+  const subEl = document.getElementById('cust-inv-sub');
+  if (subEl) subEl.innerText = '₹' + baseVal.toLocaleString() + '.00';
+
+  const cgst = (baseVal * 0.09).toFixed(2);
+  const sgst = (baseVal * 0.09).toFixed(2);
+  const tot = (baseVal * 1.18).toFixed(2);
+
+  const cgstEl = document.getElementById('cust-inv-cgst');
+  if (cgstEl) cgstEl.innerText = '₹' + cgst;
+  const sgstEl = document.getElementById('cust-inv-sgst');
+  if (sgstEl) sgstEl.innerText = '₹' + sgst;
+  const totEl = document.getElementById('cust-inv-tot');
+  if (totEl) totEl.innerText = '₹' + tot;
+
+  const m = document.getElementById('modal-cust-invoice');
+  if (m) m.classList.add('open');
+};
+
+window.filterCustomerLedger = function(modality) {
+  const s = window.vibodhPlatformState;
+  const filtered = modality === 'all' ? s.ledger : s.ledger.filter(r => r.modality === modality);
+  const tbody = document.getElementById('customer-ledger-tbody');
+  if (tbody) {
+    tbody.innerHTML = filtered.map(row => {
+      const isPos = row.delta > 0;
+      const deltaColor = isPos ? '#059669' : '#DC2626';
+      const deltaSign = isPos ? '+' : '';
+      let modIcon = '⚙️';
+      if (row.modality === 'Text') modIcon = '✍️';
+      if (row.modality === 'Image') modIcon = '🖼️';
+      if (row.modality === 'Video') modIcon = '🎬';
+
+      return `
+        <tr>
+          <td><code>${row.id}</code></td>
+          <td>${row.time}</td>
+          <td><code>${row.type}</code></td>
+          <td>${modIcon} <strong>${row.modality}</strong></td>
+          <td><strong style="color:${deltaColor}">${deltaSign}${row.delta} Credit${Math.abs(row.delta) > 1 ? 's' : ''}</strong></td>
+          <td><strong>${row.balance} Credits</strong></td>
+          <td>${row.desc}</td>
+          <td><span class="status-pill status-active">Settled</span></td>
+        </tr>
+      `;
+    }).join('');
+  }
+};
+
+
 // ── Textarea innerText compatibility bridge for unified post textbox ────
 try {
   if (!Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'innerText')?.set) {
@@ -1241,6 +1564,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ── 9d-4. Creative Services Expandable Details Toggle ── */
+  window.toggleCreativeDetails = function(trigger) {
+    const card = trigger.closest('.creative-card');
+    if (!card) return;
+    const isExpanded = card.classList.toggle('is-expanded');
+    const toggleBtn = card.querySelector('.creative-toggle-btn');
+    if (toggleBtn) {
+      const textSpan = toggleBtn.querySelector('.toggle-text');
+      if (textSpan) {
+        textSpan.textContent = isExpanded ? 'See less' : 'See more';
+      }
+    }
+  };
+
   /* ── 9e. Nav links with data-tab ────────────────────── */
   document.querySelectorAll('[data-tab]').forEach(el => {
     if (el.classList.contains('tab-btn')) return; // already handled above
@@ -1350,6 +1687,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'brand-knowledge':  'Brand Knowledge | Vibodh Signal',
     'activity':         'Activity | Vibodh Signal',
     'billing':          'Pricing & Billing | Vibodh Signal',
+    'usage':            'Usage & AI Credits | Vibodh Signal',
     'settings':         'Settings | Vibodh Signal'
   };
 
@@ -2456,6 +2794,10 @@ function generateTextStudioPackage() {
   const captionText = document.getElementById('mockup-caption-text');
   const btn = document.getElementById('cs-text-gen-btn');
 
+  // Atomic Credit Reservation (1 Credit for Text Generation)
+  const holdId = window.reserveCredits ? window.reserveCredits('Text', 1, 'Gemini Marketing Copy Package') : null;
+  if (window.reserveCredits && !holdId) return;
+
   if (btn) {
     btn.style.opacity = '0.7';
     btn.innerHTML = '<span class="cs-btn-flash">⚡</span> Generating Content with Gemini...';
@@ -2472,7 +2814,10 @@ function generateTextStudioPackage() {
       btn.style.opacity = '1';
       btn.innerHTML = '<span class="cs-btn-flash">⚡</span> <span>Generate Content</span> <span class="cs-btn-credit-badge" id="cs-text-credit-badge">⚡ 1 Credit</span>';
     }
-    showToast('Marketing text generated and synchronized with Brand DNA!', '⚡');
+    if (window.commitCredits && typeof holdId !== 'undefined' && holdId) {
+      window.commitCredits(holdId, 'AI Copy: Most digital agencies are bleeding margins...');
+    }
+    showToast('Marketing text generated and synchronized with Brand DNA! (⚡ 1 credit deducted)', '⚡');
   }, 500);
 }
 window.generateTextStudioPackage = generateTextStudioPackage;
@@ -2578,6 +2923,12 @@ function generateImageStudioPackage() {
   const title = document.getElementById('cs-img-display-title');
   const prompt = document.getElementById('cs-image-prompt-input')?.value || 'AI Visual Creative';
 
+  // Atomic Credit Reservation (1 credit standard, 2 credits high-quality)
+  const qualitySelect = document.getElementById('cs-image-quality-select');
+  const creditCost = qualitySelect && qualitySelect.value === 'high-quality' ? 2 : 1;
+  const holdId = window.reserveCredits ? window.reserveCredits('Image', creditCost, 'Imagen 3: ' + prompt.substring(0, 32)) : null;
+  if (window.reserveCredits && !holdId) return;
+
   if (btn) {
     btn.style.opacity = '0.7';
     btn.innerHTML = '<span class="cs-btn-flash">🎨</span> Generating Visual Creative...';
@@ -2607,7 +2958,10 @@ function generateImageStudioPackage() {
     if (typeof promptRefImages !== 'undefined' && promptRefImages.image) {
       showToast(`4K Image generated with reference guidance: "${promptRefImages.image.name}"`, '🎨');
     } else {
-      showToast('4K Image asset generated successfully!', '✨');
+      if (window.commitCredits && typeof holdId !== 'undefined' && holdId) {
+      window.commitCredits(holdId, '4K Creative: ' + (prompt || 'AI Visual Creative').substring(0, 36));
+    }
+    showToast('4K Image asset generated successfully! (⚡ ' + creditCost + ' credit' + (creditCost > 1 ? 's' : '') + ' deducted)', '✨');
     }
   }, 600);
 }
@@ -2909,6 +3263,11 @@ function generateVideoStudioPackage() {
   const duration = document.getElementById('cs-duration-range-input')?.value || '15';
   const voice = document.getElementById('cs-video-voice-select')?.options[document.getElementById('cs-video-voice-select')?.selectedIndex]?.text || 'Professional';
 
+  // Atomic Credit Reservation (1 credit per second duration)
+  const creditCost = parseInt(duration, 10) || 15;
+  const holdId = window.reserveCredits ? window.reserveCredits('Video', creditCost, 'Veo Motion Video: ' + duration + 's') : null;
+  if (window.reserveCredits && !holdId) return;
+
   if (btn) {
     btn.style.opacity = '0.7';
     btn.innerHTML = '<span class="cs-btn-flash">🎬</span> Rendering Motion Video...';
@@ -2929,7 +3288,10 @@ function generateVideoStudioPackage() {
     if (typeof promptRefImages !== 'undefined' && promptRefImages.video) {
       showToast(`1080P Video generated from reference start frame: "${promptRefImages.video.name}" (${duration}s)`, '🎬');
     } else {
-      showToast(`1080P Video clip (${duration}s &bull; ${duration} credits) generated successfully!`, '🚀');
+      if (window.commitCredits && typeof holdId !== 'undefined' && holdId) {
+      window.commitCredits(holdId, '1080p Clip: Motion Video (' + duration + 's)');
+    }
+    showToast(`1080P Video clip (${duration}s &bull; ${duration} credits) generated successfully!`, '🚀');
     }
   }, 700);
 }
@@ -11220,3 +11582,30 @@ function copyStudioCaption(mode) {
   }
 }
 window.copyStudioCaption = copyStudioCaption;
+
+
+// Collapsible Customer Subscription Banner Toggle
+function toggleSubscriptionPanel() {
+  const card = document.getElementById('customer-subscription-card');
+  const toggleText = document.getElementById('sub-panel-toggle-text');
+  if (!card) return;
+  const isExpanded = card.classList.toggle('is-expanded');
+  if (toggleText) {
+    toggleText.textContent = isExpanded ? 'Hide details' : 'View details';
+  }
+  try {
+    localStorage.setItem('vibodh_sub_panel_expanded', isExpanded ? 'true' : 'false');
+  } catch(e) {}
+}
+window.toggleSubscriptionPanel = toggleSubscriptionPanel;
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    if (localStorage.getItem('vibodh_sub_panel_expanded') === 'true') {
+      const card = document.getElementById('customer-subscription-card');
+      const toggleText = document.getElementById('sub-panel-toggle-text');
+      if (card) card.classList.add('is-expanded');
+      if (toggleText) toggleText.textContent = 'Hide details';
+    }
+  } catch(e) {}
+});
