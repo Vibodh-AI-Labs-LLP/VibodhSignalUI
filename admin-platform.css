@@ -135,7 +135,8 @@
 /* ════════════════ ADMIN APPLICATION SHELL ════════════════ */
 .admin-app-container {
   display: flex;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
   background: #F8FAFC;
   color: #2D2A2B;
   font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -433,7 +434,9 @@
   display: flex;
   flex-direction: column;
   min-width: 0;
+  height: 100vh;
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .admin-topbar {
@@ -1300,4 +1303,91 @@
   font-size: 14px;
   font-weight: 800;
   color: #243B6B;
+}
+
+
+/* ═══════════════════════════════════════════════════════════════
+   ADMIN PLATFORM FOOTER (Landing Page Theme)
+   ═══════════════════════════════════════════════════════════════ */
+.admin-site-footer {
+  background: #243B6B;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 48px 36px 32px;
+  color: #CBD5E1;
+  margin-top: 56px;
+  border-radius: 12px;
+}
+.admin-site-footer .footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 32px;
+  margin-bottom: 32px;
+}
+.admin-site-footer .footer-brand-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF;
+  margin-top: 6px;
+  letter-spacing: -0.01em;
+}
+.admin-site-footer .footer-brand-tagline {
+  font-size: 12px;
+  color: #CBD5E1;
+  margin-top: 8px;
+  line-height: 1.6;
+}
+.admin-site-footer .footer-brand-tagline span {
+  color: #0F9D8A;
+  font-weight: 700;
+}
+.admin-site-footer .footer-col-title {
+  font-size: 11.5px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #FFFFFF;
+  margin-bottom: 14px;
+}
+.admin-site-footer .footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.admin-site-footer .footer-link {
+  font-size: 12.5px;
+  color: #CBD5E1;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+.admin-site-footer .footer-link:hover {
+  color: #0F9D8A;
+  transform: translateX(3px);
+}
+.admin-site-footer .footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 11.5px;
+  color: #94A3B8;
+}
+@media (max-width: 900px) {
+  .admin-site-footer .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+  }
+}
+@media (max-width: 600px) {
+  .admin-site-footer .footer-top {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
 }
