@@ -1,0 +1,3 @@
+# Cloudflare Worker local variables. Copy to .dev.vars; never commit it.
+FEEDBACK_RECIPIENT=reachus@vibodhai.com
+FEEDBACK_FROM=forms@vibodhai.com

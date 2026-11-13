@@ -4,3 +4,12 @@ node_modules
 *.log
 scratch/
 assets/*-backup.png
+
+# Local feedback-service secrets and submissions
+.env
+data/*.sqlite3
+__pycache__/
+
+# Cloudflare Worker local secrets
+.dev.vars
+data/*.local.json

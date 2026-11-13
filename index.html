@@ -9150,7 +9150,9 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, thoughts })
           });
-          const payload = await response.json();
+          const payload = response.headers.get('content-type')?.includes('application/json')
+            ? await response.json()
+            : { error: 'The feedback service returned an unexpected response. Please try again.' };
           if (!response.ok) throw new Error(payload.error || 'We could not submit your thought.');
           const formBody = document.getElementById('thoughts-form-body');
           const successState = document.getElementById('thoughts-success-state');
@@ -9219,7 +9221,9 @@
               mobile: document.getElementById('pmf-mobile').value.trim()
             })
           });
-          const payload = await response.json();
+          const payload = response.headers.get('content-type')?.includes('application/json')
+            ? await response.json()
+            : { error: 'The feedback service returned an unexpected response. Please try again.' };
           if (!response.ok) throw new Error(payload.error || 'We could not save your feedback.');
           pmfForm.hidden = true;
           pmfSuccess.hidden = false;

@@ -4,6 +4,7 @@ const path = require('path');
 
 const PORT = 3000;
 const BASE_DIR = __dirname;
+const LOCAL_FEEDBACK_FILE = path.join(BASE_DIR, 'data', 'feedback.local.json');
 
 const MIME_TYPES = {
   '.html': 'text/html; charset=UTF-8',
@@ -22,32 +23,49 @@ const MIME_TYPES = {
 const server = http.createServer((req, res) => {
   let reqPath = decodeURI(req.url.split('?')[0]);
 
-  // The PMF experience uses the existing local feedback service for validation,
-  // persistence, and notification delivery while keeping this UI same-origin.
+  // Production feedback is handled by worker.mjs on Cloudflare Workers.
+  // The preview server stores local development submissions so form review does
+  // not require a second service or a Python process.
   if (req.method === 'POST' && ['/api/pmf-feedback', '/api/visitor-thoughts'].includes(reqPath)) {
-    const upstream = http.request({
-      hostname: '127.0.0.1',
-      port: 4173,
-      path: reqPath,
-      method: 'POST',
-      headers: {
-        'Content-Type': req.headers['content-type'] || 'application/json',
-        'Content-Length': req.headers['content-length'] || 0
+    const chunks = [];
+    let size = 0;
+    req.on('data', (chunk) => {
+      size += chunk.length;
+      if (size <= 4096) chunks.push(chunk);
+    });
+    req.on('end', () => {
+      try {
+        if (!size || size > 4096) throw new Error('Feedback payload is invalid.');
+        const payload = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+        const isPmf = reqPath === '/api/pmf-feedback';
+        const capabilities = Array.isArray(payload.selected_capabilities) ? payload.selected_capabilities.filter(Boolean) : [];
+        if (isPmf && !capabilities.length) throw new Error('Choose at least one capability.');
+        if (!isPmf && (!String(payload.email || '').includes('@') || !String(payload.thoughts || '').trim())) {
+          throw new Error('Enter your email and thoughts before submitting.');
+        }
+        const record = {
+          id: crypto.randomUUID(),
+          type: isPmf ? 'pmf_feedback' : 'visitor_thought',
+          submitted_at: new Date().toISOString(),
+          ...payload
+        };
+        fs.mkdirSync(path.dirname(LOCAL_FEEDBACK_FILE), { recursive: true });
+        let stored = [];
+        if (fs.existsSync(LOCAL_FEEDBACK_FILE)) stored = JSON.parse(fs.readFileSync(LOCAL_FEEDBACK_FILE, 'utf8'));
+        stored.push(record);
+        fs.writeFileSync(LOCAL_FEEDBACK_FILE, JSON.stringify(stored, null, 2));
+        res.writeHead(201, { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' });
+        res.end(JSON.stringify({
+          message: 'Thank you. Your submission was saved in the local preview.',
+          id: record.id,
+          submitted_at: record.submitted_at,
+          email_notification_status: 'pending_cloudflare_deployment'
+        }));
+      } catch (error) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: error.message || 'Feedback payload is invalid.' }));
       }
-    }, (upstreamResponse) => {
-      res.writeHead(upstreamResponse.statusCode || 502, {
-        'Content-Type': upstreamResponse.headers['content-type'] || 'application/json',
-        'Cache-Control': 'no-cache'
-      });
-      upstreamResponse.pipe(res);
     });
-
-    upstream.on('error', () => {
-      res.writeHead(503, { 'Content-Type': 'application/json' });
-      res.end(JSON.stringify({ error: 'The feedback service is temporarily unavailable. Please try again shortly.' }));
-    });
-
-    req.pipe(upstream);
     return;
   }
 
