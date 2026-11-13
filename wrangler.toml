@@ -11,9 +11,8 @@ run_worker_first = ["/api/*"]
 name = "EMAIL"
 remote = true
 
-# Local development uses this temporary D1 identifier. Before deployment,
-# replace it with the real database ID returned by `wrangler d1 create`.
+# Persistent feedback storage for both deployed form endpoints.
 [[d1_databases]]
 binding = "FEEDBACK_DB"
 database_name = "vibodh-ui-feedback"
-database_id = "00000000-0000-0000-0000-000000000000"
+database_id = "e675d2a4-9966-4bdb-a75a-2a869daf47b7"
