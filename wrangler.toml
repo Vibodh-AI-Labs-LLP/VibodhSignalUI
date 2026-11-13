@@ -7,10 +7,6 @@ directory = "."
 binding = "ASSETS"
 run_worker_first = ["/api/*"]
 
-[[send_email]]
-name = "EMAIL"
-remote = true
-
 # Persistent feedback storage for both deployed form endpoints.
 [[d1_databases]]
 binding = "FEEDBACK_DB"
