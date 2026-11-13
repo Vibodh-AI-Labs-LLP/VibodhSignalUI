@@ -270,8 +270,28 @@
       transition: height 0.2s ease;
     }
 
-    .brand-logo {
+    .brand-identity {
       justify-self: start;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .brand-symbol-img {
+      width: 56px;
+      height: 56px;
+      flex: 0 0 56px;
+      border-radius: 14px;
+      object-fit: cover;
+    }
+
+    .brand-wordmark-img {
+      width: 228px;
+      height: 64px;
+      object-fit: contain;
+      object-position: left center;
     }
 
     .nav-section-links {
@@ -378,7 +398,7 @@
       color: #FFFFFF !important;
       font-weight: 700 !important;
       border-radius: var(--radius-full);
-      box-shadow: 
+      box-shadow:
         0 4px 0 #08675B,
         0 10px 22px -3px rgba(15, 157, 138, 0.42),
         inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
@@ -2387,6 +2407,9 @@
         max-width: 190px;
       }
 
+      .brand-symbol-img { width: 46px; height: 46px; flex-basis: 46px; }
+      .brand-wordmark-img { width: 168px; height: 48px; }
+
       .navbar {
         display: flex;
         justify-content: space-between;
@@ -2827,7 +2850,7 @@
       overflow: hidden;
       max-width: 1140px;
       margin: 0 auto;
-      box-shadow: 
+      box-shadow:
         0 24px 60px -15px rgba(15, 23, 42, 0.08),
         0 0 0 1px rgba(226, 232, 240, 0.9);
     }
@@ -2983,7 +3006,7 @@
       display: flex;
       align-items: center;
       gap: 15px;
-      box-shadow: 
+      box-shadow:
         0 14px 30px -4px rgba(15, 23, 42, 0.09),
         0 2px 6px -1px rgba(15, 23, 42, 0.04),
         0 0 0 1px rgba(226, 232, 240, 0.95);
@@ -2993,7 +3016,7 @@
 
     .pricing-benefit-pill:hover {
       transform: translateY(-2px);
-      box-shadow: 
+      box-shadow:
         0 18px 36px -4px rgba(15, 23, 42, 0.12),
         0 4px 10px -1px rgba(15, 23, 42, 0.06),
         0 0 0 1px rgba(203, 213, 225, 1);
@@ -3504,7 +3527,7 @@
       }
     }
 
-    
+
 
     /* ═══════════════════════════════════════════════════════════
        FLOATING CONTACT US BUTTON (Outlook / reachus@vibodhai.com)
@@ -3525,7 +3548,7 @@
       justify-content: center !important;
       cursor: pointer !important;
       z-index: 999999 !important;
-      box-shadow: 
+      box-shadow:
         0 4px 0 #0B8575,
         0 12px 26px -4px rgba(15, 157, 138, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
@@ -3535,7 +3558,7 @@
 
     .contact-us-floating-btn:hover {
       transform: translateY(-3px) scale(1.06) translateZ(6px) !important;
-      box-shadow: 
+      box-shadow:
         0 7px 0 #0B8575,
         0 16px 32px -4px rgba(15, 157, 138, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
@@ -3546,7 +3569,7 @@
 
     .contact-us-floating-btn:active {
       transform: translateY(2px) scale(0.98) translateZ(0) !important;
-      box-shadow: 
+      box-shadow:
         0 1.5px 0 #0B8575,
         0 4px 10px rgba(15, 157, 138, 0.3) !important;
     }
@@ -3622,7 +3645,7 @@
       background: linear-gradient(135deg, #0F9D8A 0%, #0B8575 100%) !important;
       border-color: #0B8575 !important;
       color: #FFFFFF !important;
-      box-shadow: 
+      box-shadow:
         0 3px 0 #08675B,
         0 8px 20px -2px rgba(15, 157, 138, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
@@ -3876,7 +3899,7 @@
         font-size: 0.86rem;
       }
     }
-  
+
     /* ═══════════════════════════════════════════════════════════
        GLOBAL 3D PERSPECTIVE & SPATIAL DEPTH SYSTEM
     ═══════════════════════════════════════════════════════════ */
@@ -3929,7 +3952,7 @@
     .nav-cta-btn {
       position: relative;
       transform-style: preserve-3d;
-      box-shadow: 
+      box-shadow:
         0 4px 0 #0B8575,
         0 10px 22px -3px rgba(15, 157, 138, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.42) !important;
@@ -3939,7 +3962,7 @@
     .btn-brand-primary:hover,
     .nav-cta-btn:hover {
       transform: translateY(-2.5px) translateZ(4px) !important;
-      box-shadow: 
+      box-shadow:
         0 6px 0 #0B8575,
         0 14px 28px -4px rgba(15, 157, 138, 0.48),
         inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
@@ -3948,7 +3971,7 @@
     .btn-brand-primary:active,
     .nav-cta-btn:active {
       transform: translateY(2px) translateZ(0) !important;
-      box-shadow: 
+      box-shadow:
         0 1px 0 #0B8575,
         0 4px 10px rgba(15, 157, 138, 0.35),
         inset 0 1.5px 2px rgba(0, 0, 0, 0.22) !important;
@@ -3956,7 +3979,7 @@
 
     /* 3D Outline Buttons */
     .btn-outline {
-      box-shadow: 
+      box-shadow:
         0 3px 0 #E2E8F0,
         0 8px 18px -4px rgba(15, 23, 42, 0.08),
         inset 0 1px 0 rgba(255, 255, 255, 1) !important;
@@ -3965,14 +3988,14 @@
     .btn-outline:hover {
       transform: translateY(-2px) translateZ(4px) !important;
       border-color: #CBD5E1 !important;
-      box-shadow: 
+      box-shadow:
         0 5px 0 #CBD5E1,
         0 12px 24px -4px rgba(15, 23, 42, 0.12),
         inset 0 1px 0 rgba(255, 255, 255, 1) !important;
     }
     .btn-outline:active {
       transform: translateY(2px) translateZ(0) !important;
-      box-shadow: 
+      box-shadow:
         0 1px 0 #E2E8F0,
         0 3px 8px rgba(15, 23, 42, 0.08),
         inset 0 1px 2px rgba(15, 23, 42, 0.08) !important;
@@ -3981,7 +4004,7 @@
     /* 3D Floating Action Buttons (Back to Top) */
 
     .back-to-top-btn {
-      box-shadow: 
+      box-shadow:
         0 4px 0 #0B8575,
         0 12px 26px -4px rgba(15, 157, 138, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
@@ -3989,14 +4012,14 @@
     }
     .back-to-top-btn:hover {
       transform: translateY(-3px) scale(1.06) translateZ(6px) !important;
-      box-shadow: 
+      box-shadow:
         0 7px 0 #0B8575,
         0 16px 32px -4px rgba(15, 157, 138, 0.5),
         inset 0 1px 0 rgba(255, 255, 255, 0.55) !important;
     }
     .back-to-top-btn:active {
       transform: translateY(2px) scale(0.98) translateZ(0) !important;
-      box-shadow: 
+      box-shadow:
         0 1.5px 0 #0B8575,
         0 4px 10px rgba(15, 157, 138, 0.3) !important;
     }
@@ -4006,7 +4029,7 @@
     .badge-pill-status,
     .pricing-badge-popular,
     .hero-badge-pill {
-      box-shadow: 
+      box-shadow:
         0 3px 8px -1px rgba(15, 23, 42, 0.08),
         inset 0 1px 1px rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.6);
@@ -4037,7 +4060,7 @@
       top: 14%;
       right: 8%;
       background: radial-gradient(circle at 35% 35%, rgba(15, 157, 138, 0.35), rgba(15, 157, 138, 0.08) 60%, transparent 80%);
-      box-shadow: 
+      box-shadow:
         inset -12px -12px 24px rgba(15, 157, 138, 0.25),
         inset 8px 8px 18px rgba(255, 255, 255, 0.75),
         0 20px 40px rgba(15, 157, 138, 0.15);
@@ -4050,7 +4073,7 @@
       top: 55%;
       left: 6%;
       background: radial-gradient(circle at 35% 35%, rgba(124, 58, 237, 0.32), rgba(124, 58, 237, 0.06) 60%, transparent 80%);
-      box-shadow: 
+      box-shadow:
         inset -10px -10px 20px rgba(124, 58, 237, 0.22),
         inset 6px 6px 16px rgba(255, 255, 255, 0.7),
         0 18px 36px rgba(124, 58, 237, 0.12);
@@ -4063,7 +4086,7 @@
       bottom: 12%;
       right: 18%;
       background: radial-gradient(circle at 35% 35%, rgba(240, 81, 45, 0.28), rgba(240, 81, 45, 0.05) 60%, transparent 80%);
-      box-shadow: 
+      box-shadow:
         inset -8px -8px 16px rgba(240, 81, 45, 0.2),
         inset 5px 5px 12px rgba(255, 255, 255, 0.65),
         0 14px 28px rgba(240, 81, 45, 0.1);
@@ -4088,14 +4111,14 @@
 
     /* 3D Workstation Frame Depth */
     .studio-video-frame {
-      box-shadow: 
+      box-shadow:
         0 35px 85px -15px rgba(15, 23, 42, 0.22),
         0 14px 32px -8px rgba(15, 157, 138, 0.16),
         0 0 0 1.5px rgba(255, 255, 255, 0.95),
         inset 0 1px 1px rgba(255, 255, 255, 0.5) !important;
     }
     .studio-video-frame:hover {
-      box-shadow: 
+      box-shadow:
         0 45px 105px -18px rgba(15, 23, 42, 0.28),
         0 20px 44px -8px rgba(15, 157, 138, 0.26),
         0 0 0 1.5px rgba(15, 157, 138, 0.45),
@@ -4146,7 +4169,7 @@
 
     /* Floating Navigation 3D Sheen */
     .header-nav-wrap {
-      box-shadow: 
+      box-shadow:
         0 14px 34px -6px rgba(15, 23, 42, 0.08),
         0 4px 12px -2px rgba(15, 23, 42, 0.04),
         inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
@@ -4171,7 +4194,7 @@
       }
     }
 
-  
+
     /* ═══════════════════════════════════════════════════════════
        NAVBAR RESOURCES DROPDOWN MENU (Vibodh Signal White Theme)
     ═══════════════════════════════════════════════════════════ */
@@ -4209,7 +4232,7 @@
       border: 1.5px solid #E2E8F0 !important;
       border-radius: 20px !important;
       padding: 10px !important;
-      box-shadow: 
+      box-shadow:
         0 24px 50px -10px rgba(15, 23, 42, 0.16),
         0 8px 24px -4px rgba(15, 157, 138, 0.12),
         0 0 0 1px rgba(226, 232, 240, 0.8),
@@ -4448,7 +4471,7 @@
     .resource-switch-btn.is-active {
       background: linear-gradient(135deg, #0F9D8A 0%, #0B8575 100%) !important;
       color: #FFFFFF !important;
-      box-shadow: 
+      box-shadow:
         0 4px 0 #08675B,
         0 10px 22px -3px rgba(15, 157, 138, 0.42),
         inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
@@ -4467,7 +4490,7 @@
       border: 1.5px solid #E2E8F0;
       border-radius: 24px;
       padding: 56px 64px;
-      box-shadow: 
+      box-shadow:
         0 20px 48px -12px rgba(15, 23, 42, 0.08),
         0 1px 3px rgba(15, 23, 42, 0.04),
         inset 0 1px 0 rgba(255, 255, 255, 0.9);
@@ -5304,7 +5327,7 @@
       }
     }
 
-  
+
     /* ==========================================================================
        HERO WORKSPACE 3D WORKFLOW SEQUENCE & FEEDBACK CTA (Vibodh Signal Theme)
        ========================================================================== */
@@ -5538,7 +5561,7 @@
       border: 1.5px solid rgba(226, 232, 240, 0.95);
       border-radius: 28px;
       padding: 40px 46px;
-      box-shadow: 
+      box-shadow:
         0 30px 70px -15px rgba(15, 23, 42, 0.35),
         0 0 0 1px rgba(15, 157, 138, 0.15),
         inset 0 1px 0 rgba(255, 255, 255, 0.95);
@@ -5775,7 +5798,7 @@
       background: linear-gradient(135deg, #0F9D8A 0%, #0B8575 100%) !important;
       color: #FFFFFF !important;
       text-decoration: none !important;
-      box-shadow: 
+      box-shadow:
         0 14px 28px rgba(15, 157, 138, 0.32),
         0 4px 10px rgba(15, 157, 138, 0.2),
         inset 0 1px 0 rgba(255, 255, 255, 0.35) !important;
@@ -5785,7 +5808,7 @@
 
     .hero-feedback-btn:hover {
       transform: translateY(-3px) scale(1.025) !important;
-      box-shadow: 
+      box-shadow:
         0 20px 36px rgba(15, 157, 138, 0.42),
         0 6px 14px rgba(15, 157, 138, 0.25),
         inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
@@ -5920,7 +5943,7 @@
       }
     }
 
-  
+
     /* Mobile Header & Title Responsive Polish */
     @media (min-width: 769px) {
       .hero-title-break {
@@ -5943,16 +5966,18 @@
       .brand-by-vibodhai {
         font-size: 0.65rem !important;
       }
+      .brand-symbol-img { width: 42px; height: 42px; flex-basis: 42px; }
+      .brand-wordmark-img { width: 132px; height: 38px; }
     }
-  
-  
+
+
     /* ═══════════════════════════════════════════════════════════
        3D ENHANCED SITE HEADER & SITE FOOTER
     ═══════════════════════════════════════════════════════════ */
     .site-header {
       background: linear-gradient(180deg, #2A447C 0%, #1E335C 100%) !important;
       border-bottom: 1px solid rgba(255, 255, 255, 0.16) !important;
-      box-shadow: 
+      box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.18),
         inset 0 -1px 0 rgba(0, 0, 0, 0.45),
         0 14px 34px -4px rgba(10, 18, 38, 0.42),
@@ -5972,7 +5997,7 @@
     .nav-section-links {
       background: rgba(14, 25, 48, 0.6) !important;
       border: 1px solid rgba(255, 255, 255, 0.14) !important;
-      box-shadow: 
+      box-shadow:
         inset 0 2px 5px rgba(0, 0, 0, 0.55),
         inset 0 1px 0 rgba(255, 255, 255, 0.08),
         0 4px 12px rgba(0, 0, 0, 0.25) !important;
@@ -5985,7 +6010,7 @@
     .nav-anchor-link:hover,
     .nav-anchor-link.active {
       transform: translateY(-1px) translateZ(2px);
-      box-shadow: 
+      box-shadow:
         0 3px 8px rgba(0, 0, 0, 0.35),
         inset 0 1px 0 rgba(255, 255, 255, 0.25) !important;
     }
@@ -5993,7 +6018,7 @@
     .site-footer {
       background: linear-gradient(180deg, #1E335C 0%, #14223E 100%) !important;
       border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
-      box-shadow: 
+      box-shadow:
         inset 0 2px 0 rgba(255, 255, 255, 0.15),
         inset 0 18px 24px -10px rgba(255, 255, 255, 0.05),
         0 -16px 36px rgba(10, 18, 38, 0.35) !important;
@@ -6026,7 +6051,269 @@
       filter: drop-shadow(0 8px 18px rgba(15, 157, 138, 0.4));
     }
 
-  </style>
+
+    /* Premium SaaS navbar refinement */
+    .site-header {
+      background: linear-gradient(105deg, #172B52 0%, #203D70 52%, #172B52 100%) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 24px rgba(11, 24, 48, 0.16) !important;
+      transform: none;
+    }
+
+    .navbar {
+      display: flex;
+      height: var(--header-height);
+      align-items: center;
+      gap: 0;
+    }
+
+    .site-header.is-scrolled .navbar { height: 72px; }
+
+    .brand-identity {
+      flex: 0 0 auto;
+      justify-self: auto;
+      gap: 9px;
+      transition: opacity 0.2s ease;
+    }
+
+    .brand-identity:hover { opacity: 0.9; }
+
+    .brand-symbol-img {
+      width: 48px;
+      height: 48px;
+      flex-basis: 48px;
+      border-radius: 12px;
+    }
+
+    .brand-wordmark-img {
+      width: 194px;
+      height: 54px;
+    }
+
+    .nav-section-links {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+      margin: 0 0 0 auto;
+      padding: 0;
+      list-style: none;
+      background: transparent !important;
+      border: 0 !important;
+      border-radius: 0;
+      box-shadow: none !important;
+      transform: none;
+    }
+
+    .nav-anchor-link {
+      position: relative;
+      min-width: 0;
+      padding: 10px 0;
+      border: 0 !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      color: rgba(240, 246, 255, 0.82);
+      font-size: 0.9rem;
+      font-weight: 650;
+      letter-spacing: 0;
+      transition: color 0.2s ease, transform 0.2s ease !important;
+    }
+
+    .nav-anchor-link::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      bottom: 3px;
+      left: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: #19C9A8;
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-anchor-link:hover {
+      color: #FFFFFF;
+      transform: translateY(-1px) !important;
+      box-shadow: none !important;
+    }
+
+    .nav-anchor-link:hover::after,
+    .nav-anchor-link.is-active::after { transform: scaleX(1); }
+
+    .nav-anchor-link.is-active,
+    .nav-anchor-link.is-active span,
+    .nav-anchor-link.is-active:hover,
+    .nav-anchor-link.is-active:hover span {
+      background: transparent !important;
+      color: #5DE2C8 !important;
+      font-weight: 700 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-left: 30px;
+      justify-self: auto;
+    }
+
+    .nav-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 0 15px;
+      border: 1px solid rgba(116, 237, 211, 0.32);
+      border-radius: 8px;
+      background: #14A88D;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.83rem;
+      font-weight: 750;
+      line-height: 1;
+      text-decoration: none;
+      box-shadow: none !important;
+      transform: none !important;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease !important;
+    }
+
+    .nav-cta-btn:hover {
+      background: #11B99A;
+      border-color: #9DF5E3;
+      color: #FFFFFF;
+      box-shadow: none !important;
+      transform: translateY(-1px) !important;
+    }
+
+    .nav-cta-btn:active { transform: translateY(0) !important; }
+
+    @media (max-width: 1100px) {
+      .nav-section-links { gap: 22px; }
+      .nav-actions { margin-left: 22px; }
+      .brand-wordmark-img { width: 172px; }
+    }
+
+    @media (max-width: 992px) {
+      .nav-section-links,
+      .nav-cta-btn { display: none !important; }
+
+      .navbar { justify-content: space-between; }
+
+      .nav-actions {
+        margin-left: auto;
+        gap: 0;
+      }
+
+      .hamburger-btn {
+        display: inline-flex;
+        width: 42px;
+        height: 42px;
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #FFFFFF;
+      }
+
+      .hamburger-btn:hover {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.42);
+      }
+
+      .mobile-nav-drawer {
+        background: linear-gradient(180deg, #203D70 0%, #172B52 100%);
+        border-bottom-color: rgba(255, 255, 255, 0.14);
+        box-shadow: 0 16px 28px rgba(8, 20, 43, 0.28);
+      }
+
+      .mobile-nav-link {
+        color: rgba(255, 255, 255, 0.9);
+        border-radius: 8px;
+      }
+
+      .mobile-nav-link:hover {
+        background: rgba(93, 226, 200, 0.12);
+        color: #FFFFFF;
+      }
+
+      .mobile-nav-link.is-active {
+        border-radius: 8px;
+        background: rgba(93, 226, 200, 0.14) !important;
+        color: #5DE2C8 !important;
+        box-shadow: none;
+      }
+
+      .mobile-nav-link.is-active span { color: inherit !important; }
+    }
+
+    @media (max-width: 580px) {
+      .brand-symbol-img { width: 42px; height: 42px; flex-basis: 42px; }
+      .brand-wordmark-img { width: 132px; height: 38px; }
+    }
+
+
+    /* Centered navigation and no active-link boxes */
+    @media (min-width: 993px) {
+      .navbar {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+        align-items: center;
+      }
+
+      .brand-identity { justify-self: start; }
+
+      .nav-section-links {
+        justify-self: center;
+        margin: 0;
+      }
+
+      .nav-actions {
+        justify-self: end;
+        margin-left: 0;
+      }
+    }
+
+    .mobile-nav-link {
+      position: relative;
+      padding: 12px 0;
+      border-radius: 0;
+      background: transparent !important;
+    }
+
+    .mobile-nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      border-radius: 2px;
+      background: #5DE2C8;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s ease;
+    }
+
+    .mobile-nav-link:hover,
+    .mobile-nav-link.is-active {
+      background: transparent !important;
+      color: #5DE2C8 !important;
+      box-shadow: none !important;
+    }
+
+    .mobile-nav-link.is-active {
+      border-radius: 0;
+      font-weight: 700 !important;
+    }
+
+    .mobile-nav-link:hover::after,
+    .mobile-nav-link.is-active::after { transform: scaleX(1); }
+
+</style>
 </head>
 
 <body>
@@ -6037,11 +6324,9 @@
   <header class="site-header" id="main-header">
     <div class="container">
       <nav class="navbar" aria-label="Main Navigation">
-        <!-- Logo -->
-        <a href="/" class="brand-logo" aria-label="Vibodh Signal Home"
-          onclick="switchLandingTab('home'); return false;">
-          <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" class="brand-logo-img">
-          <div class="brand-by-vibodhai">By <span>VibodhAI</span></div>
+        <a href="/" class="brand-identity" aria-label="Vibodh Signal Home" onclick="switchLandingTab('home'); return false;">
+          <img src="assets/vibodh-brand-symbol.png" alt="" class="brand-symbol-img">
+          <img src="assets/vibodh-signal-wordmark.png" alt="Vibodh Signal" class="brand-wordmark-img">
         </a>
 
         <!-- Tabs (Center): Key features, Resources, FAQs -->
@@ -6065,7 +6350,8 @@
 
         <!-- Right Action Button & Mobile Toggle -->
         <div class="nav-actions">
-          <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu">
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLScgvO-LMBp2rhsVVA4e2K_YmJzGsWMbjJwHREMAAgIazhcS8Q/viewform" target="_blank" rel="noopener noreferrer" class="nav-cta-btn">Request a Demo</a>
+          <button class="hamburger-btn" id="mobile-menu-toggle" aria-label="Toggle Navigation Menu" aria-controls="mobile-nav-drawer" aria-expanded="false">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="6" x2="21" y2="6" />
@@ -6088,8 +6374,8 @@
         <span>FAQs</span>
       </a>
       <div style="padding-top:10px;">
-        <a href="dashboard.html" class="btn btn-teal" style="width:100%;">
-          <span>Get Started Free &rarr;</span>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScgvO-LMBp2rhsVVA4e2K_YmJzGsWMbjJwHREMAAgIazhcS8Q/viewform" target="_blank" rel="noopener noreferrer" class="btn btn-teal" style="width:100%;">
+          <span>Request a Demo &rarr;</span>
         </a>
       </div>
     </div>
@@ -6862,7 +7148,7 @@
         </div>
       </section>
 
-      
+
 
 
     </div>
@@ -7370,7 +7656,7 @@
     <div id="tab-resources" class="landing-tab-view" style="display: none;">
       <section class="section-resources-hub" id="resources-hub">
         <div class="container">
-          
+
           <!-- Resources Section Header -->
           <div class="resources-hub-header">
             <span class="section-pill-badge">📚 Research &amp; White Papers</span>
@@ -7400,7 +7686,7 @@
       <div class="whitepaper-doc-badge">Vibodh AI | White Paper | 2026</div>
       <h1 class="whitepaper-title">Social Marketing &amp; <span class="theme-gradient-text">Community-Led Brand Building</span></h1>
       <p class="whitepaper-subtitle">Why social marketing and community help brands build trust, relevance and sustainable growth—and what this means for Vibodh Signal</p>
-      
+
       <div class="whitepaper-info-pills">
         <span class="info-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2026 Edition</span>
         <span class="info-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 8 Min Read</span>
@@ -7415,7 +7701,7 @@
       <p class="summary-lead">
         Social media is most valuable when it is treated not merely as a publishing channel, but as a relationship system. It allows brands to communicate, listen, respond, invite participation and create spaces where customers can exchange experiences. Community building can turn one-way exposure into peer interaction, shared identity, feedback and advocacy.
       </p>
-      
+
       <div class="central-thesis-box">
         <div class="thesis-label">Central Thesis</div>
         <p class="thesis-text">
@@ -7540,7 +7826,7 @@
       <p class="section-para">
         A brand community is more than a follower count. Muniz and O’Guinn describe brand community through shared consciousness, rituals and traditions, and a sense of responsibility among members [3]. This framework points to participation, shared identity and ongoing relationships as distinguishing features.
       </p>
-      
+
       <div class="value-bullets-card">
         <div class="card-subtitle">Community can create value in several ways:</div>
         <ul class="stylized-checklist">
@@ -7678,7 +7964,7 @@
     <!-- Section 5 -->
     <div class="whitepaper-section-block">
       <h2 class="section-heading"><span class="heading-num">5.</span> Recommended Product Roadmap</h2>
-      
+
       <div class="roadmap-grid">
         <!-- Near-Term -->
         <div class="roadmap-col-card">
@@ -7912,7 +8198,7 @@
       <div class="whitepaper-doc-badge">Vibodh AI | White Paper | 2026</div>
       <h1 class="whitepaper-title">Why Every Business Needs a <span class="theme-gradient-text">Systematic Marketing Engine</span></h1>
       <p class="whitepaper-subtitle">How Vibodh Signal helps organizations build brands, create meaningful engagement and drive sustainable growth</p>
-      
+
       <div class="whitepaper-info-pills">
         <span class="info-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 2026 Edition</span>
         <span class="info-pill"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> 7 Min Read</span>
@@ -7927,7 +8213,7 @@
       <p class="summary-lead">
         Marketing has become fragmented. Businesses publish posts, run ads, create videos and send campaigns—often without connecting these activities to a coherent strategy or measurable business outcomes. The challenge is not simply producing more content. It is building a repeatable system that connects brand strategy, content, distribution, engagement, measurement and learning.
       </p>
-      
+
       <div class="central-thesis-box">
         <div class="thesis-label">Central Thesis</div>
         <p class="thesis-text">
@@ -8191,7 +8477,7 @@
     <!-- Section 6 -->
     <div class="whitepaper-section-block">
       <h2 class="section-heading"><span class="heading-num">6.</span> How Vibodh Signal Benefits Organizations</h2>
-      
+
       <div class="table-responsive-wrapper">
         <table class="whitepaper-table">
           <thead>
@@ -8667,7 +8953,7 @@
           </div>
 
           <!-- Bottom Help Card -->
-          
+
           <!-- Bottom Help Card -->
           <div class="faq-footer-help-card">
             <span class="faq-help-badge">Still Have Questions?</span>
@@ -8695,9 +8981,6 @@
       <div class="footer-grid">
         <!-- Brand Column -->
         <div class="footer-brand-col">
-          <a href="/" style="text-decoration:none; margin-bottom: 12px; display:inline-block;">
-            <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" class="footer-brand-logo-img">
-          </a>
           <p style="font-size:0.8125rem; color:#94A3B8; line-height:1.55;">
             Smarter Marketing Starts Here.<br>
             Create, Publish, Advertise, and Grow
@@ -8782,13 +9065,15 @@
 
     if (mobileToggle && mobileDrawer) {
       mobileToggle.addEventListener('click', () => {
-        mobileDrawer.classList.toggle('is-open');
+        const isOpen = mobileDrawer.classList.toggle('is-open');
+        mobileToggle.setAttribute('aria-expanded', String(isOpen));
       });
 
       // Close mobile drawer when an anchor link is clicked
       mobileDrawer.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           mobileDrawer.classList.remove('is-open');
+          mobileToggle.setAttribute('aria-expanded', 'false');
         });
       });
     }
@@ -9298,7 +9583,7 @@
     } else {
       initWhyChooseAnimation();
     }
-  
+
     /* ═══════════════════════════════════════════════════════════
        FLEXIBLE PRICING CONTROLLER (Interactive 3D Deck & Slider)
     ═══════════════════════════════════════════════════════════════ */
@@ -9382,7 +9667,7 @@
         }
       });
     }
-  
+
     /* ═══════════════════════════════════════════════════════════
        INTERACTIVE 3D PERSPECTIVE & TILT ENGINE
     ═══════════════════════════════════════════════════════════ */
@@ -9465,7 +9750,7 @@
       init3DLandingEffects();
     }
 
-  
+
     // ═══════════════════════════════════════════════════════════
     // RESOURCES TAB & WHITEPAPER SUBTAB SWITCHER
     // ═══════════════════════════════════════════════════════════
@@ -9503,7 +9788,7 @@
     }
     window.switchResourceSubtab = switchResourceSubtab;
 
-  
+
   // ── Thoughts Floating Modal Window Handlers ────────────────────────────────
   function openThoughtsModal() {
     const modal = document.getElementById('thoughts-modal');
@@ -9602,7 +9887,7 @@
   <div class="thoughts-modal-overlay" id="thoughts-modal" role="dialog" aria-modal="true" aria-labelledby="thoughts-modal-title">
     <div class="thoughts-modal-card">
       <button type="button" class="thoughts-modal-close-btn" onclick="closeThoughtsModal()" aria-label="Close modal">&times;</button>
-      
+
       <!-- Form Body -->
       <div id="thoughts-form-body">
         <div class="thoughts-modal-badge">
