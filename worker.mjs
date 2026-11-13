@@ -6,7 +6,7 @@ const CAPABILITY_LABELS = {
   marketing_insights: 'AI-powered marketing insights', other: 'Other'
 };
 const DEFAULT_RECIPIENT = 'reachus@vibodhai.com';
-const DEFAULT_SENDER = 'forms@vibodhai.com';
+const DEFAULT_SENDER = 'Vibodh Signal <forms@vibodhai.com>';
 
 const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=UTF-8', 'cache-control': 'no-store' } });
 const clean = (value, limit) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
@@ -24,7 +24,7 @@ async function readJson(request) {
 
 function requireBindings(env) {
   if (!env.FEEDBACK_DB) return 'Feedback storage is not configured.';
-  if (!env.EMAIL) return 'Email delivery is not configured.';
+  if (!env.RESEND_API_KEY) return 'Email delivery is not configured.';
   return null;
 }
 
@@ -33,11 +33,23 @@ async function markNotification(env, table, id, status, error = null) {
 }
 
 async function sendEmail(env, message) {
-  return env.EMAIL.send({
-    to: env.FEEDBACK_RECIPIENT || DEFAULT_RECIPIENT,
-    from: env.FEEDBACK_FROM || DEFAULT_SENDER,
-    ...message
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      authorization: `Bearer ${env.RESEND_API_KEY}`,
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify({
+      to: env.FEEDBACK_RECIPIENT || DEFAULT_RECIPIENT,
+      from: env.FEEDBACK_FROM || DEFAULT_SENDER,
+      ...message
+    })
   });
+  if (!response.ok) {
+    const body = await response.text();
+    throw new Error(`Resend rejected the message (${response.status}): ${body.slice(0, 400)}`);
+  }
+  return response.json();
 }
 
 async function handlePmfFeedback(request, env) {
