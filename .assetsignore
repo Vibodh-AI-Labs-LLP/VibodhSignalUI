@@ -1,0 +1,14 @@
+.git/
+.wrangler/
+node_modules/
+*.log
+*.md
+*.toml
+*.mjs
+*.cjs
+*.py
+.env
+.env.*
+.dev.vars
+migrations/
+data/
