@@ -1,13 +1,6 @@
 const CAPABILITIES = new Set(['ai_content_generation', 'brand_dna', 'campaign_planning', 'social_scheduling', 'trend_discovery', 'knowledge_vault_rag', 'marketing_insights', 'other']);
-const CAPABILITY_LABELS = {
-  ai_content_generation: 'AI-powered content generation', brand_dna: 'Brand DNA and consistency',
-  campaign_planning: 'Intelligent campaign planning', social_scheduling: 'Social media scheduling',
-  trend_discovery: 'Trend discovery and trend-jacking', knowledge_vault_rag: 'Multimodal Knowledge Vault and RAG',
-  marketing_insights: 'AI-powered marketing insights', other: 'Other'
-};
 const DEFAULT_RECIPIENT = 'reachus@vibodhai.com';
-const DEFAULT_SENDER = 'Vibodh Signal <forms@vibodhai.com>';
-
+const DEFAULT_SENDER = 'reachus@vibodhai.com';
 const json = (body, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=UTF-8', 'cache-control': 'no-store' } });
 const clean = (value, limit) => typeof value === 'string' ? value.trim().slice(0, limit) : '';
 const escapeHtml = (value) => String(value).replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
@@ -24,7 +17,7 @@ async function readJson(request) {
 
 function requireBindings(env) {
   if (!env.FEEDBACK_DB) return 'Feedback storage is not configured.';
-  if (!env.RESEND_API_KEY) return 'Email delivery is not configured.';
+  if (!env.MS_GRAPH_CLIENT_ID || !env.MS_GRAPH_TENANT_ID || !env.MS_GRAPH_CLIENT_SECRET) return 'Email delivery is not configured.';
   return null;
 }
 
@@ -32,24 +25,39 @@ async function markNotification(env, table, id, status, error = null) {
   await env.FEEDBACK_DB.prepare(`UPDATE ${table} SET email_notification_status = ?, email_notification_error = ? WHERE id = ?`).bind(status, error, id).run();
 }
 
-async function sendEmail(env, message) {
-  const response = await fetch('https://api.resend.com/emails', {
+async function getGraphToken(env) {
+  const response = await fetch(`https://login.microsoftonline.com/${encodeURIComponent(env.MS_GRAPH_TENANT_ID)}/oauth2/v2.0/token`, {
     method: 'POST',
-    headers: {
-      authorization: `Bearer ${env.RESEND_API_KEY}`,
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify({
-      to: env.FEEDBACK_RECIPIENT || DEFAULT_RECIPIENT,
-      from: env.FEEDBACK_FROM || DEFAULT_SENDER,
-      ...message
+    headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      client_id: env.MS_GRAPH_CLIENT_ID,
+      client_secret: env.MS_GRAPH_CLIENT_SECRET,
+      grant_type: 'client_credentials',
+      scope: 'https://graph.microsoft.com/.default'
     })
   });
-  if (!response.ok) {
-    const body = await response.text();
-    throw new Error(`Resend rejected the message (${response.status}): ${body.slice(0, 400)}`);
-  }
-  return response.json();
+  if (!response.ok) throw new Error(`Microsoft Entra token request failed (${response.status}): ${(await response.text()).slice(0, 400)}`);
+  const token = await response.json();
+  if (!token.access_token) throw new Error('Microsoft Entra token response did not contain an access token.');
+  return token.access_token;
+}
+
+async function sendGraphEmail(env, { subject, text, html }) {
+  const token = await getGraphToken(env);
+  const sender = env.MS_GRAPH_SENDER || DEFAULT_SENDER;
+  const response = await fetch(`https://graph.microsoft.com/v1.0/users/${encodeURIComponent(sender)}/sendMail`, {
+    method: 'POST',
+    headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+    body: JSON.stringify({
+      message: {
+        subject,
+        body: { contentType: 'HTML', content: html || `<pre>${escapeHtml(text)}</pre>` },
+        toRecipients: [{ emailAddress: { address: env.FEEDBACK_RECIPIENT || DEFAULT_RECIPIENT } }]
+      },
+      saveToSentItems: true
+    })
+  });
+  if (!response.ok) throw new Error(`Microsoft Graph sendMail failed (${response.status}): ${(await response.text()).slice(0, 400)}`);
 }
 
 async function handlePmfFeedback(request, env) {
@@ -65,15 +73,15 @@ async function handlePmfFeedback(request, env) {
 
   const feedback = { id: crypto.randomUUID(), selected, otherDetail, name: clean(payload.name, 120), email: clean(payload.email, 254), companyName: clean(payload.company_name, 160), mobile: clean(payload.mobile, 40), submittedAt: new Date().toISOString() };
   await env.FEEDBACK_DB.prepare(`INSERT INTO pmf_feedback (id, selected_capabilities, other_detail, name, email, company_name, mobile, submitted_at, email_notification_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pending')`).bind(feedback.id, JSON.stringify(selected), otherDetail || null, feedback.name || null, feedback.email || null, feedback.companyName || null, feedback.mobile || null, feedback.submittedAt).run();
-  const labels = selected.map((capability) => CAPABILITY_LABELS[capability]).join(', ');
+  const labels = selected.join(', ');
   const text = ['New Vibodh Signal PMF feedback', '', `Capabilities: ${labels}`, otherDetail && `Other detail: ${otherDetail}`, feedback.name && `Name: ${feedback.name}`, feedback.email && `Email: ${feedback.email}`, feedback.companyName && `Company: ${feedback.companyName}`, feedback.mobile && `Mobile: ${feedback.mobile}`, `Submitted: ${feedback.submittedAt}`].filter(Boolean).join('\n');
   try {
-    await sendEmail(env, { subject: 'New Vibodh Signal PMF feedback', text, html: `<h2>New Vibodh Signal PMF feedback</h2><p><strong>Capabilities:</strong> ${escapeHtml(labels)}</p>${otherDetail ? `<p><strong>Other detail:</strong> ${escapeHtml(otherDetail)}</p>` : ''}<p><strong>Name:</strong> ${escapeHtml(feedback.name || 'Not provided')}<br><strong>Email:</strong> ${escapeHtml(feedback.email || 'Not provided')}<br><strong>Company:</strong> ${escapeHtml(feedback.companyName || 'Not provided')}<br><strong>Mobile:</strong> ${escapeHtml(feedback.mobile || 'Not provided')}</p><p><strong>Submitted:</strong> ${escapeHtml(feedback.submittedAt)}</p>` });
+    await sendGraphEmail(env, { subject: 'New Vibodh Signal PMF feedback', text, html: `<h2>New Vibodh Signal PMF feedback</h2><p><strong>Capabilities:</strong> ${escapeHtml(labels)}</p>${otherDetail ? `<p><strong>Other detail:</strong> ${escapeHtml(otherDetail)}</p>` : ''}<p><strong>Name:</strong> ${escapeHtml(feedback.name || 'Not provided')}<br><strong>Email:</strong> ${escapeHtml(feedback.email || 'Not provided')}<br><strong>Company:</strong> ${escapeHtml(feedback.companyName || 'Not provided')}<br><strong>Mobile:</strong> ${escapeHtml(feedback.mobile || 'Not provided')}</p><p><strong>Submitted:</strong> ${escapeHtml(feedback.submittedAt)}</p>` });
     await markNotification(env, 'pmf_feedback', feedback.id, 'sent');
-    return json({ message: 'Thank you. Your feedback was saved and emailed to the Vibodh Signal team.', id: feedback.id, submitted_at: feedback.submittedAt, email_notification_status: 'sent' }, 201);
+    return json({ message: 'Thank you. Your feedback was saved and sent to the Vibodh Signal team.', id: feedback.id, submitted_at: feedback.submittedAt, email_notification_status: 'sent' }, 201);
   } catch (error) {
     await markNotification(env, 'pmf_feedback', feedback.id, 'failed', String(error?.message || 'Email delivery failed.').slice(0, 500));
-    return json({ message: 'Thank you. Your feedback was saved; email delivery will retry when the mail service is available.', id: feedback.id, submitted_at: feedback.submittedAt, email_notification_status: 'failed' }, 202);
+    return json({ message: 'Thank you. Your feedback was saved, but the notification email could not be sent.', id: feedback.id, submitted_at: feedback.submittedAt, email_notification_status: 'failed' }, 202);
   }
 }
 
@@ -89,12 +97,12 @@ async function handleVisitorThought(request, env) {
   const thought = { id: crypto.randomUUID(), email, thoughts, submittedAt: new Date().toISOString() };
   await env.FEEDBACK_DB.prepare(`INSERT INTO visitor_thoughts (id, email, thoughts, submitted_at, email_notification_status) VALUES (?, ?, ?, ?, 'pending')`).bind(thought.id, email, thoughts, thought.submittedAt).run();
   try {
-    await sendEmail(env, { subject: 'New Vibodh Signal visitor thought', text: `New Vibodh Signal visitor thought\n\nEmail: ${email}\n\nThoughts:\n${thoughts}\n\nSubmitted: ${thought.submittedAt}`, html: `<h2>New Vibodh Signal visitor thought</h2><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Thoughts:</strong><br>${escapeHtml(thoughts).replace(/\n/g, '<br>')}</p><p><strong>Submitted:</strong> ${escapeHtml(thought.submittedAt)}</p>` });
+    await sendGraphEmail(env, { subject: 'New Vibodh Signal visitor thought', text: `New Vibodh Signal visitor thought\n\nEmail: ${email}\n\nThoughts:\n${thoughts}\n\nSubmitted: ${thought.submittedAt}`, html: `<h2>New Vibodh Signal visitor thought</h2><p><strong>Email:</strong> ${escapeHtml(email)}</p><p><strong>Thoughts:</strong><br>${escapeHtml(thoughts).replace(/\n/g, '<br>')}</p><p><strong>Submitted:</strong> ${escapeHtml(thought.submittedAt)}</p>` });
     await markNotification(env, 'visitor_thoughts', thought.id, 'sent');
-    return json({ message: 'Thank you. Your thought was saved and emailed to the Vibodh Signal team.', id: thought.id, submitted_at: thought.submittedAt, email_notification_status: 'sent' }, 201);
+    return json({ message: 'Thank you. Your thought was saved and sent to the Vibodh Signal team.', id: thought.id, submitted_at: thought.submittedAt, email_notification_status: 'sent' }, 201);
   } catch (error) {
     await markNotification(env, 'visitor_thoughts', thought.id, 'failed', String(error?.message || 'Email delivery failed.').slice(0, 500));
-    return json({ message: 'Thank you. Your thought was saved; email delivery will retry when the mail service is available.', id: thought.id, submitted_at: thought.submittedAt, email_notification_status: 'failed' }, 202);
+    return json({ message: 'Thank you. Your thought was saved, but the notification email could not be sent.', id: thought.id, submitted_at: thought.submittedAt, email_notification_status: 'failed' }, 202);
   }
 }
 

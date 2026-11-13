@@ -1,5 +1,4 @@
 # Cloudflare Worker local variables. Copy to .dev.vars; never commit it.
-# Create the key at https://resend.com/api-keys and verify vibodhai.com in Resend first.
-RESEND_API_KEY=re_your_resend_api_key
-FEEDBACK_RECIPIENT=reachus@vibodhai.com
-FEEDBACK_FROM=Vibodh Signal <forms@vibodhai.com>
+MS_GRAPH_CLIENT_ID=your_entra_application_client_id
+MS_GRAPH_TENANT_ID=your_entra_directory_tenant_id
+MS_GRAPH_CLIENT_SECRET=your_entra_client_secret_value
