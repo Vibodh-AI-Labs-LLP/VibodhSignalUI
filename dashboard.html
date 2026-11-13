@@ -551,6 +551,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      height: 100vh;
       overflow: hidden;
       min-width: 0;
     }
@@ -1032,11 +1033,72 @@
     /* Footer */
     /* Site Footer — Landing Page Deep Indigo Theme */
     .site-footer {
+      flex-shrink: 0;
       background: #243B6B !important;
       border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-      padding: 56px 40px 36px !important;
+      padding: 18px 32px 14px !important;
       color: #CBD5E1 !important;
-      margin-top: 48px;
+      width: 100% !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      box-sizing: border-box !important;
+      z-index: 20;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: 12px;
+    }
+    .footer-brand-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #FFFFFF !important;
+      letter-spacing: -0.01em;
+      margin-top: 4px;
+    }
+    .footer-brand-tagline {
+      font-size: 11.5px;
+      color: #CBD5E1 !important;
+      margin-top: 4px;
+      margin-bottom: 0;
+      line-height: 1.45;
+    }
+    .footer-col-title {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #FFFFFF !important;
+      margin: 0 0 8px 0;
+    }
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    .footer-link {
+      font-size: 11.5px;
+      color: #CBD5E1 !important;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.15s ease;
+    }
+    .footer-link:hover {
+      color: #0F9D8A !important;
+      transform: translateX(2px);
+    }
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: #94A3B8;
     }
     .footer-top {
       display: grid;
@@ -2152,7 +2214,115 @@
       .topbar-search { display: none; }
       .credit-chip { display: none; }
     }
-  </style>
+  
+/* ═══════════════════════════════════════════════════════════════
+   THEMED SCROLLBARS (Matching Dashboard System)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Global Smooth Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Dark Theme Scrollbars: Sidebar & Navigation (Indigo Theme) */
+.admin-sidebar,
+.admin-nav,
+.sidebar,
+.sidebar-nav {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-nav::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+.admin-sidebar::-webkit-scrollbar-track,
+.admin-nav::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track,
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb,
+.admin-nav::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb,
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 9999px !important;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb:hover,
+.admin-nav::-webkit-scrollbar-thumb:hover,
+.sidebar::-webkit-scrollbar-thumb:hover,
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.38) !important;
+}
+
+/* Light Theme Scrollbars: Screen Container & Page Content */
+.admin-screen-container,
+.admin-main,
+.page-content,
+.admin-modal-body {
+  scrollbar-width: thin !important;
+  scrollbar-color: #CBD5E1 transparent !important;
+}
+
+.admin-screen-container::-webkit-scrollbar,
+.admin-main::-webkit-scrollbar,
+.page-content::-webkit-scrollbar,
+.admin-modal-body::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+.admin-screen-container::-webkit-scrollbar-track,
+.admin-main::-webkit-scrollbar-track,
+.page-content::-webkit-scrollbar-track,
+.admin-modal-body::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.admin-screen-container::-webkit-scrollbar-thumb,
+.admin-main::-webkit-scrollbar-thumb,
+.page-content::-webkit-scrollbar-thumb,
+.admin-modal-body::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+  border-radius: 9999px !important;
+}
+
+.admin-screen-container::-webkit-scrollbar-thumb:hover,
+.admin-main::-webkit-scrollbar-thumb:hover,
+.page-content::-webkit-scrollbar-thumb:hover,
+.admin-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8 !important;
+}
+
+</style>
 </head>
 <body>
 
@@ -10222,28 +10392,50 @@ Watch how Vibodh Signal accelerates your digital agency's motion content today.
 
       </div><!-- /view-billing -->
 
-      <!-- Site Footer (Unified Across All Views) -->
+      
+
+
+    </div><!-- /page-content -->
+      <!-- Site Footer (Landing Page Theme - Fixed at Bottom) -->
       <footer class="site-footer">
         <div class="footer-top">
           <div>
-            <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-              <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" style="height:44px;width:auto;border-radius:6px;display:block;">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+              <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" style="height:32px;width:auto;display:block;">
             </div>
             <div class="footer-brand-title">Vibodh Signal</div>
-            <p class="footer-brand-tagline">An AI-powered digital marketing product from <span>VibodhAI</span>.</p>
+            <p class="footer-brand-tagline">An AI-powered digital marketing product from <span style="color:#0F9D8A;font-weight:700;">VibodhAI</span>.</p>
           </div>
-          <div><h3 class="footer-col-title">Product</h3><ul class="footer-links"><li><a href="#" class="footer-link">Plans</a></li><li><a href="#" class="footer-link">Features</a></li><li><a href="#" class="footer-link">Add-Ons</a></li></ul></div>
-          <div><h3 class="footer-col-title">Resources</h3><ul class="footer-links"><li><a href="#" class="footer-link">FAQs</a></li><li><a href="#" class="footer-link">Documentation</a></li><li><a href="#" class="footer-link">Help Center</a></li></ul></div>
-          <div><h3 class="footer-col-title">Company</h3><ul class="footer-links"><li><a href="#" class="footer-link">About VibodhAI</a></li><li><a href="#" class="footer-link">Contact</a></li><li><a href="#" class="footer-link">Privacy</a></li><li><a href="#" class="footer-link">Terms</a></li></ul></div>
+          <div>
+            <h3 class="footer-col-title">Product</h3>
+            <ul class="footer-links">
+              <li><a href="/dashboard.html" class="footer-link">Workspace Dashboard</a></li>
+              <li><a href="/control-plane.html" class="footer-link">SaaS Control Plane</a></li>
+              <li><a href="/usage-analytics.html" class="footer-link">Usage &amp; Analytics</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-col-title">Resources</h3>
+            <ul class="footer-links">
+              <li><a href="/#faqs" class="footer-link">Documentation &amp; FAQs</a></li>
+              <li><a href="mailto:support@vibodhai.com" class="footer-link">Help &amp; Support</a></li>
+              <li><a href="#" class="footer-link" onclick="window.switchAppView('billing');return false;">Billing &amp; Invoices</a></li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="footer-col-title">Company</h3>
+            <ul class="footer-links">
+              <li><a href="/#why-choose-us" class="footer-link">About VibodhAI</a></li>
+              <li><a href="mailto:reachus@vibodhai.com" class="footer-link">Contact</a></li>
+              <li><a href="#" class="footer-link">Privacy &amp; Terms</a></li>
+            </ul>
+          </div>
         </div>
         <div class="footer-bottom">
           <div>&copy; 2026 VibodhAI Technologies. All rights reserved.</div>
           <div>Vibodh Signal &#8212; AI-Powered Marketing Workspace</div>
         </div>
       </footer>
-
-
-    </div><!-- /page-content -->
   </div><!-- /main-column -->
 </div><!-- /app-shell -->
 

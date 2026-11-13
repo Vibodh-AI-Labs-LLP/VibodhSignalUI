@@ -144,7 +144,7 @@
 
 /* Admin Sidebar */
 .admin-sidebar {
-  width: 252px;
+  width: 252px !important;
   background: #243B6B;
   border-right: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -152,12 +152,11 @@
   position: sticky;
   top: 0;
   height: 100vh;
-  overflow-y: auto;
+  overflow: hidden;
   overflow-x: hidden;
   z-index: 50;
   flex-shrink: 0;
   color: #C0D1EC;
-  transition: width 0.22s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Collapsed Sidebar Styles */
@@ -1001,18 +1000,19 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 11px;
+  padding: 8px 11px 4px;
   background: transparent;
-  border: 1px solid transparent;
-  border-radius: 8px;
+  border: none;
   font-family: inherit;
-  font-size: 11.5px;
-  font-weight: 700;
-  color: #E2E8F0;
-  cursor: pointer;
+  font-size: 11px;
+  font-weight: 800;
+  color: #5EEAD4;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  cursor: default;
   text-align: left;
-  transition: all 0.18s ease;
   user-select: none;
+  pointer-events: none;
 }
 .admin-nav-group-header:hover {
   background: rgba(255, 255, 255, 0.08);
@@ -1047,18 +1047,17 @@
 
 /* Submenu container */
 .admin-nav-submenu {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease, padding 0.2s ease;
-  display: flex;
+  max-height: none !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  display: flex !important;
   flex-direction: column;
   gap: 2px;
   padding-left: 10px;
   margin-left: 14px;
   border-left: 1.5px solid rgba(255, 255, 255, 0.12);
   margin-top: 2px;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
 }
 
 .admin-nav-group.is-open .admin-nav-submenu {
@@ -1390,4 +1389,217 @@
     grid-template-columns: 1fr;
     gap: 24px;
   }
+}
+
+/* Non-collapsible submenus: hide chevrons and toggle buttons */
+.admin-nav-chevron { display: none !important; }
+.admin-sidebar-toggle-btn { display: none !important; }
+.admin-topbar-sidebar-toggle { display: none !important; }
+.admin-sidebar-logo-collapsed { display: none !important; }
+
+/* Fixed Footer at the bottom of the viewport/main container */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  background: #F8FAFC;
+  min-width: 0;
+}
+
+.admin-header {
+  flex-shrink: 0;
+}
+
+.admin-screen-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 24px;
+  min-height: 0;
+}
+
+.admin-site-footer {
+  flex-shrink: 0;
+  background: #243B6B !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+  padding: 18px 32px 14px !important;
+  color: #CBD5E1 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+  z-index: 20;
+}
+
+.admin-site-footer .footer-top {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 12px;
+}
+
+.admin-site-footer .footer-brand-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin-top: 4px;
+  letter-spacing: -0.01em;
+}
+
+.admin-site-footer .footer-brand-tagline {
+  font-size: 11.5px;
+  color: #CBD5E1 !important;
+  margin-top: 4px;
+  margin-bottom: 0;
+  line-height: 1.45;
+}
+
+.admin-site-footer .footer-col-title {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: #FFFFFF !important;
+  margin: 0 0 8px 0;
+}
+
+.admin-site-footer .footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.admin-site-footer .footer-link {
+  font-size: 11.5px;
+  color: #CBD5E1 !important;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.15s ease;
+}
+
+.admin-site-footer .footer-link:hover {
+  color: #0F9D8A !important;
+  transform: translateX(2px);
+}
+
+.admin-site-footer .footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #94A3B8;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   THEMED SCROLLBARS (Matching Dashboard System)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Global Smooth Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+/* Dark Theme Scrollbars: Sidebar & Navigation (Indigo Theme) */
+.admin-sidebar,
+.admin-nav,
+.sidebar,
+.sidebar-nav {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent !important;
+}
+
+.admin-sidebar::-webkit-scrollbar,
+.admin-nav::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.sidebar-nav::-webkit-scrollbar {
+  width: 5px !important;
+  height: 5px !important;
+}
+
+.admin-sidebar::-webkit-scrollbar-track,
+.admin-nav::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track,
+.sidebar-nav::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb,
+.admin-nav::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb,
+.sidebar-nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 9999px !important;
+}
+
+.admin-sidebar::-webkit-scrollbar-thumb:hover,
+.admin-nav::-webkit-scrollbar-thumb:hover,
+.sidebar::-webkit-scrollbar-thumb:hover,
+.sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.38) !important;
+}
+
+/* Light Theme Scrollbars: Screen Container & Page Content */
+.admin-screen-container,
+.admin-main,
+.page-content,
+.admin-modal-body {
+  scrollbar-width: thin !important;
+  scrollbar-color: #CBD5E1 transparent !important;
+}
+
+.admin-screen-container::-webkit-scrollbar,
+.admin-main::-webkit-scrollbar,
+.page-content::-webkit-scrollbar,
+.admin-modal-body::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+.admin-screen-container::-webkit-scrollbar-track,
+.admin-main::-webkit-scrollbar-track,
+.page-content::-webkit-scrollbar-track,
+.admin-modal-body::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.admin-screen-container::-webkit-scrollbar-thumb,
+.admin-main::-webkit-scrollbar-thumb,
+.page-content::-webkit-scrollbar-thumb,
+.admin-modal-body::-webkit-scrollbar-thumb {
+  background: #CBD5E1 !important;
+  border-radius: 9999px !important;
+}
+
+.admin-screen-container::-webkit-scrollbar-thumb:hover,
+.admin-main::-webkit-scrollbar-thumb:hover,
+.page-content::-webkit-scrollbar-thumb:hover,
+.admin-modal-body::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8 !important;
 }

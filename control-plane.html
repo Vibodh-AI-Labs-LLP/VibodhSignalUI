@@ -50,29 +50,17 @@
             <span style="font-size:8.5px;font-weight:800;background:rgba(15,157,138,0.15);color:#0F9D8A;border:1px solid rgba(15,157,138,0.3);padding:1.5px 6px;border-radius:4px;text-transform:uppercase;letter-spacing:.05em;">SaaS Control Plane</span>
           </div>
         </div>
-        <div class="admin-sidebar-logo-collapsed" onclick="toggleAdminSidebar()" title="Vibodh Signal — Click to Expand">
-          <div class="admin-logo-collapsed-frame">
-            <img src="assets/vibodh-signal-mini.png" alt="Vibodh Signal" class="admin-logo-collapsed-img">
-          </div>
-        </div>
-        <button type="button" class="admin-sidebar-toggle-btn" id="cp-sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle Sidebar">
-          <svg class="sidebar-toggle-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
-            <line x1="8.5" y1="7.5" x2="8.5" y2="16.5" stroke-width="2.4"></line>
-          </svg>
-        </button>
+        
       </div>
 
       <nav class="admin-nav" role="navigation">
         <!-- Main Menu 1: Core Platform -->
         <div class="admin-nav-group is-open has-active" id="group-core-platform">
-          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('core-platform')" title="Core Platform">
+          <div class="admin-nav-group-header" title="Core Platform">
             <span class="admin-nav-icon">🏛️</span>
             <span class="admin-nav-label">Core Platform</span>
-            <span class="admin-nav-chevron">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
+            
+          </div>
           <div class="admin-nav-submenu">
             <div class="admin-nav-item active" data-screen="admin-dashboard" title="Admin Dashboard" onclick="switchCpScreen('admin-dashboard')">
               <span class="admin-nav-icon">📊</span>
@@ -94,14 +82,12 @@
         </div>
 
         <!-- Main Menu 2: Packaging & Access -->
-        <div class="admin-nav-group" id="group-packaging-access">
-          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('packaging-access')" title="Packaging & Access">
+        <div class="admin-nav-group is-open" id="group-packaging-access">
+          <div class="admin-nav-group-header" title="Packaging & Access">
             <span class="admin-nav-icon">💎</span>
             <span class="admin-nav-label">Packaging &amp; Access</span>
-            <span class="admin-nav-chevron">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
+            
+          </div>
           <div class="admin-nav-submenu">
             <div class="admin-nav-item" data-screen="plans-pricing" title="Plans & Pricing" onclick="switchCpScreen('plans-pricing')">
               <span class="admin-nav-icon">💎</span>
@@ -119,14 +105,12 @@
         </div>
 
         <!-- Main Menu 3: Billing & Finance -->
-        <div class="admin-nav-group" id="group-billing-finance">
-          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('billing-finance')" title="Billing & Finance">
+        <div class="admin-nav-group is-open" id="group-billing-finance">
+          <div class="admin-nav-group-header" title="Billing & Finance">
             <span class="admin-nav-icon">💳</span>
             <span class="admin-nav-label">Billing &amp; Finance</span>
-            <span class="admin-nav-chevron">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
+            
+          </div>
           <div class="admin-nav-submenu">
             <div class="admin-nav-item" data-screen="subscriptions" title="Subscriptions" onclick="switchCpScreen('subscriptions')">
               <span class="admin-nav-icon">🔄</span>
@@ -148,14 +132,12 @@
         </div>
 
         <!-- Main Menu 4: Growth & Ecosystem -->
-        <div class="admin-nav-group" id="group-growth-ecosystem">
-          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('growth-ecosystem')" title="Growth & Ecosystem">
+        <div class="admin-nav-group is-open" id="group-growth-ecosystem">
+          <div class="admin-nav-group-header" title="Growth & Ecosystem">
             <span class="admin-nav-icon">📣</span>
             <span class="admin-nav-label">Growth &amp; Ecosystem</span>
-            <span class="admin-nav-chevron">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
+            
+          </div>
           <div class="admin-nav-submenu">
             <div class="admin-nav-item" data-screen="promoters-referrals" title="Promoters & Referrals" onclick="switchCpScreen('promoters-referrals')">
               <span class="admin-nav-icon">📣</span>
@@ -173,14 +155,12 @@
         </div>
 
         <!-- Main Menu 5: Operations & Governance -->
-        <div class="admin-nav-group" id="group-operations-governance">
-          <button type="button" class="admin-nav-group-header" onclick="toggleNavGroup('operations-governance')" title="Operations & Governance">
+        <div class="admin-nav-group is-open" id="group-operations-governance">
+          <div class="admin-nav-group-header" title="Operations & Governance">
             <span class="admin-nav-icon">⚙️</span>
             <span class="admin-nav-label">Operations &amp; Governance</span>
-            <span class="admin-nav-chevron">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-            </span>
-          </button>
+            
+          </div>
           <div class="admin-nav-submenu">
             <div class="admin-nav-item" data-screen="support-access" title="Support Access" onclick="switchCpScreen('support-access')">
               <span class="admin-nav-icon">🔑</span>
@@ -208,13 +188,7 @@
       <!-- Topbar with App Switcher & Environment Indicator -->
       <header class="admin-topbar">
         <div class="admin-topbar-left">
-          <button type="button" class="admin-topbar-sidebar-toggle" onclick="toggleAdminSidebar()" title="Toggle Sidebar">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="3" y1="12" x2="21" y2="12"></line>
-              <line x1="3" y1="6" x2="21" y2="6"></line>
-              <line x1="3" y1="18" x2="21" y2="18"></line>
-            </svg>
-          </button>
+          
           <div class="admin-breadcrumb">Control Plane &bull; <strong id="current-screen-title">Admin Dashboard</strong></div>
           <span class="status-pill status-active"><span class="dot"></span> Production (control_plane_db)</span>
         </div>
@@ -1484,15 +1458,17 @@
         </section>
 
       
-        <!-- Site Footer (Landing Page Theme) -->
+        
+      </div>
+    <!-- Site Footer (Landing Page Theme - Fixed at Bottom) -->
         <footer class="admin-site-footer">
           <div class="footer-top">
             <div>
-              <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-                <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" style="height:40px;width:auto;border-radius:6px;display:block;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;">
+                <img src="assets/vibodh-signal-logo.png" alt="Vibodh Signal" style="height:32px;width:auto;display:block;">
               </div>
               <div class="footer-brand-title">Vibodh Signal</div>
-              <p class="footer-brand-tagline">An AI-powered digital marketing product from <span>VibodhAI</span>.</p>
+              <p class="footer-brand-tagline">An AI-powered digital marketing product from <span style="color:#0F9D8A;font-weight:700;">VibodhAI</span>.</p>
             </div>
             <div>
               <h3 class="footer-col-title">Product</h3>
@@ -1505,17 +1481,17 @@
             <div>
               <h3 class="footer-col-title">Resources</h3>
               <ul class="footer-links">
-                <li><a href="/index.html#faqs" class="footer-link">Documentation &amp; FAQs</a></li>
-                <li><a href="mailto:reachus@vibodhai.com" class="footer-link">Help &amp; Support</a></li>
-                <li><a href="/dashboard.html#billing" class="footer-link">Billing &amp; Invoices</a></li>
+                <li><a href="/#faqs" class="footer-link">Documentation &amp; FAQs</a></li>
+                <li><a href="mailto:support@vibodhai.com" class="footer-link">Help &amp; Support</a></li>
+                <li><a href="/dashboard.html" class="footer-link" onclick="if(window.switchAppView){window.switchAppView('billing');return false;}">Billing &amp; Invoices</a></li>
               </ul>
             </div>
             <div>
               <h3 class="footer-col-title">Company</h3>
               <ul class="footer-links">
-                <li><a href="/index.html" class="footer-link">About VibodhAI</a></li>
+                <li><a href="/#why-choose-us" class="footer-link">About VibodhAI</a></li>
                 <li><a href="mailto:reachus@vibodhai.com" class="footer-link">Contact</a></li>
-                <li><a href="/index.html" class="footer-link">Privacy &amp; Terms</a></li>
+                <li><a href="#" class="footer-link">Privacy &amp; Terms</a></li>
               </ul>
             </div>
           </div>
@@ -1524,7 +1500,6 @@
             <div>Vibodh Signal &#8212; AI-Powered Marketing Workspace</div>
           </div>
         </footer>
-      </div>
     </main>
   </div>
 
@@ -1607,7 +1582,7 @@
     function toggleAdminSidebar() {
       const sidebar = document.getElementById('admin-sidebar');
       if (!sidebar) return;
-      const isCollapsed = sidebar.classList.toggle('collapsed');
+      const isCollapsed = false;
       try {
         localStorage.setItem('vibodh_cp_sidebar_collapsed', isCollapsed ? 'true' : 'false');
       } catch(e) {}
@@ -1617,7 +1592,7 @@
     // Restore sidebar state
     document.addEventListener('DOMContentLoaded', () => {
       try {
-        if (localStorage.getItem('vibodh_cp_sidebar_collapsed') === 'true') {
+        if (false) {
           document.getElementById('admin-sidebar')?.classList.add('collapsed');
         }
       } catch(e) {}
