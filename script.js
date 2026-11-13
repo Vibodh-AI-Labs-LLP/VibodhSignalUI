@@ -1599,7 +1599,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.sidebar-avatar, .topbar-avatar, #sidebar-user-avatar, #topbar-user-avatar').forEach(avatar => {
     avatar.addEventListener('click', (e) => {
       e.preventDefault();
-      window.location.href = 'landing.html';
+      window.location.href = '/';
     });
   });
 

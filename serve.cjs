@@ -51,10 +51,15 @@ const server = http.createServer((req, res) => {
     return;
   }
 
-  if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
-  if (reqPath.toLowerCase() === '/billing.html') reqPath = '/dashboard.html';
-
   const lower = reqPath.toLowerCase();
+  if (lower === '/landing.html' || lower === '/landing') {
+    res.writeHead(302, { 'Location': '/' });
+    res.end();
+    return;
+  }
+  if (reqPath === '/' || reqPath === '') reqPath = '/index.html';
+  if (lower === '/billing.html') reqPath = '/dashboard.html';
+
 
   // Control Plane Admin App Routes
   if (lower === '/control-plane' || lower === '/controlplane' || lower === '/admin' || lower === '/saas-control-plane') {
