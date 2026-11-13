@@ -1397,72 +1397,80 @@
 .admin-topbar-sidebar-toggle { display: none !important; }
 .admin-sidebar-logo-collapsed { display: none !important; }
 
-/* Fixed Footer at the bottom of the viewport/main container */
+/* Natural End-of-Page Footer (NOT locked, appears at the end when scrolling) */
 .admin-main {
   flex: 1;
   display: flex;
   flex-direction: column;
   height: 100vh;
-  overflow: hidden;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
   background: #F8FAFC;
   min-width: 0;
+  scrollbar-width: thin;
+  scrollbar-color: #CBD5E1 transparent;
 }
 
 .admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
   flex-shrink: 0;
+  background: #FFFFFF;
 }
 
 .admin-screen-container {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
+  flex: 1 0 auto;
+  overflow: visible !important;
   padding: 24px;
   min-height: 0;
 }
 
 .admin-site-footer {
+  margin-top: auto !important;
   flex-shrink: 0;
   background: #243B6B !important;
   border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-  padding: 18px 32px 14px !important;
+  padding: 44px 36px 30px !important;
   color: #CBD5E1 !important;
   width: 100% !important;
-  margin: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  margin-bottom: 0 !important;
   border-radius: 0 !important;
   box-sizing: border-box !important;
-  z-index: 20;
 }
 
 .admin-site-footer .footer-top {
   display: grid;
   grid-template-columns: 1.4fr repeat(3, 1fr);
-  gap: 28px;
-  margin-bottom: 12px;
+  gap: 36px;
+  margin-bottom: 28px;
 }
 
 .admin-site-footer .footer-brand-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   color: #FFFFFF !important;
-  margin-top: 4px;
+  margin-top: 6px;
   letter-spacing: -0.01em;
 }
 
 .admin-site-footer .footer-brand-tagline {
-  font-size: 11.5px;
+  font-size: 12px;
   color: #CBD5E1 !important;
-  margin-top: 4px;
+  margin-top: 6px;
   margin-bottom: 0;
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .admin-site-footer .footer-col-title {
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .06em;
   color: #FFFFFF !important;
-  margin: 0 0 8px 0;
+  margin: 0 0 12px 0;
 }
 
 .admin-site-footer .footer-links {
@@ -1471,11 +1479,11 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 8px;
 }
 
 .admin-site-footer .footer-link {
-  font-size: 11.5px;
+  font-size: 12px;
   color: #CBD5E1 !important;
   text-decoration: none;
   font-weight: 500;
@@ -1489,11 +1497,11 @@
 
 .admin-site-footer .footer-bottom {
   border-top: 1px solid rgba(255, 255, 255, 0.12);
-  padding-top: 10px;
+  padding-top: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 11px;
+  font-size: 11.5px;
   color: #94A3B8;
 }
 
